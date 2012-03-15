@@ -276,53 +276,6 @@
     }
 
     /// <summary>
-    /// Data structure representing a duration in hours, minutes and seconds.
-    /// The duration can be presented visually as Hours:Minutes:Seconds.
-    /// </summary>
-    [DataContract]
-    public struct MediaDuration
-    {
-        /// <summary>
-        /// The number of whole hours of this duration.
-        /// </summary>
-        [DataMember]
-        public readonly int Hours;
-
-        /// <summary>
-        /// The number of minutes of this duration which have not been represented by hours.
-        /// Will always be between 0 and 59.
-        /// </summary>
-        [DataMember]
-        public readonly int Minutes;
-
-        /// <summary>
-        /// The number of seconds of this duration which have not been represented by minutes and hours.
-        /// Will always be between 0 and 59.
-        /// </summary>
-        [DataMember]
-        public readonly int Seconds;
-
-        /// <summary>
-        /// The constructor for MediaDuration objects.
-        /// </summary>
-        /// <param name="hours">
-        /// The number of hours.
-        /// </param>
-        /// <param name="minutes">
-        /// The number of minutes.
-        /// </param>
-        /// <param name="seconds">
-        /// The number of seconds.
-        /// </param>
-        public MediaDuration(int hours, int minutes, int seconds)
-        {
-            Hours = hours;
-            Minutes = minutes;
-            Seconds = seconds;
-        }
-    }
-
-    /// <summary>
     /// Holds 4 lists, each containing a number of BookInfo, MovieInfo, AlbumInfo and SongInfo, respectively.
     /// An object of this class is typically returned by a web service method that returns a number of media
     /// items matching certain criteria.
@@ -500,7 +453,7 @@
         /// The duration of the movie this object represents.
         /// </summary>
         [DataMember]
-        public readonly MediaDuration Duration;
+        public readonly System.TimeSpan Duration;
 
         /// <summary>
         /// A summary of the movie this object represents.
@@ -510,7 +463,7 @@
         [DataMember]
         public readonly string Summary;
 
-        public MovieInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string director, MediaDuration duration, string summary)
+        public MovieInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string director, System.TimeSpan duration, string summary)
             : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
         {
             Director = director;
@@ -535,9 +488,9 @@
         /// The duration of the song this object represents.
         /// </summary>
         [DataMember]
-        public readonly MediaDuration Duration;
+        public readonly System.TimeSpan Duration;
 
-        public SongInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string artist, MediaDuration duration)
+        public SongInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string artist, System.TimeSpan duration)
             : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
         {
             Artist = artist;
@@ -561,7 +514,7 @@
         /// The total duration of all the songs of the album this object represents.
         /// </summary>
         [DataMember]
-        public readonly MediaDuration TotalDuration;
+        public readonly System.TimeSpan TotalDuration;
 
         /// <summary>
         /// Description of the album this object represents, typically in the form
@@ -576,7 +529,7 @@
         [DataMember]
         public readonly System.Collections.Generic.List<SongInfo> Songs;
 
-        public AlbumInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string albumArtist, MediaDuration totalDuration, string description, System.Collections.Generic.List<SongInfo> songs)
+        public AlbumInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string albumArtist, System.TimeSpan totalDuration, string description, System.Collections.Generic.List<SongInfo> songs)
             : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
         {
             AlbumArtist = albumArtist;
