@@ -26,7 +26,8 @@ namespace RentItServiceLibrary.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=rentit.itu.dk;Initial Catalog=RENTIT01;User ID=rentit01db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=rentit.itu.dk;Initial Catalog=RENTIT01;Persist Security Info=True;Use" +
+            "r ID=rentit01db;Password=Zaq12wsx")]
         public string RENTIT01ConnectionString {
             get {
                 return ((string)(this["RENTIT01ConnectionString"]));
