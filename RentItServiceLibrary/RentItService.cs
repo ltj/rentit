@@ -27,7 +27,7 @@ namespace RentItServiceLibrary
         }
 
         public Account ValidateCredentials(string userName, string password) {
-            //admin;1234
+            //test;1234
             if(userName.Equals("test") && password.Equals("7110eda4d09e062aa5e4a390b0a572ac0d2c0220"))
                 return new Account("test", "Test T. Testy", "testtesty@testland.com", "7110eda4d09e062aa5e4a390b0a572ac0d2c0220");
             throw new InvalidCredentialsException("The credentials were wrong! Bad user! >:-(");
