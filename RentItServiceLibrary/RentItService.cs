@@ -1,99 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
+using RentItDatabase;
 
 namespace RentItServiceLibrary
 {
     public class RentItService : IRentIt
     {
-        public BookInfo GetBookInfo(int id)
-        {
+        public BookInfo GetBookInfo(int id) {
             throw new NotImplementedException();
         }
 
-        public MovieInfo GetMovieInfo(int id)
-        {
+        public MovieInfo GetMovieInfo(int id) {
             throw new NotImplementedException();
         }
 
-        public AlbumInfo GetAlbumInfo(int id)
-        {
+        public AlbumInfo GetAlbumInfo(int id) {
             throw new NotImplementedException();
         }
 
-        public MediaItems GetMediaItems(MediaCriteria criteria)
-        {
+        public MediaItems GetMediaItems(MediaCriteria criteria) {
             throw new NotImplementedException();
         }
 
-        public MediaItems GetAlsoRentedItems(int id)
-        {
+        public MediaItems GetAlsoRentedItems(int id) {
             throw new NotImplementedException();
         }
 
-        public Account ValidateCredentials(string userName, string password)
-        {
-            if (userName.Equals("admin") && password.Equals("1234"))
-                return new Account("admin", "Admin Adminson", "admin@adminmail.com", "7110eda4d09e062aa5e4a390b0a572ac0d2c0220");
+        public Account ValidateCredentials(string userName, string password) {
+            //admin;1234
+            if(userName.Equals("test") && password.Equals("7110eda4d09e062aa5e4a390b0a572ac0d2c0220"))
+                return new Account("test", "Test T. Testy", "testtesty@testland.com", "7110eda4d09e062aa5e4a390b0a572ac0d2c0220");
             throw new InvalidCredentialsException("The credentials were wrong! Bad user! >:-(");
         }
 
-        public bool CreateNewUser(Account newAccount)
-        {
+        public bool CreateNewUser(Account newAccount) {
+            return true;
+        }
+
+        public UserAccount GetAllCustomerData(AccountCredentials credentials) {
             throw new NotImplementedException();
         }
 
-        public UserAccount GetAllCustomerData(AccountCredentials credentials)
-        {
+        public PublisherAccount GetAllPublisherData(AccountCredentials credentials) {
             throw new NotImplementedException();
         }
 
-        public PublisherAccount GetAllPublisherData(AccountCredentials credentials)
-        {
+        public bool UpdateAccountInfo(AccountCredentials credentials, Account account) {
             throw new NotImplementedException();
         }
 
-        public bool UpdateAccountInfo(AccountCredentials credentials, Account account)
-        {
+        public bool AddCredits(AccountCredentials credentials, uint addAmount) {
             throw new NotImplementedException();
         }
 
-        public bool AddCredits(AccountCredentials credentials, uint addAmount)
-        {
+        public bool RentMedia(int mediaId, AccountCredentials credentials) {
             throw new NotImplementedException();
         }
 
-        public bool RentMedia(int mediaId, AccountCredentials credentials)
-        {
+        public bool PublishMedia(MediaInfo info, AccountCredentials credentials) {
             throw new NotImplementedException();
         }
 
-        public bool PublishMedia(MediaInfo info, AccountCredentials credentials)
-        {
+        public bool DeleteAccount(AccountCredentials credentials) {
             throw new NotImplementedException();
         }
 
-        public bool DeleteAccount(AccountCredentials credentials)
-        {
+        public bool UpdateMediaMetadata(MediaInfo newData, AccountCredentials credentials) {
             throw new NotImplementedException();
         }
 
-        public bool UpdateMediaMetadata(MediaInfo newData, AccountCredentials credentials)
-        {
+        public bool DeleteMedia(int mediaId, AccountCredentials credentials) {
             throw new NotImplementedException();
         }
 
-        public bool DeleteMedia(int mediaId, AccountCredentials credentials)
-        {
+        public Uri GetMediaUrl(string mediaId, AccountCredentials credentials) {
             throw new NotImplementedException();
         }
 
-        public Uri GetMediaUrl(string mediaId, AccountCredentials credentials)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<string> GetAllGenres(MediaType mediaType)
-        {
+        public List<string> GetAllGenres(MediaType mediaType) {
             throw new NotImplementedException();
         }
     }
