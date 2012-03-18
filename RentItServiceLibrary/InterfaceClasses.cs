@@ -843,6 +843,11 @@
         public UserCreationException(string message, System.Exception inner) : base(message, inner) { }
     }
 
+    /// <author>Kenneth Søhrmann</author>
+    /// <summary>
+    /// This class provides convenient conversion methods of
+    /// the two enums MediaType and Rating.
+    /// </summary>
     public static class Util
     {
         public static MediaType MediaTypeOfValue(string mediaType)

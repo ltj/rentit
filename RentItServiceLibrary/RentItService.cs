@@ -170,6 +170,9 @@ namespace RentItServiceLibrary
             throw new NotImplementedException();
         }
 
+        #endregion
+        #region Helper methods
+        /// <author>Kenneth Søhrmann</author>
         /// <summary>
         /// Gets the media rating of a specified media item.
         /// The returned value contains the number of ratings and 
@@ -185,8 +188,7 @@ namespace RentItServiceLibrary
                     select r).First();
         }
 
-        #endregion
-        #region Helper methods
+        /// <author>Kenneth Søhrmann</author>
         /// <summary>
         /// Collects all the user reviews registered for the specified media item.
         /// </summary>
