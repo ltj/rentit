@@ -30,12 +30,12 @@ namespace RentItDatabase
 
         #region Extensibility Method Definitions
         partial void OnCreated();
-        partial void InsertUser_account(User_account instance);
-        partial void UpdateUser_account(User_account instance);
-        partial void DeleteUser_account(User_account instance);
         partial void InsertAccount(Account instance);
         partial void UpdateAccount(Account instance);
         partial void DeleteAccount(Account instance);
+        partial void InsertUser_account(User_account instance);
+        partial void UpdateUser_account(User_account instance);
+        partial void DeleteUser_account(User_account instance);
         partial void InsertAlbum(Album instance);
         partial void UpdateAlbum(Album instance);
         partial void DeleteAlbum(Album instance);
@@ -107,19 +107,19 @@ namespace RentItDatabase
             OnCreated();
         }
 
-        public System.Data.Linq.Table<User_account> User_accounts
-        {
-            get
-            {
-                return this.GetTable<User_account>();
-            }
-        }
-
         public System.Data.Linq.Table<Account> Accounts
         {
             get
             {
                 return this.GetTable<Account>();
+            }
+        }
+
+        public System.Data.Linq.Table<User_account> User_accounts
+        {
+            get
+            {
+                return this.GetTable<User_account>();
             }
         }
 
@@ -228,196 +228,11 @@ namespace RentItDatabase
         }
     }
 
-    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.User_account")]
-    public partial class User_account : INotifyPropertyChanging, INotifyPropertyChanged
-    {
-
-        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-
-        private int _account_id;
-
-        private System.Nullable<int> _credit;
-
-        private EntitySet<Rental> _Rentals;
-
-        private EntitySet<Review> _Reviews;
-
-        private EntityRef<Account> _Account;
-
-        #region Extensibility Method Definitions
-        partial void OnLoaded();
-        partial void OnValidate(System.Data.Linq.ChangeAction action);
-        partial void OnCreated();
-        partial void Onaccount_idChanging(int value);
-        partial void Onaccount_idChanged();
-        partial void OncreditChanging(System.Nullable<int> value);
-        partial void OncreditChanged();
-        #endregion
-
-        public User_account()
-        {
-            this._Rentals = new EntitySet<Rental>(new Action<Rental>(this.attach_Rentals), new Action<Rental>(this.detach_Rentals));
-            this._Reviews = new EntitySet<Review>(new Action<Review>(this.attach_Reviews), new Action<Review>(this.detach_Reviews));
-            this._Account = default(EntityRef<Account>);
-            OnCreated();
-        }
-
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_account_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
-        public int account_id
-        {
-            get
-            {
-                return this._account_id;
-            }
-            set
-            {
-                if ((this._account_id != value))
-                {
-                    if (this._Account.HasLoadedOrAssignedValue)
-                    {
-                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-                    }
-                    this.Onaccount_idChanging(value);
-                    this.SendPropertyChanging();
-                    this._account_id = value;
-                    this.SendPropertyChanged("account_id");
-                    this.Onaccount_idChanged();
-                }
-            }
-        }
-
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_credit", DbType = "Int")]
-        public System.Nullable<int> credit
-        {
-            get
-            {
-                return this._credit;
-            }
-            set
-            {
-                if ((this._credit != value))
-                {
-                    this.OncreditChanging(value);
-                    this.SendPropertyChanging();
-                    this._credit = value;
-                    this.SendPropertyChanged("credit");
-                    this.OncreditChanged();
-                }
-            }
-        }
-
-        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Rental", Storage = "_Rentals", ThisKey = "account_id", OtherKey = "account_id")]
-        public EntitySet<Rental> Rentals
-        {
-            get
-            {
-                return this._Rentals;
-            }
-            set
-            {
-                this._Rentals.Assign(value);
-            }
-        }
-
-        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Review", Storage = "_Reviews", ThisKey = "account_id", OtherKey = "account_id")]
-        public EntitySet<Review> Reviews
-        {
-            get
-            {
-                return this._Reviews;
-            }
-            set
-            {
-                this._Reviews.Assign(value);
-            }
-        }
-
-        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_User_account", Storage = "_Account", ThisKey = "account_id", OtherKey = "id", IsForeignKey = true)]
-        public Account Account
-        {
-            get
-            {
-                return this._Account.Entity;
-            }
-            set
-            {
-                Account previousValue = this._Account.Entity;
-                if (((previousValue != value)
-                            || (this._Account.HasLoadedOrAssignedValue == false)))
-                {
-                    this.SendPropertyChanging();
-                    if ((previousValue != null))
-                    {
-                        this._Account.Entity = null;
-                        previousValue.User_account = null;
-                    }
-                    this._Account.Entity = value;
-                    if ((value != null))
-                    {
-                        value.User_account = this;
-                        this._account_id = value.id;
-                    }
-                    else
-                    {
-                        this._account_id = default(int);
-                    }
-                    this.SendPropertyChanged("Account");
-                }
-            }
-        }
-
-        public event PropertyChangingEventHandler PropertyChanging;
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void SendPropertyChanging()
-        {
-            if ((this.PropertyChanging != null))
-            {
-                this.PropertyChanging(this, emptyChangingEventArgs);
-            }
-        }
-
-        protected virtual void SendPropertyChanged(String propertyName)
-        {
-            if ((this.PropertyChanged != null))
-            {
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-
-        private void attach_Rentals(Rental entity)
-        {
-            this.SendPropertyChanging();
-            entity.User_account = this;
-        }
-
-        private void detach_Rentals(Rental entity)
-        {
-            this.SendPropertyChanging();
-            entity.User_account = null;
-        }
-
-        private void attach_Reviews(Review entity)
-        {
-            this.SendPropertyChanging();
-            entity.User_account = this;
-        }
-
-        private void detach_Reviews(Review entity)
-        {
-            this.SendPropertyChanging();
-            entity.User_account = null;
-        }
-    }
-
     [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Account")]
     public partial class Account : INotifyPropertyChanging, INotifyPropertyChanged
     {
 
         private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-
-        private int _id;
 
         private string _user_name;
 
@@ -435,8 +250,6 @@ namespace RentItDatabase
         partial void OnLoaded();
         partial void OnValidate(System.Data.Linq.ChangeAction action);
         partial void OnCreated();
-        partial void OnidChanging(int value);
-        partial void OnidChanged();
         partial void Onuser_nameChanging(string value);
         partial void Onuser_nameChanged();
         partial void Onfull_nameChanging(string value);
@@ -454,27 +267,7 @@ namespace RentItDatabase
             OnCreated();
         }
 
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
-        public int id
-        {
-            get
-            {
-                return this._id;
-            }
-            set
-            {
-                if ((this._id != value))
-                {
-                    this.OnidChanging(value);
-                    this.SendPropertyChanging();
-                    this._id = value;
-                    this.SendPropertyChanged("id");
-                    this.OnidChanged();
-                }
-            }
-        }
-
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20)")]
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
         public string user_name
         {
             get
@@ -554,7 +347,7 @@ namespace RentItDatabase
             }
         }
 
-        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_User_account", Storage = "_User_account", ThisKey = "id", OtherKey = "account_id", IsUnique = true, IsForeignKey = false)]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_User_account", Storage = "_User_account", ThisKey = "user_name", OtherKey = "user_name", IsUnique = true, IsForeignKey = false)]
         public User_account User_account
         {
             get
@@ -583,7 +376,7 @@ namespace RentItDatabase
             }
         }
 
-        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_Publisher_account", Storage = "_Publisher_account", ThisKey = "id", OtherKey = "account_id", IsUnique = true, IsForeignKey = false)]
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_Publisher_account", Storage = "_Publisher_account", ThisKey = "user_name", OtherKey = "user_name", IsUnique = true, IsForeignKey = false)]
         public Publisher_account Publisher_account
         {
             get
@@ -630,6 +423,189 @@ namespace RentItDatabase
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.User_account")]
+    public partial class User_account : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private string _user_name;
+
+        private System.Nullable<int> _credit;
+
+        private EntitySet<Rental> _Rentals;
+
+        private EntitySet<Review> _Reviews;
+
+        private EntityRef<Account> _Account;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onuser_nameChanging(string value);
+        partial void Onuser_nameChanged();
+        partial void OncreditChanging(System.Nullable<int> value);
+        partial void OncreditChanged();
+        #endregion
+
+        public User_account()
+        {
+            this._Rentals = new EntitySet<Rental>(new Action<Rental>(this.attach_Rentals), new Action<Rental>(this.detach_Rentals));
+            this._Reviews = new EntitySet<Review>(new Action<Review>(this.attach_Reviews), new Action<Review>(this.detach_Reviews));
+            this._Account = default(EntityRef<Account>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        public string user_name
+        {
+            get
+            {
+                return this._user_name;
+            }
+            set
+            {
+                if ((this._user_name != value))
+                {
+                    if (this._Account.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onuser_nameChanging(value);
+                    this.SendPropertyChanging();
+                    this._user_name = value;
+                    this.SendPropertyChanged("user_name");
+                    this.Onuser_nameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_credit", DbType = "Int")]
+        public System.Nullable<int> credit
+        {
+            get
+            {
+                return this._credit;
+            }
+            set
+            {
+                if ((this._credit != value))
+                {
+                    this.OncreditChanging(value);
+                    this.SendPropertyChanging();
+                    this._credit = value;
+                    this.SendPropertyChanged("credit");
+                    this.OncreditChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Rental", Storage = "_Rentals", ThisKey = "user_name", OtherKey = "user_name")]
+        public EntitySet<Rental> Rentals
+        {
+            get
+            {
+                return this._Rentals;
+            }
+            set
+            {
+                this._Rentals.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Review", Storage = "_Reviews", ThisKey = "user_name", OtherKey = "user_name")]
+        public EntitySet<Review> Reviews
+        {
+            get
+            {
+                return this._Reviews;
+            }
+            set
+            {
+                this._Reviews.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_User_account", Storage = "_Account", ThisKey = "user_name", OtherKey = "user_name", IsForeignKey = true)]
+        public Account Account
+        {
+            get
+            {
+                return this._Account.Entity;
+            }
+            set
+            {
+                Account previousValue = this._Account.Entity;
+                if (((previousValue != value)
+                            || (this._Account.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Account.Entity = null;
+                        previousValue.User_account = null;
+                    }
+                    this._Account.Entity = value;
+                    if ((value != null))
+                    {
+                        value.User_account = this;
+                        this._user_name = value.user_name;
+                    }
+                    else
+                    {
+                        this._user_name = default(string);
+                    }
+                    this.SendPropertyChanged("Account");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_Rentals(Rental entity)
+        {
+            this.SendPropertyChanging();
+            entity.User_account = this;
+        }
+
+        private void detach_Rentals(Rental entity)
+        {
+            this.SendPropertyChanging();
+            entity.User_account = null;
+        }
+
+        private void attach_Reviews(Review entity)
+        {
+            this.SendPropertyChanging();
+            entity.User_account = this;
+        }
+
+        private void detach_Reviews(Review entity)
+        {
+            this.SendPropertyChanging();
+            entity.User_account = null;
         }
     }
 
@@ -2392,51 +2368,51 @@ namespace RentItDatabase
 
         private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 
-        private int _account_id;
+        private string _user_name;
 
         private System.Nullable<int> _publisher_id;
 
-        private EntityRef<Account> _Account;
-
         private EntityRef<Publisher> _Publisher;
+
+        private EntityRef<Account> _Account;
 
         #region Extensibility Method Definitions
         partial void OnLoaded();
         partial void OnValidate(System.Data.Linq.ChangeAction action);
         partial void OnCreated();
-        partial void Onaccount_idChanging(int value);
-        partial void Onaccount_idChanged();
+        partial void Onuser_nameChanging(string value);
+        partial void Onuser_nameChanged();
         partial void Onpublisher_idChanging(System.Nullable<int> value);
         partial void Onpublisher_idChanged();
         #endregion
 
         public Publisher_account()
         {
-            this._Account = default(EntityRef<Account>);
             this._Publisher = default(EntityRef<Publisher>);
+            this._Account = default(EntityRef<Account>);
             OnCreated();
         }
 
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_account_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
-        public int account_id
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        public string user_name
         {
             get
             {
-                return this._account_id;
+                return this._user_name;
             }
             set
             {
-                if ((this._account_id != value))
+                if ((this._user_name != value))
                 {
                     if (this._Account.HasLoadedOrAssignedValue)
                     {
                         throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
                     }
-                    this.Onaccount_idChanging(value);
+                    this.Onuser_nameChanging(value);
                     this.SendPropertyChanging();
-                    this._account_id = value;
-                    this.SendPropertyChanged("account_id");
-                    this.Onaccount_idChanged();
+                    this._user_name = value;
+                    this.SendPropertyChanged("user_name");
+                    this.Onuser_nameChanged();
                 }
             }
         }
@@ -2461,40 +2437,6 @@ namespace RentItDatabase
                     this._publisher_id = value;
                     this.SendPropertyChanged("publisher_id");
                     this.Onpublisher_idChanged();
-                }
-            }
-        }
-
-        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_Publisher_account", Storage = "_Account", ThisKey = "account_id", OtherKey = "id", IsForeignKey = true)]
-        public Account Account
-        {
-            get
-            {
-                return this._Account.Entity;
-            }
-            set
-            {
-                Account previousValue = this._Account.Entity;
-                if (((previousValue != value)
-                            || (this._Account.HasLoadedOrAssignedValue == false)))
-                {
-                    this.SendPropertyChanging();
-                    if ((previousValue != null))
-                    {
-                        this._Account.Entity = null;
-                        previousValue.Publisher_account = null;
-                    }
-                    this._Account.Entity = value;
-                    if ((value != null))
-                    {
-                        value.Publisher_account = this;
-                        this._account_id = value.id;
-                    }
-                    else
-                    {
-                        this._account_id = default(int);
-                    }
-                    this.SendPropertyChanged("Account");
                 }
             }
         }
@@ -2529,6 +2471,40 @@ namespace RentItDatabase
                         this._publisher_id = default(Nullable<int>);
                     }
                     this.SendPropertyChanged("Publisher");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_Publisher_account", Storage = "_Account", ThisKey = "user_name", OtherKey = "user_name", IsForeignKey = true)]
+        public Account Account
+        {
+            get
+            {
+                return this._Account.Entity;
+            }
+            set
+            {
+                Account previousValue = this._Account.Entity;
+                if (((previousValue != value)
+                            || (this._Account.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Account.Entity = null;
+                        previousValue.Publisher_account = null;
+                    }
+                    this._Account.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Publisher_account = this;
+                        this._user_name = value.user_name;
+                    }
+                    else
+                    {
+                        this._user_name = default(string);
+                    }
+                    this.SendPropertyChanged("Account");
                 }
             }
         }
@@ -2711,7 +2687,7 @@ namespace RentItDatabase
 
         private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 
-        private int _account_id;
+        private string _user_name;
 
         private int _media_id;
 
@@ -2719,16 +2695,16 @@ namespace RentItDatabase
 
         private System.Nullable<System.DateTime> _end_time;
 
-        private EntityRef<User_account> _User_account;
-
         private EntityRef<Media> _Media;
+
+        private EntityRef<User_account> _User_account;
 
         #region Extensibility Method Definitions
         partial void OnLoaded();
         partial void OnValidate(System.Data.Linq.ChangeAction action);
         partial void OnCreated();
-        partial void Onaccount_idChanging(int value);
-        partial void Onaccount_idChanged();
+        partial void Onuser_nameChanging(string value);
+        partial void Onuser_nameChanged();
         partial void Onmedia_idChanging(int value);
         partial void Onmedia_idChanged();
         partial void Onstart_timeChanging(System.DateTime value);
@@ -2739,31 +2715,31 @@ namespace RentItDatabase
 
         public Rental()
         {
-            this._User_account = default(EntityRef<User_account>);
             this._Media = default(EntityRef<Media>);
+            this._User_account = default(EntityRef<User_account>);
             OnCreated();
         }
 
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_account_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
-        public int account_id
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        public string user_name
         {
             get
             {
-                return this._account_id;
+                return this._user_name;
             }
             set
             {
-                if ((this._account_id != value))
+                if ((this._user_name != value))
                 {
                     if (this._User_account.HasLoadedOrAssignedValue)
                     {
                         throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
                     }
-                    this.Onaccount_idChanging(value);
+                    this.Onuser_nameChanging(value);
                     this.SendPropertyChanging();
-                    this._account_id = value;
-                    this.SendPropertyChanged("account_id");
-                    this.Onaccount_idChanged();
+                    this._user_name = value;
+                    this.SendPropertyChanged("user_name");
+                    this.Onuser_nameChanged();
                 }
             }
         }
@@ -2832,40 +2808,6 @@ namespace RentItDatabase
             }
         }
 
-        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Rental", Storage = "_User_account", ThisKey = "account_id", OtherKey = "account_id", IsForeignKey = true)]
-        public User_account User_account
-        {
-            get
-            {
-                return this._User_account.Entity;
-            }
-            set
-            {
-                User_account previousValue = this._User_account.Entity;
-                if (((previousValue != value)
-                            || (this._User_account.HasLoadedOrAssignedValue == false)))
-                {
-                    this.SendPropertyChanging();
-                    if ((previousValue != null))
-                    {
-                        this._User_account.Entity = null;
-                        previousValue.Rentals.Remove(this);
-                    }
-                    this._User_account.Entity = value;
-                    if ((value != null))
-                    {
-                        value.Rentals.Add(this);
-                        this._account_id = value.account_id;
-                    }
-                    else
-                    {
-                        this._account_id = default(int);
-                    }
-                    this.SendPropertyChanged("User_account");
-                }
-            }
-        }
-
         [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Rental", Storage = "_Media", ThisKey = "media_id", OtherKey = "id", IsForeignKey = true)]
         public Media Media
         {
@@ -2900,6 +2842,40 @@ namespace RentItDatabase
             }
         }
 
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Rental", Storage = "_User_account", ThisKey = "user_name", OtherKey = "user_name", IsForeignKey = true)]
+        public User_account User_account
+        {
+            get
+            {
+                return this._User_account.Entity;
+            }
+            set
+            {
+                User_account previousValue = this._User_account.Entity;
+                if (((previousValue != value)
+                            || (this._User_account.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._User_account.Entity = null;
+                        previousValue.Rentals.Remove(this);
+                    }
+                    this._User_account.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Rentals.Add(this);
+                        this._user_name = value.user_name;
+                    }
+                    else
+                    {
+                        this._user_name = default(string);
+                    }
+                    this.SendPropertyChanged("User_account");
+                }
+            }
+        }
+
         public event PropertyChangingEventHandler PropertyChanging;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -2927,7 +2903,7 @@ namespace RentItDatabase
 
         private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 
-        private int _account_id;
+        private string _user_name;
 
         private int _media_id;
 
@@ -2937,16 +2913,16 @@ namespace RentItDatabase
 
         private System.Nullable<int> _rating;
 
-        private EntityRef<User_account> _User_account;
-
         private EntityRef<Media> _Media;
+
+        private EntityRef<User_account> _User_account;
 
         #region Extensibility Method Definitions
         partial void OnLoaded();
         partial void OnValidate(System.Data.Linq.ChangeAction action);
         partial void OnCreated();
-        partial void Onaccount_idChanging(int value);
-        partial void Onaccount_idChanged();
+        partial void Onuser_nameChanging(string value);
+        partial void Onuser_nameChanged();
         partial void Onmedia_idChanging(int value);
         partial void Onmedia_idChanged();
         partial void OntimestampChanging(System.Nullable<System.DateTime> value);
@@ -2959,31 +2935,31 @@ namespace RentItDatabase
 
         public Review()
         {
-            this._User_account = default(EntityRef<User_account>);
             this._Media = default(EntityRef<Media>);
+            this._User_account = default(EntityRef<User_account>);
             OnCreated();
         }
 
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_account_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
-        public int account_id
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        public string user_name
         {
             get
             {
-                return this._account_id;
+                return this._user_name;
             }
             set
             {
-                if ((this._account_id != value))
+                if ((this._user_name != value))
                 {
                     if (this._User_account.HasLoadedOrAssignedValue)
                     {
                         throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
                     }
-                    this.Onaccount_idChanging(value);
+                    this.Onuser_nameChanging(value);
                     this.SendPropertyChanging();
-                    this._account_id = value;
-                    this.SendPropertyChanged("account_id");
-                    this.Onaccount_idChanged();
+                    this._user_name = value;
+                    this.SendPropertyChanged("user_name");
+                    this.Onuser_nameChanged();
                 }
             }
         }
@@ -3072,40 +3048,6 @@ namespace RentItDatabase
             }
         }
 
-        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Review", Storage = "_User_account", ThisKey = "account_id", OtherKey = "account_id", IsForeignKey = true)]
-        public User_account User_account
-        {
-            get
-            {
-                return this._User_account.Entity;
-            }
-            set
-            {
-                User_account previousValue = this._User_account.Entity;
-                if (((previousValue != value)
-                            || (this._User_account.HasLoadedOrAssignedValue == false)))
-                {
-                    this.SendPropertyChanging();
-                    if ((previousValue != null))
-                    {
-                        this._User_account.Entity = null;
-                        previousValue.Reviews.Remove(this);
-                    }
-                    this._User_account.Entity = value;
-                    if ((value != null))
-                    {
-                        value.Reviews.Add(this);
-                        this._account_id = value.account_id;
-                    }
-                    else
-                    {
-                        this._account_id = default(int);
-                    }
-                    this.SendPropertyChanged("User_account");
-                }
-            }
-        }
-
         [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Review", Storage = "_Media", ThisKey = "media_id", OtherKey = "id", IsForeignKey = true)]
         public Media Media
         {
@@ -3136,6 +3078,40 @@ namespace RentItDatabase
                         this._media_id = default(int);
                     }
                     this.SendPropertyChanged("Media");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Review", Storage = "_User_account", ThisKey = "user_name", OtherKey = "user_name", IsForeignKey = true)]
+        public User_account User_account
+        {
+            get
+            {
+                return this._User_account.Entity;
+            }
+            set
+            {
+                User_account previousValue = this._User_account.Entity;
+                if (((previousValue != value)
+                            || (this._User_account.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._User_account.Entity = null;
+                        previousValue.Reviews.Remove(this);
+                    }
+                    this._User_account.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Reviews.Add(this);
+                        this._user_name = value.user_name;
+                    }
+                    else
+                    {
+                        this._user_name = default(string);
+                    }
+                    this.SendPropertyChanged("User_account");
                 }
             }
         }

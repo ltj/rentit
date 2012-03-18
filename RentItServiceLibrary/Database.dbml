@@ -1,23 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RENTIT01" Class="DatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="AppSettings" ConnectionString="Data Source=rentit.itu.dk;Initial Catalog=RENTIT01;Persist Security Info=True;User ID=rentit01db" SettingsObjectName="RentItServiceLibrary.Properties.Settings" SettingsPropertyName="RENTIT01ConnectionString" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.User_account" Member="User_accounts">
-    <Type Name="User_account">
-      <Column Name="account_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
-      <Column Name="credit" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="User_account_Rental" Member="Rentals" ThisKey="account_id" OtherKey="account_id" Type="Rental" />
-      <Association Name="User_account_Review" Member="Reviews" ThisKey="account_id" OtherKey="account_id" Type="Review" />
-      <Association Name="Account_User_account" Member="Account" ThisKey="account_id" OtherKey="id" Type="Account" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.Account" Member="Accounts">
     <Type Name="Account">
-      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="user_name" Type="System.String" DbType="Char(20)" CanBeNull="true" />
+      <Column Name="user_name" Type="System.String" DbType="Char(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="full_name" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
       <Column Name="email" Type="System.String" DbType="VarChar(70)" CanBeNull="true" />
       <Column Name="password" Type="System.String" DbType="Char(40)" CanBeNull="true" />
-      <Association Name="Account_User_account" Member="User_account" ThisKey="id" OtherKey="account_id" Type="User_account" Cardinality="One" />
-      <Association Name="Account_Publisher_account" Member="Publisher_account" ThisKey="id" OtherKey="account_id" Type="Publisher_account" Cardinality="One" />
+      <Association Name="Account_User_account" Member="User_account" ThisKey="user_name" OtherKey="user_name" Type="User_account" Cardinality="One" />
+      <Association Name="Account_Publisher_account" Member="Publisher_account" ThisKey="user_name" OtherKey="user_name" Type="Publisher_account" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_account" Member="User_accounts">
+    <Type Name="User_account">
+      <Column Name="user_name" Type="System.String" DbType="Char(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="credit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_account_Rental" Member="Rentals" ThisKey="user_name" OtherKey="user_name" Type="Rental" />
+      <Association Name="User_account_Review" Member="Reviews" ThisKey="user_name" OtherKey="user_name" Type="Review" />
+      <Association Name="Account_User_account" Member="Account" ThisKey="user_name" OtherKey="user_name" Type="Account" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Album" Member="Albums">
@@ -105,10 +104,10 @@
   </Table>
   <Table Name="dbo.Publisher_account" Member="Publisher_accounts">
     <Type Name="Publisher_account">
-      <Column Name="account_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="Char(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="publisher_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Account_Publisher_account" Member="Account" ThisKey="account_id" OtherKey="id" Type="Account" IsForeignKey="true" />
       <Association Name="Publisher_Publisher_account" Member="Publisher" ThisKey="publisher_id" OtherKey="id" Type="Publisher" IsForeignKey="true" />
+      <Association Name="Account_Publisher_account" Member="Account" ThisKey="user_name" OtherKey="user_name" Type="Account" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Rating" Member="Ratings">
@@ -121,23 +120,23 @@
   </Table>
   <Table Name="dbo.Rental" Member="Rentals">
     <Type Name="Rental">
-      <Column Name="account_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="Char(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="media_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="start_time" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="end_time" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Association Name="User_account_Rental" Member="User_account" ThisKey="account_id" OtherKey="account_id" Type="User_account" IsForeignKey="true" />
       <Association Name="Media_Rental" Member="Media" ThisKey="media_id" OtherKey="id" Type="Media" IsForeignKey="true" />
+      <Association Name="User_account_Rental" Member="User_account" ThisKey="user_name" OtherKey="user_name" Type="User_account" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Review" Member="Reviews">
     <Type Name="Review">
-      <Column Name="account_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="Char(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="media_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="timestamp" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="review" Member="review1" Type="System.String" DbType="VarChar(500)" CanBeNull="true" />
       <Column Name="rating" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="User_account_Review" Member="User_account" ThisKey="account_id" OtherKey="account_id" Type="User_account" IsForeignKey="true" />
       <Association Name="Media_Review" Member="Media" ThisKey="media_id" OtherKey="id" Type="Media" IsForeignKey="true" />
+      <Association Name="User_account_Review" Member="User_account" ThisKey="user_name" OtherKey="user_name" Type="User_account" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.Song" Member="Songs">

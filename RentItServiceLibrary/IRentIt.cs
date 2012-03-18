@@ -75,7 +75,7 @@ namespace RentItServiceLibrary
         /// <exception cref="InvalidCredentialsException">
         /// If the supplied credentials are invalid.
         /// </exception>
-        Account ValidateCredentials(string userName, string password);
+        Account ValidateCredentials(AccountCredentials credentials);
 
         /// <summary>
         /// Creates a new user account to be used in the service.

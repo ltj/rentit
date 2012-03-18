@@ -1,5 +1,6 @@
 ﻿namespace RentItServiceLibrary
 {
+    using System.Collections.Generic;
     using System.Runtime.Serialization;
 
     /// <summary>
@@ -429,11 +430,43 @@
         [DataMember]
         public readonly int Pages;
 
-        public BookInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string author, int pages)
+        /// <summary>
+        /// A summary of the movie this object represents.
+        /// The summary includes a summary of the book.
+        /// </summary>
+        [DataMember]
+        public readonly string Summary;
+
+        public BookInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string author, int pages, string summary)
             : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
         {
             Author = author;
             Pages = pages;
+            Summary = summary;
+        }
+
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="databaseMedia"></param>
+        /// <param name="rating"></param>
+        /// <returns></returns>
+        internal static BookInfo ValueOf(RentItDatabase.Book databaseMedia, MediaRating rating)
+        {
+            return new BookInfo(
+                databaseMedia.media_id,
+                databaseMedia.Media.title,
+                Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
+                databaseMedia.Media.Genre.name,
+                (int)databaseMedia.Media.price,
+                (System.DateTime)databaseMedia.Media.release_date,
+                databaseMedia.Media.Publisher.title,
+                System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
+                rating,
+                databaseMedia.author,
+                (int)databaseMedia.pages,
+                databaseMedia.summary);
         }
     }
 
@@ -470,6 +503,30 @@
             Duration = duration;
             Summary = summary;
         }
+
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="databaseMedia"></param>
+        /// <param name="rating"></param>
+        /// <returns></returns>
+        internal static MovieInfo ValueOf(RentItDatabase.Movie databaseMedia, MediaRating rating)
+        {
+            return new MovieInfo(
+                databaseMedia.media_id,
+                databaseMedia.Media.title,
+                Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
+                databaseMedia.Media.Genre.name,
+                (int)databaseMedia.Media.price,
+                (System.DateTime)databaseMedia.Media.release_date,
+                databaseMedia.Media.Publisher.title,
+                System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
+                rating,
+                databaseMedia.director,
+                System.TimeSpan.FromMinutes((double)databaseMedia.length),
+                databaseMedia.summary);
+        }
     }
 
     /// <summary>
@@ -495,6 +552,29 @@
         {
             Artist = artist;
             Duration = duration;
+        }
+
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="databaseMedia"></param>
+        /// <param name="rating"></param>
+        /// <returns></returns>
+        internal static SongInfo ValueOf(RentItDatabase.Song databaseMedia, MediaRating rating)
+        {
+            return new SongInfo(
+                databaseMedia.media_id,
+                databaseMedia.Media.title,
+                Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
+                databaseMedia.Media.Genre.name,
+                (int)databaseMedia.Media.price,
+                (System.DateTime)databaseMedia.Media.release_date,
+                databaseMedia.Media.Publisher.title,
+                System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
+                rating,
+                databaseMedia.artist,
+                System.TimeSpan.FromMinutes((int)databaseMedia.length));
         }
     }
 
@@ -536,6 +616,39 @@
             TotalDuration = totalDuration;
             Description = description;
             Songs = songs;
+        }
+
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="databaseMedia"></param>
+        /// <param name="albumSongs"></param>
+        /// <param name="rating"></param>
+        /// <returns></returns>
+        internal static AlbumInfo ValueOf(RentItDatabase.Album databaseMedia, List<SongInfo> albumSongs, MediaRating rating)
+        {
+            int albumDuration = 0;
+
+            foreach (RentItDatabase.Album_song song in databaseMedia.Album_songs)
+            {
+                albumDuration += (int)song.Song.length;
+            }
+
+            return new AlbumInfo(
+                databaseMedia.media_id,
+                databaseMedia.Media.title,
+                Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
+                databaseMedia.Media.Genre.name,
+                (int)databaseMedia.Media.price,
+                (System.DateTime)databaseMedia.Media.release_date,
+                databaseMedia.Media.Publisher.title,
+                System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
+                rating,
+                databaseMedia.album_artist,
+                System.TimeSpan.FromMinutes(albumDuration),
+                databaseMedia.description,
+                albumSongs);
         }
     }
 
@@ -610,6 +723,15 @@
             FullName = fullName;
             Email = email;
             HashedPassword = hashedPassword;
+        }
+
+        public static Account ValueOf(RentItDatabase.Account account)
+        {
+            return new Account(
+                account.user_name,
+                account.full_name,
+                account.email,
+                account.password);
         }
     }
 
@@ -719,5 +841,46 @@
         public UserCreationException() { }
         public UserCreationException(string message) : base(message) { }
         public UserCreationException(string message, System.Exception inner) : base(message, inner) { }
+    }
+
+    public static class Util
+    {
+        public static MediaType MediaTypeOfValue(string mediaType)
+        {
+            switch (mediaType)
+            {
+                case "ANY":
+                    return MediaType.Any;
+                case "BOOK":
+                    return MediaType.Book;
+                case "MOVIE":
+                    return MediaType.Movie;
+                case "ALBUM":
+                    return MediaType.Album;
+                case "SONG":
+                    return MediaType.Song;
+                default:
+                    return MediaType.Any;
+            }
+        }
+
+        public static Rating RatingOfValue(int rating)
+        {
+            switch (rating)
+            {
+                case 1:
+                    return Rating.One;
+                case 2:
+                    return Rating.Two;
+                case 3:
+                    return Rating.Three;
+                case 4:
+                    return Rating.Four;
+                case 5:
+                    return Rating.Five;
+                default:
+                    return Rating.One;
+            }
+        }
     }
 }
