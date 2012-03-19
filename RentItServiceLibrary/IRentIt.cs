@@ -14,6 +14,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// An object containing the metadata for the item.
         /// </returns>
+        [OperationContract]
         BookInfo GetBookInfo(int id);
 
         /// <summary>
@@ -25,6 +26,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// An object containing the metadata for the item.
         /// </returns>
+        [OperationContract]
         MovieInfo GetMovieInfo(int id);
 
         /// <summary>
@@ -36,6 +38,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// An object containing the metadata for the item.
         /// </returns>
+        [OperationContract]
         AlbumInfo GetAlbumInfo(int id);
 
         /// <summary>
@@ -47,6 +50,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// An object containing four lists of books, movies, albums and songs, respectively.
         /// </returns>
+        [OperationContract]
         MediaItems GetMediaItems(MediaCriteria criteria);
 
         /// <summary>
@@ -58,6 +62,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// An object containing four lists of books, movies, albums and songs, respectively.
         /// </returns>
+        [OperationContract]
         MediaItems GetAlsoRentedItems(int id);
 
         /// <summary>
@@ -75,6 +80,7 @@ namespace RentItServiceLibrary
         /// <exception cref="InvalidCredentialsException">
         /// If the supplied credentials are invalid.
         /// </exception>
+        [OperationContract]
         Account ValidateCredentials(AccountCredentials credentials);
 
         /// <summary>
@@ -89,6 +95,7 @@ namespace RentItServiceLibrary
         /// <exception cref="UserCreationException">
         /// If the user creation failed.
         /// </exception>
+        [OperationContract]
         bool CreateNewUser(Account newAccount);
 
         /// <summary>
@@ -101,6 +108,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// UserAccount-instance representing all the user data of the specified user account.
         /// </returns>
+        [OperationContract]
         UserAccount GetAllCustomerData(AccountCredentials credentials);
 
         /// <summary>
@@ -113,6 +121,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// PublisherAccount-instance representing all the publisher data of the specified publisher account.
         /// </returns>
+        [OperationContract]
         PublisherAccount GetAllPublisherData(AccountCredentials credentials);
 
         /// <summary>
@@ -129,6 +138,7 @@ namespace RentItServiceLibrary
         /// True if the update was successful (credentials were valid and the database record was changed), 
         /// false otherwise (credentials were invalid or another error in the supplied information was found).
         /// </returns>
+        [OperationContract]
         bool UpdateAccountInfo(AccountCredentials credentials, Account account);
 
         /// <summary>
@@ -144,6 +154,7 @@ namespace RentItServiceLibrary
         /// True if the update was successful (credentials were valid and the database record was changed), 
         /// false otherwise (credentials were invalid or another error in the supplied information was found).
         /// </returns>
+        [OperationContract]
         bool AddCredits(AccountCredentials credentials, uint addAmount);
 
         /// <summary>
@@ -158,6 +169,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// True if the rent was successful, false otherwise.
         /// </returns>
+        [OperationContract]
         bool RentMedia(int mediaId, AccountCredentials credentials);
 
         /// <summary>
@@ -172,6 +184,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// True if the media was successfully published, false otherwise.
         /// </returns>
+        [OperationContract]
         bool PublishMedia(MediaInfo info, AccountCredentials credentials); // How to upload the media file has not been figured out.
 
         /// <summary>
@@ -183,6 +196,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// True if the deletion was successful, false otherwise.
         /// </returns>
+        [OperationContract]
         bool DeleteAccount(AccountCredentials credentials);
 
         /// <summary>
@@ -199,6 +213,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// True if the update was successful, false otherwise.
         /// </returns>
+        [OperationContract]
         bool UpdateMediaMetadata(MediaInfo newData, AccountCredentials credentials);
 
         /// <summary>
@@ -213,6 +228,7 @@ namespace RentItServiceLibrary
         /// <returns>
         /// True if the deletion was successful, false otherwise.
         /// </returns>
+        [OperationContract]
         bool DeleteMedia(int mediaId, AccountCredentials credentials);
 
         /// <summary>
@@ -226,6 +242,7 @@ namespace RentItServiceLibrary
         /// The credentials of the user account used to verify that the media has been paid for prior
         /// downloading the specified media.
         /// </param>
+        [OperationContract]
         System.Uri GetMediaUrl(string mediaId, AccountCredentials credentials);
 
         /// <summary>
@@ -235,6 +252,7 @@ namespace RentItServiceLibrary
         /// <param name="mediaType">
         /// The media type for which all the different genres at the service is returned.
         /// </param>
+        [OperationContract]
         System.Collections.Generic.List<string> GetAllGenres(MediaType mediaType);
     }
 }
