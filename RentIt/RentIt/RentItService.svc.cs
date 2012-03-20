@@ -165,6 +165,7 @@
                                         where user.user_name.Equals(account.UserName)
                                         select user).First();
             userAccount.credit += (int?) addAmount;
+            return true;
         }
 
         public bool RentMedia(int mediaId, AccountCredentials credentials) {
