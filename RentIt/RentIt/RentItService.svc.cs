@@ -5,6 +5,7 @@
     using RentItDatabase;
     using System.Linq;
 
+    public class RentItService : IRentIt {
     public class RentItService : IRentIt
     {
         #region Interface implementation
@@ -184,6 +185,7 @@
                                         where user.user_name.Equals(account.UserName)
                                         select user).First();
             userAccount.credit += (int)addAmount;
+            db.SubmitChanges();
             return true;
         }
 
