@@ -165,6 +165,7 @@
                                         where user.user_name.Equals(account.UserName)
                                         select user).First();
             userAccount.credit += (int?) addAmount;
+            db.SubmitChanges();
             return true;
         }
 
