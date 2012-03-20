@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="RentIt.Service1" CodeBehind="RentItService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="RentIt.RentItService" CodeBehind="RentItService.svc.cs" %>
