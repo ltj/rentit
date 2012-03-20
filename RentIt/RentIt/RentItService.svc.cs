@@ -2,13 +2,15 @@
 {
     using System;
     using System.Collections.Generic;
+
     using RentItDatabase;
+
     using System.Linq;
 
-    public class RentItService : IRentIt {
     public class RentItService : IRentIt
     {
         #region Interface implementation
+
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
         /// 
@@ -20,9 +22,7 @@
             DatabaseDataContext db = new DatabaseDataContext();
 
             // Get the book.
-            RentItDatabase.Book book = (from b in db.Books
-                                        where b.media_id.Equals(id)
-                                        select b).First();
+            RentItDatabase.Book book = (from b in db.Books where b.media_id.Equals(id) select b).First();
 
             // Get the rating data of the book.
             RentItDatabase.Rating rating = this.GetMediaRating(book.media_id, db);
@@ -44,9 +44,7 @@
             DatabaseDataContext db = new DatabaseDataContext();
 
             // Get the movie.
-            RentItDatabase.Movie movie = (from m in db.Movies
-                                          where m.media_id.Equals(id)
-                                          select m).First();
+            RentItDatabase.Movie movie = (from m in db.Movies where m.media_id.Equals(id) select m).First();
 
             RentItDatabase.Rating rating = this.GetMediaRating(movie.media_id, db);
 
@@ -66,9 +64,7 @@
             DatabaseDataContext db = new DatabaseDataContext();
 
             // Get the Album
-            RentItDatabase.Album album = (from a in db.Albums
-                                          where a.media_id.Equals(id)
-                                          select a).First();
+            RentItDatabase.Album album = (from a in db.Albums where a.media_id.Equals(id) select a).First();
 
             RentItDatabase.Rating rating = this.GetMediaRating(album.media_id, db);
 
@@ -144,17 +140,13 @@
 
             // The user name is free, create a new instance with the data provided.
             RentItDatabase.Account baseAccount = new RentItDatabase.Account()
-            {
-                user_name = newAccount.UserName,
-                full_name = newAccount.FullName,
-                email = newAccount.Email,
-                password = newAccount.HashedPassword
-            };
-            User_account userAccount = new User_account()
-            {
-                credit = 0,
-                Account = baseAccount
-            };
+                {
+                    user_name = newAccount.UserName,
+                    full_name = newAccount.FullName,
+                    email = newAccount.Email,
+                    password = newAccount.HashedPassword
+                };
+            User_account userAccount = new User_account() { credit = 0, Account = baseAccount };
 
             db.User_accounts.InsertOnSubmit(userAccount);
             db.SubmitChanges();
@@ -181,9 +173,8 @@
             Account account = ValidateCredentials(credentials);
             var db = new DatabaseDataContext();
 
-            User_account userAccount = (from user in db.User_accounts
-                                        where user.user_name.Equals(account.UserName)
-                                        select user).First();
+            User_account userAccount =
+                (from user in db.User_accounts where user.user_name.Equals(account.UserName) select user).First();
             userAccount.credit += (int)addAmount;
             db.SubmitChanges();
             return true;
@@ -225,7 +216,9 @@
         }
 
         #endregion
+
         #region Helper methods
+
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
         /// Gets the media rating of a specified media item.
@@ -237,9 +230,7 @@
         /// <returns></returns>
         private RentItDatabase.Rating GetMediaRating(int mediaId, DatabaseDataContext db)
         {
-            return (from r in db.Ratings
-                    where r.media_id.Equals(mediaId)
-                    select r).First();
+            return (from r in db.Ratings where r.media_id.Equals(mediaId) select r).First();
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -261,33 +252,29 @@
         /// media item.
         /// </returns>
         private RentIt.MediaRating CollectMediaReviews(
-            int mediaId,
-            RentItDatabase.Rating rating,
-            DatabaseDataContext db)
+            int mediaId, RentItDatabase.Rating rating, DatabaseDataContext db)
         {
             // Get all the user reviews of the book.
-            List<Review> reviews = (from r in db.Reviews
-                                    where r.media_id.Equals(mediaId)
-                                    select r).ToList();
+            List<Review> reviews = (from r in db.Reviews where r.media_id.Equals(mediaId) select r).ToList();
 
             List<RentIt.MediaReview> mediaReviews = new List<MediaReview>();
 
             foreach (Review review in reviews)
             {
-                mediaReviews.Add(new MediaReview(
-                    (DateTime)review.timestamp,
-                    review.user_name,
-                    review.review1,
-                    Util.RatingOfValue((int)review.rating)));
+                mediaReviews.Add(
+                    new MediaReview(
+                        (DateTime)review.timestamp,
+                        review.user_name,
+                        review.review1,
+                        Util.RatingOfValue((int)review.rating)));
             }
 
             MediaRating mediaRating = new MediaRating(
-                    (int)rating.ratings_count,
-                    (int)rating.avg_rating,
-                     mediaReviews);
+                (int)rating.ratings_count, (int)rating.avg_rating, mediaReviews);
 
             return mediaRating;
         }
+
         #endregion
     }
 }
