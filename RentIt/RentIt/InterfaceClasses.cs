@@ -1,4 +1,5 @@
-﻿namespace RentIt {
+﻿namespace RentIt
+{
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
@@ -6,7 +7,8 @@
     /// The type of a media item.
     /// </summary>
     [DataContract]
-    public enum MediaType {
+    public enum MediaType
+    {
         Any, Book, Movie, Album, Song
     }
 
@@ -17,7 +19,8 @@
     /// Each ordering method has an ascending and a descending version, which result in opposite ordering.
     /// </summary>
     [DataContract]
-    public enum MediaOrder {
+    public enum MediaOrder
+    {
         /// <summary>
         /// Sorts items in an unspecified (default) manner, decided by the web service.
         /// </summary>
@@ -71,7 +74,8 @@
     /// Defined as an enum to limit the range of values.
     /// </summary>
     [DataContract]
-    public enum Rating {
+    public enum Rating
+    {
         One = 1, Two = 2, Three = 3, Four = 4, Five = 5
     }
 
@@ -88,7 +92,8 @@
     /// specified, the narrower the search will become.
     /// </summary>
     [DataContract]
-    public class MediaCriteria {
+    public class MediaCriteria
+    {
         /// <summary>
         /// The type of the media items returned.
         /// Used to filter results by type, e.g. to only return books.
@@ -162,7 +167,8 @@
         /// <param name="offset">
         /// The number of items skipped at the beginning.
         /// </param>
-        public MediaCriteria(MediaType type = MediaType.Any, MediaOrder order = MediaOrder.Default, string genre = "", string searchText = "", int limit = -1, int offset = 0) {
+        public MediaCriteria(MediaType type = MediaType.Any, MediaOrder order = MediaOrder.Default, string genre = "", string searchText = "", int limit = -1, int offset = 0)
+        {
             Type = type;
             Order = order;
             Genre = genre;
@@ -176,7 +182,8 @@
     /// An individual rating, optionally accompanied by a written review, by a single user.
     /// </summary>
     [DataContract]
-    public struct MediaReview {
+    public struct MediaReview
+    {
         /// <summary>
         /// The time this rating was submitted.
         /// </summary>
@@ -216,7 +223,8 @@
         /// <param name="rating">
         /// The rating of 1 - 5.
         /// </param>
-        public MediaReview(System.DateTime timestamp, string userName, string reviewText, Rating rating) {
+        public MediaReview(System.DateTime timestamp, string userName, string reviewText, Rating rating)
+        {
             Timestamp = timestamp;
             UserName = userName;
             ReviewText = reviewText;
@@ -228,7 +236,8 @@
     /// Complete rating information about a single media item.
     /// </summary>
     [DataContract]
-    public class MediaRating {
+    public class MediaRating
+    {
         /// <summary>
         /// The total number of ratings for this media item.
         /// </summary>
@@ -259,7 +268,8 @@
         /// <param name="reviews">
         /// The collection of user reviews.
         /// </param>
-        public MediaRating(int ratingsCount, float averageRating, System.Collections.Generic.List<MediaReview> reviews) {
+        public MediaRating(int ratingsCount, float averageRating, System.Collections.Generic.List<MediaReview> reviews)
+        {
             RatingsCount = ratingsCount;
             AverageRating = averageRating;
             Reviews = reviews;
@@ -272,7 +282,8 @@
     /// items matching certain criteria.
     /// </summary>
     [DataContract]
-    public class MediaItems {
+    public class MediaItems
+    {
         /// <summary>
         /// A list of books (BookInfo objects).
         /// </summary>
@@ -315,7 +326,8 @@
         public MediaItems(System.Collections.Generic.List<BookInfo> books,
                     System.Collections.Generic.List<MovieInfo> movies,
                     System.Collections.Generic.List<AlbumInfo> albums,
-                    System.Collections.Generic.List<SongInfo> songs) {
+                    System.Collections.Generic.List<SongInfo> songs)
+        {
             Books = books;
             Movies = movies;
             Albums = albums;
@@ -330,7 +342,8 @@
     /// MovieInfo, SongInfo and AlbumInfo respectively)
     /// </summary>
     [DataContract]
-    public abstract class MediaInfo {
+    public abstract class MediaInfo
+    {
         /// <summary>
         /// A unique identifier of the media item this object represents.
         /// </summary>
@@ -385,7 +398,8 @@
         [DataMember]
         public readonly MediaRating Rating;
 
-        protected MediaInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating) {
+        protected MediaInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating)
+        {
             Id = id;
             Title = title;
             Type = type;
@@ -402,7 +416,8 @@
     /// Represents the metadata of a media item of type book.
     /// </summary>
     [DataContract]
-    public class BookInfo : MediaInfo {
+    public class BookInfo : MediaInfo
+    {
         /// <summary>
         /// The author of the book this object represents.
         /// </summary>
@@ -423,7 +438,8 @@
         public readonly string Summary;
 
         public BookInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string author, int pages, string summary)
-            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating) {
+            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
+        {
             Author = author;
             Pages = pages;
             Summary = summary;
@@ -436,19 +452,20 @@
         /// <param name="databaseMedia"></param>
         /// <param name="rating"></param>
         /// <returns></returns>
-        internal static BookInfo ValueOf(RentItDatabase.Book databaseMedia, MediaRating rating) {
+        internal static BookInfo ValueOf(RentItDatabase.Book databaseMedia, MediaRating rating)
+        {
             return new BookInfo(
                 databaseMedia.media_id,
                 databaseMedia.Media.title,
                 Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
                 databaseMedia.Media.Genre.name,
-                (int) databaseMedia.Media.price,
-                (System.DateTime) databaseMedia.Media.release_date,
+                (int)databaseMedia.Media.price,
+                (System.DateTime)databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
                 System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
                 rating,
                 databaseMedia.author,
-                (int) databaseMedia.pages,
+                (int)databaseMedia.pages,
                 databaseMedia.summary);
         }
     }
@@ -457,7 +474,8 @@
     /// Represents the metadata of a media item of type movie.
     /// </summary>
     [DataContract]
-    public class MovieInfo : MediaInfo {
+    public class MovieInfo : MediaInfo
+    {
         /// <summary>
         /// The director of the movie this object represents.
         /// </summary>
@@ -479,7 +497,8 @@
         public readonly string Summary;
 
         public MovieInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string director, System.TimeSpan duration, string summary)
-            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating) {
+            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
+        {
             Director = director;
             Duration = duration;
             Summary = summary;
@@ -492,19 +511,20 @@
         /// <param name="databaseMedia"></param>
         /// <param name="rating"></param>
         /// <returns></returns>
-        internal static MovieInfo ValueOf(RentItDatabase.Movie databaseMedia, MediaRating rating) {
+        internal static MovieInfo ValueOf(RentItDatabase.Movie databaseMedia, MediaRating rating)
+        {
             return new MovieInfo(
                 databaseMedia.media_id,
                 databaseMedia.Media.title,
                 Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
                 databaseMedia.Media.Genre.name,
-                (int) databaseMedia.Media.price,
-                (System.DateTime) databaseMedia.Media.release_date,
+                (int)databaseMedia.Media.price,
+                (System.DateTime)databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
                 System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
                 rating,
                 databaseMedia.director,
-                System.TimeSpan.FromMinutes((double) databaseMedia.length),
+                System.TimeSpan.FromMinutes((double)databaseMedia.length),
                 databaseMedia.summary);
         }
     }
@@ -513,7 +533,8 @@
     /// Represents the metadata of a media item of type song.
     /// </summary>
     [DataContract]
-    public class SongInfo : MediaInfo {
+    public class SongInfo : MediaInfo
+    {
         /// <summary>
         /// The artist of the song this object represents.
         /// </summary>
@@ -527,7 +548,8 @@
         public readonly System.TimeSpan Duration;
 
         public SongInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string artist, System.TimeSpan duration)
-            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating) {
+            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
+        {
             Artist = artist;
             Duration = duration;
         }
@@ -539,19 +561,20 @@
         /// <param name="databaseMedia"></param>
         /// <param name="rating"></param>
         /// <returns></returns>
-        internal static SongInfo ValueOf(RentItDatabase.Song databaseMedia, MediaRating rating) {
+        internal static SongInfo ValueOf(RentItDatabase.Song databaseMedia, MediaRating rating)
+        {
             return new SongInfo(
                 databaseMedia.media_id,
                 databaseMedia.Media.title,
                 Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
                 databaseMedia.Media.Genre.name,
-                (int) databaseMedia.Media.price,
-                (System.DateTime) databaseMedia.Media.release_date,
+                (int)databaseMedia.Media.price,
+                (System.DateTime)databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
                 System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
                 rating,
                 databaseMedia.artist,
-                System.TimeSpan.FromMinutes((int) databaseMedia.length));
+                System.TimeSpan.FromMinutes((int)databaseMedia.length));
         }
     }
 
@@ -559,7 +582,8 @@
     /// Represents metadata of a media item of type album.
     /// </summary>
     [DataContract]
-    public class AlbumInfo : MediaInfo {
+    public class AlbumInfo : MediaInfo
+    {
         /// <summary>
         ///	The album artist of the album this object represents.
         /// </summary>
@@ -586,7 +610,8 @@
         public readonly System.Collections.Generic.List<SongInfo> Songs;
 
         public AlbumInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string albumArtist, System.TimeSpan totalDuration, string description, System.Collections.Generic.List<SongInfo> songs)
-            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating) {
+            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
+        {
             AlbumArtist = albumArtist;
             TotalDuration = totalDuration;
             Description = description;
@@ -601,11 +626,13 @@
         /// <param name="albumSongs"></param>
         /// <param name="rating"></param>
         /// <returns></returns>
-        internal static AlbumInfo ValueOf(RentItDatabase.Album databaseMedia, List<SongInfo> albumSongs, MediaRating rating) {
+        internal static AlbumInfo ValueOf(RentItDatabase.Album databaseMedia, List<SongInfo> albumSongs, MediaRating rating)
+        {
             int albumDuration = 0;
 
-            foreach(RentItDatabase.Album_song song in databaseMedia.Album_songs) {
-                albumDuration += (int) song.Song.length;
+            foreach (RentItDatabase.Album_song song in databaseMedia.Album_songs)
+            {
+                albumDuration += (int)song.Song.length;
             }
 
             return new AlbumInfo(
@@ -613,8 +640,8 @@
                 databaseMedia.Media.title,
                 Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
                 databaseMedia.Media.Genre.name,
-                (int) databaseMedia.Media.price,
-                (System.DateTime) databaseMedia.Media.release_date,
+                (int)databaseMedia.Media.price,
+                (System.DateTime)databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
                 System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
                 rating,
@@ -629,7 +656,8 @@
     /// Holds data associated with a single media item rental.
     /// </summary>
     [DataContract]
-    public struct Rental {
+    public struct Rental
+    {
         /// <summary>
         /// The media data of the media item that has been rented.
         /// </summary>
@@ -648,7 +676,8 @@
         [DataMember]
         public readonly System.DateTime EndTime;
 
-        public Rental(MediaInfo mediaItem, System.DateTime startTime, System.DateTime endTime) {
+        public Rental(MediaInfo mediaItem, System.DateTime startTime, System.DateTime endTime)
+        {
             MediaItem = mediaItem;
             StartTime = startTime;
             EndTime = endTime;
@@ -662,7 +691,8 @@
     /// UserAccount respectively)
     /// </summary>
     [DataContract]
-    public class Account {
+    public class Account
+    {
         /// <summary>
         /// The user name of the account this object represents.
         /// </summary>
@@ -687,14 +717,16 @@
         [DataMember]
         public readonly string HashedPassword;
 
-        public Account(string userName, string fullName, string email, string hashedPassword) {
+        public Account(string userName, string fullName, string email, string hashedPassword)
+        {
             UserName = userName;
             FullName = fullName;
             Email = email;
             HashedPassword = hashedPassword;
         }
 
-        public static Account ValueOf(RentItDatabase.Account account) {
+        public static Account ValueOf(RentItDatabase.Account account)
+        {
             return new Account(
                 account.user_name,
                 account.full_name,
@@ -709,7 +741,8 @@
     /// themselves which is reguired in order to pay and rent media of the service.
     /// </summary>
     [DataContract]
-    public class UserAccount : Account {
+    public class UserAccount : Account
+    {
         /// <summary>
         /// The balance of credits used by the customer to pay and rent media.
         /// This is the balance currently registered at the service server.
@@ -726,7 +759,8 @@
         public readonly System.Collections.Generic.List<Rental> Rentals;
 
         public UserAccount(string userName, string fullName, string email, string hashedPassword, int credits, System.Collections.Generic.List<Rental> rentals)
-            : base(userName, fullName, email, hashedPassword) {
+            : base(userName, fullName, email, hashedPassword)
+        {
             Credits = credits;
             Rentals = rentals;
         }
@@ -738,7 +772,8 @@
     /// available for browsing and rental.
     /// </summary>
     [DataContract]
-    public class PublisherAccount : Account {
+    public class PublisherAccount : Account
+    {
         /// <summary>
         /// The public name of the publisher.
         /// </summary>
@@ -753,7 +788,8 @@
         public readonly MediaItems PublishedItems;
 
         public PublisherAccount(string userName, string fullName, string email, string hashedPassword, string publisherName, MediaItems publishedItems)
-            : base(userName, fullName, email, hashedPassword) {
+            : base(userName, fullName, email, hashedPassword)
+        {
             PublisherName = publisherName;
             PublishedItems = publishedItems;
         }
@@ -764,7 +800,8 @@
     /// Holds both user name and the hashed password.
     /// </summary>
     [DataContract]
-    public class AccountCredentials {
+    public class AccountCredentials
+    {
         /// <summary>
         /// The user name of the credential
         /// </summary>
@@ -777,7 +814,8 @@
         [DataMember]
         public readonly string HashedPassword;
 
-        public AccountCredentials(string userName, string hashedPassword) {
+        public AccountCredentials(string userName, string hashedPassword)
+        {
             UserName = userName;
             HashedPassword = hashedPassword;
         }
@@ -787,7 +825,8 @@
     /// Indicates that the submitted credentials do not match those registered at the server.
     /// </summary>
     [DataContract]
-    public class InvalidCredentialsException : System.Exception {
+    public class InvalidCredentialsException : System.Exception
+    {
         public InvalidCredentialsException() { }
         public InvalidCredentialsException(string message) : base(message) { }
         public InvalidCredentialsException(string message, System.Exception inner) : base(message, inner) { }
@@ -797,7 +836,8 @@
     /// Indicates that the submitted user information is not valid.
     /// </summary>
     [DataContract]
-    public class UserCreationException : System.Exception {
+    public class UserCreationException : System.Exception
+    {
         public UserCreationException() { }
         public UserCreationException(string message) : base(message) { }
         public UserCreationException(string message, System.Exception inner) : base(message, inner) { }
@@ -808,9 +848,12 @@
     /// This class provides convenient conversion methods of
     /// the two enums MediaType and Rating.
     /// </summary>
-    public static class Util {
-        public static MediaType MediaTypeOfValue(string mediaType) {
-            switch(mediaType) {
+    public static class Util
+    {
+        public static MediaType MediaTypeOfValue(string mediaType)
+        {
+            switch (mediaType)
+            {
                 case "ANY":
                     return MediaType.Any;
                 case "BOOK":
@@ -826,8 +869,10 @@
             }
         }
 
-        public static Rating RatingOfValue(int rating) {
-            switch(rating) {
+        public static Rating RatingOfValue(int rating)
+        {
+            switch (rating)
+            {
                 case 1:
                     return Rating.One;
                 case 2:
