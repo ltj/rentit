@@ -864,8 +864,6 @@
         {
             switch (mediaType)
             {
-                case "any":
-                    return MediaType.Any;
                 case "book":
                     return MediaType.Book;
                 case "movie":
@@ -898,12 +896,29 @@
             }
         }
 
+        public static int ValueOfRating(Rating rating)
+        {
+            switch(rating)
+            {
+                case Rating.One:
+                    return 1;
+                case Rating.Two:
+                    return 2;
+                case Rating.Three:
+                    return 3;
+                case Rating.Four:
+                    return 4;
+                case Rating.Five:
+                    return 5;
+                default:
+                    return 1;
+            }
+        }
+
         public static string StringValueOfMediaType(MediaType mediaType)
         {
             switch (mediaType)
             {
-                case MediaType.Any:
-                    return "any";
                 case MediaType.Book:
                     return "book";
                 case MediaType.Movie:
