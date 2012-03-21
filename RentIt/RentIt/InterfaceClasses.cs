@@ -937,6 +937,25 @@
         /// <returns>
         /// A string representation of the specified MediaType.
         /// </returns>
+        public static int ValueOfRating(Rating rating)
+        {
+            switch(rating)
+            {
+                case Rating.One:
+                    return 1;
+                case Rating.Two:
+                    return 2;
+                case Rating.Three:
+                    return 3;
+                case Rating.Four:
+                    return 4;
+                case Rating.Five:
+                    return 5;
+                default:
+                    return 1;
+            }
+        }
+
         public static string StringValueOfMediaType(MediaType mediaType)
         {
             switch (mediaType)
