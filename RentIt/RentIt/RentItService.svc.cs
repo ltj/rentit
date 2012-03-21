@@ -518,29 +518,35 @@
         /// <returns>
         /// true if the publisher can change the media, false otherwise.
         /// </returns>
-        private bool IsPublisherAuthorized(int mediaId, AccountCredentials credentials, DatabaseDataContext db) {
-            try {
+        private bool IsPublisherAuthorized(int mediaId, AccountCredentials credentials, DatabaseDataContext db)
+        {
+            try
+            {
                 ValidateCredentials(credentials); // throws an exception if credentials are incorrect
-            } catch(InvalidCredentialsException) {
+            }
+            catch (InvalidCredentialsException)
+            {
                 return false;
             }
 
-            IQueryable<Media> mediaResult = from m in db.Medias
-                                            where m.id == mediaId
-                                            select m;
+            IQueryable<Media> mediaResult = from m in db.Medias where m.id == mediaId select m;
 
-            if(mediaResult.Count() <= 0) // if the media with the specified id was not found
+            if (mediaResult.Count() <= 0) // if the media with the specified id was not found
                 return false;
 
             Media media = mediaResult.First();
 
             // find out whether this publisher is authorized to delete this media
             IQueryable<Publisher_account> p = from publisher in db.Publisher_accounts
-                                              where publisher.user_name.Equals(credentials.UserName) && publisher.publisher_id == media.publisher_id
+                                              where
+                                                  publisher.user_name.Equals(credentials.UserName)
+                                                  && publisher.publisher_id == media.publisher_id
                                               select publisher;
 
             // if this publisher does not have permission to update the media
             return p.Count() > 0;
+        }
+
         private IQueryable<RentItDatabase.Media> OrderMedia(IQueryable<RentItDatabase.Media> mediaItems, MediaCriteria criteria)
         {
             DatabaseDataContext db = new DatabaseDataContext();
