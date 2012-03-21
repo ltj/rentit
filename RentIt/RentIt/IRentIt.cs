@@ -78,7 +78,6 @@
         /// If the supplied credentials are invalid.
         /// </exception>
         [OperationContract]
-        [FaultContract(typeof(InvalidCredentialsException))]
         Account ValidateCredentials(AccountCredentials credentials);
 
         /// <summary>
