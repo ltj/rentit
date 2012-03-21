@@ -860,6 +860,20 @@
     /// </summary>
     public static class Util
     {
+
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// Converts a string representation of the MediaType-enum
+        /// to MediaType. 
+        /// </summary>
+        /// <param name="mediaType">
+        /// The string representation of the MediaType.
+        /// If the string is null or does not match any of the 
+        /// values in the MediaType-enum, MediaType.Any is returned.
+        /// </param>
+        /// <returns>
+        /// The MediaType of the string representation specified.
+        /// </returns>
         public static MediaType MediaTypeOfValue(string mediaType)
         {
             switch (mediaType)
@@ -879,6 +893,19 @@
             }
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// Convert the specified int representation of Rating to
+        /// the Rating-type.
+        /// </summary>
+        /// <param name="rating">
+        /// The int representation to be converted. If the specified 
+        /// value is out of range of the Rating-type, Rating.One is
+        /// returned.
+        /// </param>
+        /// <returns>
+        /// The Rating of the int representation specified.
+        /// </returns>
         public static Rating RatingOfValue(int rating)
         {
             switch (rating)
@@ -898,6 +925,18 @@
             }
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// Converts the MediaType represention to a 
+        /// string representation of the MediaType type.
+        /// </summary>
+        /// <param name="mediaType">
+        /// The MediaType to be converted to its string
+        /// representation.
+        /// </param>
+        /// <returns>
+        /// A string representation of the specified MediaType.
+        /// </returns>
         public static string StringValueOfMediaType(MediaType mediaType)
         {
             switch (mediaType)

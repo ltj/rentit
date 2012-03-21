@@ -1,8 +1,10 @@
-﻿namespace RentIt {
+﻿namespace RentIt
+{
     using System.ServiceModel;
 
     [ServiceContract]
-    public interface IRentIt {
+    public interface IRentIt
+    {
         /// <summary>
         /// Returns all meta data of a particular book.
         /// </summary>
@@ -76,6 +78,7 @@
         /// If the supplied credentials are invalid.
         /// </exception>
         [OperationContract]
+        [FaultContract(typeof(InvalidCredentialsException))]
         Account ValidateCredentials(AccountCredentials credentials);
 
         /// <summary>
@@ -238,7 +241,7 @@
         /// downloading the specified media.
         /// </param>
         [OperationContract]
-        System.Uri GetMediaUrl(string mediaId, AccountCredentials credentials);
+        System.Uri GetMediaUri(string mediaId, AccountCredentials credentials);
 
         /// <summary>
         /// Gets all the genres of the specified media type that the service currently

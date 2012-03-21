@@ -2,9 +2,10 @@
 {
     using System;
     using System.Collections.Generic;
-
+    using System.IO;
+    using System.Security.Authentication;
+    using System.Text;
     using RentItDatabase;
-
     using System.Linq;
 
     public class RentItService : IRentIt
@@ -13,10 +14,9 @@
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// 
+        /// See the interface specification of the method in IRentIt.cs for documentation
+        /// of this method.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public BookInfo GetBookInfo(int id)
         {
             DatabaseDataContext db = new DatabaseDataContext();
@@ -35,10 +35,9 @@
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// 
+        /// See the interface specification of the method in IRentIt.cs for documentation
+        /// of this method.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public MovieInfo GetMovieInfo(int id)
         {
             DatabaseDataContext db = new DatabaseDataContext();
@@ -55,10 +54,9 @@
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// 
+        /// See the interface specification of the method in IRentIt.cs for documentation
+        /// of this method.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public AlbumInfo GetAlbumInfo(int id)
         {
             DatabaseDataContext db = new DatabaseDataContext();
@@ -79,18 +77,63 @@
             List<RentIt.SongInfo> albumSongs = new List<RentIt.SongInfo>();
             foreach (RentItDatabase.Song song in songs)
             {
-                RentItDatabase.Rating songRatings = this.GetMediaRating(album.media_id, db);
-                RentIt.MediaRating songRating = this.CollectMediaReviews(song.media_id, songRatings, db);
-
-                albumSongs.Add(SongInfo.ValueOf(song, songRating));
+                albumSongs.Add(this.GetSongInfo(song.media_id));
             }
 
             return RentIt.AlbumInfo.ValueOf(album, albumSongs, mediaRating);
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// See the interface specification of the method in IRentIt.cs for documentation
+        /// of this method.
+        /// </summary>
         public MediaItems GetMediaItems(MediaCriteria criteria)
         {
-            throw new NotImplementedException();
+            DatabaseDataContext db = new DatabaseDataContext();
+
+            // Get medias based on the media type.
+            IQueryable<RentItDatabase.Media> medias;
+            string mediaType = Util.StringValueOfMediaType(criteria.Type);
+
+            // If the value is specified to "any", all medias of the database is retrieved.
+            if (mediaType.Equals("any"))
+            {
+                medias = from media in db.Medias
+                         select media;
+            }
+            else
+            {
+                medias = from media in db.Medias
+                         where media.Media_type.name.Equals(mediaType)
+                         select media;
+            }
+
+            // Sort the above medias as requested in the criterias.
+            IQueryable<RentItDatabase.Media> orderedMedias = this.OrderMedia(medias, criteria);
+
+            // Filter the above medias after the genre if specified in the criteria.
+            if (!criteria.Genre.Equals(string.Empty))
+            {
+                orderedMedias = from media in orderedMedias
+                                where
+                                    media.Genre.name.Contains(
+                                        criteria.Genre)
+                                select media;
+            }
+
+            if (!criteria.SearchText.Equals(string.Empty))
+            {
+                orderedMedias =
+                    orderedMedias.Where(
+                        media => this.GetMediaMetadataAsString(media).Contains(criteria.SearchText));
+            }
+
+            // Apply the offset and limit of the number of medias to return as specified.
+            IQueryable<RentItDatabase.Media> finalMediaList =
+                orderedMedias.Skip(criteria.Offset).Take(criteria.Limit);
+
+            return this.CompileMedias(finalMediaList);
         }
 
         public MediaItems GetAlsoRentedItems(int id)
@@ -98,35 +141,38 @@
             throw new NotImplementedException();
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// See the interface specification of the method in IRentIt.cs for documentation
+        /// of this method.
+        /// </summary>
         public Account ValidateCredentials(AccountCredentials credentials)
         {
             DatabaseDataContext db = new DatabaseDataContext();
 
-            IQueryable<RentItDatabase.Account> result = from ac in db.Accounts
-                                                        where ac.user_name.Equals(credentials.UserName)
-                                                        select ac;
-
-            // If the result contains no accounts, there do not exist an account in the database with the user name
-            // that is provided in the credentials...
-            if (result.Count() == 0)
+            RentItDatabase.Account account;
+            try
             {
-                // ... throw an exception to inform the caller.
-                throw new InvalidCredentialsException("Submitted user name does not exist.");
+                account = (from ac in db.Accounts
+                           where
+                               ac.user_name.Equals(credentials.UserName)
+                               && ac.password.Equals(credentials.HashedPassword)
+                           select ac).First();
             }
-
-            RentItDatabase.Account account = result.First();
-
-            // If the submitted hashed password does not match the one stored in the database...
-            if (!account.password.Equals(credentials.HashedPassword))
+            catch (ArgumentNullException)
             {
-                // ... throw an exception to inform the caller.
-                throw new InvalidCredentialsException("Submitted password is incorrect.");
+                throw new InvalidCredentialException("Submitted credentials are invalid.");
             }
 
             // The credentials has successfully been evaluated, return account details to caller.
             return RentIt.Account.ValueOf(account);
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// See the interface specification of the method in IRentIt.cs for documentation
+        /// of this method.
+        /// </summary>
         public bool CreateNewUser(Account newAccount)
         {
             DatabaseDataContext db = new DatabaseDataContext();
@@ -163,9 +209,37 @@
             throw new NotImplementedException();
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// See the interface specification of the method in IRentIt.cs for documentation
+        /// of this method.
+        /// </summary>
         public bool UpdateAccountInfo(AccountCredentials credentials, Account account)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.ValidateCredentials(credentials);
+            }
+            catch (Exception)
+            {
+                throw new InvalidCredentialException("Submitted credentials are invalid.");
+            }
+
+            // The credentials was successfully validated.
+            // Retrieve the corresponding account from the database.
+            DatabaseDataContext db = new DatabaseDataContext();
+            RentItDatabase.Account dbAccount = (from acc in db.Accounts
+                                                where acc.user_name.Equals(credentials.UserName)
+                                                select acc).First();
+
+            // Update the database with the new submitted data.
+            dbAccount.full_name = account.FullName;
+            dbAccount.email = account.Email;
+            dbAccount.password = account.HashedPassword;
+
+            // Submit the changes to the database.
+            db.SubmitChanges();
+            return true;
         }
 
         public bool AddCredits(AccountCredentials credentials, uint addAmount)
@@ -205,7 +279,7 @@
             throw new NotImplementedException();
         }
 
-        public Uri GetMediaUrl(string mediaId, AccountCredentials credentials)
+        public System.Uri GetMediaUri(string mediaId, AccountCredentials credentials)
         {
             throw new NotImplementedException();
         }
@@ -218,6 +292,34 @@
         #endregion
 
         #region Helper methods
+
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// Helper method for collection all data of a specified
+        /// Song-item.
+        /// </summary>
+        /// <param name="id">
+        /// The id of the song requested.
+        /// </param>
+        /// <returns>'
+        /// A instance of SongInfo holding all data of the specified
+        /// song item.
+        /// </returns>
+        private SongInfo GetSongInfo(int id)
+        {
+            DatabaseDataContext db = new DatabaseDataContext();
+
+            // Get the song.
+            RentItDatabase.Song song = (from m in db.Songs
+                                        where m.media_id.Equals(id)
+                                        select m).First();
+
+            RentItDatabase.Rating songRatings = this.GetMediaRating(song.media_id, db);
+
+            RentIt.MediaRating songRating = this.CollectMediaReviews(song.media_id, songRatings, db);
+
+            return SongInfo.ValueOf(song, songRating);
+        }
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
@@ -273,6 +375,176 @@
                 (int)rating.ratings_count, (int)rating.avg_rating, mediaReviews);
 
             return mediaRating;
+        }
+
+        private IQueryable<RentItDatabase.Media> OrderMedia(IQueryable<RentItDatabase.Media> mediaItems, MediaCriteria criteria)
+        {
+            DatabaseDataContext db = new DatabaseDataContext();
+
+            switch (criteria.Order)
+            {
+                case MediaOrder.AlphabeticalAsc:
+                    return from media in mediaItems
+                           orderby media.title
+                           select media;
+                case MediaOrder.AlphabeticalDesc:
+                    return from media in mediaItems
+                           orderby media.title descending
+                           select media;
+                case MediaOrder.PopularityAsc:
+                    // Collect structures with media id an the number of rentals for the media id.
+                    var ac = from m in mediaItems
+                             select new
+                                 {
+                                     m.id,
+                                     RentalCount = (from mr in db.Rentals
+                                                    where mr.media_id == m.id
+                                                    select mr).Count()
+                                 };
+
+                    // Order the media items after rentals, ascending order.
+                    return from media in mediaItems
+                           from me in ac
+                           where media.id == me.id
+                           orderby me.RentalCount
+                           select media;
+
+                case MediaOrder.PopularityDesc:
+                    // Collect structures with media id an the number of rentals for the media id.
+                    var ac2 = from m in mediaItems
+                              select new
+                              {
+                                  m.id,
+                                  RentalCount = (from mr in db.Rentals
+                                                 where mr.media_id == m.id
+                                                 select mr).Count()
+                              };
+
+                    // Order the media items after rentals, descending order.
+                    return from media in mediaItems
+                           from me in ac2
+                           where media.id == me.id
+                           orderby me.RentalCount descending
+                           select media;
+
+                case MediaOrder.RatingAsc:
+                    return from media in mediaItems
+                           orderby media.Rating.avg_rating
+                           select media;
+
+                case MediaOrder.RatingDesc:
+                    return from media in mediaItems
+                           orderby media.Rating.avg_rating descending
+                           select media;
+
+                case MediaOrder.ReleaseDateAsc:
+                    return from media in mediaItems
+                           orderby media.release_date
+                           select media;
+
+                case MediaOrder.ReleaseDateDesc:
+                    return from media in mediaItems
+                           orderby media.release_date descending
+                           select media;
+
+                case MediaOrder.PriceAsc:
+                    return from media in mediaItems
+                           orderby media.price
+                           select media;
+
+                case MediaOrder.PriceDesc:
+                    return from media in mediaItems
+                           orderby media.price descending
+                           select media;
+
+                default:
+                    return mediaItems;
+            }
+        }
+
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// Returns a string, which is a concatenation of the metadata stored in the database
+        /// about a media. Utilized to easily apply search text the a media item.
+        /// </summary>
+        /// <param name="mediaItem">
+        /// 
+        /// </param>
+        /// <returns>
+        /// 
+        /// </returns>
+        private string GetMediaMetadataAsString(Media mediaItem)
+        {
+            StringBuilder metadataString = new StringBuilder();
+
+            metadataString.Append(mediaItem.title + " ");
+            metadataString.Append(mediaItem.Publisher.title);
+
+            DatabaseDataContext db = new DatabaseDataContext();
+            switch (Util.MediaTypeOfValue(mediaItem.Media_type.name))
+            {
+                case MediaType.Book:
+                    RentItDatabase.Book book = mediaItem.Book;
+                    metadataString.Append(book.author + " ");
+                    metadataString.Append(book.summary);
+                    return metadataString.ToString();
+                case MediaType.Movie:
+                    RentItDatabase.Movie movie = mediaItem.Movie;
+                    metadataString.Append(movie.director + " ");
+                    metadataString.Append(movie.summary);
+                    return metadataString.ToString();
+                case MediaType.Song:
+                    RentItDatabase.Song song = mediaItem.Song;
+                    metadataString.Append(song.artist + " ");
+                    return metadataString.ToString();
+                case MediaType.Album:
+                    RentItDatabase.Album album = mediaItem.Album;
+                    metadataString.Append(album.album_artist + " ");
+                    metadataString.Append(album.description);
+                    return metadataString.ToString();
+                default:
+                    return metadataString.ToString();
+            }
+        }
+
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// Converts a list of media-instances from the database to an instance of
+        /// MediaItems with all data of the various media items submitted.
+        /// </summary>
+        /// <param name="mediaList">
+        /// The collection of media-instances to be converted to a MediaItems-
+        /// instance.
+        /// </param>
+        /// <returns>
+        /// A MediaItems-instance holding all metadata of all the medias submitted.
+        /// </returns>
+        private MediaItems CompileMedias(IQueryable<RentItDatabase.Media> mediaList)
+        {
+            List<RentIt.BookInfo> bookInfos = new List<BookInfo>();
+            List<RentIt.MovieInfo> movieInfos = new List<MovieInfo>();
+            List<RentIt.SongInfo> songInfos = new List<SongInfo>();
+            List<RentIt.AlbumInfo> albumInfos = new List<AlbumInfo>();
+
+            foreach (RentItDatabase.Media media in mediaList)
+            {
+                switch (Util.MediaTypeOfValue(media.Media_type.name))
+                {
+                    case MediaType.Book:
+                        bookInfos.Add(this.GetBookInfo(media.id));
+                        break;
+                    case MediaType.Movie:
+                        movieInfos.Add(this.GetMovieInfo(media.id));
+                        break;
+                    case MediaType.Song:
+                        songInfos.Add(this.GetSongInfo(media.id));
+                        break;
+                    case MediaType.Album:
+                        albumInfos.Add(this.GetAlbumInfo(media.id));
+                        break;
+                }
+            }
+            return new MediaItems(bookInfos, movieInfos, albumInfos, songInfos);
         }
 
         #endregion
