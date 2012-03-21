@@ -66,7 +66,17 @@
         /// <summary>
         /// Sorts items by their name, using the reverse of .NET's default sorting for strings, generally from Z to A.
         /// </summary>
-        AlphabeticalDesc
+        AlphabeticalDesc,
+
+        /// <summary>
+        /// Sorts items by their price, from lowest to highest.
+        /// </summary>
+        PriceAsc,
+
+        /// <summary>
+        /// Sorts items by their price, from highest to lowest.
+        /// </summary>
+        PriceDesc
     }
 
     /// <summary>
@@ -854,15 +864,15 @@
         {
             switch (mediaType)
             {
-                case "ANY":
+                case "any":
                     return MediaType.Any;
-                case "BOOK":
+                case "book":
                     return MediaType.Book;
-                case "MOVIE":
+                case "movie":
                     return MediaType.Movie;
-                case "ALBUM":
+                case "album":
                     return MediaType.Album;
-                case "SONG":
+                case "song":
                     return MediaType.Song;
                 default:
                     return MediaType.Any;
@@ -885,6 +895,25 @@
                     return Rating.Five;
                 default:
                     return Rating.One;
+            }
+        }
+
+        public static string StringValueOfMediaType(MediaType mediaType)
+        {
+            switch (mediaType)
+            {
+                case MediaType.Any:
+                    return "any";
+                case MediaType.Book:
+                    return "book";
+                case MediaType.Movie:
+                    return "movie";
+                case MediaType.Album:
+                    return "album";
+                case MediaType.Song:
+                    return "song";
+                default:
+                    return "any";
             }
         }
     }
