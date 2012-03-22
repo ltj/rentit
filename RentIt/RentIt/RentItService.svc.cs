@@ -282,8 +282,19 @@
         public bool RentMedia(int mediaId, AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
+            if (account == null) return false;
+
             var db = new DatabaseDataContext();
-            throw new NotImplementedException();
+            RentItDatabase.Rental r = new RentItDatabase.Rental() {
+                user_name = account.UserName,
+                media_id = mediaId,
+                start_time = DateTime.Now,
+                end_time = DateTime.Now.AddDays(30)
+            };
+
+            db.Rentals.InsertOnSubmit(r);
+            db.SubmitChanges();
+            return true;
         }
 
         /// <author>Lars Toft Jacobsen</author>
@@ -295,46 +306,54 @@
         /// <returns></returns>
         public bool PublishMedia(MediaInfo info, AccountCredentials credentials)
         {
-            //var db = new DatabaseDataContext();
+            var db = new DatabaseDataContext();
 
+            // fetch mediatype and genre id's
+            Media_type mtype = (from t in db.Media_types
+                                where t.name.Equals(info.Type)
+                                select t).First();
+            Genre genre = (from g in db.Genres
+                           where g.name.Equals(info.Genre) && g.media_type.Equals(mtype)
+                           select g).First();
+            Publisher publisher = (from p in db.Publishers
+                                   where p.title.Equals(info.Publisher)
+                                   select p).First();
 
+            RentItDatabase.Media newMedia = new RentItDatabase.Media() {
+                title = info.Title,
+                genre_id = genre.id,
+                type_id = mtype.id,
+                price = info.Price,
+                release_date = info.ReleaseDate,
+                publisher_id = publisher.id
+            };
 
-            //RentItDatabase.Media baseMedia = new RentItDatabase.Media() {
-            //    title = info.Title,
-            //    genre_id = info.Genre,
-            //    type_id = info.Type,
-
-            //};
-
-            throw new NotImplementedException();
+            db.Medias.InsertOnSubmit(newMedia);
+            db.SubmitChanges();
+            return true;
         }
 
         /// <author>Lars Toft Jacobsen</author>
         /// <summary>
-        /// Delete user account from RentIt database
+        /// Delete user account from RentIt database. Actually the
+        /// user is only invalidated by setting the active flag to false.
         /// </summary>
         /// <param name="credentials"></param>
         /// <returns></returns>
         public bool DeleteAccount(AccountCredentials credentials)
         {
 
-            // TODO: mark account inactive in stead of 
+            // validate credentials and return false if null
             Account account = ValidateCredentials(credentials);
+            if (account == null) return false;
+
             var db = new DatabaseDataContext();
+            RentItDatabase.Account acctResult = (from user in db.Accounts
+                                                 where user.user_name.Equals(account.UserName)
+                                                 select user).First();
 
-            IQueryable<User_account> userResult = from user in db.User_accounts
-                                                  where user.user_name.Equals(account.UserName)
-                                                  select user;
-            IQueryable<RentItDatabase.Account> acctResult = from user in db.Accounts
-                                                            where user.user_name.Equals(account.UserName)
-                                                            select user;
-
-            if (userResult.Count() <= 0 || acctResult.Count() <= 0) return false;
-
-            User_account use = userResult.First();
-            RentItDatabase.Account acc = acctResult.First();
-            db.User_accounts.DeleteOnSubmit(use);
-            db.Accounts.DeleteOnSubmit(acc);
+            // set active flag
+            acctResult.active = false;
             db.SubmitChanges();
             return true;
         }
