@@ -146,6 +146,12 @@
             return this.CompileMedias(finalMediaList);
         }
 
+        /// <author>Jacob Rasmussen.</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public MediaItems GetAlsoRentedItems(int id)
         {
             //Issue 101: As of yet the service finds the first user on the list of users, who have rented the media, 
@@ -236,6 +242,12 @@
             return true;
         }
 
+        /// <author>Jacob Rasmussen.</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public UserAccount GetAllCustomerData(AccountCredentials credentials)
         {
             Account account = this.ValidateCredentials(credentials);
@@ -281,6 +293,12 @@
                 userAccount.Account.password, userAccount.credit, userRentals);
         }
 
+        /// <author>Jacob Rasmussen.</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public PublisherAccount GetAllPublisherData(AccountCredentials credentials)
         {
             Account account = this.ValidateCredentials(credentials);
