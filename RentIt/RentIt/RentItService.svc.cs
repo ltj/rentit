@@ -160,22 +160,19 @@
         {
             var db = new DatabaseDataContext();
 
-            RentItDatabase.Account account;
-            try
-            {
-                account = (from ac in db.Accounts
-                           where
-                               ac.user_name.Equals(credentials.UserName)
-                               && ac.password.Equals(credentials.HashedPassword)
-                           select ac).First();
-            }
-            catch (ArgumentNullException)
-            {
-                throw new InvalidCredentialException("Submitted credentials are invalid.");
-            }
+            IQueryable<RentItDatabase.Account> accounts =
+                                  from ac in db.Accounts
+                                  where
+                                      ac.user_name.Equals(credentials.UserName)
+                                      && ac.password.Equals(credentials.HashedPassword)
+                                      && ac.active
+                                  select ac;
+
+            if(accounts.Count() <= 0)
+                return null;
 
             // The credentials has successfully been evaluated, return account details to caller.
-            return RentIt.Account.ValueOf(account);
+            return RentIt.Account.ValueOf(accounts.First());
         }
 
         /// <author>Kenneth Søhrmann</author>

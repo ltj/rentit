@@ -72,11 +72,9 @@
         /// The user name and hashed password.
         /// </param>
         /// <returns>
-        /// An Account object representing the successfully validated account.
+        /// If the credentials are valid, an Account object representing the successfully validated account is returned.
+        /// Otherwise, null is returnes.
         /// </returns>
-        /// <exception cref="InvalidCredentialsException">
-        /// If the supplied credentials are invalid.
-        /// </exception>
         [OperationContract]
         Account ValidateCredentials(AccountCredentials credentials);
 
