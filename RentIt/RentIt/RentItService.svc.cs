@@ -16,16 +16,26 @@
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
         /// See the interface specification of the method in IRentIt.cs for documentation
-        /// of this method.
+        /// of this method. 
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public BookInfo GetBookInfo(int id)
         {
             var db = new DatabaseDataContext();
 
             // Get the book.
-            RentItDatabase.Book book = (from b in db.Books where b.media_id.Equals(id) select b).First();
+            RentItDatabase.Book book;
+            try
+            {
+                book = (from b in db.Books
+                        where b.media_id.Equals(id)
+                        select b).First();
+            }
+
+            // If no entity was found, the specified id does not excist.
+            catch (Exception)
+            {
+                return null;
+            }
 
             // Get the rating data of the book.
             RentItDatabase.Rating rating = GetMediaRating(book.media_id, db);
@@ -41,14 +51,22 @@
         /// See the interface specification of the method in IRentIt.cs for documentation
         /// of this method.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public MovieInfo GetMovieInfo(int id)
         {
             var db = new DatabaseDataContext();
 
             // Get the movie.
-            RentItDatabase.Movie movie = (from m in db.Movies where m.media_id.Equals(id) select m).First();
+            RentItDatabase.Movie movie;
+            try
+            {
+                movie = (from m in db.Movies where m.media_id.Equals(id) select m).First();
+            }
+
+            // If no entity was found, the specified id does not excist.
+            catch (Exception)
+            {
+                return null;
+            }
 
             RentItDatabase.Rating rating = GetMediaRating(movie.media_id, db);
 
@@ -62,14 +80,24 @@
         /// See the interface specification of the method in IRentIt.cs for documentation
         /// of this method.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public AlbumInfo GetAlbumInfo(int id)
         {
             var db = new DatabaseDataContext();
 
             // Get the Album
-            RentItDatabase.Album album = (from a in db.Albums where a.media_id.Equals(id) select a).First();
+            RentItDatabase.Album album;
+            try
+            {
+                album = (from a in db.Albums
+                         where a.media_id.Equals(id)
+                         select a).First();
+            }
+
+            // If no entity was found, the specified id does not excist.
+            catch (Exception)
+            {
+                return null;
+            }
 
             RentItDatabase.Rating rating = GetMediaRating(album.media_id, db);
 
@@ -81,15 +109,7 @@
                                                     select s;
 
             // Collect data of all the songs contained in the album.
-            var albumSongs = new List<RentIt.SongInfo>();
-            foreach (RentItDatabase.Song song in songs)
-            {
-                RentItDatabase.Rating songRatings = GetMediaRating(album.media_id, db);
-                RentIt.MediaRating songRating = CollectMediaReviews(song.media_id, songRatings, db);
-
-                albumSongs.Add(SongInfo.ValueOf(song, songRating));
-            }
-
+            List<RentIt.SongInfo> albumSongs = songs.Select(song => this.GetSongInfo(song.media_id)).ToList();
             return RentIt.AlbumInfo.ValueOf(album, albumSongs, mediaRating);
         }
 
@@ -100,6 +120,12 @@
         /// </summary>
         public MediaItems GetMediaItems(MediaCriteria criteria)
         {
+            // If the criteria is a null reference, return null.
+            if (criteria == null)
+            {
+                return null;
+            }
+
             DatabaseDataContext db = new DatabaseDataContext();
 
             // Get medias based on the media type.
@@ -158,6 +184,11 @@
         /// </summary>
         public Account ValidateCredentials(AccountCredentials credentials)
         {
+            if (credentials == null)
+            {
+                return null;
+            }
+
             var db = new DatabaseDataContext();
 
             IQueryable<RentItDatabase.Account> accounts =
@@ -168,7 +199,7 @@
                                       && ac.active
                                   select ac;
 
-            if(accounts.Count() <= 0)
+            if (accounts.Count() <= 0)
                 return null;
 
             // The credentials has successfully been evaluated, return account details to caller.
@@ -182,6 +213,11 @@
         /// </summary>
         public bool CreateNewUser(Account newAccount)
         {
+            if (newAccount == null)
+            {
+                return false;
+            }
+
             var db = new DatabaseDataContext();
 
             // If there exist an account with the submitted user name...
@@ -223,13 +259,13 @@
         /// </summary>
         public bool UpdateAccountInfo(AccountCredentials credentials, Account account)
         {
-            try
+            if (account == null)
             {
-                this.ValidateCredentials(credentials);
+                return false;
             }
-            catch (Exception)
+            if (this.ValidateCredentials(credentials) == null)
             {
-                throw new InvalidCredentialException("Submitted credentials are invalid.");
+                return false;
             }
 
             // The credentials was successfully validated.
@@ -557,7 +593,8 @@
         /// </summary>
         /// <param name="acct"></param>
         /// <returns></returns>
-        private bool isPublisher(Account acct) {
+        private bool isPublisher(Account acct)
+        {
             var db = new DatabaseDataContext();
 
             IQueryable<Publisher_account> pubResult = from user in db.Publisher_accounts
