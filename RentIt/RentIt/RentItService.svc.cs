@@ -272,6 +272,13 @@
             return true;
         }
 
+        /// <author>Lars Toft Jacobsen</author>
+        /// <summary>
+        /// Rent media
+        /// </summary>
+        /// <param name="mediaId"></param>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
         public bool RentMedia(int mediaId, AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
@@ -279,8 +286,26 @@
             throw new NotImplementedException();
         }
 
+        /// <author>Lars Toft Jacobsen</author>
+        /// <summary>
+        /// Publish new media
+        /// </summary>
+        /// <param name="info"></param>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
         public bool PublishMedia(MediaInfo info, AccountCredentials credentials)
         {
+            //var db = new DatabaseDataContext();
+
+
+
+            //RentItDatabase.Media baseMedia = new RentItDatabase.Media() {
+            //    title = info.Title,
+            //    genre_id = info.Genre,
+            //    type_id = info.Type,
+
+            //};
+
             throw new NotImplementedException();
         }
 
@@ -292,6 +317,8 @@
         /// <returns></returns>
         public bool DeleteAccount(AccountCredentials credentials)
         {
+
+            // TODO: mark account inactive in stead of 
             Account account = ValidateCredentials(credentials);
             var db = new DatabaseDataContext();
 
@@ -522,6 +549,23 @@
             var mediaRating = new MediaRating(rating.ratings_count, (int)rating.avg_rating, mediaReviews);
 
             return mediaRating;
+        }
+
+        /// <author>Lars Toft Jacobsen</author>
+        /// <summary>
+        /// Checks whether user is publisher or not
+        /// </summary>
+        /// <param name="acct"></param>
+        /// <returns></returns>
+        private bool isPublisher(Account acct) {
+            var db = new DatabaseDataContext();
+
+            IQueryable<Publisher_account> pubResult = from user in db.Publisher_accounts
+                                                      where user.user_name.Equals(acct.UserName)
+                                                      select user;
+
+            if (pubResult.Count() <= 0) return false;
+            return true;
         }
 
         /// <author>Per Mortensen</author>
