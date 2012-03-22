@@ -279,7 +279,11 @@
         /// <summary>
         /// 
         /// </summary>
+<<<<<<< HEAD
         /// <param name="credentials"></param>
+        /// <returns></returns>
+=======
+>>>>>>> f1404c527216161f08ca2a9e8cf5a3e9e92833f1
         public UserAccount GetAllCustomerData(AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
@@ -329,7 +333,11 @@
         /// <summary>
         /// 
         /// </summary>
+<<<<<<< HEAD
         /// <param name="credentials"></param>
+        /// <returns></returns>
+=======
+>>>>>>> f1404c527216161f08ca2a9e8cf5a3e9e92833f1
         public PublisherAccount GetAllPublisherData(AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);

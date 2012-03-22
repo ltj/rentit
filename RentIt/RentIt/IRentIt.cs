@@ -12,7 +12,9 @@
         /// The the database id of the media item.
         /// </param>
         /// <returns>
-        /// An object containing the metadata for the item.
+        /// An object containing the metadata for the specified item.
+        /// Returns null if the specified id does not exist in the server
+        /// database.
         /// </returns>
         [OperationContract]
         BookInfo GetBookInfo(int id);
@@ -24,7 +26,9 @@
         /// The the database id of the media item.
         /// </param>
         /// <returns>
-        /// An object containing the metadata for the item.
+        /// An object containing the metadata for the specfied item.
+        /// Returns null if the specified id does not exist in the server
+        /// database.
         /// </returns>
         [OperationContract]
         MovieInfo GetMovieInfo(int id);
@@ -37,6 +41,8 @@
         /// </param>
         /// <returns>
         /// An object containing the metadata for the item.
+        /// Returns null if the specified id does not exist in the server
+        /// database.
         /// </returns>
         [OperationContract]
         AlbumInfo GetAlbumInfo(int id);
@@ -49,6 +55,7 @@
         /// </param>
         /// <returns>
         /// An object containing four lists of books, movies, albums and songs, respectively.
+        /// Returns null if the specified criteria is a null reference.
         /// </returns>
         [OperationContract]
         MediaItems GetMediaItems(MediaCriteria criteria);
@@ -87,9 +94,6 @@
         /// <returns>
         /// True if the account creation was successful, false otherwise.
         /// </returns>
-        /// <exception cref="UserCreationException">
-        /// If the user creation failed.
-        /// </exception>
         [OperationContract]
         bool CreateNewUser(Account newAccount);
 
