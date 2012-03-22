@@ -2,30 +2,36 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Security.Authentication;
-    using System.Text;
+
     using RentItDatabase;
 
     using System.Linq;
 
     public class RentItService : IRentIt
     {
-        #region Interface implementation
-
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
         /// See the interface specification of the method in IRentIt.cs for documentation
-        /// of this method.
+        /// of this method. 
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public BookInfo GetBookInfo(int id)
         {
             var db = new DatabaseDataContext();
 
             // Get the book.
-            Book book = (from b in db.Books where b.media_id.Equals(id) select b).First();
+            RentItDatabase.Book book;
+            try
+            {
+                book = (from b in db.Books
+                        where b.media_id.Equals(id)
+                        select b).First();
+            }
+
+            // If no entity was found, the specified id does not excist.
+            catch (Exception)
+            {
+                return null;
+            }
 
             // Get the rating data of the book.
             RentItDatabase.Rating rating = Util.GetMediaRating(book.media_id, db);
@@ -33,7 +39,7 @@
             // Get all the user reviews of the book.
             MediaRating mediaRating = Util.CollectMediaReviews(book.media_id, rating, db);
 
-            return BookInfo.ValueOf(book, mediaRating);
+            return RentIt.BookInfo.ValueOf(book, mediaRating);
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -41,20 +47,28 @@
         /// See the interface specification of the method in IRentIt.cs for documentation
         /// of this method.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public MovieInfo GetMovieInfo(int id)
         {
             var db = new DatabaseDataContext();
 
             // Get the movie.
-            Movie movie = (from m in db.Movies where m.media_id.Equals(id) select m).First();
+            Movie movie;
+            try
+            {
+                movie = (from m in db.Movies where m.media_id.Equals(id) select m).First();
+            }
+
+            // If no entity was found, the specified id does not excist.
+            catch (Exception)
+            {
+                return null;
+            }
 
             RentItDatabase.Rating rating = Util.GetMediaRating(movie.media_id, db);
 
             MediaRating mediaRating = Util.CollectMediaReviews(movie.media_id, rating, db);
 
-            return MovieInfo.ValueOf(movie, mediaRating);
+            return RentIt.MovieInfo.ValueOf(movie, mediaRating);
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -62,14 +76,24 @@
         /// See the interface specification of the method in IRentIt.cs for documentation
         /// of this method.
         /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
         public AlbumInfo GetAlbumInfo(int id)
         {
             var db = new DatabaseDataContext();
 
             // Get the Album
-            Album album = (from a in db.Albums where a.media_id.Equals(id) select a).First();
+            RentItDatabase.Album album;
+            try
+            {
+                album = (from a in db.Albums
+                         where a.media_id.Equals(id)
+                         select a).First();
+            }
+
+            // If no entity was found, the specified id does not excist.
+            catch (Exception)
+            {
+                return null;
+            }
 
             RentItDatabase.Rating rating = Util.GetMediaRating(album.media_id, db);
 
@@ -81,16 +105,9 @@
                                                     select s;
 
             // Collect data of all the songs contained in the album.
-            var albumSongs = new List<SongInfo>();
-            foreach (Song song in songs)
-            {
-                RentItDatabase.Rating songRatings = Util.GetMediaRating(album.media_id, db);
-                MediaRating songRating = Util.CollectMediaReviews(song.media_id, songRatings, db);
+            List<RentIt.SongInfo> albumSongs = songs.Select(song => Util.GetSongInfo(song.media_id)).ToList();
 
-                albumSongs.Add(SongInfo.ValueOf(song, songRating));
-            }
-
-            return AlbumInfo.ValueOf(album, albumSongs, mediaRating);
+            return RentIt.AlbumInfo.ValueOf(album, albumSongs, mediaRating);
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -100,10 +117,16 @@
         /// </summary>
         public MediaItems GetMediaItems(MediaCriteria criteria)
         {
-            DatabaseDataContext db = new DatabaseDataContext();
+            // If the criteria is a null reference, return null.
+            if (criteria == null)
+            {
+                return null;
+            }
+
+            var db = new DatabaseDataContext();
 
             // Get medias based on the media type.
-            IQueryable<Media> medias;
+            IQueryable<RentItDatabase.Media> medias;
             string mediaType = Util.StringValueOfMediaType(criteria.Type);
 
             // If the value is specified to "any", all medias of the database is retrieved.
@@ -146,9 +169,45 @@
             return Util.CompileMedias(finalMediaList, this);
         }
 
+        /// <author>Jacob Rasmussen.</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public MediaItems GetAlsoRentedItems(int id)
         {
-            throw new NotImplementedException();
+            //Issue 101: As of yet the service finds the first user on the list of users, who have rented the media, 
+            //and returns lists of all other rentals by that user. What if the user has no other rented items? 
+            //Should it keep finding new users until a specific number of related media items have been found?
+            //TODO: Find a specific number of media items and handle cases where the media has not been rented by anyone before.
+            var db = new DatabaseDataContext();
+            //Finds the user who rented the media.
+            User_account user = (from rental in db.Rentals
+                                 where rental.media_id == id
+                                 select rental.User_account).First();
+            var books = new List<BookInfo>();
+            var movies = new List<MovieInfo>();
+            var songs = new List<SongInfo>();
+            var albums = new List<AlbumInfo>();
+            foreach (var rental in user.Rentals)
+            {
+                //Adds each rental to their respective lists as *Info objects.
+                switch (Util.MediaTypeOfValue(rental.Media.Media_type.name))
+                {
+                    case MediaType.Book: books.Add(GetBookInfo(rental.Media.Book.media_id));
+                        break;
+                    case MediaType.Movie: movies.Add(GetMovieInfo(rental.Media.Movie.media_id));
+                        break;
+                    case MediaType.Song: RentItDatabase.Rating songRatings = Util.GetMediaRating(rental.media_id, db);
+                        MediaRating songRating = Util.CollectMediaReviews(rental.media_id, songRatings, db);
+                        songs.Add(SongInfo.ValueOf(rental.Media.Song, songRating));
+                        break;
+                    case MediaType.Album: albums.Add(GetAlbumInfo(rental.Media.Album.media_id));
+                        break;
+                }
+            }
+            return new MediaItems(books, movies, albums, songs);
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -158,6 +217,11 @@
         /// </summary>
         public Account ValidateCredentials(AccountCredentials credentials)
         {
+            if (credentials == null)
+            {
+                return null;
+            }
+
             var db = new DatabaseDataContext();
 
             IQueryable<RentItDatabase.Account> accounts =
@@ -168,7 +232,7 @@
                                       && ac.active
                                   select ac;
 
-            if(accounts.Count() <= 0)
+            if (accounts.Count() <= 0)
                 return null;
 
             // The credentials has successfully been evaluated, return account details to caller.
@@ -182,6 +246,11 @@
         /// </summary>
         public bool CreateNewUser(Account newAccount)
         {
+            if (newAccount == null)
+            {
+                return false;
+            }
+
             var db = new DatabaseDataContext();
 
             // If there exist an account with the submitted user name...
@@ -192,7 +261,7 @@
             }
 
             // The user name is free, create a new instance with the data provided.
-            RentItDatabase.Account baseAccount = new RentItDatabase.Account()
+            var baseAccount = new RentItDatabase.Account
                 {
                     user_name = newAccount.UserName,
                     full_name = newAccount.FullName,
@@ -206,14 +275,102 @@
             return true;
         }
 
+        /// <author>Jacob Rasmussen.</author>
+        /// <summary>
+        /// 
+        /// </summary>
         public UserAccount GetAllCustomerData(AccountCredentials credentials)
         {
-            throw new NotImplementedException();
+            Account account = ValidateCredentials(credentials);
+            var db = new DatabaseDataContext();
+            User_account userAccount = (from user in db.User_accounts
+                                        where user.Account.email.Equals(account.Email)
+                                        select user).First();
+            //List of rentals made by the user. 
+            var userRentals = new List<Rental>();
+            if (userAccount.Rentals.Count > 0)
+            {
+                foreach (var rental in userAccount.Rentals)
+                {
+                    //List of mediareviews to be passed in with the new customer object.
+                    var mediaReviews = new List<MediaReview>();
+                    //Fills the mediareviews-list with MediaReview-objects containing info from db.
+                    foreach (var review in rental.Media.Reviews)
+                    {
+                        mediaReviews.Add(new MediaReview(review.timestamp, review.user_name, review.review1, (Rating)review.rating));
+                    }
+                    //The rating of the rental. Used when creating a SongInfo object.
+                    var mediaRating = new MediaRating(
+                        rental.Media.Rating.ratings_count, (float)rental.Media.Rating.avg_rating, mediaReviews);
+                    //Fills the userRentals-list with Rental-objects containing info from db.
+                    switch (Util.MediaTypeOfValue(rental.Media.Media_type.name))
+                    {
+                        case MediaType.Book:
+                            userRentals.Add(new Rental(GetBookInfo(rental.media_id), rental.start_time, rental.end_time));
+                            break;
+                        case MediaType.Movie:
+                            userRentals.Add(new Rental(GetMovieInfo(rental.media_id), rental.start_time, rental.end_time));
+                            break;
+                        case MediaType.Song:
+                            userRentals.Add(new Rental(SongInfo.ValueOf(rental.Media.Song, mediaRating), rental.start_time, rental.end_time));
+                            break;
+                        case MediaType.Album:
+                            userRentals.Add(new Rental(GetAlbumInfo(rental.media_id), rental.start_time, rental.end_time));
+                            break;
+                    }
+                }
+            }
+            return new UserAccount(userAccount.user_name, userAccount.Account.full_name, userAccount.Account.email,
+                userAccount.Account.password, userAccount.credit, userRentals);
         }
 
+        /// <author>Jacob Rasmussen.</author>
+        /// <summary>
+        /// 
+        /// </summary>
         public PublisherAccount GetAllPublisherData(AccountCredentials credentials)
         {
-            throw new NotImplementedException();
+            Account account = ValidateCredentials(credentials);
+            var db = new DatabaseDataContext();
+            Publisher_account publisherAccount = (from publisher in db.Publisher_accounts
+                                                  where publisher.Account.email.Equals(account.Email)
+                                                  select publisher).First();
+            //Medias published by the given publisher account.
+            IQueryable<RentItDatabase.Media> publishedMedias = from media in db.Medias
+                                                               where media.publisher_id.Equals(publisherAccount.publisher_id)
+                                                               select media;
+            var books = new List<BookInfo>();
+            var movies = new List<MovieInfo>();
+            var songs = new List<SongInfo>();
+            var albums = new List<AlbumInfo>();
+            if (publishedMedias.Count() > 0)
+            {
+                foreach (var media in publishedMedias)
+                {
+                    //Fills each list with the respective *Info-objects.
+                    switch (Util.MediaTypeOfValue(media.Media_type.name))
+                    {
+                        case MediaType.Book:
+                            books.Add(GetBookInfo(media.Book.media_id));
+                            break;
+                        case MediaType.Movie:
+                            movies.Add(GetMovieInfo(media.Movie.media_id));
+                            break;
+                        case MediaType.Song:
+                            RentItDatabase.Rating songRatings = Util.GetMediaRating(media.id, db);
+                            MediaRating songRating = Util.CollectMediaReviews(media.id, songRatings, db);
+                            songs.Add(SongInfo.ValueOf(media.Song, songRating));
+                            break;
+                        case MediaType.Album:
+                            albums.Add(GetAlbumInfo(media.Album.media_id));
+                            break;
+                    }
+                }
+            }
+            //Object containing the four lists of published items. Passed in with the new PublisherAccount-object.
+            var mediaItems = new MediaItems(books, movies, albums, songs);
+            return new PublisherAccount(publisherAccount.user_name, publisherAccount.Account.full_name,
+                publisherAccount.Account.email, publisherAccount.Account.password, publisherAccount.Publisher.title, mediaItems);
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -223,18 +380,18 @@
         /// </summary>
         public bool UpdateAccountInfo(AccountCredentials credentials, Account account)
         {
-            try
+            if (account == null)
             {
-                this.ValidateCredentials(credentials);
+                return false;
             }
-            catch (Exception)
+            if (ValidateCredentials(credentials) == null)
             {
-                throw new InvalidCredentialException("Submitted credentials are invalid.");
+                return false;
             }
 
             // The credentials was successfully validated.
             // Retrieve the corresponding account from the database.
-            DatabaseDataContext db = new DatabaseDataContext();
+            var db = new DatabaseDataContext();
             RentItDatabase.Account dbAccount = (from acc in db.Accounts
                                                 where acc.user_name.Equals(credentials.UserName)
                                                 select acc).First();
@@ -282,8 +439,19 @@
         public bool RentMedia(int mediaId, AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
+            if (account == null) return false;
+
             var db = new DatabaseDataContext();
-            throw new NotImplementedException();
+            var r = new RentItDatabase.Rental {
+                user_name = account.UserName,
+                media_id = mediaId,
+                start_time = DateTime.Now,
+                end_time = DateTime.Now.AddDays(30)
+            };
+
+            db.Rentals.InsertOnSubmit(r);
+            db.SubmitChanges();
+            return true;
         }
 
         /// <author>Lars Toft Jacobsen</author>
@@ -295,46 +463,54 @@
         /// <returns></returns>
         public bool PublishMedia(MediaInfo info, AccountCredentials credentials)
         {
-            //var db = new DatabaseDataContext();
+            var db = new DatabaseDataContext();
 
+            // fetch mediatype and genre id's
+            Media_type mtype = (from t in db.Media_types
+                                where t.name.Equals(info.Type)
+                                select t).First();
+            Genre genre = (from g in db.Genres
+                           where g.name.Equals(info.Genre) && g.media_type.Equals(mtype)
+                           select g).First();
+            Publisher publisher = (from p in db.Publishers
+                                   where p.title.Equals(info.Publisher)
+                                   select p).First();
 
+            var newMedia = new RentItDatabase.Media {
+                title = info.Title,
+                genre_id = genre.id,
+                type_id = mtype.id,
+                price = info.Price,
+                release_date = info.ReleaseDate,
+                publisher_id = publisher.id
+            };
 
-            //RentItDatabase.Media baseMedia = new RentItDatabase.Media() {
-            //    title = info.Title,
-            //    genre_id = info.Genre,
-            //    type_id = info.Type,
-
-            //};
-
-            throw new NotImplementedException();
+            db.Medias.InsertOnSubmit(newMedia);
+            db.SubmitChanges();
+            return true;
         }
 
         /// <author>Lars Toft Jacobsen</author>
         /// <summary>
-        /// Delete user account from RentIt database
+        /// Delete user account from RentIt database. Actually the
+        /// user is only invalidated by setting the active flag to false.
         /// </summary>
         /// <param name="credentials"></param>
         /// <returns></returns>
         public bool DeleteAccount(AccountCredentials credentials)
         {
 
-            // TODO: mark account inactive in stead of 
+            // validate credentials and return false if null
             Account account = ValidateCredentials(credentials);
+            if (account == null) return false;
+
             var db = new DatabaseDataContext();
+            RentItDatabase.Account acctResult = (from user in db.Accounts
+                                                 where user.user_name.Equals(account.UserName)
+                                                 select user).First();
 
-            IQueryable<User_account> userResult = from user in db.User_accounts
-                                                  where user.user_name.Equals(account.UserName)
-                                                  select user;
-            IQueryable<RentItDatabase.Account> acctResult = from user in db.Accounts
-                                                            where user.user_name.Equals(account.UserName)
-                                                            select user;
-
-            if (userResult.Count() <= 0 || acctResult.Count() <= 0) return false;
-
-            User_account use = userResult.First();
-            RentItDatabase.Account acc = acctResult.First();
-            db.User_accounts.DeleteOnSubmit(use);
-            db.Accounts.DeleteOnSubmit(acc);
+            // set active flag
+            acctResult.active = false;
             db.SubmitChanges();
             return true;
         }
@@ -463,7 +639,5 @@
 
             return genreResult.ToList();
         }
-
-        #endregion
     }
 }
