@@ -267,7 +267,7 @@
             IQueryable<User_account> userAccount = from user in db.User_accounts
                                                    where user.user_name.Equals(account.UserName)
                                                    select user;
-            if(userAccount.Count() <= 0)
+            if (userAccount.Count() <= 0)
                 return false;
 
             userAccount.First().credit += (int)addAmount;
@@ -339,14 +339,14 @@
         public bool UpdateMediaMetadata(MediaInfo newData, AccountCredentials credentials)
         {
             var db = new DatabaseDataContext();
-            if(!IsPublisherAuthorized(newData.Id, credentials, db))
+            if (!IsPublisherAuthorized(newData.Id, credentials, db))
                 return false;
 
             // find media based on id
             IQueryable<Media> mediaResult = from m in db.Medias
                                             where m.id == newData.Id
                                             select m;
-            if(mediaResult.Count() <= 0) // media was not found
+            if (mediaResult.Count() <= 0) // media was not found
                 return false;
             Media media = mediaResult.First();
 
@@ -354,7 +354,7 @@
             IQueryable<int> genreResult = from g in db.Genres
                                           where g.name.Equals(newData.Genre)
                                           select g.id;
-            if(genreResult.Count() <= 0) // genre was not found
+            if (genreResult.Count() <= 0) // genre was not found
                 return false;
             int genreId = genreResult.First();
 
@@ -365,7 +365,8 @@
             media.title = newData.Title;
 
             // update type-specific metadata
-            switch(newData.Type) {
+            switch (newData.Type)
+            {
                 case MediaType.Album:
                     var newAlbumData = (AlbumInfo)newData;
                     Album album = media.Album;
@@ -408,14 +409,14 @@
         public bool DeleteMedia(int mediaId, AccountCredentials credentials)
         {
             var db = new DatabaseDataContext();
-            if(!IsPublisherAuthorized(mediaId, credentials, db))
+            if (!IsPublisherAuthorized(mediaId, credentials, db))
                 return false;
 
             // find media based on id
             IQueryable<Media> mediaResult = from m in db.Medias
                                             where m.id == mediaId
                                             select m;
-            if(mediaResult.Count() <= 0) // media was not found
+            if (mediaResult.Count() <= 0) // media was not found
                 return false;
 
             Media media = mediaResult.First();
@@ -442,7 +443,7 @@
             string typeString = Util.StringValueOfMediaType(mediaType);
 
             IQueryable<string> genreResult;
-            if(!typeString.Equals(Util.StringValueOfMediaType(MediaType.Any))) // find genres for specific media type
+            if (!typeString.Equals(Util.StringValueOfMediaType(MediaType.Any))) // find genres for specific media type
                 genreResult = from t in db.Genres
                               where t.Media_type1.name.Equals(typeString)
                               select t.name;
@@ -603,6 +604,13 @@
             return p.Count() > 0;
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="mediaItems"></param>
+        /// <param name="criteria"></param>
+        /// <returns></returns>
         private IQueryable<RentItDatabase.Media> OrderMedia(IQueryable<RentItDatabase.Media> mediaItems, MediaCriteria criteria)
         {
             DatabaseDataContext db = new DatabaseDataContext();
