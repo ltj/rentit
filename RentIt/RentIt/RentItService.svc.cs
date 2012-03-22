@@ -101,8 +101,8 @@
 
             // Collect album songs
             IQueryable<Song> songs = from s in db.Songs
-                                                    where s.media_id.Equals(album.media_id)
-                                                    select s;
+                                     where s.media_id.Equals(album.media_id)
+                                     select s;
 
             // Collect data of all the songs contained in the album.
             List<RentIt.SongInfo> albumSongs = songs.Select(song => Util.GetSongInfo(song.media_id)).ToList();
@@ -285,7 +285,7 @@
             Account account = ValidateCredentials(credentials);
             var db = new DatabaseDataContext();
             User_account userAccount = (from user in db.User_accounts
-                                        where user.Account.email.Equals(account.Email)
+                                        where user.Account.user_name.Equals(account.UserName)
                                         select user).First();
             //List of rentals made by the user. 
             var userRentals = new List<Rental>();
@@ -335,7 +335,7 @@
             Account account = ValidateCredentials(credentials);
             var db = new DatabaseDataContext();
             Publisher_account publisherAccount = (from publisher in db.Publisher_accounts
-                                                  where publisher.Account.email.Equals(account.Email)
+                                                  where publisher.Account.user_name.Equals(account.UserName)
                                                   select publisher).First();
             //Medias published by the given publisher account.
             IQueryable<RentItDatabase.Media> publishedMedias = from media in db.Medias
@@ -444,7 +444,8 @@
             if (account == null) return false;
 
             var db = new DatabaseDataContext();
-            var r = new RentItDatabase.Rental {
+            var r = new RentItDatabase.Rental
+            {
                 user_name = account.UserName,
                 media_id = mediaId,
                 start_time = DateTime.Now,
@@ -478,7 +479,8 @@
                                    where p.title.Equals(info.Publisher)
                                    select p).First();
 
-            var newMedia = new RentItDatabase.Media {
+            var newMedia = new RentItDatabase.Media
+            {
                 title = info.Title,
                 genre_id = genre.id,
                 type_id = mtype.id,
