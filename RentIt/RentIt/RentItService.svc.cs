@@ -246,7 +246,7 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="credentials"></param>
         /// <returns></returns>
         public UserAccount GetAllCustomerData(AccountCredentials credentials)
         {
@@ -297,7 +297,7 @@
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="credentials"></param>
         /// <returns></returns>
         public PublisherAccount GetAllPublisherData(AccountCredentials credentials)
         {
