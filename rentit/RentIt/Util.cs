@@ -157,10 +157,11 @@
             foreach(Review review in reviews) {
                 mediaReviews.Add(
                     new MediaReview(
-                        review.timestamp,
+                        review.media_id,
                         review.user_name,
                         review.review1,
-                        RatingOfValue(review.rating)));
+                        RatingOfValue(review.rating),
+                        review.timestamp));
             }
 
             var mediaRating = new MediaRating(rating.ratings_count, (int)rating.avg_rating, mediaReviews);

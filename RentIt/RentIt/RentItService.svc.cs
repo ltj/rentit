@@ -297,7 +297,7 @@
                     //Fills the mediareviews-list with MediaReview-objects containing info from db.
                     foreach (var review in rental.Media.Reviews)
                     {
-                        mediaReviews.Add(new MediaReview(review.timestamp, review.user_name, review.review1, (Rating)review.rating));
+                        mediaReviews.Add(new MediaReview(review.media_id, review.user_name, review.review1, (Rating)review.rating, review.timestamp));
                     }
                     //The rating of the rental. Used when creating a SongInfo object.
                     var mediaRating = new MediaRating(
@@ -640,6 +640,42 @@
                               select t.name;
 
             return genreResult.ToList();
+        }
+
+        /// <author>Kenneth Søhrmann</author>
+        public bool SubmitReview(MediaReview review, AccountCredentials credentials) {
+            if(ValidateCredentials(credentials) == null)
+                return false;
+
+            var db = new DatabaseDataContext();
+            RentItDatabase.Media media = (from m in db.Medias
+                                          where m.id.Equals(review.MediaId)
+                                          select m).First();
+
+            RentItDatabase.User_account userAccount = (from u in db.User_accounts 
+                                                       where u.user_name.Equals(review.UserName)
+                                                       select u).First();
+
+            var dbReview = new RentItDatabase.Review {
+                                                           Media = media,
+                                                           media_id = review.MediaId,
+                                                           review1 = review.ReviewText,
+                                                           rating = Util.ValueOfRating(review.Rating),
+                                                           timestamp = review.Timestamp,
+                                                           User_account = userAccount,
+                                                           user_name = review.UserName
+                                                       };
+
+            db.Reviews.InsertOnSubmit(dbReview);
+
+            // Calculate new average rating and rating count.
+            double avgRating = media.Rating.avg_rating;
+            int numOfRatings = media.Rating.ratings_count;
+            media.Rating.avg_rating = ((avgRating*numOfRatings) + Util.ValueOfRating(review.Rating))/(numOfRatings + 1);
+            media.Rating.ratings_count = numOfRatings + 1;
+
+            db.SubmitChanges();
+            return true;
         }
     }
 }
