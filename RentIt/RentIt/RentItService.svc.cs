@@ -277,6 +277,8 @@
 
         public bool RentMedia(int mediaId, AccountCredentials credentials)
         {
+            Account account = ValidateCredentials(credentials);
+            var db = new DatabaseDataContext();
             throw new NotImplementedException();
         }
 
@@ -285,9 +287,32 @@
             throw new NotImplementedException();
         }
 
+        /// <author>Lars Toft Jacobsen</author>
+        /// <summary>
+        /// Delete user account from RentIt database
+        /// </summary>
+        /// <param name="credentials"></param>
+        /// <returns></returns>
         public bool DeleteAccount(AccountCredentials credentials)
         {
-            throw new NotImplementedException();
+            Account account = ValidateCredentials(credentials);
+            var db = new DatabaseDataContext();
+
+            IQueryable<User_account> userResult = from user in db.User_accounts
+                                                  where user.user_name.Equals(account.UserName)
+                                                  select user;
+            IQueryable<RentItDatabase.Account> acctResult = from user in db.Accounts
+                                                            where user.user_name.Equals(account.UserName)
+                                                            select user;
+
+            if (userResult.Count() <= 0 || acctResult.Count() <= 0) return false;
+
+            User_account use = userResult.First();
+            RentItDatabase.Account acc = acctResult.First();
+            db.User_accounts.DeleteOnSubmit(use);
+            db.Accounts.DeleteOnSubmit(acc);
+            db.SubmitChanges();
+            return true;
         }
 
         /// <author>Per Mortensen</author>
