@@ -298,6 +298,17 @@
         /// <returns></returns>
         public bool PublishMedia(MediaInfo info, AccountCredentials credentials)
         {
+            //var db = new DatabaseDataContext();
+
+
+
+            //RentItDatabase.Media baseMedia = new RentItDatabase.Media() {
+            //    title = info.Title,
+            //    genre_id = info.Genre,
+            //    type_id = info.Type,
+
+            //};
+
             throw new NotImplementedException();
         }
 
@@ -309,6 +320,8 @@
         /// <returns></returns>
         public bool DeleteAccount(AccountCredentials credentials)
         {
+
+            // TODO: mark account inactive in stead of 
             Account account = ValidateCredentials(credentials);
             var db = new DatabaseDataContext();
 
