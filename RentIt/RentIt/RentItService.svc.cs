@@ -177,20 +177,24 @@
         /// <returns></returns>
         public MediaItems GetAlsoRentedItems(int id)
         {
-            //Issue 101: As of yet the service finds the first user on the list of users, who have rented the media, 
-            //and returns lists of all other rentals by that user. What if the user has no other rented items? 
-            //Should it keep finding new users until a specific number of related media items have been found?
-            //TODO: Find a specific number of media items and handle cases where the media has not been rented by anyone before.
+            if (id < 0) return null;
+            //Returns rentals made by users who also rented the given media item.
+            //TODO: Return a maximum number of media items of each media type. Should the method only return media of the same type as the given media - discuss 27.03
             var db = new DatabaseDataContext();
-            //Finds the user who rented the media.
-            User_account user = (from rental in db.Rentals
-                                 where rental.media_id == id
-                                 select rental.User_account).First();
+            //Finds the user accounts who rented the media.
+            IQueryable<User_account> users = from rental in db.Rentals
+                                             where rental.media_id == id
+                                             select rental.User_account;
+            //Finds the rentals made by all the users who rented the media.
+            IQueryable<RentItDatabase.Rental> rentals = from rental in db.Rentals
+                                                        where users.Contains(rental.User_account)
+                                                        select rental;
+            if (rentals.Count() <= 0) return null;
             var books = new List<BookInfo>();
             var movies = new List<MovieInfo>();
             var songs = new List<SongInfo>();
             var albums = new List<AlbumInfo>();
-            foreach (var rental in user.Rentals)
+            foreach (var rental in rentals)
             {
                 //Adds each rental to their respective lists as *Info objects.
                 switch (Util.MediaTypeOfValue(rental.Media.Media_type.name))
@@ -207,6 +211,7 @@
                         break;
                 }
             }
+            //Returns a MediaItems object containing lists of all the medias rented by the users who also rented the media with the given id.
             return new MediaItems(books, movies, albums, songs);
         }
 
@@ -284,6 +289,7 @@
         public UserAccount GetAllCustomerData(AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
+            if (account == null) return null;
             var db = new DatabaseDataContext();
             User_account userAccount = (from user in db.User_accounts
                                         where user.Account.user_name.Equals(account.UserName)
@@ -334,6 +340,7 @@
         public PublisherAccount GetAllPublisherData(AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
+            if (account == null) return null;
             var db = new DatabaseDataContext();
             Publisher_account publisherAccount = (from publisher in db.Publisher_accounts
                                                   where publisher.Account.user_name.Equals(account.UserName)
