@@ -241,6 +241,9 @@
         /// The credentials of the user account used to verify that the media has been paid for prior
         /// downloading the specified media.
         /// </param>
+        /// <returns>
+        /// An address for the specified media.
+        /// </returns>
         [OperationContract]
         System.Uri GetMediaUri(string mediaId, AccountCredentials credentials);
 
@@ -251,7 +254,24 @@
         /// <param name="mediaType">
         /// The media type for which all the different genres at the service is returned.
         /// </param>
+        /// <returns>
+        /// A list containing all genres for the given media type.
+        /// </returns>
         [OperationContract]
         System.Collections.Generic.List<string> GetAllGenres(MediaType mediaType);
+
+        /// <summary>
+        /// Submits a review written by a user.
+        /// </summary>
+        /// <param name="review">
+        /// A MediaReview object representing the rating and review.
+        /// </param>
+        /// <param name="credentials">The credentials of the user who wrote
+        /// the review. The user name must match the user name in the review.</param>
+        /// <returns>
+        /// true if the review was accepted, false otherwise.
+        /// </returns>
+        [OperationContract]
+        bool SubmitReview(MediaReview review, AccountCredentials credentials);
     }
 }

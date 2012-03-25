@@ -1,5 +1,6 @@
 ﻿namespace RentIt
 {
+    using System;
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
@@ -192,8 +193,12 @@
     /// An individual rating, optionally accompanied by a written review, by a single user.
     /// </summary>
     [DataContract]
-    public struct MediaReview
-    {
+    public struct MediaReview {
+        /// <summary>
+        /// The id of the media which this review is about.
+        /// </summary>
+        public readonly int MediaId;
+
         /// <summary>
         /// The time this rating was submitted.
         /// </summary>
@@ -221,8 +226,8 @@
         /// <summary>
         /// Constructor for MediaReview objects.
         /// </summary>
-        /// <param name="timestamp">
-        /// The timestamp.
+        /// <param name="mediaId">
+        /// The media id.
         /// </param>
         /// <param name="userName">
         /// The user name.
@@ -233,8 +238,12 @@
         /// <param name="rating">
         /// The rating of 1 - 5.
         /// </param>
-        public MediaReview(System.DateTime timestamp, string userName, string reviewText, Rating rating)
+        public MediaReview(int mediaId, string userName, string reviewText, Rating rating)
+            : this(mediaId, userName, reviewText, rating, DateTime.Now) { }
+
+        internal MediaReview(int mediaId, string userName, string reviewText, Rating rating, DateTime timestamp)
         {
+            MediaId = mediaId;
             Timestamp = timestamp;
             UserName = userName;
             ReviewText = reviewText;
