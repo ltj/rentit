@@ -185,12 +185,12 @@
             //TODO: Return a maximum number of media items of each media type. Should the method only return media of the same type as the given media - discuss 27.03
             var db = new DatabaseDataContext();
             //Finds the user accounts who rented the media.
-            IQueryable<User_account> users = from rental in db.Rentals
+            IQueryable<string> users = from rental in db.Rentals
                                              where rental.media_id == id
-                                             select rental.User_account;
+                                             select rental.User_account.user_name;
             //Finds the rentals made by all the users who rented the media.
             IQueryable<RentItDatabase.Rental> rentals = from rental in db.Rentals
-                                                        where users.Contains(rental.User_account)
+                                                        where users.Contains(rental.User_account.user_name)
                                                         select rental;
             if (rentals.Count() <= 0) return null;
             var books = new List<BookInfo>();
