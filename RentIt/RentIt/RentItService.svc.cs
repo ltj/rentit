@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.ServiceModel;
 
     using RentItDatabase;
 
@@ -16,7 +17,17 @@
         /// </summary>
         public BookInfo GetBookInfo(int id)
         {
-            var db = new DatabaseDataContext();
+            DatabaseDataContext db;
+            try
+            {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception e)
+            {
+                // Might be thrown if the service cannot communicate with the database properly.
+                throw new FaultException<ArgumentException>(
+                  new ArgumentException("An internal error has occured. This is not related to the input.", e));
+            }
 
             // Get the book.
             RentItDatabase.Book book;
@@ -30,16 +41,30 @@
             // If no entity was found, the specified id does not excist.
             catch (Exception)
             {
-                return null;
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("The specified book id does not exist."));
             }
 
-            // Get the rating data of the book.
-            RentItDatabase.Rating rating = Util.GetMediaRating(book.media_id, db);
+            // The BookInfo-instance to be compiled and returned to the client.
+            RentIt.BookInfo bookInfo;
+            try
+            {
+                // Get the rating data of the book.
+                RentItDatabase.Rating rating = Util.GetMediaRating(book.media_id, db);
 
-            // Get all the user reviews of the book.
-            MediaRating mediaRating = Util.CollectMediaReviews(book.media_id, rating, db);
+                // Get all the user reviews of the book.
+                MediaRating mediaRating = Util.CollectMediaReviews(book.media_id, rating, db);
 
-            return RentIt.BookInfo.ValueOf(book, mediaRating);
+                bookInfo = RentIt.BookInfo.ValueOf(book, mediaRating);
+            }
+            catch (Exception e)
+            {
+                // Might be thrown if the service cannot communicate with the database properly.
+                throw new FaultException<ArgumentException>(
+                  new ArgumentException("An internal error has occured. This is not related to the input.", e));
+            }
+
+            return bookInfo;
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -49,26 +74,48 @@
         /// </summary>
         public MovieInfo GetMovieInfo(int id)
         {
-            var db = new DatabaseDataContext();
+            DatabaseDataContext db;
+            try
+            {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception e)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("An internal error has occured. This is not related to the input.", e));
+            }
 
             // Get the movie.
             Movie movie;
             try
             {
-                movie = (from m in db.Movies where m.media_id.Equals(id) select m).First();
+                movie = (from m in db.Movies
+                         where m.media_id.Equals(id)
+                         select m).First();
             }
-
-            // If no entity was found, the specified id does not excist.
             catch (Exception)
             {
-                return null;
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("The specified movie id does not exist."));
             }
 
-            RentItDatabase.Rating rating = Util.GetMediaRating(movie.media_id, db);
+            // The MovieInfo-instance to be compiled and returned to the client.
+            RentIt.MovieInfo movieInfo;
 
-            MediaRating mediaRating = Util.CollectMediaReviews(movie.media_id, rating, db);
+            try
+            {
+                RentItDatabase.Rating rating = Util.GetMediaRating(movie.media_id, db);
+                MediaRating mediaRating = Util.CollectMediaReviews(movie.media_id, rating, db);
+                movieInfo = RentIt.MovieInfo.ValueOf(movie, mediaRating);
+            }
+            catch (Exception e)
+            {
+                // Might be thrown if the service cannot communicate with the database properly.
+                throw new FaultException<ArgumentException>(
+                  new ArgumentException("An internal error has occured. This is not related to the input.", e));
+            }
 
-            return RentIt.MovieInfo.ValueOf(movie, mediaRating);
+            return movieInfo;
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -78,7 +125,17 @@
         /// </summary>
         public AlbumInfo GetAlbumInfo(int id)
         {
-            var db = new DatabaseDataContext();
+            DatabaseDataContext db;
+            try
+            {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception e)
+            {
+                // Might be thrown if the service cannot communicate with the database properly.
+                throw new FaultException<ArgumentException>(
+                  new ArgumentException("An internal error has occured. This is not related to the input.", e));
+            }
 
             // Get the Album
             RentItDatabase.Album album;
@@ -88,26 +145,35 @@
                          where a.media_id.Equals(id)
                          select a).First();
             }
-
-            // If no entity was found, the specified id does not excist.
             catch (Exception)
             {
-                return null;
+                // If no entity was found, the specified id does not excist.
+                throw new FaultException<ArgumentException>(
+                  new ArgumentException("The specified album id does not exist."));
             }
 
-            RentItDatabase.Rating rating = Util.GetMediaRating(album.media_id, db);
+            // The albumInfo instance to be compiled and returned to the client.
+            RentIt.AlbumInfo albumInfo;
+            try
+            {
+                RentItDatabase.Rating rating = Util.GetMediaRating(album.media_id, db);
+                MediaRating mediaRating = Util.CollectMediaReviews(album.media_id, rating, db);
 
-            MediaRating mediaRating = Util.CollectMediaReviews(album.media_id, rating, db);
+                // Collect album songs
+                IQueryable<Song> songs = from s in db.Songs where s.media_id.Equals(album.media_id) select s;
 
-            // Collect album songs
-            IQueryable<Song> songs = from s in db.Songs
-                                     where s.media_id.Equals(album.media_id)
-                                     select s;
+                // Collect data of all the songs contained in the album.
+                List<RentIt.SongInfo> albumSongs = songs.Select(song => Util.GetSongInfo(song.media_id)).ToList();
+                albumInfo = RentIt.AlbumInfo.ValueOf(album, albumSongs, mediaRating);
+            }
+            catch (Exception e)
+            {
+                // Might be thrown if the service cannot communicate with the database properly.
+                throw new FaultException<ArgumentException>(
+                  new ArgumentException("An internal error has occured. This is not related to the input.", e));
+            }
 
-            // Collect data of all the songs contained in the album.
-            List<RentIt.SongInfo> albumSongs = songs.Select(song => Util.GetSongInfo(song.media_id)).ToList();
-
-            return RentIt.AlbumInfo.ValueOf(album, albumSongs, mediaRating);
+            return albumInfo;
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -120,56 +186,76 @@
             // If the criteria is a null reference, return null.
             if (criteria == null)
             {
-                return null;
+                throw new FaultException<ArgumentException>(
+                   new ArgumentException("Null-value submittet as input."));
             }
 
-            var db = new DatabaseDataContext();
-
-            // Get medias based on the media type.
-            IQueryable<RentItDatabase.Media> medias;
-            string mediaType = Util.StringValueOfMediaType(criteria.Type);
-
-            // If the value is specified to "any", all medias of the database is retrieved.
-            if (mediaType.Equals("any"))
+            DatabaseDataContext db;
+            try
             {
-                medias = from media in db.Medias
-                         select media;
+                db = new DatabaseDataContext();
             }
-            else
+            catch (Exception e)
             {
-                medias = from media in db.Medias
-                         where media.Media_type.name.Equals(mediaType)
-                         select media;
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("An internal error has occured. This is not related to the input.", e));
             }
 
-            // Sort the above medias as requested in the criterias.
-            IQueryable<Media> orderedMedias = Util.OrderMedia(medias, criteria);
-
-            // Filter the above medias after the genre if specified in the criteria.
-            if (!criteria.Genre.Equals(String.Empty))
+            // The MediaItems-instance to be compiled and returned to the client.
+            RentIt.MediaItems mediaItems;
+            try
             {
-                orderedMedias = from media in orderedMedias
-                                where
-                                    media.Genre.name.Contains(
-                                        criteria.Genre)
-                                select media;
-            }
+                // Get medias based on the media type.
+                IQueryable<RentItDatabase.Media> medias;
+                string mediaType = Util.StringValueOfMediaType(criteria.Type);
 
-            if (!criteria.SearchText.Equals(String.Empty))
+                // If the value is specified to "any", all medias of the database is retrieved.
+                if (mediaType.Equals("any"))
+                {
+                    medias = from media in db.Medias
+                             select media;
+                }
+                else
+                {
+                    medias = from media in db.Medias
+                             where media.Media_type.name.Equals(mediaType)
+                             select media;
+                }
+
+                // Sort the above medias as requested in the criterias.
+                IQueryable<Media> orderedMedias = Util.OrderMedia(medias, criteria);
+
+                // Filter the above medias after the genre if specified in the criteria.
+                if (!criteria.Genre.Equals(string.Empty))
+                {
+                    orderedMedias = from media in orderedMedias
+                                    where media.Genre.name.Contains(criteria.Genre)
+                                    select media;
+                }
+
+                if (!criteria.SearchText.Equals(string.Empty))
+                {
+                    orderedMedias =
+                        orderedMedias.Where(media => Util.GetMediaMetadataAsString(media).Contains(criteria.SearchText));
+                }
+
+                // Apply the offset and limit of the number of medias to return as specified.
+                IQueryable<Media> finalMediaList;
+                if (criteria.Limit < 0)
+                    finalMediaList = orderedMedias.Skip(criteria.Offset);
+                else
+                    finalMediaList = orderedMedias.Skip(criteria.Offset).Take(criteria.Limit);
+
+                mediaItems = Util.CompileMedias(finalMediaList, this);
+            }
+            catch (Exception e)
             {
-                orderedMedias =
-                    orderedMedias.Where(
-                        media => Util.GetMediaMetadataAsString(media).Contains(criteria.SearchText));
+                // Might be thrown if the service cannot communicate with the database properly.
+                throw new FaultException<ArgumentException>(
+                  new ArgumentException("An internal error has occured. This is not related to the input.", e));
             }
 
-            // Apply the offset and limit of the number of medias to return as specified.
-            IQueryable<Media> finalMediaList;
-            if(criteria.Limit < 0)
-                finalMediaList = orderedMedias.Skip(criteria.Offset);
-            else
-                finalMediaList = orderedMedias.Skip(criteria.Offset).Take(criteria.Limit);
-
-            return Util.CompileMedias(finalMediaList, this);
+            return mediaItems;
         }
 
         /// <author>Jacob Rasmussen.</author>
@@ -186,8 +272,8 @@
             var db = new DatabaseDataContext();
             //Finds the user accounts who rented the media.
             IQueryable<string> users = from rental in db.Rentals
-                                             where rental.media_id == id
-                                             select rental.User_account.user_name;
+                                       where rental.media_id == id
+                                       select rental.User_account.user_name;
             //Finds the rentals made by all the users who rented the media.
             IQueryable<RentItDatabase.Rental> rentals = from rental in db.Rentals
                                                         where users.Contains(rental.User_account.user_name)
@@ -227,24 +313,39 @@
         {
             if (credentials == null)
             {
-                return null;
+                throw new FaultException<System.ArgumentException>(
+                    new System.ArgumentException("The credentials-parameter is a null reference."));
             }
 
-            var db = new DatabaseDataContext();
+            DatabaseDataContext db;
+            try
+            {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception e)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("An internal error has occured. This is not related to the input.", e));
+            }
 
-            IQueryable<RentItDatabase.Account> accounts =
-                                  from ac in db.Accounts
-                                  where
-                                      ac.user_name.Equals(credentials.UserName)
-                                      && ac.password.Equals(credentials.HashedPassword)
-                                      && ac.active
-                                  select ac;
-
-            if (accounts.Count() <= 0)
-                return null;
+            // The Account-instance to be retrieved from the database.
+            RentItDatabase.Account account;
+            try
+            {
+                account = (from ac in db.Accounts
+                           where
+                               ac.user_name.Equals(credentials.UserName)
+                               && ac.password.Equals(credentials.HashedPassword) && ac.active
+                           select ac).First();
+            }
+            catch (Exception)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("The submitted credentials are invalid."));
+            }
 
             // The credentials has successfully been evaluated, return account details to caller.
-            return Account.ValueOf(accounts.First());
+            return Account.ValueOf(account);
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -256,16 +357,27 @@
         {
             if (newAccount == null)
             {
-                return false;
+                throw new FaultException<ArgumentException>(
+                   new ArgumentException("The newAccount-parameter is a null reference."));
             }
 
-            var db = new DatabaseDataContext();
+            DatabaseDataContext db;
+            try
+            {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception e)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("An internal error has occured. This is not related to the input.", e));
+            }
 
             // If there exist an account with the submitted user name...
             if (db.Accounts.Exists(ac => ac.user_name.Equals(newAccount.UserName)))
             {
                 // ...the request is told so.
-                throw new UserCreationException("The specified user name is already in use");
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("The specified user name is already in use."));
             }
 
             // The user name is free, create a new instance with the data provided.
@@ -279,8 +391,17 @@
                 };
             var userAccount = new User_account { credit = 0, Account = baseAccount };
 
-            db.User_accounts.InsertOnSubmit(userAccount);
-            db.SubmitChanges();
+            try
+            {
+                db.User_accounts.InsertOnSubmit(userAccount);
+                db.SubmitChanges();
+            }
+            catch (Exception e)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("An internal error has occured. This is not related to the input.", e));
+            }
+
             return true;
         }
 
@@ -395,27 +516,53 @@
         {
             if (account == null)
             {
-                return false;
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("The account-parameter is a null reference."));
             }
-            if (ValidateCredentials(credentials) == null)
+            try
             {
-                return false;
+                this.ValidateCredentials(credentials);
+            }
+            catch (FaultException<ArgumentException> e)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("The submitted-parameter is invalid: " + e.Detail.Message));
             }
 
             // The credentials was successfully validated.
             // Retrieve the corresponding account from the database.
-            var db = new DatabaseDataContext();
-            RentItDatabase.Account dbAccount = (from acc in db.Accounts
-                                                where acc.user_name.Equals(credentials.UserName)
-                                                select acc).First();
+            DatabaseDataContext db;
+            try
+            {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("An internal error has occured. This is not related to the input."));
+            }
 
-            // Update the database with the new submitted data.
-            dbAccount.full_name = account.FullName;
-            dbAccount.email = account.Email;
-            dbAccount.password = account.HashedPassword;
+            try
+            {
+                RentItDatabase.Account dbAccount =
+                    (from acc in db.Accounts
+                     where acc.user_name.Equals(credentials.UserName)
+                     select acc).First();
 
-            // Submit the changes to the database.
-            db.SubmitChanges();
+                // Update the database with the new submitted data.
+                dbAccount.full_name = account.FullName;
+                dbAccount.email = account.Email;
+                dbAccount.password = account.HashedPassword;
+
+                // Submit the changes to the database.
+                db.SubmitChanges();
+            }
+            catch (Exception)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("An internal error has occured. This is not related to the input."));
+            }
+
             return true;
         }
 
@@ -656,38 +803,96 @@
         }
 
         /// <author>Kenneth Søhrmann</author>
-        public bool SubmitReview(MediaReview review, AccountCredentials credentials) {
-            if(ValidateCredentials(credentials) == null)
-                return false;
+        public bool SubmitReview(MediaReview review, AccountCredentials credentials)
+        {
+            // Validate the credentials.
+            try
+            {
+                ValidateCredentials(credentials);
+            }
+            catch (FaultException<ArgumentException> e)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("The submitted credentials are invalid: " + e.Detail.Message));
+            }
 
-            var db = new DatabaseDataContext();
-            RentItDatabase.Media media = (from m in db.Medias
-                                          where m.id.Equals(review.MediaId)
-                                          select m).First();
+            // Check if the user name of the credentials match the one of the review.
+            if (!credentials.UserName.Equals(review.UserName))
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("The user name specified in review does not match that of the credentials."));
+            }
 
-            RentItDatabase.User_account userAccount = (from u in db.User_accounts 
-                                                       where u.user_name.Equals(review.UserName)
-                                                       select u).First();
+            DatabaseDataContext db;
+            try
+            {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("An internal error has occured. This is not related to the input."));
+            }
 
-            var dbReview = new RentItDatabase.Review {
-                                                           Media = media,
-                                                           media_id = review.MediaId,
-                                                           review1 = review.ReviewText,
-                                                           rating = Util.ValueOfRating(review.Rating),
-                                                           timestamp = review.Timestamp,
-                                                           User_account = userAccount,
-                                                           user_name = review.UserName
-                                                       };
+            // Get the media instance reviewed.
+            RentItDatabase.Media media;
+            try
+            {
+                media = (from m in db.Medias
+                         where m.id.Equals(review.MediaId)
+                         select m).First();
+            }
+            catch (Exception)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("The specified media id does not exist."));
+            }
 
-            db.Reviews.InsertOnSubmit(dbReview);
+            // Get the account of the reviewer.
+            RentItDatabase.User_account userAccount;
+            try
+            {
+                userAccount = (from u in db.User_accounts
+                               where u.user_name.Equals(review.UserName)
+                               select u).First();
+            }
+            catch (Exception)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("Only user accounts can add reviews. If it fails with a user account, an internal error has occured."));
+            }
 
-            // Calculate new average rating and rating count.
-            double avgRating = media.Rating.avg_rating;
-            int numOfRatings = media.Rating.ratings_count;
-            media.Rating.avg_rating = ((avgRating*numOfRatings) + Util.ValueOfRating(review.Rating))/(numOfRatings + 1);
-            media.Rating.ratings_count = numOfRatings + 1;
+            // Create a new database-entry of the submitted review.
+            var dbReview = new RentItDatabase.Review
+            {
+                Media = media,
+                media_id = review.MediaId,
+                review1 = review.ReviewText,
+                rating = Util.ValueOfRating(review.Rating),
+                timestamp = review.Timestamp,
+                User_account = userAccount,
+                user_name = review.UserName
+            };
 
-            db.SubmitChanges();
+            try
+            {
+                db.Reviews.InsertOnSubmit(dbReview);
+
+                // Calculate new average rating and rating count.
+                double avgRating = media.Rating.avg_rating;
+                int numOfRatings = media.Rating.ratings_count;
+                media.Rating.avg_rating = ((avgRating * numOfRatings) + Util.ValueOfRating(review.Rating))
+                                          / (numOfRatings + 1);
+                media.Rating.ratings_count = numOfRatings + 1;
+
+                db.SubmitChanges();
+            }
+            catch (Exception)
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("An internal error has occured. This is not related to the input."));
+            }
+
             return true;
         }
     }
