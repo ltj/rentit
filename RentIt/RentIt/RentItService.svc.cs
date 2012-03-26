@@ -163,8 +163,11 @@
             }
 
             // Apply the offset and limit of the number of medias to return as specified.
-            IQueryable<Media> finalMediaList =
-                orderedMedias.Skip(criteria.Offset).Take(criteria.Limit);
+            IQueryable<Media> finalMediaList;
+            if(criteria.Limit < 0)
+                finalMediaList = orderedMedias.Skip(criteria.Offset);
+            else
+                finalMediaList = orderedMedias.Skip(criteria.Offset).Take(criteria.Limit);
 
             return Util.CompileMedias(finalMediaList, this);
         }
