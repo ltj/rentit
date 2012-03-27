@@ -824,9 +824,21 @@
             return true;
         }
 
-        public Uri GetMediaUri(string mediaId, AccountCredentials credentials)
+        public byte[] GetMediaData(string mediaId, AccountCredentials credentials)
         {
-            throw new NotImplementedException();
+            Account account = ValidateCredentials(credentials);
+            if (account == null) throw new InvalidCredentialsException();
+
+            DatabaseDataContext db;
+            try {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception e) {
+                throw new FaultException<Exception>(
+                    new Exception("Could not connect to database", e));
+            }
+
+            return new byte[2048];
         }
 
         /// <author>Per Mortensen</author>
