@@ -841,7 +841,17 @@
     }
 
     /// <summary>
-    /// Indicates that the submitted user information is not valid.
+    /// Indicates that the submitted user credentials are not valid for this action.
+    /// </summary>
+    [DataContract]
+    public class InvalidCredentialsException : System.Exception {
+        public InvalidCredentialsException() { }
+        public InvalidCredentialsException(string message) : base(message) { }
+        public InvalidCredentialsException(string message, System.Exception inner) : base(message, inner) { }
+    }
+
+    /// <summary>
+    /// Indicates that the submitted user information is not valid for creating a new user.
     /// </summary>
     [DataContract]
     public class UserCreationException : System.Exception
