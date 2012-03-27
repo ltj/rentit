@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Linq;
     using System.Runtime.Serialization;
 
     /// <summary>
@@ -448,7 +449,7 @@
         /// The thumbnail associated with the media item this object represents.
         /// </summary>
         [DataMember]
-        public readonly System.Drawing.Image Thumbnail;
+        public readonly Binary Thumbnail;
 
         /// <summary>
         /// The rating of the media item this object represents.
@@ -456,7 +457,7 @@
         [DataMember]
         public readonly MediaRating Rating;
 
-        protected MediaInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating)
+        protected MediaInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating)
         {
             Id = id;
             Title = title;
@@ -495,7 +496,7 @@
         [DataMember]
         public readonly string Summary;
 
-        public BookInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string author, int pages, string summary)
+        public BookInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating, string author, int pages, string summary)
             : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
         {
             Author = author;
@@ -520,7 +521,7 @@
                 (int)databaseMedia.Media.price,
                 (System.DateTime)databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
-                System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
+                databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.author,
                 (int)databaseMedia.pages,
@@ -554,7 +555,7 @@
         [DataMember]
         public readonly string Summary;
 
-        public MovieInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string director, System.TimeSpan duration, string summary)
+        public MovieInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating, string director, System.TimeSpan duration, string summary)
             : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
         {
             Director = director;
@@ -579,7 +580,7 @@
                 databaseMedia.Media.price,
                 databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
-                new System.Drawing.Bitmap(23, 23), // FromFile(databaseMedia.Media.thumbnail_path),
+                databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.director,
                 TimeSpan.FromMinutes(databaseMedia.length),
@@ -605,7 +606,7 @@
         [DataMember]
         public readonly System.TimeSpan Duration;
 
-        public SongInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string artist, System.TimeSpan duration)
+        public SongInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating, string artist, System.TimeSpan duration)
             : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
         {
             Artist = artist;
@@ -629,7 +630,7 @@
                 (int)databaseMedia.Media.price,
                 (System.DateTime)databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
-                System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
+                databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.artist,
                 System.TimeSpan.FromMinutes((int)databaseMedia.length));
@@ -667,7 +668,7 @@
         [DataMember]
         public readonly System.Collections.Generic.List<SongInfo> Songs;
 
-        public AlbumInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, System.Drawing.Image thumbnail, MediaRating rating, string albumArtist, System.TimeSpan totalDuration, string description, System.Collections.Generic.List<SongInfo> songs)
+        public AlbumInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating, string albumArtist, System.TimeSpan totalDuration, string description, System.Collections.Generic.List<SongInfo> songs)
             : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
         {
             AlbumArtist = albumArtist;
@@ -701,7 +702,7 @@
                 (int)databaseMedia.Media.price,
                 (System.DateTime)databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
-                System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
+                databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.album_artist,
                 System.TimeSpan.FromMinutes(albumDuration),
@@ -883,7 +884,8 @@
     /// Indicates that the submitted user credentials are not valid for this action.
     /// </summary>
     [DataContract]
-    public class InvalidCredentialsException : System.Exception {
+    public class InvalidCredentialsException : System.Exception
+    {
         public InvalidCredentialsException() { }
         public InvalidCredentialsException(string message) : base(message) { }
         public InvalidCredentialsException(string message, System.Exception inner) : base(message, inner) { }
