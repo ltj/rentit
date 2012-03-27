@@ -824,7 +824,7 @@
             return true;
         }
 
-        public byte[] GetMediaData(string mediaId, AccountCredentials credentials)
+        public Binary GetMediaData(string mediaId, AccountCredentials credentials)
         {
             //Account account = ValidateCredentials(credentials);
             //if (account == null) throw new InvalidCredentialsException();
@@ -838,7 +838,7 @@
                     new Exception("Could not connect to database", e));
             }
 
-            return new byte[20000];
+            return new Binary(new byte[20000]);
         }
 
         /// <author>Per Mortensen</author>
