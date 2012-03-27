@@ -4,7 +4,7 @@
     using System.Collections.Generic;
 
     using RentItDatabase;
-
+    using System.Data.Linq;
     using System.Linq;
 
     public class RentItService : IRentIt
@@ -511,9 +511,18 @@
                                                  where user.user_name.Equals(account.UserName)
                                                  select user).First();
 
-            // set active flag
+            // set active flag to false (invalidate)
             acctResult.active = false;
-            db.SubmitChanges();
+
+            // submit changes
+            try {
+                db.SubmitChanges();
+            }
+            catch {
+                return false;
+            }
+
+            // everything went well
             return true;
         }
 
