@@ -17,7 +17,8 @@
         /// database.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
         BookInfo GetBookInfo(int id);
 
         /// <summary>
@@ -32,7 +33,8 @@
         /// database.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
         MovieInfo GetMovieInfo(int id);
 
         /// <summary>
@@ -47,7 +49,8 @@
         /// database.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
         AlbumInfo GetAlbumInfo(int id);
 
         /// <summary>
@@ -61,7 +64,8 @@
         /// Returns null if the specified criteria is a null reference.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
         MediaItems GetMediaItems(MediaCriteria criteria);
 
         /// <summary>
@@ -74,7 +78,7 @@
         /// An object containing four lists of books, movies, albums and songs, respectively.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
         MediaItems GetAlsoRentedItems(int id);
 
         /// <summary>
@@ -88,7 +92,9 @@
         /// Otherwise, null is returnes.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         Account ValidateCredentials(AccountCredentials credentials);
 
         /// <summary>
@@ -101,7 +107,9 @@
         /// True if the account creation was successful, false otherwise.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<UserCreationException>))]
         bool CreateNewUser(Account newAccount);
 
         /// <summary>
@@ -115,7 +123,9 @@
         /// UserAccount-instance representing all the user data of the specified user account.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         UserAccount GetAllCustomerData(AccountCredentials credentials);
 
         /// <summary>
@@ -129,7 +139,9 @@
         /// PublisherAccount-instance representing all the publisher data of the specified publisher account.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         PublisherAccount GetAllPublisherData(AccountCredentials credentials);
 
         /// <summary>
@@ -147,7 +159,9 @@
         /// false otherwise (credentials were invalid or another error in the supplied information was found).
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         bool UpdateAccountInfo(AccountCredentials credentials, Account account);
 
         /// <summary>
@@ -164,7 +178,9 @@
         /// false otherwise (credentials were invalid or another error in the supplied information was found).
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         bool AddCredits(AccountCredentials credentials, uint addAmount);
 
         /// <summary>
@@ -180,7 +196,9 @@
         /// True if the rent was successful, false otherwise.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         bool RentMedia(int mediaId, AccountCredentials credentials);
 
         /// <summary>
@@ -196,7 +214,9 @@
         /// True if the media was successfully published, false otherwise.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         bool PublishMedia(MediaInfo info, AccountCredentials credentials); // How to upload the media file has not been figured out.
 
         /// <summary>
@@ -209,7 +229,9 @@
         /// True if the deletion was successful, false otherwise.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         bool DeleteAccount(AccountCredentials credentials);
 
         /// <summary>
@@ -227,7 +249,9 @@
         /// True if the update was successful, false otherwise.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         bool UpdateMediaMetadata(MediaInfo newData, AccountCredentials credentials);
 
         /// <summary>
@@ -243,7 +267,9 @@
         /// True if the deletion was successful, false otherwise.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         bool DeleteMedia(int mediaId, AccountCredentials credentials);
 
         /// <summary>
@@ -261,7 +287,9 @@
         /// An address for the specified media.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         System.Uri GetMediaUri(string mediaId, AccountCredentials credentials);
 
         /// <summary>
@@ -290,7 +318,9 @@
         /// true if the review was accepted, false otherwise.
         /// </returns>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         bool SubmitReview(MediaReview review, AccountCredentials credentials);
     }
 }
