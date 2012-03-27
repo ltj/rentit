@@ -11,3333 +11,3547 @@
 
 namespace RentItDatabase
 {
-	using System.Data.Linq;
-	using System.Data.Linq.Mapping;
-	using System.Data;
-	using System.Collections.Generic;
-	using System.Reflection;
-	using System.Linq;
-	using System.Linq.Expressions;
-	using System.ComponentModel;
-	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="RENTIT01")]
-	public partial class DatabaseDataContext : System.Data.Linq.DataContext
-	{
-		
-		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
-		
-    #region Extensibility Method Definitions
-    partial void OnCreated();
-    partial void InsertAccount(Account instance);
-    partial void UpdateAccount(Account instance);
-    partial void DeleteAccount(Account instance);
-    partial void InsertAlbum(Album instance);
-    partial void UpdateAlbum(Album instance);
-    partial void DeleteAlbum(Album instance);
-    partial void InsertAlbum_song(Album_song instance);
-    partial void UpdateAlbum_song(Album_song instance);
-    partial void DeleteAlbum_song(Album_song instance);
-    partial void InsertBook(Book instance);
-    partial void UpdateBook(Book instance);
-    partial void DeleteBook(Book instance);
-    partial void InsertGenre(Genre instance);
-    partial void UpdateGenre(Genre instance);
-    partial void DeleteGenre(Genre instance);
-    partial void InsertMedia(Media instance);
-    partial void UpdateMedia(Media instance);
-    partial void DeleteMedia(Media instance);
-    partial void InsertMedia_type(Media_type instance);
-    partial void UpdateMedia_type(Media_type instance);
-    partial void DeleteMedia_type(Media_type instance);
-    partial void InsertMovie(Movie instance);
-    partial void UpdateMovie(Movie instance);
-    partial void DeleteMovie(Movie instance);
-    partial void InsertPublisher(Publisher instance);
-    partial void UpdatePublisher(Publisher instance);
-    partial void DeletePublisher(Publisher instance);
-    partial void InsertPublisher_account(Publisher_account instance);
-    partial void UpdatePublisher_account(Publisher_account instance);
-    partial void DeletePublisher_account(Publisher_account instance);
-    partial void InsertRating(Rating instance);
-    partial void UpdateRating(Rating instance);
-    partial void DeleteRating(Rating instance);
-    partial void InsertRental(Rental instance);
-    partial void UpdateRental(Rental instance);
-    partial void DeleteRental(Rental instance);
-    partial void InsertReview(Review instance);
-    partial void UpdateReview(Review instance);
-    partial void DeleteReview(Review instance);
-    partial void InsertSong(Song instance);
-    partial void UpdateSong(Song instance);
-    partial void DeleteSong(Song instance);
-    partial void InsertUser_account(User_account instance);
-    partial void UpdateUser_account(User_account instance);
-    partial void DeleteUser_account(User_account instance);
-    #endregion
-		
-		public DatabaseDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["RENTIT01ConnectionString"].ConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public DatabaseDataContext(string connection) : 
-				base(connection, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public DatabaseDataContext(System.Data.IDbConnection connection) : 
-				base(connection, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public DatabaseDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
-				base(connection, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public DatabaseDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
-				base(connection, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<Account> Accounts
-		{
-			get
-			{
-				return this.GetTable<Account>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Album> Albums
-		{
-			get
-			{
-				return this.GetTable<Album>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Album_song> Album_songs
-		{
-			get
-			{
-				return this.GetTable<Album_song>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Book> Books
-		{
-			get
-			{
-				return this.GetTable<Book>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Genre> Genres
-		{
-			get
-			{
-				return this.GetTable<Genre>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Media> Medias
-		{
-			get
-			{
-				return this.GetTable<Media>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Media_type> Media_types
-		{
-			get
-			{
-				return this.GetTable<Media_type>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Movie> Movies
-		{
-			get
-			{
-				return this.GetTable<Movie>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Publisher> Publishers
-		{
-			get
-			{
-				return this.GetTable<Publisher>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Publisher_account> Publisher_accounts
-		{
-			get
-			{
-				return this.GetTable<Publisher_account>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Rating> Ratings
-		{
-			get
-			{
-				return this.GetTable<Rating>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Rental> Rentals
-		{
-			get
-			{
-				return this.GetTable<Rental>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Review> Reviews
-		{
-			get
-			{
-				return this.GetTable<Review>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Song> Songs
-		{
-			get
-			{
-				return this.GetTable<Song>();
-			}
-		}
-		
-		public System.Data.Linq.Table<User_account> User_accounts
-		{
-			get
-			{
-				return this.GetTable<User_account>();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Account")]
-	public partial class Account : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _user_name;
-		
-		private string _full_name;
-		
-		private string _email;
-		
-		private string _password;
-		
-		private bool _active;
-		
-		private EntityRef<Publisher_account> _Publisher_account;
-		
-		private EntityRef<User_account> _User_account;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onuser_nameChanging(string value);
-    partial void Onuser_nameChanged();
-    partial void Onfull_nameChanging(string value);
-    partial void Onfull_nameChanged();
-    partial void OnemailChanging(string value);
-    partial void OnemailChanged();
-    partial void OnpasswordChanging(string value);
-    partial void OnpasswordChanged();
-    partial void OnactiveChanging(bool value);
-    partial void OnactiveChanged();
-    #endregion
-		
-		public Account()
-		{
-			this._Publisher_account = default(EntityRef<Publisher_account>);
-			this._User_account = default(EntityRef<User_account>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_name", DbType="Char(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string user_name
-		{
-			get
-			{
-				return this._user_name;
-			}
-			set
-			{
-				if ((this._user_name != value))
-				{
-					this.Onuser_nameChanging(value);
-					this.SendPropertyChanging();
-					this._user_name = value;
-					this.SendPropertyChanged("user_name");
-					this.Onuser_nameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_full_name", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string full_name
-		{
-			get
-			{
-				return this._full_name;
-			}
-			set
-			{
-				if ((this._full_name != value))
-				{
-					this.Onfull_nameChanging(value);
-					this.SendPropertyChanging();
-					this._full_name = value;
-					this.SendPropertyChanged("full_name");
-					this.Onfull_nameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_email", DbType="VarChar(70) NOT NULL", CanBeNull=false)]
-		public string email
-		{
-			get
-			{
-				return this._email;
-			}
-			set
-			{
-				if ((this._email != value))
-				{
-					this.OnemailChanging(value);
-					this.SendPropertyChanging();
-					this._email = value;
-					this.SendPropertyChanged("email");
-					this.OnemailChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_password", DbType="Char(40) NOT NULL", CanBeNull=false)]
-		public string password
-		{
-			get
-			{
-				return this._password;
-			}
-			set
-			{
-				if ((this._password != value))
-				{
-					this.OnpasswordChanging(value);
-					this.SendPropertyChanging();
-					this._password = value;
-					this.SendPropertyChanged("password");
-					this.OnpasswordChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_active", DbType="Bit NOT NULL")]
-		public bool active
-		{
-			get
-			{
-				return this._active;
-			}
-			set
-			{
-				if ((this._active != value))
-				{
-					this.OnactiveChanging(value);
-					this.SendPropertyChanging();
-					this._active = value;
-					this.SendPropertyChanged("active");
-					this.OnactiveChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Account_Publisher_account", Storage="_Publisher_account", ThisKey="user_name", OtherKey="user_name", IsUnique=true, IsForeignKey=false)]
-		public Publisher_account Publisher_account
-		{
-			get
-			{
-				return this._Publisher_account.Entity;
-			}
-			set
-			{
-				Publisher_account previousValue = this._Publisher_account.Entity;
-				if (((previousValue != value) 
-							|| (this._Publisher_account.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Publisher_account.Entity = null;
-						previousValue.Account = null;
-					}
-					this._Publisher_account.Entity = value;
-					if ((value != null))
-					{
-						value.Account = this;
-					}
-					this.SendPropertyChanged("Publisher_account");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Account_User_account", Storage="_User_account", ThisKey="user_name", OtherKey="user_name", IsUnique=true, IsForeignKey=false)]
-		public User_account User_account
-		{
-			get
-			{
-				return this._User_account.Entity;
-			}
-			set
-			{
-				User_account previousValue = this._User_account.Entity;
-				if (((previousValue != value) 
-							|| (this._User_account.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User_account.Entity = null;
-						previousValue.Account = null;
-					}
-					this._User_account.Entity = value;
-					if ((value != null))
-					{
-						value.Account = this;
-					}
-					this.SendPropertyChanged("User_account");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Album")]
-	public partial class Album : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _media_id;
-		
-		private string _album_artist;
-		
-		private string _description;
-		
-		private EntitySet<Album_song> _Album_songs;
-		
-		private EntityRef<Media> _Media;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onmedia_idChanging(int value);
-    partial void Onmedia_idChanged();
-    partial void Onalbum_artistChanging(string value);
-    partial void Onalbum_artistChanged();
-    partial void OndescriptionChanging(string value);
-    partial void OndescriptionChanged();
-    #endregion
-		
-		public Album()
-		{
-			this._Album_songs = new EntitySet<Album_song>(new Action<Album_song>(this.attach_Album_songs), new Action<Album_song>(this.detach_Album_songs));
-			this._Media = default(EntityRef<Media>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_media_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int media_id
-		{
-			get
-			{
-				return this._media_id;
-			}
-			set
-			{
-				if ((this._media_id != value))
-				{
-					if (this._Media.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onmedia_idChanging(value);
-					this.SendPropertyChanging();
-					this._media_id = value;
-					this.SendPropertyChanged("media_id");
-					this.Onmedia_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_album_artist", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string album_artist
-		{
-			get
-			{
-				return this._album_artist;
-			}
-			set
-			{
-				if ((this._album_artist != value))
-				{
-					this.Onalbum_artistChanging(value);
-					this.SendPropertyChanging();
-					this._album_artist = value;
-					this.SendPropertyChanged("album_artist");
-					this.Onalbum_artistChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_description", DbType="VarChar(500) NOT NULL", CanBeNull=false)]
-		public string description
-		{
-			get
-			{
-				return this._description;
-			}
-			set
-			{
-				if ((this._description != value))
-				{
-					this.OndescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._description = value;
-					this.SendPropertyChanged("description");
-					this.OndescriptionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Album_song", Storage="_Album_songs", ThisKey="media_id", OtherKey="album_id")]
-		public EntitySet<Album_song> Album_songs
-		{
-			get
-			{
-				return this._Album_songs;
-			}
-			set
-			{
-				this._Album_songs.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Album", Storage="_Media", ThisKey="media_id", OtherKey="id", IsForeignKey=true)]
-		public Media Media
-		{
-			get
-			{
-				return this._Media.Entity;
-			}
-			set
-			{
-				Media previousValue = this._Media.Entity;
-				if (((previousValue != value) 
-							|| (this._Media.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Media.Entity = null;
-						previousValue.Album = null;
-					}
-					this._Media.Entity = value;
-					if ((value != null))
-					{
-						value.Album = this;
-						this._media_id = value.id;
-					}
-					else
-					{
-						this._media_id = default(int);
-					}
-					this.SendPropertyChanged("Media");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Album_songs(Album_song entity)
-		{
-			this.SendPropertyChanging();
-			entity.Album = this;
-		}
-		
-		private void detach_Album_songs(Album_song entity)
-		{
-			this.SendPropertyChanging();
-			entity.Album = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Album_song")]
-	public partial class Album_song : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _song_id;
-		
-		private int _album_id;
-		
-		private EntityRef<Album> _Album;
-		
-		private EntityRef<Song> _Song;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onsong_idChanging(int value);
-    partial void Onsong_idChanged();
-    partial void Onalbum_idChanging(int value);
-    partial void Onalbum_idChanged();
-    #endregion
-		
-		public Album_song()
-		{
-			this._Album = default(EntityRef<Album>);
-			this._Song = default(EntityRef<Song>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_song_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int song_id
-		{
-			get
-			{
-				return this._song_id;
-			}
-			set
-			{
-				if ((this._song_id != value))
-				{
-					if (this._Song.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onsong_idChanging(value);
-					this.SendPropertyChanging();
-					this._song_id = value;
-					this.SendPropertyChanged("song_id");
-					this.Onsong_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_album_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int album_id
-		{
-			get
-			{
-				return this._album_id;
-			}
-			set
-			{
-				if ((this._album_id != value))
-				{
-					if (this._Album.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onalbum_idChanging(value);
-					this.SendPropertyChanging();
-					this._album_id = value;
-					this.SendPropertyChanged("album_id");
-					this.Onalbum_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Album_Album_song", Storage="_Album", ThisKey="album_id", OtherKey="media_id", IsForeignKey=true)]
-		public Album Album
-		{
-			get
-			{
-				return this._Album.Entity;
-			}
-			set
-			{
-				Album previousValue = this._Album.Entity;
-				if (((previousValue != value) 
-							|| (this._Album.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Album.Entity = null;
-						previousValue.Album_songs.Remove(this);
-					}
-					this._Album.Entity = value;
-					if ((value != null))
-					{
-						value.Album_songs.Add(this);
-						this._album_id = value.media_id;
-					}
-					else
-					{
-						this._album_id = default(int);
-					}
-					this.SendPropertyChanged("Album");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Song_Album_song", Storage="_Song", ThisKey="song_id", OtherKey="media_id", IsForeignKey=true)]
-		public Song Song
-		{
-			get
-			{
-				return this._Song.Entity;
-			}
-			set
-			{
-				Song previousValue = this._Song.Entity;
-				if (((previousValue != value) 
-							|| (this._Song.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Song.Entity = null;
-						previousValue.Album_songs.Remove(this);
-					}
-					this._Song.Entity = value;
-					if ((value != null))
-					{
-						value.Album_songs.Add(this);
-						this._song_id = value.media_id;
-					}
-					else
-					{
-						this._song_id = default(int);
-					}
-					this.SendPropertyChanged("Song");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Book")]
-	public partial class Book : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _media_id;
-		
-		private string _author;
-		
-		private int _pages;
-		
-		private string _summary;
-		
-		private EntityRef<Media> _Media;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onmedia_idChanging(int value);
-    partial void Onmedia_idChanged();
-    partial void OnauthorChanging(string value);
-    partial void OnauthorChanged();
-    partial void OnpagesChanging(int value);
-    partial void OnpagesChanged();
-    partial void OnsummaryChanging(string value);
-    partial void OnsummaryChanged();
-    #endregion
-		
-		public Book()
-		{
-			this._Media = default(EntityRef<Media>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_media_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int media_id
-		{
-			get
-			{
-				return this._media_id;
-			}
-			set
-			{
-				if ((this._media_id != value))
-				{
-					if (this._Media.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onmedia_idChanging(value);
-					this.SendPropertyChanging();
-					this._media_id = value;
-					this.SendPropertyChanged("media_id");
-					this.Onmedia_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_author", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string author
-		{
-			get
-			{
-				return this._author;
-			}
-			set
-			{
-				if ((this._author != value))
-				{
-					this.OnauthorChanging(value);
-					this.SendPropertyChanging();
-					this._author = value;
-					this.SendPropertyChanged("author");
-					this.OnauthorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pages", DbType="Int NOT NULL")]
-		public int pages
-		{
-			get
-			{
-				return this._pages;
-			}
-			set
-			{
-				if ((this._pages != value))
-				{
-					this.OnpagesChanging(value);
-					this.SendPropertyChanging();
-					this._pages = value;
-					this.SendPropertyChanged("pages");
-					this.OnpagesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_summary", DbType="VarChar(500) NOT NULL", CanBeNull=false)]
-		public string summary
-		{
-			get
-			{
-				return this._summary;
-			}
-			set
-			{
-				if ((this._summary != value))
-				{
-					this.OnsummaryChanging(value);
-					this.SendPropertyChanging();
-					this._summary = value;
-					this.SendPropertyChanged("summary");
-					this.OnsummaryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Book", Storage="_Media", ThisKey="media_id", OtherKey="id", IsForeignKey=true)]
-		public Media Media
-		{
-			get
-			{
-				return this._Media.Entity;
-			}
-			set
-			{
-				Media previousValue = this._Media.Entity;
-				if (((previousValue != value) 
-							|| (this._Media.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Media.Entity = null;
-						previousValue.Book = null;
-					}
-					this._Media.Entity = value;
-					if ((value != null))
-					{
-						value.Book = this;
-						this._media_id = value.id;
-					}
-					else
-					{
-						this._media_id = default(int);
-					}
-					this.SendPropertyChanged("Media");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Genre")]
-	public partial class Genre : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-		private System.Nullable<int> _media_type;
-		
-		private EntitySet<Media> _Medias;
-		
-		private EntityRef<Media_type> _Media_type1;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    partial void Onmedia_typeChanging(System.Nullable<int> value);
-    partial void Onmedia_typeChanged();
-    #endregion
-		
-		public Genre()
-		{
-			this._Medias = new EntitySet<Media>(new Action<Media>(this.attach_Medias), new Action<Media>(this.detach_Medias));
-			this._Media_type1 = default(EntityRef<Media_type>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(30) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_media_type", DbType="Int")]
-		public System.Nullable<int> media_type
-		{
-			get
-			{
-				return this._media_type;
-			}
-			set
-			{
-				if ((this._media_type != value))
-				{
-					if (this._Media_type1.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onmedia_typeChanging(value);
-					this.SendPropertyChanging();
-					this._media_type = value;
-					this.SendPropertyChanged("media_type");
-					this.Onmedia_typeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Genre_Media", Storage="_Medias", ThisKey="id", OtherKey="genre_id")]
-		public EntitySet<Media> Medias
-		{
-			get
-			{
-				return this._Medias;
-			}
-			set
-			{
-				this._Medias.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_type_Genre", Storage="_Media_type1", ThisKey="media_type", OtherKey="id", IsForeignKey=true)]
-		public Media_type Media_type1
-		{
-			get
-			{
-				return this._Media_type1.Entity;
-			}
-			set
-			{
-				Media_type previousValue = this._Media_type1.Entity;
-				if (((previousValue != value) 
-							|| (this._Media_type1.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Media_type1.Entity = null;
-						previousValue.Genres.Remove(this);
-					}
-					this._Media_type1.Entity = value;
-					if ((value != null))
-					{
-						value.Genres.Add(this);
-						this._media_type = value.id;
-					}
-					else
-					{
-						this._media_type = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Media_type1");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Medias(Media entity)
-		{
-			this.SendPropertyChanging();
-			entity.Genre = this;
-		}
-		
-		private void detach_Medias(Media entity)
-		{
-			this.SendPropertyChanging();
-			entity.Genre = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Media")]
-	public partial class Media : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _title;
-		
-		private int _id;
-		
-		private System.Nullable<int> _type_id;
-		
-		private System.Nullable<int> _genre_id;
-		
-		private int _price;
-		
-		private System.DateTime _release_date;
-		
-		private System.Nullable<int> _publisher_id;
-		
-		private string _file_path;
-		
-		private string _thumbnail_path;
-		
-		private EntityRef<Album> _Album;
-		
-		private EntityRef<Book> _Book;
-		
-		private EntityRef<Movie> _Movie;
-		
-		private EntityRef<Rating> _Rating;
-		
-		private EntitySet<Rental> _Rentals;
-		
-		private EntitySet<Review> _Reviews;
-		
-		private EntityRef<Song> _Song;
-		
-		private EntityRef<Genre> _Genre;
-		
-		private EntityRef<Media_type> _Media_type;
-		
-		private EntityRef<Publisher> _Publisher;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OntitleChanging(string value);
-    partial void OntitleChanged();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void Ontype_idChanging(System.Nullable<int> value);
-    partial void Ontype_idChanged();
-    partial void Ongenre_idChanging(System.Nullable<int> value);
-    partial void Ongenre_idChanged();
-    partial void OnpriceChanging(int value);
-    partial void OnpriceChanged();
-    partial void Onrelease_dateChanging(System.DateTime value);
-    partial void Onrelease_dateChanged();
-    partial void Onpublisher_idChanging(System.Nullable<int> value);
-    partial void Onpublisher_idChanged();
-    partial void Onfile_pathChanging(string value);
-    partial void Onfile_pathChanged();
-    partial void Onthumbnail_pathChanging(string value);
-    partial void Onthumbnail_pathChanged();
-    #endregion
-		
-		public Media()
-		{
-			this._Album = default(EntityRef<Album>);
-			this._Book = default(EntityRef<Book>);
-			this._Movie = default(EntityRef<Movie>);
-			this._Rating = default(EntityRef<Rating>);
-			this._Rentals = new EntitySet<Rental>(new Action<Rental>(this.attach_Rentals), new Action<Rental>(this.detach_Rentals));
-			this._Reviews = new EntitySet<Review>(new Action<Review>(this.attach_Reviews), new Action<Review>(this.detach_Reviews));
-			this._Song = default(EntityRef<Song>);
-			this._Genre = default(EntityRef<Genre>);
-			this._Media_type = default(EntityRef<Media_type>);
-			this._Publisher = default(EntityRef<Publisher>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string title
-		{
-			get
-			{
-				return this._title;
-			}
-			set
-			{
-				if ((this._title != value))
-				{
-					this.OntitleChanging(value);
-					this.SendPropertyChanging();
-					this._title = value;
-					this.SendPropertyChanged("title");
-					this.OntitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_type_id", DbType="Int")]
-		public System.Nullable<int> type_id
-		{
-			get
-			{
-				return this._type_id;
-			}
-			set
-			{
-				if ((this._type_id != value))
-				{
-					if (this._Media_type.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Ontype_idChanging(value);
-					this.SendPropertyChanging();
-					this._type_id = value;
-					this.SendPropertyChanged("type_id");
-					this.Ontype_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_genre_id", DbType="Int")]
-		public System.Nullable<int> genre_id
-		{
-			get
-			{
-				return this._genre_id;
-			}
-			set
-			{
-				if ((this._genre_id != value))
-				{
-					if (this._Genre.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Ongenre_idChanging(value);
-					this.SendPropertyChanging();
-					this._genre_id = value;
-					this.SendPropertyChanged("genre_id");
-					this.Ongenre_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_price", DbType="Int NOT NULL")]
-		public int price
-		{
-			get
-			{
-				return this._price;
-			}
-			set
-			{
-				if ((this._price != value))
-				{
-					this.OnpriceChanging(value);
-					this.SendPropertyChanging();
-					this._price = value;
-					this.SendPropertyChanged("price");
-					this.OnpriceChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_release_date", DbType="Date NOT NULL")]
-		public System.DateTime release_date
-		{
-			get
-			{
-				return this._release_date;
-			}
-			set
-			{
-				if ((this._release_date != value))
-				{
-					this.Onrelease_dateChanging(value);
-					this.SendPropertyChanging();
-					this._release_date = value;
-					this.SendPropertyChanged("release_date");
-					this.Onrelease_dateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_publisher_id", DbType="Int")]
-		public System.Nullable<int> publisher_id
-		{
-			get
-			{
-				return this._publisher_id;
-			}
-			set
-			{
-				if ((this._publisher_id != value))
-				{
-					if (this._Publisher.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onpublisher_idChanging(value);
-					this.SendPropertyChanging();
-					this._publisher_id = value;
-					this.SendPropertyChanged("publisher_id");
-					this.Onpublisher_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_file_path", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
-		public string file_path
-		{
-			get
-			{
-				return this._file_path;
-			}
-			set
-			{
-				if ((this._file_path != value))
-				{
-					this.Onfile_pathChanging(value);
-					this.SendPropertyChanging();
-					this._file_path = value;
-					this.SendPropertyChanged("file_path");
-					this.Onfile_pathChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_thumbnail_path", DbType="VarChar(255) NOT NULL", CanBeNull=false)]
-		public string thumbnail_path
-		{
-			get
-			{
-				return this._thumbnail_path;
-			}
-			set
-			{
-				if ((this._thumbnail_path != value))
-				{
-					this.Onthumbnail_pathChanging(value);
-					this.SendPropertyChanging();
-					this._thumbnail_path = value;
-					this.SendPropertyChanged("thumbnail_path");
-					this.Onthumbnail_pathChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Album", Storage="_Album", ThisKey="id", OtherKey="media_id", IsUnique=true, IsForeignKey=false)]
-		public Album Album
-		{
-			get
-			{
-				return this._Album.Entity;
-			}
-			set
-			{
-				Album previousValue = this._Album.Entity;
-				if (((previousValue != value) 
-							|| (this._Album.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Album.Entity = null;
-						previousValue.Media = null;
-					}
-					this._Album.Entity = value;
-					if ((value != null))
-					{
-						value.Media = this;
-					}
-					this.SendPropertyChanged("Album");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Book", Storage="_Book", ThisKey="id", OtherKey="media_id", IsUnique=true, IsForeignKey=false)]
-		public Book Book
-		{
-			get
-			{
-				return this._Book.Entity;
-			}
-			set
-			{
-				Book previousValue = this._Book.Entity;
-				if (((previousValue != value) 
-							|| (this._Book.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Book.Entity = null;
-						previousValue.Media = null;
-					}
-					this._Book.Entity = value;
-					if ((value != null))
-					{
-						value.Media = this;
-					}
-					this.SendPropertyChanged("Book");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Movie", Storage="_Movie", ThisKey="id", OtherKey="media_id", IsUnique=true, IsForeignKey=false)]
-		public Movie Movie
-		{
-			get
-			{
-				return this._Movie.Entity;
-			}
-			set
-			{
-				Movie previousValue = this._Movie.Entity;
-				if (((previousValue != value) 
-							|| (this._Movie.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Movie.Entity = null;
-						previousValue.Media = null;
-					}
-					this._Movie.Entity = value;
-					if ((value != null))
-					{
-						value.Media = this;
-					}
-					this.SendPropertyChanged("Movie");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Rating", Storage="_Rating", ThisKey="id", OtherKey="media_id", IsUnique=true, IsForeignKey=false)]
-		public Rating Rating
-		{
-			get
-			{
-				return this._Rating.Entity;
-			}
-			set
-			{
-				Rating previousValue = this._Rating.Entity;
-				if (((previousValue != value) 
-							|| (this._Rating.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Rating.Entity = null;
-						previousValue.Media = null;
-					}
-					this._Rating.Entity = value;
-					if ((value != null))
-					{
-						value.Media = this;
-					}
-					this.SendPropertyChanged("Rating");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Rental", Storage="_Rentals", ThisKey="id", OtherKey="media_id")]
-		public EntitySet<Rental> Rentals
-		{
-			get
-			{
-				return this._Rentals;
-			}
-			set
-			{
-				this._Rentals.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Review", Storage="_Reviews", ThisKey="id", OtherKey="media_id")]
-		public EntitySet<Review> Reviews
-		{
-			get
-			{
-				return this._Reviews;
-			}
-			set
-			{
-				this._Reviews.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Song", Storage="_Song", ThisKey="id", OtherKey="media_id", IsUnique=true, IsForeignKey=false)]
-		public Song Song
-		{
-			get
-			{
-				return this._Song.Entity;
-			}
-			set
-			{
-				Song previousValue = this._Song.Entity;
-				if (((previousValue != value) 
-							|| (this._Song.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Song.Entity = null;
-						previousValue.Media = null;
-					}
-					this._Song.Entity = value;
-					if ((value != null))
-					{
-						value.Media = this;
-					}
-					this.SendPropertyChanged("Song");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Genre_Media", Storage="_Genre", ThisKey="genre_id", OtherKey="id", IsForeignKey=true)]
-		public Genre Genre
-		{
-			get
-			{
-				return this._Genre.Entity;
-			}
-			set
-			{
-				Genre previousValue = this._Genre.Entity;
-				if (((previousValue != value) 
-							|| (this._Genre.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Genre.Entity = null;
-						previousValue.Medias.Remove(this);
-					}
-					this._Genre.Entity = value;
-					if ((value != null))
-					{
-						value.Medias.Add(this);
-						this._genre_id = value.id;
-					}
-					else
-					{
-						this._genre_id = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Genre");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_type_Media", Storage="_Media_type", ThisKey="type_id", OtherKey="id", IsForeignKey=true)]
-		public Media_type Media_type
-		{
-			get
-			{
-				return this._Media_type.Entity;
-			}
-			set
-			{
-				Media_type previousValue = this._Media_type.Entity;
-				if (((previousValue != value) 
-							|| (this._Media_type.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Media_type.Entity = null;
-						previousValue.Medias.Remove(this);
-					}
-					this._Media_type.Entity = value;
-					if ((value != null))
-					{
-						value.Medias.Add(this);
-						this._type_id = value.id;
-					}
-					else
-					{
-						this._type_id = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Media_type");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Publisher_Media", Storage="_Publisher", ThisKey="publisher_id", OtherKey="id", IsForeignKey=true)]
-		public Publisher Publisher
-		{
-			get
-			{
-				return this._Publisher.Entity;
-			}
-			set
-			{
-				Publisher previousValue = this._Publisher.Entity;
-				if (((previousValue != value) 
-							|| (this._Publisher.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Publisher.Entity = null;
-						previousValue.Medias.Remove(this);
-					}
-					this._Publisher.Entity = value;
-					if ((value != null))
-					{
-						value.Medias.Add(this);
-						this._publisher_id = value.id;
-					}
-					else
-					{
-						this._publisher_id = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Publisher");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Rentals(Rental entity)
-		{
-			this.SendPropertyChanging();
-			entity.Media = this;
-		}
-		
-		private void detach_Rentals(Rental entity)
-		{
-			this.SendPropertyChanging();
-			entity.Media = null;
-		}
-		
-		private void attach_Reviews(Review entity)
-		{
-			this.SendPropertyChanging();
-			entity.Media = this;
-		}
-		
-		private void detach_Reviews(Review entity)
-		{
-			this.SendPropertyChanging();
-			entity.Media = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Media_type")]
-	public partial class Media_type : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _name;
-		
-		private EntitySet<Genre> _Genres;
-		
-		private EntitySet<Media> _Medias;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OnnameChanging(string value);
-    partial void OnnameChanged();
-    #endregion
-		
-		public Media_type()
-		{
-			this._Genres = new EntitySet<Genre>(new Action<Genre>(this.attach_Genres), new Action<Genre>(this.detach_Genres));
-			this._Medias = new EntitySet<Media>(new Action<Media>(this.attach_Medias), new Action<Media>(this.detach_Medias));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="VarChar(10) NOT NULL", CanBeNull=false)]
-		public string name
-		{
-			get
-			{
-				return this._name;
-			}
-			set
-			{
-				if ((this._name != value))
-				{
-					this.OnnameChanging(value);
-					this.SendPropertyChanging();
-					this._name = value;
-					this.SendPropertyChanged("name");
-					this.OnnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_type_Genre", Storage="_Genres", ThisKey="id", OtherKey="media_type")]
-		public EntitySet<Genre> Genres
-		{
-			get
-			{
-				return this._Genres;
-			}
-			set
-			{
-				this._Genres.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_type_Media", Storage="_Medias", ThisKey="id", OtherKey="type_id")]
-		public EntitySet<Media> Medias
-		{
-			get
-			{
-				return this._Medias;
-			}
-			set
-			{
-				this._Medias.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Genres(Genre entity)
-		{
-			this.SendPropertyChanging();
-			entity.Media_type1 = this;
-		}
-		
-		private void detach_Genres(Genre entity)
-		{
-			this.SendPropertyChanging();
-			entity.Media_type1 = null;
-		}
-		
-		private void attach_Medias(Media entity)
-		{
-			this.SendPropertyChanging();
-			entity.Media_type = this;
-		}
-		
-		private void detach_Medias(Media entity)
-		{
-			this.SendPropertyChanging();
-			entity.Media_type = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Movie")]
-	public partial class Movie : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _media_id;
-		
-		private string _director;
-		
-		private int _length;
-		
-		private string _summary;
-		
-		private EntityRef<Media> _Media;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onmedia_idChanging(int value);
-    partial void Onmedia_idChanged();
-    partial void OndirectorChanging(string value);
-    partial void OndirectorChanged();
-    partial void OnlengthChanging(int value);
-    partial void OnlengthChanged();
-    partial void OnsummaryChanging(string value);
-    partial void OnsummaryChanged();
-    #endregion
-		
-		public Movie()
-		{
-			this._Media = default(EntityRef<Media>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_media_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int media_id
-		{
-			get
-			{
-				return this._media_id;
-			}
-			set
-			{
-				if ((this._media_id != value))
-				{
-					if (this._Media.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onmedia_idChanging(value);
-					this.SendPropertyChanging();
-					this._media_id = value;
-					this.SendPropertyChanged("media_id");
-					this.Onmedia_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_director", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string director
-		{
-			get
-			{
-				return this._director;
-			}
-			set
-			{
-				if ((this._director != value))
-				{
-					this.OndirectorChanging(value);
-					this.SendPropertyChanging();
-					this._director = value;
-					this.SendPropertyChanged("director");
-					this.OndirectorChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_length", DbType="Int NOT NULL")]
-		public int length
-		{
-			get
-			{
-				return this._length;
-			}
-			set
-			{
-				if ((this._length != value))
-				{
-					this.OnlengthChanging(value);
-					this.SendPropertyChanging();
-					this._length = value;
-					this.SendPropertyChanged("length");
-					this.OnlengthChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_summary", DbType="VarChar(500) NOT NULL", CanBeNull=false)]
-		public string summary
-		{
-			get
-			{
-				return this._summary;
-			}
-			set
-			{
-				if ((this._summary != value))
-				{
-					this.OnsummaryChanging(value);
-					this.SendPropertyChanging();
-					this._summary = value;
-					this.SendPropertyChanged("summary");
-					this.OnsummaryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Movie", Storage="_Media", ThisKey="media_id", OtherKey="id", IsForeignKey=true)]
-		public Media Media
-		{
-			get
-			{
-				return this._Media.Entity;
-			}
-			set
-			{
-				Media previousValue = this._Media.Entity;
-				if (((previousValue != value) 
-							|| (this._Media.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Media.Entity = null;
-						previousValue.Movie = null;
-					}
-					this._Media.Entity = value;
-					if ((value != null))
-					{
-						value.Movie = this;
-						this._media_id = value.id;
-					}
-					else
-					{
-						this._media_id = default(int);
-					}
-					this.SendPropertyChanged("Media");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Publisher")]
-	public partial class Publisher : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _id;
-		
-		private string _title;
-		
-		private EntitySet<Media> _Medias;
-		
-		private EntitySet<Publisher_account> _Publisher_accounts;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnidChanging(int value);
-    partial void OnidChanged();
-    partial void OntitleChanging(string value);
-    partial void OntitleChanged();
-    #endregion
-		
-		public Publisher()
-		{
-			this._Medias = new EntitySet<Media>(new Action<Media>(this.attach_Medias), new Action<Media>(this.detach_Medias));
-			this._Publisher_accounts = new EntitySet<Publisher_account>(new Action<Publisher_account>(this.attach_Publisher_accounts), new Action<Publisher_account>(this.detach_Publisher_accounts));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int id
-		{
-			get
-			{
-				return this._id;
-			}
-			set
-			{
-				if ((this._id != value))
-				{
-					this.OnidChanging(value);
-					this.SendPropertyChanging();
-					this._id = value;
-					this.SendPropertyChanged("id");
-					this.OnidChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_title", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string title
-		{
-			get
-			{
-				return this._title;
-			}
-			set
-			{
-				if ((this._title != value))
-				{
-					this.OntitleChanging(value);
-					this.SendPropertyChanging();
-					this._title = value;
-					this.SendPropertyChanged("title");
-					this.OntitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Publisher_Media", Storage="_Medias", ThisKey="id", OtherKey="publisher_id")]
-		public EntitySet<Media> Medias
-		{
-			get
-			{
-				return this._Medias;
-			}
-			set
-			{
-				this._Medias.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Publisher_Publisher_account", Storage="_Publisher_accounts", ThisKey="id", OtherKey="publisher_id")]
-		public EntitySet<Publisher_account> Publisher_accounts
-		{
-			get
-			{
-				return this._Publisher_accounts;
-			}
-			set
-			{
-				this._Publisher_accounts.Assign(value);
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Medias(Media entity)
-		{
-			this.SendPropertyChanging();
-			entity.Publisher = this;
-		}
-		
-		private void detach_Medias(Media entity)
-		{
-			this.SendPropertyChanging();
-			entity.Publisher = null;
-		}
-		
-		private void attach_Publisher_accounts(Publisher_account entity)
-		{
-			this.SendPropertyChanging();
-			entity.Publisher = this;
-		}
-		
-		private void detach_Publisher_accounts(Publisher_account entity)
-		{
-			this.SendPropertyChanging();
-			entity.Publisher = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Publisher_account")]
-	public partial class Publisher_account : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _user_name;
-		
-		private System.Nullable<int> _publisher_id;
-		
-		private EntityRef<Publisher> _Publisher;
-		
-		private EntityRef<Account> _Account;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onuser_nameChanging(string value);
-    partial void Onuser_nameChanged();
-    partial void Onpublisher_idChanging(System.Nullable<int> value);
-    partial void Onpublisher_idChanged();
-    #endregion
-		
-		public Publisher_account()
-		{
-			this._Publisher = default(EntityRef<Publisher>);
-			this._Account = default(EntityRef<Account>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_name", DbType="Char(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string user_name
-		{
-			get
-			{
-				return this._user_name;
-			}
-			set
-			{
-				if ((this._user_name != value))
-				{
-					if (this._Account.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onuser_nameChanging(value);
-					this.SendPropertyChanging();
-					this._user_name = value;
-					this.SendPropertyChanged("user_name");
-					this.Onuser_nameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_publisher_id", DbType="Int")]
-		public System.Nullable<int> publisher_id
-		{
-			get
-			{
-				return this._publisher_id;
-			}
-			set
-			{
-				if ((this._publisher_id != value))
-				{
-					if (this._Publisher.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onpublisher_idChanging(value);
-					this.SendPropertyChanging();
-					this._publisher_id = value;
-					this.SendPropertyChanged("publisher_id");
-					this.Onpublisher_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Publisher_Publisher_account", Storage="_Publisher", ThisKey="publisher_id", OtherKey="id", IsForeignKey=true)]
-		public Publisher Publisher
-		{
-			get
-			{
-				return this._Publisher.Entity;
-			}
-			set
-			{
-				Publisher previousValue = this._Publisher.Entity;
-				if (((previousValue != value) 
-							|| (this._Publisher.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Publisher.Entity = null;
-						previousValue.Publisher_accounts.Remove(this);
-					}
-					this._Publisher.Entity = value;
-					if ((value != null))
-					{
-						value.Publisher_accounts.Add(this);
-						this._publisher_id = value.id;
-					}
-					else
-					{
-						this._publisher_id = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Publisher");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Account_Publisher_account", Storage="_Account", ThisKey="user_name", OtherKey="user_name", IsForeignKey=true)]
-		public Account Account
-		{
-			get
-			{
-				return this._Account.Entity;
-			}
-			set
-			{
-				Account previousValue = this._Account.Entity;
-				if (((previousValue != value) 
-							|| (this._Account.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Account.Entity = null;
-						previousValue.Publisher_account = null;
-					}
-					this._Account.Entity = value;
-					if ((value != null))
-					{
-						value.Publisher_account = this;
-						this._user_name = value.user_name;
-					}
-					else
-					{
-						this._user_name = default(string);
-					}
-					this.SendPropertyChanged("Account");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Rating")]
-	public partial class Rating : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _media_id;
-		
-		private int _ratings_count;
-		
-		private double _avg_rating;
-		
-		private EntityRef<Media> _Media;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onmedia_idChanging(int value);
-    partial void Onmedia_idChanged();
-    partial void Onratings_countChanging(int value);
-    partial void Onratings_countChanged();
-    partial void Onavg_ratingChanging(double value);
-    partial void Onavg_ratingChanged();
-    #endregion
-		
-		public Rating()
-		{
-			this._Media = default(EntityRef<Media>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_media_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int media_id
-		{
-			get
-			{
-				return this._media_id;
-			}
-			set
-			{
-				if ((this._media_id != value))
-				{
-					if (this._Media.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onmedia_idChanging(value);
-					this.SendPropertyChanging();
-					this._media_id = value;
-					this.SendPropertyChanged("media_id");
-					this.Onmedia_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ratings_count", DbType="Int NOT NULL")]
-		public int ratings_count
-		{
-			get
-			{
-				return this._ratings_count;
-			}
-			set
-			{
-				if ((this._ratings_count != value))
-				{
-					this.Onratings_countChanging(value);
-					this.SendPropertyChanging();
-					this._ratings_count = value;
-					this.SendPropertyChanged("ratings_count");
-					this.Onratings_countChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_avg_rating", DbType="Float NOT NULL")]
-		public double avg_rating
-		{
-			get
-			{
-				return this._avg_rating;
-			}
-			set
-			{
-				if ((this._avg_rating != value))
-				{
-					this.Onavg_ratingChanging(value);
-					this.SendPropertyChanging();
-					this._avg_rating = value;
-					this.SendPropertyChanged("avg_rating");
-					this.Onavg_ratingChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Rating", Storage="_Media", ThisKey="media_id", OtherKey="id", IsForeignKey=true)]
-		public Media Media
-		{
-			get
-			{
-				return this._Media.Entity;
-			}
-			set
-			{
-				Media previousValue = this._Media.Entity;
-				if (((previousValue != value) 
-							|| (this._Media.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Media.Entity = null;
-						previousValue.Rating = null;
-					}
-					this._Media.Entity = value;
-					if ((value != null))
-					{
-						value.Rating = this;
-						this._media_id = value.id;
-					}
-					else
-					{
-						this._media_id = default(int);
-					}
-					this.SendPropertyChanged("Media");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Rental")]
-	public partial class Rental : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _user_name;
-		
-		private int _media_id;
-		
-		private System.DateTime _start_time;
-		
-		private System.DateTime _end_time;
-		
-		private EntityRef<Media> _Media;
-		
-		private EntityRef<User_account> _User_account;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onuser_nameChanging(string value);
-    partial void Onuser_nameChanged();
-    partial void Onmedia_idChanging(int value);
-    partial void Onmedia_idChanged();
-    partial void Onstart_timeChanging(System.DateTime value);
-    partial void Onstart_timeChanged();
-    partial void Onend_timeChanging(System.DateTime value);
-    partial void Onend_timeChanged();
-    #endregion
-		
-		public Rental()
-		{
-			this._Media = default(EntityRef<Media>);
-			this._User_account = default(EntityRef<User_account>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_name", DbType="Char(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string user_name
-		{
-			get
-			{
-				return this._user_name;
-			}
-			set
-			{
-				if ((this._user_name != value))
-				{
-					if (this._User_account.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onuser_nameChanging(value);
-					this.SendPropertyChanging();
-					this._user_name = value;
-					this.SendPropertyChanged("user_name");
-					this.Onuser_nameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_media_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int media_id
-		{
-			get
-			{
-				return this._media_id;
-			}
-			set
-			{
-				if ((this._media_id != value))
-				{
-					if (this._Media.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onmedia_idChanging(value);
-					this.SendPropertyChanging();
-					this._media_id = value;
-					this.SendPropertyChanged("media_id");
-					this.Onmedia_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_start_time", DbType="DateTime NOT NULL", IsPrimaryKey=true)]
-		public System.DateTime start_time
-		{
-			get
-			{
-				return this._start_time;
-			}
-			set
-			{
-				if ((this._start_time != value))
-				{
-					this.Onstart_timeChanging(value);
-					this.SendPropertyChanging();
-					this._start_time = value;
-					this.SendPropertyChanged("start_time");
-					this.Onstart_timeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_end_time", DbType="DateTime NOT NULL")]
-		public System.DateTime end_time
-		{
-			get
-			{
-				return this._end_time;
-			}
-			set
-			{
-				if ((this._end_time != value))
-				{
-					this.Onend_timeChanging(value);
-					this.SendPropertyChanging();
-					this._end_time = value;
-					this.SendPropertyChanged("end_time");
-					this.Onend_timeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Rental", Storage="_Media", ThisKey="media_id", OtherKey="id", IsForeignKey=true)]
-		public Media Media
-		{
-			get
-			{
-				return this._Media.Entity;
-			}
-			set
-			{
-				Media previousValue = this._Media.Entity;
-				if (((previousValue != value) 
-							|| (this._Media.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Media.Entity = null;
-						previousValue.Rentals.Remove(this);
-					}
-					this._Media.Entity = value;
-					if ((value != null))
-					{
-						value.Rentals.Add(this);
-						this._media_id = value.id;
-					}
-					else
-					{
-						this._media_id = default(int);
-					}
-					this.SendPropertyChanged("Media");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_account_Rental", Storage="_User_account", ThisKey="user_name", OtherKey="user_name", IsForeignKey=true)]
-		public User_account User_account
-		{
-			get
-			{
-				return this._User_account.Entity;
-			}
-			set
-			{
-				User_account previousValue = this._User_account.Entity;
-				if (((previousValue != value) 
-							|| (this._User_account.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User_account.Entity = null;
-						previousValue.Rentals.Remove(this);
-					}
-					this._User_account.Entity = value;
-					if ((value != null))
-					{
-						value.Rentals.Add(this);
-						this._user_name = value.user_name;
-					}
-					else
-					{
-						this._user_name = default(string);
-					}
-					this.SendPropertyChanged("User_account");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Review")]
-	public partial class Review : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _user_name;
-		
-		private int _media_id;
-		
-		private System.DateTime _timestamp;
-		
-		private string _review1;
-		
-		private int _rating;
-		
-		private EntityRef<Media> _Media;
-		
-		private EntityRef<User_account> _User_account;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onuser_nameChanging(string value);
-    partial void Onuser_nameChanged();
-    partial void Onmedia_idChanging(int value);
-    partial void Onmedia_idChanged();
-    partial void OntimestampChanging(System.DateTime value);
-    partial void OntimestampChanged();
-    partial void Onreview1Changing(string value);
-    partial void Onreview1Changed();
-    partial void OnratingChanging(int value);
-    partial void OnratingChanged();
-    #endregion
-		
-		public Review()
-		{
-			this._Media = default(EntityRef<Media>);
-			this._User_account = default(EntityRef<User_account>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_name", DbType="Char(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string user_name
-		{
-			get
-			{
-				return this._user_name;
-			}
-			set
-			{
-				if ((this._user_name != value))
-				{
-					if (this._User_account.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onuser_nameChanging(value);
-					this.SendPropertyChanging();
-					this._user_name = value;
-					this.SendPropertyChanged("user_name");
-					this.Onuser_nameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_media_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int media_id
-		{
-			get
-			{
-				return this._media_id;
-			}
-			set
-			{
-				if ((this._media_id != value))
-				{
-					if (this._Media.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onmedia_idChanging(value);
-					this.SendPropertyChanging();
-					this._media_id = value;
-					this.SendPropertyChanged("media_id");
-					this.Onmedia_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_timestamp", DbType="DateTime NOT NULL")]
-		public System.DateTime timestamp
-		{
-			get
-			{
-				return this._timestamp;
-			}
-			set
-			{
-				if ((this._timestamp != value))
-				{
-					this.OntimestampChanging(value);
-					this.SendPropertyChanging();
-					this._timestamp = value;
-					this.SendPropertyChanged("timestamp");
-					this.OntimestampChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Name="review", Storage="_review1", DbType="VarChar(500) NOT NULL", CanBeNull=false)]
-		public string review1
-		{
-			get
-			{
-				return this._review1;
-			}
-			set
-			{
-				if ((this._review1 != value))
-				{
-					this.Onreview1Changing(value);
-					this.SendPropertyChanging();
-					this._review1 = value;
-					this.SendPropertyChanged("review1");
-					this.Onreview1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_rating", DbType="Int NOT NULL")]
-		public int rating
-		{
-			get
-			{
-				return this._rating;
-			}
-			set
-			{
-				if ((this._rating != value))
-				{
-					this.OnratingChanging(value);
-					this.SendPropertyChanging();
-					this._rating = value;
-					this.SendPropertyChanged("rating");
-					this.OnratingChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Review", Storage="_Media", ThisKey="media_id", OtherKey="id", IsForeignKey=true)]
-		public Media Media
-		{
-			get
-			{
-				return this._Media.Entity;
-			}
-			set
-			{
-				Media previousValue = this._Media.Entity;
-				if (((previousValue != value) 
-							|| (this._Media.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Media.Entity = null;
-						previousValue.Reviews.Remove(this);
-					}
-					this._Media.Entity = value;
-					if ((value != null))
-					{
-						value.Reviews.Add(this);
-						this._media_id = value.id;
-					}
-					else
-					{
-						this._media_id = default(int);
-					}
-					this.SendPropertyChanged("Media");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_account_Review", Storage="_User_account", ThisKey="user_name", OtherKey="user_name", IsForeignKey=true)]
-		public User_account User_account
-		{
-			get
-			{
-				return this._User_account.Entity;
-			}
-			set
-			{
-				User_account previousValue = this._User_account.Entity;
-				if (((previousValue != value) 
-							|| (this._User_account.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._User_account.Entity = null;
-						previousValue.Reviews.Remove(this);
-					}
-					this._User_account.Entity = value;
-					if ((value != null))
-					{
-						value.Reviews.Add(this);
-						this._user_name = value.user_name;
-					}
-					else
-					{
-						this._user_name = default(string);
-					}
-					this.SendPropertyChanged("User_account");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Song")]
-	public partial class Song : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _media_id;
-		
-		private string _artist;
-		
-		private int _length;
-		
-		private EntitySet<Album_song> _Album_songs;
-		
-		private EntityRef<Media> _Media;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onmedia_idChanging(int value);
-    partial void Onmedia_idChanged();
-    partial void OnartistChanging(string value);
-    partial void OnartistChanged();
-    partial void OnlengthChanging(int value);
-    partial void OnlengthChanged();
-    #endregion
-		
-		public Song()
-		{
-			this._Album_songs = new EntitySet<Album_song>(new Action<Album_song>(this.attach_Album_songs), new Action<Album_song>(this.detach_Album_songs));
-			this._Media = default(EntityRef<Media>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_media_id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int media_id
-		{
-			get
-			{
-				return this._media_id;
-			}
-			set
-			{
-				if ((this._media_id != value))
-				{
-					if (this._Media.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onmedia_idChanging(value);
-					this.SendPropertyChanging();
-					this._media_id = value;
-					this.SendPropertyChanged("media_id");
-					this.Onmedia_idChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_artist", DbType="VarChar(100) NOT NULL", CanBeNull=false)]
-		public string artist
-		{
-			get
-			{
-				return this._artist;
-			}
-			set
-			{
-				if ((this._artist != value))
-				{
-					this.OnartistChanging(value);
-					this.SendPropertyChanging();
-					this._artist = value;
-					this.SendPropertyChanged("artist");
-					this.OnartistChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_length", DbType="Int NOT NULL")]
-		public int length
-		{
-			get
-			{
-				return this._length;
-			}
-			set
-			{
-				if ((this._length != value))
-				{
-					this.OnlengthChanging(value);
-					this.SendPropertyChanging();
-					this._length = value;
-					this.SendPropertyChanged("length");
-					this.OnlengthChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Song_Album_song", Storage="_Album_songs", ThisKey="media_id", OtherKey="song_id")]
-		public EntitySet<Album_song> Album_songs
-		{
-			get
-			{
-				return this._Album_songs;
-			}
-			set
-			{
-				this._Album_songs.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Media_Song", Storage="_Media", ThisKey="media_id", OtherKey="id", IsForeignKey=true)]
-		public Media Media
-		{
-			get
-			{
-				return this._Media.Entity;
-			}
-			set
-			{
-				Media previousValue = this._Media.Entity;
-				if (((previousValue != value) 
-							|| (this._Media.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Media.Entity = null;
-						previousValue.Song = null;
-					}
-					this._Media.Entity = value;
-					if ((value != null))
-					{
-						value.Song = this;
-						this._media_id = value.id;
-					}
-					else
-					{
-						this._media_id = default(int);
-					}
-					this.SendPropertyChanged("Media");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Album_songs(Album_song entity)
-		{
-			this.SendPropertyChanging();
-			entity.Song = this;
-		}
-		
-		private void detach_Album_songs(Album_song entity)
-		{
-			this.SendPropertyChanging();
-			entity.Song = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.User_account")]
-	public partial class User_account : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private string _user_name;
-		
-		private int _credit;
-		
-		private EntitySet<Rental> _Rentals;
-		
-		private EntitySet<Review> _Reviews;
-		
-		private EntityRef<Account> _Account;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void Onuser_nameChanging(string value);
-    partial void Onuser_nameChanged();
-    partial void OncreditChanging(int value);
-    partial void OncreditChanged();
-    #endregion
-		
-		public User_account()
-		{
-			this._Rentals = new EntitySet<Rental>(new Action<Rental>(this.attach_Rentals), new Action<Rental>(this.detach_Rentals));
-			this._Reviews = new EntitySet<Review>(new Action<Review>(this.attach_Reviews), new Action<Review>(this.detach_Reviews));
-			this._Account = default(EntityRef<Account>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_user_name", DbType="Char(20) NOT NULL", CanBeNull=false, IsPrimaryKey=true)]
-		public string user_name
-		{
-			get
-			{
-				return this._user_name;
-			}
-			set
-			{
-				if ((this._user_name != value))
-				{
-					if (this._Account.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.Onuser_nameChanging(value);
-					this.SendPropertyChanging();
-					this._user_name = value;
-					this.SendPropertyChanged("user_name");
-					this.Onuser_nameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_credit", DbType="Int NOT NULL")]
-		public int credit
-		{
-			get
-			{
-				return this._credit;
-			}
-			set
-			{
-				if ((this._credit != value))
-				{
-					this.OncreditChanging(value);
-					this.SendPropertyChanging();
-					this._credit = value;
-					this.SendPropertyChanged("credit");
-					this.OncreditChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_account_Rental", Storage="_Rentals", ThisKey="user_name", OtherKey="user_name")]
-		public EntitySet<Rental> Rentals
-		{
-			get
-			{
-				return this._Rentals;
-			}
-			set
-			{
-				this._Rentals.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="User_account_Review", Storage="_Reviews", ThisKey="user_name", OtherKey="user_name")]
-		public EntitySet<Review> Reviews
-		{
-			get
-			{
-				return this._Reviews;
-			}
-			set
-			{
-				this._Reviews.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Account_User_account", Storage="_Account", ThisKey="user_name", OtherKey="user_name", IsForeignKey=true)]
-		public Account Account
-		{
-			get
-			{
-				return this._Account.Entity;
-			}
-			set
-			{
-				Account previousValue = this._Account.Entity;
-				if (((previousValue != value) 
-							|| (this._Account.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Account.Entity = null;
-						previousValue.User_account = null;
-					}
-					this._Account.Entity = value;
-					if ((value != null))
-					{
-						value.User_account = this;
-						this._user_name = value.user_name;
-					}
-					else
-					{
-						this._user_name = default(string);
-					}
-					this.SendPropertyChanged("Account");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Rentals(Rental entity)
-		{
-			this.SendPropertyChanging();
-			entity.User_account = this;
-		}
-		
-		private void detach_Rentals(Rental entity)
-		{
-			this.SendPropertyChanging();
-			entity.User_account = null;
-		}
-		
-		private void attach_Reviews(Review entity)
-		{
-			this.SendPropertyChanging();
-			entity.User_account = this;
-		}
-		
-		private void detach_Reviews(Review entity)
-		{
-			this.SendPropertyChanging();
-			entity.User_account = null;
-		}
-	}
+    using System.Data.Linq;
+    using System.Data.Linq.Mapping;
+    using System.Data;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.ComponentModel;
+    using System;
+
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name = "RENTIT01")]
+    public partial class DatabaseDataContext : System.Data.Linq.DataContext
+    {
+
+        private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
+
+        #region Extensibility Method Definitions
+        partial void OnCreated();
+        partial void InsertAccount(Account instance);
+        partial void UpdateAccount(Account instance);
+        partial void DeleteAccount(Account instance);
+        partial void InsertUser_account(User_account instance);
+        partial void UpdateUser_account(User_account instance);
+        partial void DeleteUser_account(User_account instance);
+        partial void InsertAlbum(Album instance);
+        partial void UpdateAlbum(Album instance);
+        partial void DeleteAlbum(Album instance);
+        partial void InsertAlbum_song(Album_song instance);
+        partial void UpdateAlbum_song(Album_song instance);
+        partial void DeleteAlbum_song(Album_song instance);
+        partial void InsertBook(Book instance);
+        partial void UpdateBook(Book instance);
+        partial void DeleteBook(Book instance);
+        partial void InsertGenre(Genre instance);
+        partial void UpdateGenre(Genre instance);
+        partial void DeleteGenre(Genre instance);
+        partial void InsertMedia(Media instance);
+        partial void UpdateMedia(Media instance);
+        partial void DeleteMedia(Media instance);
+        partial void InsertMedia_file(Media_file instance);
+        partial void UpdateMedia_file(Media_file instance);
+        partial void DeleteMedia_file(Media_file instance);
+        partial void InsertMedia_type(Media_type instance);
+        partial void UpdateMedia_type(Media_type instance);
+        partial void DeleteMedia_type(Media_type instance);
+        partial void InsertMovie(Movie instance);
+        partial void UpdateMovie(Movie instance);
+        partial void DeleteMovie(Movie instance);
+        partial void InsertPublisher(Publisher instance);
+        partial void UpdatePublisher(Publisher instance);
+        partial void DeletePublisher(Publisher instance);
+        partial void InsertPublisher_account(Publisher_account instance);
+        partial void UpdatePublisher_account(Publisher_account instance);
+        partial void DeletePublisher_account(Publisher_account instance);
+        partial void InsertRating(Rating instance);
+        partial void UpdateRating(Rating instance);
+        partial void DeleteRating(Rating instance);
+        partial void InsertRental(Rental instance);
+        partial void UpdateRental(Rental instance);
+        partial void DeleteRental(Rental instance);
+        partial void InsertReview(Review instance);
+        partial void UpdateReview(Review instance);
+        partial void DeleteReview(Review instance);
+        partial void InsertSong(Song instance);
+        partial void UpdateSong(Song instance);
+        partial void DeleteSong(Song instance);
+        #endregion
+
+        public DatabaseDataContext() :
+            base(global::System.Configuration.ConfigurationManager.ConnectionStrings["RENTIT01ConnectionString"].ConnectionString, mappingSource)
+        {
+            OnCreated();
+        }
+
+        public DatabaseDataContext(string connection) :
+            base(connection, mappingSource)
+        {
+            OnCreated();
+        }
+
+        public DatabaseDataContext(System.Data.IDbConnection connection) :
+            base(connection, mappingSource)
+        {
+            OnCreated();
+        }
+
+        public DatabaseDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
+            base(connection, mappingSource)
+        {
+            OnCreated();
+        }
+
+        public DatabaseDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
+            base(connection, mappingSource)
+        {
+            OnCreated();
+        }
+
+        public System.Data.Linq.Table<Account> Accounts
+        {
+            get
+            {
+                return this.GetTable<Account>();
+            }
+        }
+
+        public System.Data.Linq.Table<User_account> User_accounts
+        {
+            get
+            {
+                return this.GetTable<User_account>();
+            }
+        }
+
+        public System.Data.Linq.Table<Album> Albums
+        {
+            get
+            {
+                return this.GetTable<Album>();
+            }
+        }
+
+        public System.Data.Linq.Table<Album_song> Album_songs
+        {
+            get
+            {
+                return this.GetTable<Album_song>();
+            }
+        }
+
+        public System.Data.Linq.Table<Book> Books
+        {
+            get
+            {
+                return this.GetTable<Book>();
+            }
+        }
+
+        public System.Data.Linq.Table<Genre> Genres
+        {
+            get
+            {
+                return this.GetTable<Genre>();
+            }
+        }
+
+        public System.Data.Linq.Table<Media> Medias
+        {
+            get
+            {
+                return this.GetTable<Media>();
+            }
+        }
+
+        public System.Data.Linq.Table<Media_file> Media_files
+        {
+            get
+            {
+                return this.GetTable<Media_file>();
+            }
+        }
+
+        public System.Data.Linq.Table<Media_type> Media_types
+        {
+            get
+            {
+                return this.GetTable<Media_type>();
+            }
+        }
+
+        public System.Data.Linq.Table<Movie> Movies
+        {
+            get
+            {
+                return this.GetTable<Movie>();
+            }
+        }
+
+        public System.Data.Linq.Table<Publisher> Publishers
+        {
+            get
+            {
+                return this.GetTable<Publisher>();
+            }
+        }
+
+        public System.Data.Linq.Table<Publisher_account> Publisher_accounts
+        {
+            get
+            {
+                return this.GetTable<Publisher_account>();
+            }
+        }
+
+        public System.Data.Linq.Table<Rating> Ratings
+        {
+            get
+            {
+                return this.GetTable<Rating>();
+            }
+        }
+
+        public System.Data.Linq.Table<Rental> Rentals
+        {
+            get
+            {
+                return this.GetTable<Rental>();
+            }
+        }
+
+        public System.Data.Linq.Table<Review> Reviews
+        {
+            get
+            {
+                return this.GetTable<Review>();
+            }
+        }
+
+        public System.Data.Linq.Table<Song> Songs
+        {
+            get
+            {
+                return this.GetTable<Song>();
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Account")]
+    public partial class Account : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private string _user_name;
+
+        private string _full_name;
+
+        private string _email;
+
+        private string _password;
+
+        private bool _active;
+
+        private EntityRef<User_account> _User_account;
+
+        private EntityRef<Publisher_account> _Publisher_account;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onuser_nameChanging(string value);
+        partial void Onuser_nameChanged();
+        partial void Onfull_nameChanging(string value);
+        partial void Onfull_nameChanged();
+        partial void OnemailChanging(string value);
+        partial void OnemailChanged();
+        partial void OnpasswordChanging(string value);
+        partial void OnpasswordChanged();
+        partial void OnactiveChanging(bool value);
+        partial void OnactiveChanged();
+        #endregion
+
+        public Account()
+        {
+            this._User_account = default(EntityRef<User_account>);
+            this._Publisher_account = default(EntityRef<Publisher_account>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        public string user_name
+        {
+            get
+            {
+                return this._user_name;
+            }
+            set
+            {
+                if ((this._user_name != value))
+                {
+                    this.Onuser_nameChanging(value);
+                    this.SendPropertyChanging();
+                    this._user_name = value;
+                    this.SendPropertyChanged("user_name");
+                    this.Onuser_nameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_full_name", DbType = "VarChar(100) NOT NULL", CanBeNull = false)]
+        public string full_name
+        {
+            get
+            {
+                return this._full_name;
+            }
+            set
+            {
+                if ((this._full_name != value))
+                {
+                    this.Onfull_nameChanging(value);
+                    this.SendPropertyChanging();
+                    this._full_name = value;
+                    this.SendPropertyChanged("full_name");
+                    this.Onfull_nameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_email", DbType = "VarChar(70) NOT NULL", CanBeNull = false)]
+        public string email
+        {
+            get
+            {
+                return this._email;
+            }
+            set
+            {
+                if ((this._email != value))
+                {
+                    this.OnemailChanging(value);
+                    this.SendPropertyChanging();
+                    this._email = value;
+                    this.SendPropertyChanged("email");
+                    this.OnemailChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_password", DbType = "Char(40) NOT NULL", CanBeNull = false)]
+        public string password
+        {
+            get
+            {
+                return this._password;
+            }
+            set
+            {
+                if ((this._password != value))
+                {
+                    this.OnpasswordChanging(value);
+                    this.SendPropertyChanging();
+                    this._password = value;
+                    this.SendPropertyChanged("password");
+                    this.OnpasswordChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_active", DbType = "Bit NOT NULL")]
+        public bool active
+        {
+            get
+            {
+                return this._active;
+            }
+            set
+            {
+                if ((this._active != value))
+                {
+                    this.OnactiveChanging(value);
+                    this.SendPropertyChanging();
+                    this._active = value;
+                    this.SendPropertyChanged("active");
+                    this.OnactiveChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_User_account", Storage = "_User_account", ThisKey = "user_name", OtherKey = "user_name", IsUnique = true, IsForeignKey = false)]
+        public User_account User_account
+        {
+            get
+            {
+                return this._User_account.Entity;
+            }
+            set
+            {
+                User_account previousValue = this._User_account.Entity;
+                if (((previousValue != value)
+                            || (this._User_account.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._User_account.Entity = null;
+                        previousValue.Account = null;
+                    }
+                    this._User_account.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Account = this;
+                    }
+                    this.SendPropertyChanged("User_account");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_Publisher_account", Storage = "_Publisher_account", ThisKey = "user_name", OtherKey = "user_name", IsUnique = true, IsForeignKey = false)]
+        public Publisher_account Publisher_account
+        {
+            get
+            {
+                return this._Publisher_account.Entity;
+            }
+            set
+            {
+                Publisher_account previousValue = this._Publisher_account.Entity;
+                if (((previousValue != value)
+                            || (this._Publisher_account.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Publisher_account.Entity = null;
+                        previousValue.Account = null;
+                    }
+                    this._Publisher_account.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Account = this;
+                    }
+                    this.SendPropertyChanged("Publisher_account");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.User_account")]
+    public partial class User_account : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private string _user_name;
+
+        private int _credit;
+
+        private EntitySet<Rental> _Rentals;
+
+        private EntitySet<Review> _Reviews;
+
+        private EntityRef<Account> _Account;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onuser_nameChanging(string value);
+        partial void Onuser_nameChanged();
+        partial void OncreditChanging(int value);
+        partial void OncreditChanged();
+        #endregion
+
+        public User_account()
+        {
+            this._Rentals = new EntitySet<Rental>(new Action<Rental>(this.attach_Rentals), new Action<Rental>(this.detach_Rentals));
+            this._Reviews = new EntitySet<Review>(new Action<Review>(this.attach_Reviews), new Action<Review>(this.detach_Reviews));
+            this._Account = default(EntityRef<Account>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        public string user_name
+        {
+            get
+            {
+                return this._user_name;
+            }
+            set
+            {
+                if ((this._user_name != value))
+                {
+                    if (this._Account.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onuser_nameChanging(value);
+                    this.SendPropertyChanging();
+                    this._user_name = value;
+                    this.SendPropertyChanged("user_name");
+                    this.Onuser_nameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_credit", DbType = "Int NOT NULL")]
+        public int credit
+        {
+            get
+            {
+                return this._credit;
+            }
+            set
+            {
+                if ((this._credit != value))
+                {
+                    this.OncreditChanging(value);
+                    this.SendPropertyChanging();
+                    this._credit = value;
+                    this.SendPropertyChanged("credit");
+                    this.OncreditChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Rental", Storage = "_Rentals", ThisKey = "user_name", OtherKey = "user_name")]
+        public EntitySet<Rental> Rentals
+        {
+            get
+            {
+                return this._Rentals;
+            }
+            set
+            {
+                this._Rentals.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Review", Storage = "_Reviews", ThisKey = "user_name", OtherKey = "user_name")]
+        public EntitySet<Review> Reviews
+        {
+            get
+            {
+                return this._Reviews;
+            }
+            set
+            {
+                this._Reviews.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_User_account", Storage = "_Account", ThisKey = "user_name", OtherKey = "user_name", IsForeignKey = true)]
+        public Account Account
+        {
+            get
+            {
+                return this._Account.Entity;
+            }
+            set
+            {
+                Account previousValue = this._Account.Entity;
+                if (((previousValue != value)
+                            || (this._Account.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Account.Entity = null;
+                        previousValue.User_account = null;
+                    }
+                    this._Account.Entity = value;
+                    if ((value != null))
+                    {
+                        value.User_account = this;
+                        this._user_name = value.user_name;
+                    }
+                    else
+                    {
+                        this._user_name = default(string);
+                    }
+                    this.SendPropertyChanged("Account");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_Rentals(Rental entity)
+        {
+            this.SendPropertyChanging();
+            entity.User_account = this;
+        }
+
+        private void detach_Rentals(Rental entity)
+        {
+            this.SendPropertyChanging();
+            entity.User_account = null;
+        }
+
+        private void attach_Reviews(Review entity)
+        {
+            this.SendPropertyChanging();
+            entity.User_account = this;
+        }
+
+        private void detach_Reviews(Review entity)
+        {
+            this.SendPropertyChanging();
+            entity.User_account = null;
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Album")]
+    public partial class Album : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _media_id;
+
+        private string _album_artist;
+
+        private string _description;
+
+        private EntitySet<Album_song> _Album_songs;
+
+        private EntityRef<Media> _Media;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onmedia_idChanging(int value);
+        partial void Onmedia_idChanged();
+        partial void Onalbum_artistChanging(string value);
+        partial void Onalbum_artistChanged();
+        partial void OndescriptionChanging(string value);
+        partial void OndescriptionChanged();
+        #endregion
+
+        public Album()
+        {
+            this._Album_songs = new EntitySet<Album_song>(new Action<Album_song>(this.attach_Album_songs), new Action<Album_song>(this.detach_Album_songs));
+            this._Media = default(EntityRef<Media>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_media_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int media_id
+        {
+            get
+            {
+                return this._media_id;
+            }
+            set
+            {
+                if ((this._media_id != value))
+                {
+                    if (this._Media.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onmedia_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._media_id = value;
+                    this.SendPropertyChanged("media_id");
+                    this.Onmedia_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_album_artist", DbType = "VarChar(100) NOT NULL", CanBeNull = false)]
+        public string album_artist
+        {
+            get
+            {
+                return this._album_artist;
+            }
+            set
+            {
+                if ((this._album_artist != value))
+                {
+                    this.Onalbum_artistChanging(value);
+                    this.SendPropertyChanging();
+                    this._album_artist = value;
+                    this.SendPropertyChanged("album_artist");
+                    this.Onalbum_artistChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_description", DbType = "VarChar(500) NOT NULL", CanBeNull = false)]
+        public string description
+        {
+            get
+            {
+                return this._description;
+            }
+            set
+            {
+                if ((this._description != value))
+                {
+                    this.OndescriptionChanging(value);
+                    this.SendPropertyChanging();
+                    this._description = value;
+                    this.SendPropertyChanged("description");
+                    this.OndescriptionChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Album_Album_song", Storage = "_Album_songs", ThisKey = "media_id", OtherKey = "album_id")]
+        public EntitySet<Album_song> Album_songs
+        {
+            get
+            {
+                return this._Album_songs;
+            }
+            set
+            {
+                this._Album_songs.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Album", Storage = "_Media", ThisKey = "media_id", OtherKey = "id", IsForeignKey = true)]
+        public Media Media
+        {
+            get
+            {
+                return this._Media.Entity;
+            }
+            set
+            {
+                Media previousValue = this._Media.Entity;
+                if (((previousValue != value)
+                            || (this._Media.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Media.Entity = null;
+                        previousValue.Album = null;
+                    }
+                    this._Media.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Album = this;
+                        this._media_id = value.id;
+                    }
+                    else
+                    {
+                        this._media_id = default(int);
+                    }
+                    this.SendPropertyChanged("Media");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_Album_songs(Album_song entity)
+        {
+            this.SendPropertyChanging();
+            entity.Album = this;
+        }
+
+        private void detach_Album_songs(Album_song entity)
+        {
+            this.SendPropertyChanging();
+            entity.Album = null;
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Album_song")]
+    public partial class Album_song : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _song_id;
+
+        private int _album_id;
+
+        private EntityRef<Album> _Album;
+
+        private EntityRef<Song> _Song;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onsong_idChanging(int value);
+        partial void Onsong_idChanged();
+        partial void Onalbum_idChanging(int value);
+        partial void Onalbum_idChanged();
+        #endregion
+
+        public Album_song()
+        {
+            this._Album = default(EntityRef<Album>);
+            this._Song = default(EntityRef<Song>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_song_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int song_id
+        {
+            get
+            {
+                return this._song_id;
+            }
+            set
+            {
+                if ((this._song_id != value))
+                {
+                    if (this._Song.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onsong_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._song_id = value;
+                    this.SendPropertyChanged("song_id");
+                    this.Onsong_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_album_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int album_id
+        {
+            get
+            {
+                return this._album_id;
+            }
+            set
+            {
+                if ((this._album_id != value))
+                {
+                    if (this._Album.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onalbum_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._album_id = value;
+                    this.SendPropertyChanged("album_id");
+                    this.Onalbum_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Album_Album_song", Storage = "_Album", ThisKey = "album_id", OtherKey = "media_id", IsForeignKey = true)]
+        public Album Album
+        {
+            get
+            {
+                return this._Album.Entity;
+            }
+            set
+            {
+                Album previousValue = this._Album.Entity;
+                if (((previousValue != value)
+                            || (this._Album.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Album.Entity = null;
+                        previousValue.Album_songs.Remove(this);
+                    }
+                    this._Album.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Album_songs.Add(this);
+                        this._album_id = value.media_id;
+                    }
+                    else
+                    {
+                        this._album_id = default(int);
+                    }
+                    this.SendPropertyChanged("Album");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Song_Album_song", Storage = "_Song", ThisKey = "song_id", OtherKey = "media_id", IsForeignKey = true)]
+        public Song Song
+        {
+            get
+            {
+                return this._Song.Entity;
+            }
+            set
+            {
+                Song previousValue = this._Song.Entity;
+                if (((previousValue != value)
+                            || (this._Song.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Song.Entity = null;
+                        previousValue.Album_songs.Remove(this);
+                    }
+                    this._Song.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Album_songs.Add(this);
+                        this._song_id = value.media_id;
+                    }
+                    else
+                    {
+                        this._song_id = default(int);
+                    }
+                    this.SendPropertyChanged("Song");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Book")]
+    public partial class Book : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _media_id;
+
+        private string _author;
+
+        private int _pages;
+
+        private string _summary;
+
+        private EntityRef<Media> _Media;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onmedia_idChanging(int value);
+        partial void Onmedia_idChanged();
+        partial void OnauthorChanging(string value);
+        partial void OnauthorChanged();
+        partial void OnpagesChanging(int value);
+        partial void OnpagesChanged();
+        partial void OnsummaryChanging(string value);
+        partial void OnsummaryChanged();
+        #endregion
+
+        public Book()
+        {
+            this._Media = default(EntityRef<Media>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_media_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int media_id
+        {
+            get
+            {
+                return this._media_id;
+            }
+            set
+            {
+                if ((this._media_id != value))
+                {
+                    if (this._Media.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onmedia_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._media_id = value;
+                    this.SendPropertyChanged("media_id");
+                    this.Onmedia_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_author", DbType = "VarChar(100) NOT NULL", CanBeNull = false)]
+        public string author
+        {
+            get
+            {
+                return this._author;
+            }
+            set
+            {
+                if ((this._author != value))
+                {
+                    this.OnauthorChanging(value);
+                    this.SendPropertyChanging();
+                    this._author = value;
+                    this.SendPropertyChanged("author");
+                    this.OnauthorChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_pages", DbType = "Int NOT NULL")]
+        public int pages
+        {
+            get
+            {
+                return this._pages;
+            }
+            set
+            {
+                if ((this._pages != value))
+                {
+                    this.OnpagesChanging(value);
+                    this.SendPropertyChanging();
+                    this._pages = value;
+                    this.SendPropertyChanged("pages");
+                    this.OnpagesChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_summary", DbType = "VarChar(500) NOT NULL", CanBeNull = false)]
+        public string summary
+        {
+            get
+            {
+                return this._summary;
+            }
+            set
+            {
+                if ((this._summary != value))
+                {
+                    this.OnsummaryChanging(value);
+                    this.SendPropertyChanging();
+                    this._summary = value;
+                    this.SendPropertyChanged("summary");
+                    this.OnsummaryChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Book", Storage = "_Media", ThisKey = "media_id", OtherKey = "id", IsForeignKey = true)]
+        public Media Media
+        {
+            get
+            {
+                return this._Media.Entity;
+            }
+            set
+            {
+                Media previousValue = this._Media.Entity;
+                if (((previousValue != value)
+                            || (this._Media.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Media.Entity = null;
+                        previousValue.Book = null;
+                    }
+                    this._Media.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Book = this;
+                        this._media_id = value.id;
+                    }
+                    else
+                    {
+                        this._media_id = default(int);
+                    }
+                    this.SendPropertyChanged("Media");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Genre")]
+    public partial class Genre : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _id;
+
+        private string _name;
+
+        private System.Nullable<int> _media_type;
+
+        private EntitySet<Media> _Medias;
+
+        private EntityRef<Media_type> _Media_type1;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnidChanging(int value);
+        partial void OnidChanged();
+        partial void OnnameChanging(string value);
+        partial void OnnameChanged();
+        partial void Onmedia_typeChanging(System.Nullable<int> value);
+        partial void Onmedia_typeChanged();
+        #endregion
+
+        public Genre()
+        {
+            this._Medias = new EntitySet<Media>(new Action<Media>(this.attach_Medias), new Action<Media>(this.detach_Medias));
+            this._Media_type1 = default(EntityRef<Media_type>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                if ((this._id != value))
+                {
+                    this.OnidChanging(value);
+                    this.SendPropertyChanging();
+                    this._id = value;
+                    this.SendPropertyChanged("id");
+                    this.OnidChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_name", DbType = "VarChar(30) NOT NULL", CanBeNull = false)]
+        public string name
+        {
+            get
+            {
+                return this._name;
+            }
+            set
+            {
+                if ((this._name != value))
+                {
+                    this.OnnameChanging(value);
+                    this.SendPropertyChanging();
+                    this._name = value;
+                    this.SendPropertyChanged("name");
+                    this.OnnameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_media_type", DbType = "Int")]
+        public System.Nullable<int> media_type
+        {
+            get
+            {
+                return this._media_type;
+            }
+            set
+            {
+                if ((this._media_type != value))
+                {
+                    if (this._Media_type1.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onmedia_typeChanging(value);
+                    this.SendPropertyChanging();
+                    this._media_type = value;
+                    this.SendPropertyChanged("media_type");
+                    this.Onmedia_typeChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Genre_Media", Storage = "_Medias", ThisKey = "id", OtherKey = "genre_id")]
+        public EntitySet<Media> Medias
+        {
+            get
+            {
+                return this._Medias;
+            }
+            set
+            {
+                this._Medias.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_type_Genre", Storage = "_Media_type1", ThisKey = "media_type", OtherKey = "id", IsForeignKey = true)]
+        public Media_type Media_type1
+        {
+            get
+            {
+                return this._Media_type1.Entity;
+            }
+            set
+            {
+                Media_type previousValue = this._Media_type1.Entity;
+                if (((previousValue != value)
+                            || (this._Media_type1.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Media_type1.Entity = null;
+                        previousValue.Genres.Remove(this);
+                    }
+                    this._Media_type1.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Genres.Add(this);
+                        this._media_type = value.id;
+                    }
+                    else
+                    {
+                        this._media_type = default(Nullable<int>);
+                    }
+                    this.SendPropertyChanged("Media_type1");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_Medias(Media entity)
+        {
+            this.SendPropertyChanging();
+            entity.Genre = this;
+        }
+
+        private void detach_Medias(Media entity)
+        {
+            this.SendPropertyChanging();
+            entity.Genre = null;
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Media")]
+    public partial class Media : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private string _title;
+
+        private int _id;
+
+        private System.Nullable<int> _type_id;
+
+        private System.Nullable<int> _genre_id;
+
+        private int _price;
+
+        private System.DateTime _release_date;
+
+        private System.Nullable<int> _publisher_id;
+
+        private System.Data.Linq.Binary _thumbnail;
+
+        private System.Nullable<int> _media_file_id;
+
+        private EntityRef<Album> _Album;
+
+        private EntityRef<Book> _Book;
+
+        private EntityRef<Movie> _Movie;
+
+        private EntityRef<Rating> _Rating;
+
+        private EntitySet<Rental> _Rentals;
+
+        private EntitySet<Review> _Reviews;
+
+        private EntityRef<Song> _Song;
+
+        private EntityRef<Genre> _Genre;
+
+        private EntityRef<Media_file> _Media_file;
+
+        private EntityRef<Media_type> _Media_type;
+
+        private EntityRef<Publisher> _Publisher;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OntitleChanging(string value);
+        partial void OntitleChanged();
+        partial void OnidChanging(int value);
+        partial void OnidChanged();
+        partial void Ontype_idChanging(System.Nullable<int> value);
+        partial void Ontype_idChanged();
+        partial void Ongenre_idChanging(System.Nullable<int> value);
+        partial void Ongenre_idChanged();
+        partial void OnpriceChanging(int value);
+        partial void OnpriceChanged();
+        partial void Onrelease_dateChanging(System.DateTime value);
+        partial void Onrelease_dateChanged();
+        partial void Onpublisher_idChanging(System.Nullable<int> value);
+        partial void Onpublisher_idChanged();
+        partial void OnthumbnailChanging(System.Data.Linq.Binary value);
+        partial void OnthumbnailChanged();
+        partial void Onmedia_file_idChanging(System.Nullable<int> value);
+        partial void Onmedia_file_idChanged();
+        #endregion
+
+        public Media()
+        {
+            this._Album = default(EntityRef<Album>);
+            this._Book = default(EntityRef<Book>);
+            this._Movie = default(EntityRef<Movie>);
+            this._Rating = default(EntityRef<Rating>);
+            this._Rentals = new EntitySet<Rental>(new Action<Rental>(this.attach_Rentals), new Action<Rental>(this.detach_Rentals));
+            this._Reviews = new EntitySet<Review>(new Action<Review>(this.attach_Reviews), new Action<Review>(this.detach_Reviews));
+            this._Song = default(EntityRef<Song>);
+            this._Genre = default(EntityRef<Genre>);
+            this._Media_file = default(EntityRef<Media_file>);
+            this._Media_type = default(EntityRef<Media_type>);
+            this._Publisher = default(EntityRef<Publisher>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_title", DbType = "VarChar(100) NOT NULL", CanBeNull = false)]
+        public string title
+        {
+            get
+            {
+                return this._title;
+            }
+            set
+            {
+                if ((this._title != value))
+                {
+                    this.OntitleChanging(value);
+                    this.SendPropertyChanging();
+                    this._title = value;
+                    this.SendPropertyChanged("title");
+                    this.OntitleChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                if ((this._id != value))
+                {
+                    this.OnidChanging(value);
+                    this.SendPropertyChanging();
+                    this._id = value;
+                    this.SendPropertyChanged("id");
+                    this.OnidChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_type_id", DbType = "Int")]
+        public System.Nullable<int> type_id
+        {
+            get
+            {
+                return this._type_id;
+            }
+            set
+            {
+                if ((this._type_id != value))
+                {
+                    if (this._Media_type.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Ontype_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._type_id = value;
+                    this.SendPropertyChanged("type_id");
+                    this.Ontype_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_genre_id", DbType = "Int")]
+        public System.Nullable<int> genre_id
+        {
+            get
+            {
+                return this._genre_id;
+            }
+            set
+            {
+                if ((this._genre_id != value))
+                {
+                    if (this._Genre.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Ongenre_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._genre_id = value;
+                    this.SendPropertyChanged("genre_id");
+                    this.Ongenre_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_price", DbType = "Int NOT NULL")]
+        public int price
+        {
+            get
+            {
+                return this._price;
+            }
+            set
+            {
+                if ((this._price != value))
+                {
+                    this.OnpriceChanging(value);
+                    this.SendPropertyChanging();
+                    this._price = value;
+                    this.SendPropertyChanged("price");
+                    this.OnpriceChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_release_date", DbType = "Date NOT NULL")]
+        public System.DateTime release_date
+        {
+            get
+            {
+                return this._release_date;
+            }
+            set
+            {
+                if ((this._release_date != value))
+                {
+                    this.Onrelease_dateChanging(value);
+                    this.SendPropertyChanging();
+                    this._release_date = value;
+                    this.SendPropertyChanged("release_date");
+                    this.Onrelease_dateChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_publisher_id", DbType = "Int")]
+        public System.Nullable<int> publisher_id
+        {
+            get
+            {
+                return this._publisher_id;
+            }
+            set
+            {
+                if ((this._publisher_id != value))
+                {
+                    if (this._Publisher.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onpublisher_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._publisher_id = value;
+                    this.SendPropertyChanged("publisher_id");
+                    this.Onpublisher_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_thumbnail", DbType = "VarBinary(MAX)", UpdateCheck = UpdateCheck.Never)]
+        public System.Data.Linq.Binary thumbnail
+        {
+            get
+            {
+                return this._thumbnail;
+            }
+            set
+            {
+                if ((this._thumbnail != value))
+                {
+                    this.OnthumbnailChanging(value);
+                    this.SendPropertyChanging();
+                    this._thumbnail = value;
+                    this.SendPropertyChanged("thumbnail");
+                    this.OnthumbnailChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_media_file_id", DbType = "Int")]
+        public System.Nullable<int> media_file_id
+        {
+            get
+            {
+                return this._media_file_id;
+            }
+            set
+            {
+                if ((this._media_file_id != value))
+                {
+                    if (this._Media_file.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onmedia_file_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._media_file_id = value;
+                    this.SendPropertyChanged("media_file_id");
+                    this.Onmedia_file_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Album", Storage = "_Album", ThisKey = "id", OtherKey = "media_id", IsUnique = true, IsForeignKey = false)]
+        public Album Album
+        {
+            get
+            {
+                return this._Album.Entity;
+            }
+            set
+            {
+                Album previousValue = this._Album.Entity;
+                if (((previousValue != value)
+                            || (this._Album.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Album.Entity = null;
+                        previousValue.Media = null;
+                    }
+                    this._Album.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Media = this;
+                    }
+                    this.SendPropertyChanged("Album");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Book", Storage = "_Book", ThisKey = "id", OtherKey = "media_id", IsUnique = true, IsForeignKey = false)]
+        public Book Book
+        {
+            get
+            {
+                return this._Book.Entity;
+            }
+            set
+            {
+                Book previousValue = this._Book.Entity;
+                if (((previousValue != value)
+                            || (this._Book.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Book.Entity = null;
+                        previousValue.Media = null;
+                    }
+                    this._Book.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Media = this;
+                    }
+                    this.SendPropertyChanged("Book");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Movie", Storage = "_Movie", ThisKey = "id", OtherKey = "media_id", IsUnique = true, IsForeignKey = false)]
+        public Movie Movie
+        {
+            get
+            {
+                return this._Movie.Entity;
+            }
+            set
+            {
+                Movie previousValue = this._Movie.Entity;
+                if (((previousValue != value)
+                            || (this._Movie.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Movie.Entity = null;
+                        previousValue.Media = null;
+                    }
+                    this._Movie.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Media = this;
+                    }
+                    this.SendPropertyChanged("Movie");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Rating", Storage = "_Rating", ThisKey = "id", OtherKey = "media_id", IsUnique = true, IsForeignKey = false)]
+        public Rating Rating
+        {
+            get
+            {
+                return this._Rating.Entity;
+            }
+            set
+            {
+                Rating previousValue = this._Rating.Entity;
+                if (((previousValue != value)
+                            || (this._Rating.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Rating.Entity = null;
+                        previousValue.Media = null;
+                    }
+                    this._Rating.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Media = this;
+                    }
+                    this.SendPropertyChanged("Rating");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Rental", Storage = "_Rentals", ThisKey = "id", OtherKey = "media_id")]
+        public EntitySet<Rental> Rentals
+        {
+            get
+            {
+                return this._Rentals;
+            }
+            set
+            {
+                this._Rentals.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Review", Storage = "_Reviews", ThisKey = "id", OtherKey = "media_id")]
+        public EntitySet<Review> Reviews
+        {
+            get
+            {
+                return this._Reviews;
+            }
+            set
+            {
+                this._Reviews.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Song", Storage = "_Song", ThisKey = "id", OtherKey = "media_id", IsUnique = true, IsForeignKey = false)]
+        public Song Song
+        {
+            get
+            {
+                return this._Song.Entity;
+            }
+            set
+            {
+                Song previousValue = this._Song.Entity;
+                if (((previousValue != value)
+                            || (this._Song.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Song.Entity = null;
+                        previousValue.Media = null;
+                    }
+                    this._Song.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Media = this;
+                    }
+                    this.SendPropertyChanged("Song");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Genre_Media", Storage = "_Genre", ThisKey = "genre_id", OtherKey = "id", IsForeignKey = true)]
+        public Genre Genre
+        {
+            get
+            {
+                return this._Genre.Entity;
+            }
+            set
+            {
+                Genre previousValue = this._Genre.Entity;
+                if (((previousValue != value)
+                            || (this._Genre.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Genre.Entity = null;
+                        previousValue.Medias.Remove(this);
+                    }
+                    this._Genre.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Medias.Add(this);
+                        this._genre_id = value.id;
+                    }
+                    else
+                    {
+                        this._genre_id = default(Nullable<int>);
+                    }
+                    this.SendPropertyChanged("Genre");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_file_Media", Storage = "_Media_file", ThisKey = "media_file_id", OtherKey = "id", IsForeignKey = true)]
+        public Media_file Media_file
+        {
+            get
+            {
+                return this._Media_file.Entity;
+            }
+            set
+            {
+                Media_file previousValue = this._Media_file.Entity;
+                if (((previousValue != value)
+                            || (this._Media_file.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Media_file.Entity = null;
+                        previousValue.Medias.Remove(this);
+                    }
+                    this._Media_file.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Medias.Add(this);
+                        this._media_file_id = value.id;
+                    }
+                    else
+                    {
+                        this._media_file_id = default(Nullable<int>);
+                    }
+                    this.SendPropertyChanged("Media_file");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_type_Media", Storage = "_Media_type", ThisKey = "type_id", OtherKey = "id", IsForeignKey = true)]
+        public Media_type Media_type
+        {
+            get
+            {
+                return this._Media_type.Entity;
+            }
+            set
+            {
+                Media_type previousValue = this._Media_type.Entity;
+                if (((previousValue != value)
+                            || (this._Media_type.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Media_type.Entity = null;
+                        previousValue.Medias.Remove(this);
+                    }
+                    this._Media_type.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Medias.Add(this);
+                        this._type_id = value.id;
+                    }
+                    else
+                    {
+                        this._type_id = default(Nullable<int>);
+                    }
+                    this.SendPropertyChanged("Media_type");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Publisher_Media", Storage = "_Publisher", ThisKey = "publisher_id", OtherKey = "id", IsForeignKey = true)]
+        public Publisher Publisher
+        {
+            get
+            {
+                return this._Publisher.Entity;
+            }
+            set
+            {
+                Publisher previousValue = this._Publisher.Entity;
+                if (((previousValue != value)
+                            || (this._Publisher.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Publisher.Entity = null;
+                        previousValue.Medias.Remove(this);
+                    }
+                    this._Publisher.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Medias.Add(this);
+                        this._publisher_id = value.id;
+                    }
+                    else
+                    {
+                        this._publisher_id = default(Nullable<int>);
+                    }
+                    this.SendPropertyChanged("Publisher");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_Rentals(Rental entity)
+        {
+            this.SendPropertyChanging();
+            entity.Media = this;
+        }
+
+        private void detach_Rentals(Rental entity)
+        {
+            this.SendPropertyChanging();
+            entity.Media = null;
+        }
+
+        private void attach_Reviews(Review entity)
+        {
+            this.SendPropertyChanging();
+            entity.Media = this;
+        }
+
+        private void detach_Reviews(Review entity)
+        {
+            this.SendPropertyChanging();
+            entity.Media = null;
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Media_file")]
+    public partial class Media_file : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _id;
+
+        private string _name;
+
+        private string _extension;
+
+        private System.Data.Linq.Binary _data;
+
+        private EntitySet<Media> _Medias;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnidChanging(int value);
+        partial void OnidChanged();
+        partial void OnnameChanging(string value);
+        partial void OnnameChanged();
+        partial void OnextensionChanging(string value);
+        partial void OnextensionChanged();
+        partial void OndataChanging(System.Data.Linq.Binary value);
+        partial void OndataChanged();
+        #endregion
+
+        public Media_file()
+        {
+            this._Medias = new EntitySet<Media>(new Action<Media>(this.attach_Medias), new Action<Media>(this.detach_Medias));
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                if ((this._id != value))
+                {
+                    this.OnidChanging(value);
+                    this.SendPropertyChanging();
+                    this._id = value;
+                    this.SendPropertyChanged("id");
+                    this.OnidChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_name", DbType = "VarChar(255) NOT NULL", CanBeNull = false)]
+        public string name
+        {
+            get
+            {
+                return this._name;
+            }
+            set
+            {
+                if ((this._name != value))
+                {
+                    this.OnnameChanging(value);
+                    this.SendPropertyChanging();
+                    this._name = value;
+                    this.SendPropertyChanged("name");
+                    this.OnnameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_extension", DbType = "VarChar(10) NOT NULL", CanBeNull = false)]
+        public string extension
+        {
+            get
+            {
+                return this._extension;
+            }
+            set
+            {
+                if ((this._extension != value))
+                {
+                    this.OnextensionChanging(value);
+                    this.SendPropertyChanging();
+                    this._extension = value;
+                    this.SendPropertyChanged("extension");
+                    this.OnextensionChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_data", DbType = "VarBinary(MAX) NOT NULL", CanBeNull = false, UpdateCheck = UpdateCheck.Never)]
+        public System.Data.Linq.Binary data
+        {
+            get
+            {
+                return this._data;
+            }
+            set
+            {
+                if ((this._data != value))
+                {
+                    this.OndataChanging(value);
+                    this.SendPropertyChanging();
+                    this._data = value;
+                    this.SendPropertyChanged("data");
+                    this.OndataChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_file_Media", Storage = "_Medias", ThisKey = "id", OtherKey = "media_file_id")]
+        public EntitySet<Media> Medias
+        {
+            get
+            {
+                return this._Medias;
+            }
+            set
+            {
+                this._Medias.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_Medias(Media entity)
+        {
+            this.SendPropertyChanging();
+            entity.Media_file = this;
+        }
+
+        private void detach_Medias(Media entity)
+        {
+            this.SendPropertyChanging();
+            entity.Media_file = null;
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Media_type")]
+    public partial class Media_type : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _id;
+
+        private string _name;
+
+        private EntitySet<Genre> _Genres;
+
+        private EntitySet<Media> _Medias;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnidChanging(int value);
+        partial void OnidChanged();
+        partial void OnnameChanging(string value);
+        partial void OnnameChanged();
+        #endregion
+
+        public Media_type()
+        {
+            this._Genres = new EntitySet<Genre>(new Action<Genre>(this.attach_Genres), new Action<Genre>(this.detach_Genres));
+            this._Medias = new EntitySet<Media>(new Action<Media>(this.attach_Medias), new Action<Media>(this.detach_Medias));
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                if ((this._id != value))
+                {
+                    this.OnidChanging(value);
+                    this.SendPropertyChanging();
+                    this._id = value;
+                    this.SendPropertyChanged("id");
+                    this.OnidChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_name", DbType = "VarChar(10) NOT NULL", CanBeNull = false)]
+        public string name
+        {
+            get
+            {
+                return this._name;
+            }
+            set
+            {
+                if ((this._name != value))
+                {
+                    this.OnnameChanging(value);
+                    this.SendPropertyChanging();
+                    this._name = value;
+                    this.SendPropertyChanged("name");
+                    this.OnnameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_type_Genre", Storage = "_Genres", ThisKey = "id", OtherKey = "media_type")]
+        public EntitySet<Genre> Genres
+        {
+            get
+            {
+                return this._Genres;
+            }
+            set
+            {
+                this._Genres.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_type_Media", Storage = "_Medias", ThisKey = "id", OtherKey = "type_id")]
+        public EntitySet<Media> Medias
+        {
+            get
+            {
+                return this._Medias;
+            }
+            set
+            {
+                this._Medias.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_Genres(Genre entity)
+        {
+            this.SendPropertyChanging();
+            entity.Media_type1 = this;
+        }
+
+        private void detach_Genres(Genre entity)
+        {
+            this.SendPropertyChanging();
+            entity.Media_type1 = null;
+        }
+
+        private void attach_Medias(Media entity)
+        {
+            this.SendPropertyChanging();
+            entity.Media_type = this;
+        }
+
+        private void detach_Medias(Media entity)
+        {
+            this.SendPropertyChanging();
+            entity.Media_type = null;
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Movie")]
+    public partial class Movie : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _media_id;
+
+        private string _director;
+
+        private int _length;
+
+        private string _summary;
+
+        private EntityRef<Media> _Media;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onmedia_idChanging(int value);
+        partial void Onmedia_idChanged();
+        partial void OndirectorChanging(string value);
+        partial void OndirectorChanged();
+        partial void OnlengthChanging(int value);
+        partial void OnlengthChanged();
+        partial void OnsummaryChanging(string value);
+        partial void OnsummaryChanged();
+        #endregion
+
+        public Movie()
+        {
+            this._Media = default(EntityRef<Media>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_media_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int media_id
+        {
+            get
+            {
+                return this._media_id;
+            }
+            set
+            {
+                if ((this._media_id != value))
+                {
+                    if (this._Media.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onmedia_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._media_id = value;
+                    this.SendPropertyChanged("media_id");
+                    this.Onmedia_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_director", DbType = "VarChar(100) NOT NULL", CanBeNull = false)]
+        public string director
+        {
+            get
+            {
+                return this._director;
+            }
+            set
+            {
+                if ((this._director != value))
+                {
+                    this.OndirectorChanging(value);
+                    this.SendPropertyChanging();
+                    this._director = value;
+                    this.SendPropertyChanged("director");
+                    this.OndirectorChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_length", DbType = "Int NOT NULL")]
+        public int length
+        {
+            get
+            {
+                return this._length;
+            }
+            set
+            {
+                if ((this._length != value))
+                {
+                    this.OnlengthChanging(value);
+                    this.SendPropertyChanging();
+                    this._length = value;
+                    this.SendPropertyChanged("length");
+                    this.OnlengthChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_summary", DbType = "VarChar(500) NOT NULL", CanBeNull = false)]
+        public string summary
+        {
+            get
+            {
+                return this._summary;
+            }
+            set
+            {
+                if ((this._summary != value))
+                {
+                    this.OnsummaryChanging(value);
+                    this.SendPropertyChanging();
+                    this._summary = value;
+                    this.SendPropertyChanged("summary");
+                    this.OnsummaryChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Movie", Storage = "_Media", ThisKey = "media_id", OtherKey = "id", IsForeignKey = true)]
+        public Media Media
+        {
+            get
+            {
+                return this._Media.Entity;
+            }
+            set
+            {
+                Media previousValue = this._Media.Entity;
+                if (((previousValue != value)
+                            || (this._Media.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Media.Entity = null;
+                        previousValue.Movie = null;
+                    }
+                    this._Media.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Movie = this;
+                        this._media_id = value.id;
+                    }
+                    else
+                    {
+                        this._media_id = default(int);
+                    }
+                    this.SendPropertyChanged("Media");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Publisher")]
+    public partial class Publisher : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _id;
+
+        private string _title;
+
+        private EntitySet<Media> _Medias;
+
+        private EntitySet<Publisher_account> _Publisher_accounts;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnidChanging(int value);
+        partial void OnidChanged();
+        partial void OntitleChanging(string value);
+        partial void OntitleChanged();
+        #endregion
+
+        public Publisher()
+        {
+            this._Medias = new EntitySet<Media>(new Action<Media>(this.attach_Medias), new Action<Media>(this.detach_Medias));
+            this._Publisher_accounts = new EntitySet<Publisher_account>(new Action<Publisher_account>(this.attach_Publisher_accounts), new Action<Publisher_account>(this.detach_Publisher_accounts));
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int id
+        {
+            get
+            {
+                return this._id;
+            }
+            set
+            {
+                if ((this._id != value))
+                {
+                    this.OnidChanging(value);
+                    this.SendPropertyChanging();
+                    this._id = value;
+                    this.SendPropertyChanged("id");
+                    this.OnidChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_title", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string title
+        {
+            get
+            {
+                return this._title;
+            }
+            set
+            {
+                if ((this._title != value))
+                {
+                    this.OntitleChanging(value);
+                    this.SendPropertyChanging();
+                    this._title = value;
+                    this.SendPropertyChanged("title");
+                    this.OntitleChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Publisher_Media", Storage = "_Medias", ThisKey = "id", OtherKey = "publisher_id")]
+        public EntitySet<Media> Medias
+        {
+            get
+            {
+                return this._Medias;
+            }
+            set
+            {
+                this._Medias.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Publisher_Publisher_account", Storage = "_Publisher_accounts", ThisKey = "id", OtherKey = "publisher_id")]
+        public EntitySet<Publisher_account> Publisher_accounts
+        {
+            get
+            {
+                return this._Publisher_accounts;
+            }
+            set
+            {
+                this._Publisher_accounts.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_Medias(Media entity)
+        {
+            this.SendPropertyChanging();
+            entity.Publisher = this;
+        }
+
+        private void detach_Medias(Media entity)
+        {
+            this.SendPropertyChanging();
+            entity.Publisher = null;
+        }
+
+        private void attach_Publisher_accounts(Publisher_account entity)
+        {
+            this.SendPropertyChanging();
+            entity.Publisher = this;
+        }
+
+        private void detach_Publisher_accounts(Publisher_account entity)
+        {
+            this.SendPropertyChanging();
+            entity.Publisher = null;
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Publisher_account")]
+    public partial class Publisher_account : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private string _user_name;
+
+        private System.Nullable<int> _publisher_id;
+
+        private EntityRef<Publisher> _Publisher;
+
+        private EntityRef<Account> _Account;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onuser_nameChanging(string value);
+        partial void Onuser_nameChanged();
+        partial void Onpublisher_idChanging(System.Nullable<int> value);
+        partial void Onpublisher_idChanged();
+        #endregion
+
+        public Publisher_account()
+        {
+            this._Publisher = default(EntityRef<Publisher>);
+            this._Account = default(EntityRef<Account>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        public string user_name
+        {
+            get
+            {
+                return this._user_name;
+            }
+            set
+            {
+                if ((this._user_name != value))
+                {
+                    if (this._Account.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onuser_nameChanging(value);
+                    this.SendPropertyChanging();
+                    this._user_name = value;
+                    this.SendPropertyChanged("user_name");
+                    this.Onuser_nameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_publisher_id", DbType = "Int")]
+        public System.Nullable<int> publisher_id
+        {
+            get
+            {
+                return this._publisher_id;
+            }
+            set
+            {
+                if ((this._publisher_id != value))
+                {
+                    if (this._Publisher.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onpublisher_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._publisher_id = value;
+                    this.SendPropertyChanged("publisher_id");
+                    this.Onpublisher_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Publisher_Publisher_account", Storage = "_Publisher", ThisKey = "publisher_id", OtherKey = "id", IsForeignKey = true)]
+        public Publisher Publisher
+        {
+            get
+            {
+                return this._Publisher.Entity;
+            }
+            set
+            {
+                Publisher previousValue = this._Publisher.Entity;
+                if (((previousValue != value)
+                            || (this._Publisher.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Publisher.Entity = null;
+                        previousValue.Publisher_accounts.Remove(this);
+                    }
+                    this._Publisher.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Publisher_accounts.Add(this);
+                        this._publisher_id = value.id;
+                    }
+                    else
+                    {
+                        this._publisher_id = default(Nullable<int>);
+                    }
+                    this.SendPropertyChanged("Publisher");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Account_Publisher_account", Storage = "_Account", ThisKey = "user_name", OtherKey = "user_name", IsForeignKey = true)]
+        public Account Account
+        {
+            get
+            {
+                return this._Account.Entity;
+            }
+            set
+            {
+                Account previousValue = this._Account.Entity;
+                if (((previousValue != value)
+                            || (this._Account.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Account.Entity = null;
+                        previousValue.Publisher_account = null;
+                    }
+                    this._Account.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Publisher_account = this;
+                        this._user_name = value.user_name;
+                    }
+                    else
+                    {
+                        this._user_name = default(string);
+                    }
+                    this.SendPropertyChanged("Account");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Rating")]
+    public partial class Rating : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _media_id;
+
+        private int _ratings_count;
+
+        private double _avg_rating;
+
+        private EntityRef<Media> _Media;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onmedia_idChanging(int value);
+        partial void Onmedia_idChanged();
+        partial void Onratings_countChanging(int value);
+        partial void Onratings_countChanged();
+        partial void Onavg_ratingChanging(double value);
+        partial void Onavg_ratingChanged();
+        #endregion
+
+        public Rating()
+        {
+            this._Media = default(EntityRef<Media>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_media_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int media_id
+        {
+            get
+            {
+                return this._media_id;
+            }
+            set
+            {
+                if ((this._media_id != value))
+                {
+                    if (this._Media.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onmedia_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._media_id = value;
+                    this.SendPropertyChanged("media_id");
+                    this.Onmedia_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_ratings_count", DbType = "Int NOT NULL")]
+        public int ratings_count
+        {
+            get
+            {
+                return this._ratings_count;
+            }
+            set
+            {
+                if ((this._ratings_count != value))
+                {
+                    this.Onratings_countChanging(value);
+                    this.SendPropertyChanging();
+                    this._ratings_count = value;
+                    this.SendPropertyChanged("ratings_count");
+                    this.Onratings_countChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_avg_rating", DbType = "Float NOT NULL")]
+        public double avg_rating
+        {
+            get
+            {
+                return this._avg_rating;
+            }
+            set
+            {
+                if ((this._avg_rating != value))
+                {
+                    this.Onavg_ratingChanging(value);
+                    this.SendPropertyChanging();
+                    this._avg_rating = value;
+                    this.SendPropertyChanged("avg_rating");
+                    this.Onavg_ratingChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Rating", Storage = "_Media", ThisKey = "media_id", OtherKey = "id", IsForeignKey = true)]
+        public Media Media
+        {
+            get
+            {
+                return this._Media.Entity;
+            }
+            set
+            {
+                Media previousValue = this._Media.Entity;
+                if (((previousValue != value)
+                            || (this._Media.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Media.Entity = null;
+                        previousValue.Rating = null;
+                    }
+                    this._Media.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Rating = this;
+                        this._media_id = value.id;
+                    }
+                    else
+                    {
+                        this._media_id = default(int);
+                    }
+                    this.SendPropertyChanged("Media");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Rental")]
+    public partial class Rental : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private string _user_name;
+
+        private int _media_id;
+
+        private System.DateTime _start_time;
+
+        private System.DateTime _end_time;
+
+        private EntityRef<Media> _Media;
+
+        private EntityRef<User_account> _User_account;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onuser_nameChanging(string value);
+        partial void Onuser_nameChanged();
+        partial void Onmedia_idChanging(int value);
+        partial void Onmedia_idChanged();
+        partial void Onstart_timeChanging(System.DateTime value);
+        partial void Onstart_timeChanged();
+        partial void Onend_timeChanging(System.DateTime value);
+        partial void Onend_timeChanged();
+        #endregion
+
+        public Rental()
+        {
+            this._Media = default(EntityRef<Media>);
+            this._User_account = default(EntityRef<User_account>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        public string user_name
+        {
+            get
+            {
+                return this._user_name;
+            }
+            set
+            {
+                if ((this._user_name != value))
+                {
+                    if (this._User_account.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onuser_nameChanging(value);
+                    this.SendPropertyChanging();
+                    this._user_name = value;
+                    this.SendPropertyChanged("user_name");
+                    this.Onuser_nameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_media_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int media_id
+        {
+            get
+            {
+                return this._media_id;
+            }
+            set
+            {
+                if ((this._media_id != value))
+                {
+                    if (this._Media.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onmedia_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._media_id = value;
+                    this.SendPropertyChanged("media_id");
+                    this.Onmedia_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_start_time", DbType = "DateTime NOT NULL", IsPrimaryKey = true)]
+        public System.DateTime start_time
+        {
+            get
+            {
+                return this._start_time;
+            }
+            set
+            {
+                if ((this._start_time != value))
+                {
+                    this.Onstart_timeChanging(value);
+                    this.SendPropertyChanging();
+                    this._start_time = value;
+                    this.SendPropertyChanged("start_time");
+                    this.Onstart_timeChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_end_time", DbType = "DateTime NOT NULL")]
+        public System.DateTime end_time
+        {
+            get
+            {
+                return this._end_time;
+            }
+            set
+            {
+                if ((this._end_time != value))
+                {
+                    this.Onend_timeChanging(value);
+                    this.SendPropertyChanging();
+                    this._end_time = value;
+                    this.SendPropertyChanged("end_time");
+                    this.Onend_timeChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Rental", Storage = "_Media", ThisKey = "media_id", OtherKey = "id", IsForeignKey = true)]
+        public Media Media
+        {
+            get
+            {
+                return this._Media.Entity;
+            }
+            set
+            {
+                Media previousValue = this._Media.Entity;
+                if (((previousValue != value)
+                            || (this._Media.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Media.Entity = null;
+                        previousValue.Rentals.Remove(this);
+                    }
+                    this._Media.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Rentals.Add(this);
+                        this._media_id = value.id;
+                    }
+                    else
+                    {
+                        this._media_id = default(int);
+                    }
+                    this.SendPropertyChanged("Media");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Rental", Storage = "_User_account", ThisKey = "user_name", OtherKey = "user_name", IsForeignKey = true)]
+        public User_account User_account
+        {
+            get
+            {
+                return this._User_account.Entity;
+            }
+            set
+            {
+                User_account previousValue = this._User_account.Entity;
+                if (((previousValue != value)
+                            || (this._User_account.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._User_account.Entity = null;
+                        previousValue.Rentals.Remove(this);
+                    }
+                    this._User_account.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Rentals.Add(this);
+                        this._user_name = value.user_name;
+                    }
+                    else
+                    {
+                        this._user_name = default(string);
+                    }
+                    this.SendPropertyChanged("User_account");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Review")]
+    public partial class Review : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private string _user_name;
+
+        private int _media_id;
+
+        private System.DateTime _timestamp;
+
+        private string _review1;
+
+        private int _rating;
+
+        private EntityRef<Media> _Media;
+
+        private EntityRef<User_account> _User_account;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onuser_nameChanging(string value);
+        partial void Onuser_nameChanged();
+        partial void Onmedia_idChanging(int value);
+        partial void Onmedia_idChanged();
+        partial void OntimestampChanging(System.DateTime value);
+        partial void OntimestampChanged();
+        partial void Onreview1Changing(string value);
+        partial void Onreview1Changed();
+        partial void OnratingChanging(int value);
+        partial void OnratingChanged();
+        #endregion
+
+        public Review()
+        {
+            this._Media = default(EntityRef<Media>);
+            this._User_account = default(EntityRef<User_account>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        public string user_name
+        {
+            get
+            {
+                return this._user_name;
+            }
+            set
+            {
+                if ((this._user_name != value))
+                {
+                    if (this._User_account.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onuser_nameChanging(value);
+                    this.SendPropertyChanging();
+                    this._user_name = value;
+                    this.SendPropertyChanged("user_name");
+                    this.Onuser_nameChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_media_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int media_id
+        {
+            get
+            {
+                return this._media_id;
+            }
+            set
+            {
+                if ((this._media_id != value))
+                {
+                    if (this._Media.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onmedia_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._media_id = value;
+                    this.SendPropertyChanged("media_id");
+                    this.Onmedia_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_timestamp", DbType = "DateTime NOT NULL")]
+        public System.DateTime timestamp
+        {
+            get
+            {
+                return this._timestamp;
+            }
+            set
+            {
+                if ((this._timestamp != value))
+                {
+                    this.OntimestampChanging(value);
+                    this.SendPropertyChanging();
+                    this._timestamp = value;
+                    this.SendPropertyChanged("timestamp");
+                    this.OntimestampChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Name = "review", Storage = "_review1", DbType = "VarChar(500) NOT NULL", CanBeNull = false)]
+        public string review1
+        {
+            get
+            {
+                return this._review1;
+            }
+            set
+            {
+                if ((this._review1 != value))
+                {
+                    this.Onreview1Changing(value);
+                    this.SendPropertyChanging();
+                    this._review1 = value;
+                    this.SendPropertyChanged("review1");
+                    this.Onreview1Changed();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_rating", DbType = "Int NOT NULL")]
+        public int rating
+        {
+            get
+            {
+                return this._rating;
+            }
+            set
+            {
+                if ((this._rating != value))
+                {
+                    this.OnratingChanging(value);
+                    this.SendPropertyChanging();
+                    this._rating = value;
+                    this.SendPropertyChanged("rating");
+                    this.OnratingChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Review", Storage = "_Media", ThisKey = "media_id", OtherKey = "id", IsForeignKey = true)]
+        public Media Media
+        {
+            get
+            {
+                return this._Media.Entity;
+            }
+            set
+            {
+                Media previousValue = this._Media.Entity;
+                if (((previousValue != value)
+                            || (this._Media.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Media.Entity = null;
+                        previousValue.Reviews.Remove(this);
+                    }
+                    this._Media.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Reviews.Add(this);
+                        this._media_id = value.id;
+                    }
+                    else
+                    {
+                        this._media_id = default(int);
+                    }
+                    this.SendPropertyChanged("Media");
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "User_account_Review", Storage = "_User_account", ThisKey = "user_name", OtherKey = "user_name", IsForeignKey = true)]
+        public User_account User_account
+        {
+            get
+            {
+                return this._User_account.Entity;
+            }
+            set
+            {
+                User_account previousValue = this._User_account.Entity;
+                if (((previousValue != value)
+                            || (this._User_account.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._User_account.Entity = null;
+                        previousValue.Reviews.Remove(this);
+                    }
+                    this._User_account.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Reviews.Add(this);
+                        this._user_name = value.user_name;
+                    }
+                    else
+                    {
+                        this._user_name = default(string);
+                    }
+                    this.SendPropertyChanged("User_account");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [global::System.Data.Linq.Mapping.TableAttribute(Name = "dbo.Song")]
+    public partial class Song : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _media_id;
+
+        private string _artist;
+
+        private int _length;
+
+        private EntitySet<Album_song> _Album_songs;
+
+        private EntityRef<Media> _Media;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void Onmedia_idChanging(int value);
+        partial void Onmedia_idChanged();
+        partial void OnartistChanging(string value);
+        partial void OnartistChanged();
+        partial void OnlengthChanging(int value);
+        partial void OnlengthChanged();
+        #endregion
+
+        public Song()
+        {
+            this._Album_songs = new EntitySet<Album_song>(new Action<Album_song>(this.attach_Album_songs), new Action<Album_song>(this.detach_Album_songs));
+            this._Media = default(EntityRef<Media>);
+            OnCreated();
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_media_id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int media_id
+        {
+            get
+            {
+                return this._media_id;
+            }
+            set
+            {
+                if ((this._media_id != value))
+                {
+                    if (this._Media.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.Onmedia_idChanging(value);
+                    this.SendPropertyChanging();
+                    this._media_id = value;
+                    this.SendPropertyChanged("media_id");
+                    this.Onmedia_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_artist", DbType = "VarChar(100) NOT NULL", CanBeNull = false)]
+        public string artist
+        {
+            get
+            {
+                return this._artist;
+            }
+            set
+            {
+                if ((this._artist != value))
+                {
+                    this.OnartistChanging(value);
+                    this.SendPropertyChanging();
+                    this._artist = value;
+                    this.SendPropertyChanged("artist");
+                    this.OnartistChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_length", DbType = "Int NOT NULL")]
+        public int length
+        {
+            get
+            {
+                return this._length;
+            }
+            set
+            {
+                if ((this._length != value))
+                {
+                    this.OnlengthChanging(value);
+                    this.SendPropertyChanging();
+                    this._length = value;
+                    this.SendPropertyChanged("length");
+                    this.OnlengthChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Song_Album_song", Storage = "_Album_songs", ThisKey = "media_id", OtherKey = "song_id")]
+        public EntitySet<Album_song> Album_songs
+        {
+            get
+            {
+                return this._Album_songs;
+            }
+            set
+            {
+                this._Album_songs.Assign(value);
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.AssociationAttribute(Name = "Media_Song", Storage = "_Media", ThisKey = "media_id", OtherKey = "id", IsForeignKey = true)]
+        public Media Media
+        {
+            get
+            {
+                return this._Media.Entity;
+            }
+            set
+            {
+                Media previousValue = this._Media.Entity;
+                if (((previousValue != value)
+                            || (this._Media.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Media.Entity = null;
+                        previousValue.Song = null;
+                    }
+                    this._Media.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Song = this;
+                        this._media_id = value.id;
+                    }
+                    else
+                    {
+                        this._media_id = default(int);
+                    }
+                    this.SendPropertyChanged("Media");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_Album_songs(Album_song entity)
+        {
+            this.SendPropertyChanging();
+            entity.Song = this;
+        }
+
+        private void detach_Album_songs(Album_song entity)
+        {
+            this.SendPropertyChanging();
+            entity.Song = null;
+        }
+    }
 }
 #pragma warning restore 1591
