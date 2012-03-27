@@ -126,7 +126,11 @@
         /// <param name="db"></param>
         /// <returns></returns>
         public static RentItDatabase.Rating GetMediaRating(int mediaId, DatabaseDataContext db) {
-            return (from r in db.Ratings where r.media_id.Equals(mediaId) select r).First();
+            IQueryable<RentItDatabase.Rating> ratings = from r in db.Ratings 
+                                                        where r.media_id.Equals(mediaId) 
+                                                        select r;
+            if(ratings.Count() <= 0) return default (RentItDatabase.Rating);
+            return ratings.First();
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -164,7 +168,9 @@
                         review.timestamp));
             }
 
-            var mediaRating = new MediaRating(rating.ratings_count, (int)rating.avg_rating, mediaReviews);
+            int rcount = rating == null ? 0 : rating.ratings_count;
+            int rrate = rating == null ? 0 : (int)rating.avg_rating;
+            var mediaRating = new MediaRating(rcount, rrate, mediaReviews);
 
             return mediaRating;
         }

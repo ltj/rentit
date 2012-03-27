@@ -826,8 +826,8 @@
 
         public byte[] GetMediaData(string mediaId, AccountCredentials credentials)
         {
-            Account account = ValidateCredentials(credentials);
-            if (account == null) throw new InvalidCredentialsException();
+            //Account account = ValidateCredentials(credentials);
+            //if (account == null) throw new InvalidCredentialsException();
 
             DatabaseDataContext db;
             try {
@@ -838,7 +838,7 @@
                     new Exception("Could not connect to database", e));
             }
 
-            return new byte[2048];
+            return new byte[20000];
         }
 
         /// <author>Per Mortensen</author>
