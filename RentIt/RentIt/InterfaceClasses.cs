@@ -10,7 +10,20 @@
     [DataContract]
     public enum MediaType
     {
-        Any, Book, Movie, Album, Song
+        [EnumMember]
+        Any,
+
+        [EnumMember]
+        Book,
+
+        [EnumMember]
+        Movie,
+
+        [EnumMember]
+        Album,
+
+        [EnumMember]
+        Song
     }
 
     /// <summary>
@@ -25,58 +38,69 @@
         /// <summary>
         /// Sorts items in an unspecified (default) manner, decided by the web service.
         /// </summary>
+        [EnumMember]
         Default,
 
         /// <summary>
         /// Sorts items by their release date, from oldest to newest.
         /// </summary>
+        [EnumMember]
         ReleaseDateAsc,
 
         /// <summary>
         /// Sorts items by their release date, from newest to oldest.
         /// </summary>
+        [EnumMember]
         ReleaseDateDesc,
 
         /// <summary>
         /// Sorts items by their average user rating, from lowest to highest.
         /// </summary>
+        [EnumMember]
         RatingAsc,
 
         /// <summary>
         /// Sorts items by their average user rating, from highest to lowest.
         /// </summary>
+        [EnumMember]
         RatingDesc,
 
         /// <summary>
         /// Sorts items by their popularity, from lowest to highest.
         /// Popularity is defined as the total number of rentals since the beginning of time.
         /// </summary>
+        [EnumMember]
         PopularityAsc,
 
         /// <summary>
         /// Sorts items by their popularity, from highest to lowest.
         /// Popularity is defined as the total number of rentals since the beginning of time.
         /// </summary>
+        [EnumMember]
         PopularityDesc,
 
         /// <summary>
         /// Sorts items by their name, using .NET's default sorting for strings, generally from A to Z.
         /// </summary>
+        [EnumMember]
         AlphabeticalAsc,
 
         /// <summary>
         /// Sorts items by their name, using the reverse of .NET's default sorting for strings, generally from Z to A.
         /// </summary>
+        [EnumMember]
         AlphabeticalDesc,
 
         /// <summary>
         /// Sorts items by their price, from lowest to highest.
         /// </summary>
+        [EnumMember]
         PriceAsc,
 
         /// <summary>
         /// Sorts items by their price, from highest to lowest.
         /// </summary>
+        [EnumMember]
         PriceDesc
     }
 
@@ -87,7 +111,20 @@
     [DataContract]
     public enum Rating
     {
-        One = 1, Two = 2, Three = 3, Four = 4, Five = 5
+        [EnumMember]
+        One = 1,
+
+        [EnumMember]
+        Two = 2,
+
+        [EnumMember]
+        Three = 3,
+
+        [EnumMember]
+        Four = 4,
+
+        [EnumMember]
+        Five = 5
     }
 
     /// <summary>
@@ -193,10 +230,12 @@
     /// An individual rating, optionally accompanied by a written review, by a single user.
     /// </summary>
     [DataContract]
-    public struct MediaReview {
+    public struct MediaReview
+    {
         /// <summary>
         /// The id of the media which this review is about.
         /// </summary>
+        [DataMember]
         public readonly int MediaId;
 
         /// <summary>
@@ -537,13 +576,13 @@
                 databaseMedia.Media.title,
                 Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
                 databaseMedia.Media.Genre.name,
-                (int)databaseMedia.Media.price,
-                (System.DateTime)databaseMedia.Media.release_date,
+                databaseMedia.Media.price,
+                databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
-                System.Drawing.Image.FromFile(databaseMedia.Media.thumbnail_path),
+                new System.Drawing.Bitmap(23, 23), // FromFile(databaseMedia.Media.thumbnail_path),
                 rating,
                 databaseMedia.director,
-                System.TimeSpan.FromMinutes((double)databaseMedia.length),
+                TimeSpan.FromMinutes(databaseMedia.length),
                 databaseMedia.summary);
         }
     }
