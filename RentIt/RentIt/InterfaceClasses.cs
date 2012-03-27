@@ -583,7 +583,7 @@
                 databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.director,
-                TimeSpan.FromMinutes(databaseMedia.length),
+                TimeSpan.FromSeconds(databaseMedia.length),
                 databaseMedia.summary);
         }
     }
@@ -633,7 +633,7 @@
                 databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.artist,
-                System.TimeSpan.FromMinutes((int)databaseMedia.length));
+                System.TimeSpan.FromSeconds((int)databaseMedia.length));
         }
     }
 
@@ -705,7 +705,7 @@
                 databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.album_artist,
-                System.TimeSpan.FromMinutes(albumDuration),
+                System.TimeSpan.FromSeconds(albumDuration),
                 databaseMedia.description,
                 albumSongs);
         }

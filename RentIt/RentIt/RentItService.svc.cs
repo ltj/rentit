@@ -273,39 +273,25 @@
 
             //Returns rentals made by users who also rented the given media item.
             //TODO: Return a maximum number of media items of each media type. Should the method only return media of the same type as the given media - discuss 27.03
-            var db = new DatabaseDataContext();
+            DatabaseDataContext db;
+            try {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception e)
+            {
+                throw new FaultException<Exception>(
+                    new Exception("Something unexpected went wrong (internally).", e));
+            }
             //Finds the user accounts who rented the media.
             IQueryable<string> users = from rental in db.Rentals
                                        where rental.media_id == id
                                        select rental.User_account.user_name;
-            //Finds the rentals made by all the users who rented the media.
-            IQueryable<RentItDatabase.Rental> rentals = from rental in db.Rentals
+            //Finds the rented medias made by all the users who rented the media.
+            IQueryable<RentItDatabase.Media> rentals = from rental in db.Rentals
                                                         where users.Contains(rental.User_account.user_name)
-                                                        select rental;
-            
-            var books = new List<BookInfo>();
-            var movies = new List<MovieInfo>();
-            var songs = new List<SongInfo>();
-            var albums = new List<AlbumInfo>();
-            foreach (var rental in rentals)
-            {
-                //Adds each rental to their respective lists as *Info objects.
-                switch (Util.MediaTypeOfValue(rental.Media.Media_type.name))
-                {
-                    case MediaType.Book: books.Add(GetBookInfo(rental.Media.Book.media_id));
-                        break;
-                    case MediaType.Movie: movies.Add(GetMovieInfo(rental.Media.Movie.media_id));
-                        break;
-                    case MediaType.Song: RentItDatabase.Rating songRatings = Util.GetMediaRating(rental.media_id, db);
-                        MediaRating songRating = Util.CollectMediaReviews(rental.media_id, songRatings, db);
-                        songs.Add(SongInfo.ValueOf(rental.Media.Song, songRating));
-                        break;
-                    case MediaType.Album: albums.Add(GetAlbumInfo(rental.Media.Album.media_id));
-                        break;
-                }
-            }
+                                                        select rental.Media;
             //Returns a MediaItems object containing lists of all the medias rented by the users who also rented the media with the given id.
-            return new MediaItems(books, movies, albums, songs);
+            return Util.CompileMedias(rentals, this);
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -430,27 +416,24 @@
         {
             Account account = ValidateCredentials(credentials);
             
-            var db = new DatabaseDataContext();
-            User_account userAccount = (from user in db.User_accounts
-                                        where user.Account.user_name.Equals(account.UserName)
-                                        select user).First();
-
+            User_account userAccount;
+            try {
+                var db = new DatabaseDataContext();
+                userAccount = (from user in db.User_accounts
+                               where user.Account.user_name.Equals(account.UserName)
+                               select user).First();
+            }
+            catch (Exception e)
+            {
+                throw new FaultException<Exception>(
+                    new Exception("Something unexpected went wrong (internally).", e));
+            }
             //List of rentals made by the user. 
             var userRentals = new List<Rental>();
             if (userAccount.Rentals.Count > 0)
             {
                 foreach (var rental in userAccount.Rentals)
                 {
-                    //List of mediareviews to be passed in with the new customer object.
-                    var mediaReviews = new List<MediaReview>();
-                    //Fills the mediareviews-list with MediaReview-objects containing info from db.
-                    foreach (var review in rental.Media.Reviews)
-                    {
-                        mediaReviews.Add(new MediaReview(review.media_id, review.user_name, review.review1, (Rating)review.rating, review.timestamp));
-                    }
-                    //The rating of the rental. Used when creating a SongInfo object.
-                    var mediaRating = new MediaRating(
-                        rental.Media.Rating.ratings_count, (float)rental.Media.Rating.avg_rating, mediaReviews);
                     //Fills the userRentals-list with Rental-objects containing info from db.
                     switch (Util.MediaTypeOfValue(rental.Media.Media_type.name))
                     {
@@ -461,7 +444,7 @@
                             userRentals.Add(new Rental(GetMovieInfo(rental.media_id), rental.start_time, rental.end_time));
                             break;
                         case MediaType.Song:
-                            userRentals.Add(new Rental(SongInfo.ValueOf(rental.Media.Song, mediaRating), rental.start_time, rental.end_time));
+                            userRentals.Add(new Rental(Util.GetSongInfo(rental.media_id), rental.start_time, rental.end_time));
                             break;
                         case MediaType.Album:
                             userRentals.Add(new Rental(GetAlbumInfo(rental.media_id), rental.start_time, rental.end_time));
@@ -469,7 +452,6 @@
                     }
                 }
             }
-
             return new UserAccount(userAccount.user_name, userAccount.Account.full_name, userAccount.Account.email,
                 userAccount.Account.password, userAccount.credit, userRentals);
         }
@@ -483,45 +465,25 @@
         {
             Account account = ValidateCredentials(credentials);
             
-            var db = new DatabaseDataContext();
-            Publisher_account publisherAccount = (from publisher in db.Publisher_accounts
-                                                  where publisher.Account.user_name.Equals(account.UserName)
-                                                  select publisher).First();
+            DatabaseDataContext db;
+            Publisher_account publisherAccount;
+            try {
+                db = new DatabaseDataContext();
+                publisherAccount = (from publisher in db.Publisher_accounts
+                                                      where publisher.Account.user_name.Equals(account.UserName)
+                                                      select publisher).First();
+            }
+            catch (Exception e)
+            {
+                throw new FaultException<Exception>(
+                    new Exception("Something unexpected went wrong (internally).", e));
+            }
             //Medias published by the given publisher account.
             IQueryable<RentItDatabase.Media> publishedMedias = from media in db.Medias
                                                                where media.publisher_id.Equals(publisherAccount.publisher_id)
                                                                select media;
-            var books = new List<BookInfo>();
-            var movies = new List<MovieInfo>();
-            var songs = new List<SongInfo>();
-            var albums = new List<AlbumInfo>();
-            if (publishedMedias.Count() > 0)
-            {
-                foreach (var media in publishedMedias)
-                {
-                    //Fills each list with the respective *Info-objects.
-                    switch (Util.MediaTypeOfValue(media.Media_type.name))
-                    {
-                        case MediaType.Book:
-                            books.Add(GetBookInfo(media.Book.media_id));
-                            break;
-                        case MediaType.Movie:
-                            movies.Add(GetMovieInfo(media.Movie.media_id));
-                            break;
-                        case MediaType.Song:
-                            RentItDatabase.Rating songRatings = Util.GetMediaRating(media.id, db);
-                            MediaRating songRating = Util.CollectMediaReviews(media.id, songRatings, db);
-                            songs.Add(SongInfo.ValueOf(media.Song, songRating));
-                            break;
-                        case MediaType.Album:
-                            albums.Add(GetAlbumInfo(media.Album.media_id));
-                            break;
-                    }
-                }
-            }
-
             //Object containing the four lists of published items. Passed in with the new PublisherAccount-object.
-            var mediaItems = new MediaItems(books, movies, albums, songs);
+            var mediaItems = Util.CompileMedias(publishedMedias, this);
             return new PublisherAccount(publisherAccount.user_name, publisherAccount.Account.full_name,
                 publisherAccount.Account.email, publisherAccount.Account.password, publisherAccount.Publisher.title, mediaItems);
         }
@@ -826,10 +788,10 @@
             return true;
         }
 
-        public byte[] GetMediaData(string mediaId, AccountCredentials credentials)
+        public Binary GetMediaData(string mediaId, AccountCredentials credentials)
         {
-            Account account = ValidateCredentials(credentials);
-            if (account == null) throw new InvalidCredentialsException();
+            //Account account = ValidateCredentials(credentials);
+            //if (account == null) throw new InvalidCredentialsException();
 
             DatabaseDataContext db;
             try {
@@ -840,7 +802,7 @@
                     new Exception("Could not connect to database", e));
             }
 
-            return new byte[2048];
+            return new Binary(new byte[20000]);
         }
 
         /// <author>Per Mortensen</author>
