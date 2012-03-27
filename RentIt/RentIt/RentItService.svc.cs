@@ -6,7 +6,7 @@
     using System.Text.RegularExpressions;
 
     using RentItDatabase;
-
+    using System.Data.Linq;
     using System.Linq;
 
     public class RentItService : IRentIt
@@ -645,13 +645,13 @@
         {
             // validate credentials
             Account account = ValidateCredentials(credentials);
+            if (account == null) return false;
 
             try {
                 var db = new DatabaseDataContext();
                 RentItDatabase.Account acctResult = (from user in db.Accounts
                                                      where user.user_name.Equals(account.UserName)
                                                      select user).First();
-
                 // set active flag
                 acctResult.active = false;
                 db.SubmitChanges();
@@ -786,9 +786,21 @@
             return true;
         }
 
-        public Uri GetMediaUri(string mediaId, AccountCredentials credentials)
+        public byte[] GetMediaData(string mediaId, AccountCredentials credentials)
         {
-            throw new NotImplementedException();
+            //Account account = ValidateCredentials(credentials);
+            //if (account == null) throw new InvalidCredentialsException();
+
+            DatabaseDataContext db;
+            try {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception e) {
+                throw new FaultException<Exception>(
+                    new Exception("Could not connect to database", e));
+            }
+
+            return new byte[20000];
         }
 
         /// <author>Per Mortensen</author>
