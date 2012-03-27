@@ -809,13 +809,15 @@
 
             try {
                 // find media based on id
-                IQueryable<Media> mediaResult = from m in db.Medias where m.id == mediaId select m;
-                if(mediaResult.Count() <= 0) // media was not found
-                    return false;
-
-                Media media = mediaResult.First();
+                Media media = (from m in db.Medias
+                               where m.id == mediaId
+                               select m).First();
+                
                 db.Medias.DeleteOnSubmit(media);
                 db.SubmitChanges();
+            } catch(ArgumentNullException) { // Media was not found
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("The Media with id " + mediaId + " does not exist."));
             } catch(Exception e) {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
