@@ -566,6 +566,7 @@
         public bool RentMedia(int mediaId, AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
+            if (account == null) return false;
 
             try {
                 var db = new DatabaseDataContext();
@@ -596,6 +597,7 @@
         public bool PublishMedia(MediaInfo info, AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
+            if (account == null) return false;
 
             if(!Util.IsPublisher(account))
                 throw new FaultException<InvalidCredentialsException>(
