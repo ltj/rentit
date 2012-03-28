@@ -821,6 +821,19 @@
             return file;
         }
 
+        /// <author>Lars Toft Jacobsen</author>
+        /// <summary>
+        /// Upload new media file to database
+        /// </summary>
+        /// <param name="mfile"></param>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public bool UploadMediaData(MediaFile mfile, AccountCredentials account) {
+
+            throw new NotImplementedException();
+
+        }
+
         /// <author>Per Mortensen</author>
         /// <summary>
         /// 
