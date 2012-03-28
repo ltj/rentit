@@ -566,6 +566,7 @@
         public bool RentMedia(int mediaId, AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
+            if (account == null) return false;
 
             try {
                 var db = new DatabaseDataContext();
@@ -596,6 +597,7 @@
         public bool PublishMedia(MediaInfo info, AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
+            if (account == null) return false;
 
             if(!Util.IsPublisher(account))
                 throw new FaultException<InvalidCredentialsException>(
@@ -788,10 +790,17 @@
             return true;
         }
 
-        public Binary GetMediaData(string mediaId, AccountCredentials credentials)
+        /// <author>Lars Toft Jacobsen</author>
+        /// <summary>
+        /// Fetches a file with metadata from the database by id
+        /// </summary>
+        /// <param name="mediaId"></param>
+        /// <param name="credentials"></param>
+        /// <returns>byte array representation of file data</returns>
+        public MediaFile GetMediaData(string mediaId, AccountCredentials credentials)
         {
-            //Account account = ValidateCredentials(credentials);
-            //if (account == null) throw new InvalidCredentialsException();
+            Account account = ValidateCredentials(credentials);
+            if (account == null) throw new InvalidCredentialsException();
 
             DatabaseDataContext db;
             try {
@@ -802,7 +811,29 @@
                     new Exception("Could not connect to database", e));
             }
 
-            return new Binary(new byte[20000]);
+            // query db for file entity with id == mediaId
+            IQueryable<RentItDatabase.Media_file> mfiles = from f in db.Media_files
+                                                          where f.id.Equals(mediaId)
+                                                          select f;
+
+            if (mfiles.Count() <= 0) throw new FaultException("File id not found in database");
+
+            MediaFile file = new MediaFile(mfiles.First().data.ToArray(), mfiles.First().name, mfiles.First().extension);
+            // return byte array from Linq.Binary object
+            return file;
+        }
+
+        /// <author>Lars Toft Jacobsen</author>
+        /// <summary>
+        /// Upload new media file to database
+        /// </summary>
+        /// <param name="mfile"></param>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public bool UploadMediaData(MediaFile mfile, AccountCredentials account) {
+
+            throw new NotImplementedException();
+
         }
 
         /// <author>Per Mortensen</author>

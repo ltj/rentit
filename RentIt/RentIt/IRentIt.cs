@@ -275,7 +275,7 @@
 
         /// <summary>
         /// When a media has been paid for and is an active rental, this service method is used
-        /// to get the URL of the specified media.
+        /// to get binary+metadata of the specified media.
         /// </summary>
         /// <param name="mediaId">
         /// The media to be obtained identified by this media id.
@@ -291,7 +291,18 @@
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
-        Binary GetMediaData(string mediaId, AccountCredentials credentials);
+        MediaFile GetMediaData(string mediaId, AccountCredentials credentials);
+
+        /// <summary>
+        /// Method to upload actual media files (binaries) by a publisher
+        /// </summary>
+        /// <param name="mfile">The media file to be uploaded</param>
+        /// <param name="credentials">User crendetials - must be a publisher</param>
+        /// <returns>True if insertion went well, false if crendentials are invalid. Throws exceptions</returns>
+        [OperationContract]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
+        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
+        bool UploadMediaData(MediaFile mfile, AccountCredentials credentials);
 
         /// <summary>
         /// Gets all the genres of the specified media type that the service currently
