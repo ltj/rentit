@@ -291,7 +291,7 @@
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
-        Binary GetMediaData(string mediaId, AccountCredentials credentials);
+        MediaFile GetMediaData(string mediaId, AccountCredentials credentials);
 
         /// <summary>
         /// Gets all the genres of the specified media type that the service currently

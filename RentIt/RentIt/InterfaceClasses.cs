@@ -881,6 +881,28 @@
     }
 
     /// <summary>
+    /// Binary media file representation with metadata (Lars)
+    /// </summary>
+    [DataContract]
+    public struct MediaFile {
+
+        [DataMember]
+        public readonly byte[] FileData;
+
+        [DataMember]
+        public readonly string FileName;
+
+        [DataMember]
+        public readonly string Extension;
+
+        public MediaFile(byte[] fileData, string fileName, string extension) {
+            FileData = fileData;
+            FileName = fileName;
+            Extension = extension;
+        }
+    }
+ 
+    /// <summary>
     /// Indicates that the submitted user credentials are not valid for this action.
     /// </summary>
     [DataContract]
