@@ -666,12 +666,6 @@
         }
 
         /// <author>Per Mortensen</author>
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="newData"></param>
-        /// <param name="credentials"></param>
-        /// <returns></returns>
         public bool UpdateMediaMetadata(MediaInfo newData, AccountCredentials credentials)
         {
             ValidateCredentials(credentials);
@@ -696,11 +690,8 @@
                     return false;
                 Media media = mediaResult.First();
 
-                // find new genre id based on genre name
-                IQueryable<int> genreResult = from g in db.Genres where g.name.Equals(newData.Genre) select g.id;
-                if(genreResult.Count() <= 0) // genre was not found
-                    return false;
-                int genreId = genreResult.First();
+                // add genre to database if it doesn't exist and get its genre id
+                int genreId = Util.AddGenre(newData.Genre, newData.Type);
 
                 // update general metadata
                 media.genre_id = genreId;
@@ -748,12 +739,6 @@
         }
 
         /// <author>Per Mortensen</author>
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mediaId"></param>
-        /// <param name="credentials"></param>
-        /// <returns></returns>
         public bool DeleteMedia(int mediaId, AccountCredentials credentials)
         {
             ValidateCredentials(credentials);
@@ -776,6 +761,62 @@
                 Media media = (from m in db.Medias
                                where m.id == mediaId
                                select m).First();
+
+                // media type of the media
+                MediaType mediaType = Util.MediaTypeOfValue(media.Media_type.name);
+
+                // delete type-specific media record
+                switch(mediaType) {
+                    case MediaType.Book:
+                        Book book = (from m in db.Books
+                                     where m.media_id == mediaId
+                                     select m).First();
+                        db.Books.DeleteOnSubmit(book);
+                        break;
+                    case MediaType.Movie:
+                        Movie movie = (from m in db.Movies
+                                       where m.media_id == mediaId
+                                       select m).First();
+                        db.Movies.DeleteOnSubmit(movie);
+                        break;
+                    case MediaType.Album:
+                        Album album = (from m in db.Albums
+                                       where m.media_id == mediaId
+                                       select m).First();
+
+                        // get album/song junctions
+                        IQueryable<Album_song> albumSongs = from m in db.Album_songs
+                                                            where m.album_id == media.id
+                                                            select m;
+
+                        // delete all album/song junctions and songs
+                        foreach(var albumSong in albumSongs) {
+                            db.Album_songs.DeleteOnSubmit(albumSong);
+                            db.Songs.DeleteOnSubmit(albumSong.Song);
+                        }
+
+                        // delete album
+                        db.Albums.DeleteOnSubmit(album);
+                        break;
+                    case MediaType.Song:
+                        Song song = (from m in db.Songs
+                                     where m.media_id == mediaId
+                                     select m).First();
+
+                        // get album/song junctions
+                        IQueryable<Album_song> albumSongs2 = from m in db.Album_songs
+                                                             where m.song_id == media.id
+                                                             select m;
+
+                        // delete all album/song junctions and songs
+                        foreach(var albumSong in albumSongs2)
+                            db.Album_songs.DeleteOnSubmit(albumSong);
+
+                        db.Songs.DeleteOnSubmit(song);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
                 
                 db.Medias.DeleteOnSubmit(media);
                 db.SubmitChanges();
