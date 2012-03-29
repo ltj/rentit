@@ -117,13 +117,23 @@ namespace BinaryCommunicator
         /// Either the user was not authenticated, an internal error happened or the
         /// upload of the file failed.
         /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Is thrown if the credentials are not authorized.
+        /// </exception>
         public static void UploadBook(AccountCredentials credentials, string bookFilePath, BookInfo bookInfo)
         {
             var db = new RentItDatabaseDataContext();
 
+            if (!db.Publisher_accounts.Exists(
+                pub => pub.user_name.Equals(credentials.UserName) &&
+                    pub.Account.password.Equals(credentials.HashedPassword)))
+            {
+                throw new ArgumentException("The specified credentials is not authorized to publish media.");
+            }
+
             RentItDatabase.Book bookMedia = new Book()
             {
-                Media = CompileBaseMedia(db, bookInfo),
+                Media = CompileBaseMedia(db, bookInfo, credentials),
                 author = bookInfo.Author,
                 pages = bookInfo.Pages,
                 summary = bookInfo.Summary
@@ -145,24 +155,38 @@ namespace BinaryCommunicator
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="songFilePaths">
+        /// <param name="credentials">
+        /// The credentials of the publisher who is uploading the specified album.
+        /// </param>
+        /// <param name="songs">
         /// The key represents the song info of the song file, which file path is the 
         /// corresponding value.
         /// </param>
-        /// <param name="songInfos"></param>
-        /// <param name="albumInfo"></param>
+        /// <param name="albumInfo">
+        /// Instance holding the metadata of the album to be uploaded.
+        /// </param>
         /// <exception cref="WebException">
         /// Is thrown if the upload failed. There can be several reasons for that:
         /// Either the user was not authenticated, an internal error happened or the
         /// upload of the file failed.
         /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Is thrown if the credentials are not authorized.
+        /// </exception>
         public static void UploadAlbum(AccountCredentials credentials, Dictionary<SongInfo, string> songs, AlbumInfo albumInfo)
         {
             var db = new RentItDatabaseDataContext();
 
+            if (!db.Publisher_accounts.Exists(
+                pub => pub.user_name.Equals(credentials.UserName) &&
+                    pub.Account.password.Equals(credentials.HashedPassword)))
+            {
+                throw new ArgumentException("The specified credentials is not authorized to publish media.");
+            }
+
             RentItDatabase.Album albumMedia = new Album()
                 {
-                    Media = CompileBaseMedia(db, albumInfo),
+                    Media = CompileBaseMedia(db, albumInfo, credentials),
                     album_artist = albumInfo.AlbumArtist,
                     description = albumInfo.Description
                 };
@@ -182,7 +206,7 @@ namespace BinaryCommunicator
             {
                 RentItDatabase.Song songMedia = new Song()
                     {
-                        Media = CompileBaseMedia(db, songInfo),
+                        Media = CompileBaseMedia(db, songInfo, credentials),
                         artist = songInfo.Artist,
                         length = (int)songInfo.Duration.TotalSeconds
                     };
@@ -230,6 +254,9 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentNullException">
         /// Is thrown if one of the arguments is a null reference.
         /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Is thrown if the credentials are not authorized.
+        /// </exception>
         public static void UploadMovie(AccountCredentials credentials, string movieFilePath, MovieInfo movieInfo)
         {
             if (credentials == null)
@@ -250,9 +277,16 @@ namespace BinaryCommunicator
             }
 
             var db = new RentItDatabaseDataContext();
+            if (!db.Publisher_accounts.Exists(
+                 pub => pub.user_name.Equals(credentials.UserName) &&
+                  pub.Account.password.Equals(credentials.HashedPassword)))
+            {
+                throw new ArgumentException("The specified credentials is not authorized to publish media.");
+            }
+
             RentItDatabase.Movie movieMedia = new Movie()
             {
-                Media = CompileBaseMedia(db, movieInfo),
+                Media = CompileBaseMedia(db, movieInfo, credentials),
                 director = movieInfo.Director,
                 length = (int)movieInfo.Duration.TotalSeconds,
                 summary = movieInfo.Summary
@@ -284,7 +318,7 @@ namespace BinaryCommunicator
         /// <returns>
         /// The created RentItDatabase.Media-object.
         /// </returns>
-        private static RentItDatabase.Media CompileBaseMedia(RentItDatabaseDataContext db, MediaInfo mediaInfo)
+        private static RentItDatabase.Media CompileBaseMedia(RentItDatabaseDataContext db, MediaInfo mediaInfo, AccountCredentials credentials)
         {
             RentItDatabase.Media baseMedia = new Media()
             {
@@ -297,9 +331,9 @@ namespace BinaryCommunicator
                             select mType.id).First(),
                 price = mediaInfo.Price,
                 release_date = mediaInfo.ReleaseDate,
-                publisher_id = (from pub in db.Publishers
-                                where pub.title.Equals(mediaInfo.Publisher)
-                                select pub.id).First(),
+                publisher_id = (from pub in db.Publisher_accounts
+                                where pub.user_name.Equals(credentials.UserName)
+                                select pub.publisher_id).First()
             };
 
             return baseMedia;
