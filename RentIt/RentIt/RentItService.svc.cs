@@ -864,17 +864,64 @@
             return file;
         }
 
-        /// <author>Lars Toft Jacobsen</author>
         /// <summary>
-        /// Upload new media file to database
+        /// Upload new media binary to database
         /// </summary>
-        /// <param name="mfile"></param>
-        /// <param name="account"></param>
+        /// <param name="mediaId">the id of the media the file is related to. If it exists the record will be updated
+        /// with the new data.</param>
+        /// <param name="mfile">The new file object</param>
+        /// <param name="credentials">User credentials</param>
         /// <returns></returns>
-        public bool UploadMediaData(MediaFile mfile, AccountCredentials account) {
+        public bool UploadMediaData(int mediaId, MediaFile mfile, AccountCredentials credentials) {
 
-            throw new NotImplementedException();
+            Account account = ValidateCredentials(credentials);
+            if (account == null) return false;
 
+            if (!Util.IsPublisher(account))
+                throw new FaultException<InvalidCredentialsException>(
+                    new InvalidCredentialsException("This user is not a publisher."));
+
+            DatabaseDataContext db;
+            try {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception e) {
+                throw new FaultException<Exception>(
+                    new Exception("Could not connect to database", e));
+            }
+
+            // query the database for existing media id
+            IQueryable<Media_file> fs = from f in db.Media_files
+                                        where f.id.Equals(mediaId)
+                                        select f;
+                  
+            if (fs.Count() > 0) {
+                // update media file
+                RentItDatabase.Media_file efile = fs.First();
+                efile.data = mfile.FileData;
+                efile.name = mfile.FileName;
+                efile.extension = mfile.Extension;
+            }
+            else {
+                // insert new media file
+                var newm = new Media_file {
+                    id = mediaId,
+                    data = mfile.FileData,
+                    name = mfile.FileName,
+                    extension = mfile.Extension
+                };
+                db.Media_files.InsertOnSubmit(newm);
+            }
+
+            try {
+                db.SubmitChanges();
+                return true;
+            }
+            catch (Exception e) {
+                throw new FaultException<Exception>(
+                    new Exception("Could not update/insert record", e));
+            }
+                
         }
 
         /// <author>Per Mortensen</author>
