@@ -287,9 +287,9 @@
                                        where rental.media_id == id
                                        select rental.User_account.user_name;
             //Finds the rented medias made by all the users who rented the media.
-            IQueryable<RentItDatabase.Media> rentals = from rental in db.Rentals
+            IQueryable<RentItDatabase.Media> rentals = (from rental in db.Rentals
                                                         where users.Contains(rental.User_account.user_name)
-                                                        select rental.Media;
+                                                        select rental.Media).Distinct();
             //Returns a MediaItems object containing lists of all the medias rented by the users who also rented the media with the given id.
             return Util.CompileMedias(rentals, this);
         }

@@ -27,15 +27,15 @@
         /// </returns>
         public static MediaType MediaTypeOfValue(string mediaType) {
             switch(mediaType) {
-                case "any":
+                case "Any":
                     return MediaType.Any;
-                case "book":
+                case "Book":
                     return MediaType.Book;
-                case "movie":
+                case "Movie":
                     return MediaType.Movie;
-                case "album":
+                case "Album":
                     return MediaType.Album;
-                case "song":
+                case "Song":
                     return MediaType.Song;
                 default:
                     return MediaType.Any;
@@ -102,17 +102,17 @@
         public static string StringValueOfMediaType(MediaType mediaType) {
             switch(mediaType) {
                 case MediaType.Any:
-                    return "any";
+                    return "Any";
                 case MediaType.Book:
-                    return "book";
+                    return "Book";
                 case MediaType.Movie:
-                    return "movie";
+                    return "Movie";
                 case MediaType.Album:
-                    return "album";
+                    return "Album";
                 case MediaType.Song:
-                    return "song";
+                    return "Song";
                 default:
-                    return "any";
+                    return "Any";
             }
         }
 
