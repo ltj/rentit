@@ -721,7 +721,15 @@
         /// The media data of the media item that has been rented.
         /// </summary>
         [DataMember]
-        public readonly MediaInfo MediaItem;
+        public readonly int MediaId;
+
+        /// <summary>
+        /// The type of the rented media. Combined with the media id
+        /// (see above), one can get complete info on the media
+        /// by using the Get*Info methods in the service interface.
+        /// </summary>
+        [DataMember]
+        public readonly MediaType MediaType;
 
         /// <summary>
         /// The time at when the media item was paid for.
@@ -735,9 +743,9 @@
         [DataMember]
         public readonly System.DateTime EndTime;
 
-        public Rental(MediaInfo mediaItem, System.DateTime startTime, System.DateTime endTime)
-        {
-            MediaItem = mediaItem;
+        public Rental(int mediaId, MediaType mediaType, System.DateTime startTime, System.DateTime endTime) {
+            MediaId = mediaId;
+            MediaType = mediaType;
             StartTime = startTime;
             EndTime = endTime;
         }
