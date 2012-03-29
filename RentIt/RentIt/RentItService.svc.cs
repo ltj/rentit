@@ -1,14 +1,14 @@
-﻿namespace RentIt
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+using System.Text.RegularExpressions;
+using RentItDatabase;
+
+namespace RentIt
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ServiceModel;
-    using System.Text.RegularExpressions;
-
-    using RentItDatabase;
-    using System.Data.Linq;
-    using System.Linq;
-
     public class RentItService : IRentIt
     {
         /// <author>Kenneth Søhrmann</author>
@@ -666,12 +666,6 @@
         }
 
         /// <author>Per Mortensen</author>
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="newData"></param>
-        /// <param name="credentials"></param>
-        /// <returns></returns>
         public bool UpdateMediaMetadata(MediaInfo newData, AccountCredentials credentials)
         {
             ValidateCredentials(credentials);
@@ -696,11 +690,8 @@
                     return false;
                 Media media = mediaResult.First();
 
-                // find new genre id based on genre name
-                IQueryable<int> genreResult = from g in db.Genres where g.name.Equals(newData.Genre) select g.id;
-                if(genreResult.Count() <= 0) // genre was not found
-                    return false;
-                int genreId = genreResult.First();
+                // add genre to database if it doesn't exist and get its genre id
+                int genreId = Util.AddGenre(newData.Genre, newData.Type);
 
                 // update general metadata
                 media.genre_id = genreId;
@@ -748,12 +739,6 @@
         }
 
         /// <author>Per Mortensen</author>
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mediaId"></param>
-        /// <param name="credentials"></param>
-        /// <returns></returns>
         public bool DeleteMedia(int mediaId, AccountCredentials credentials)
         {
             ValidateCredentials(credentials);
@@ -773,13 +758,71 @@
 
             try {
                 // find media based on id
-                IQueryable<Media> mediaResult = from m in db.Medias where m.id == mediaId select m;
-                if(mediaResult.Count() <= 0) // media was not found
-                    return false;
+                Media media = (from m in db.Medias
+                               where m.id == mediaId
+                               select m).First();
 
-                Media media = mediaResult.First();
+                // media type of the media
+                MediaType mediaType = Util.MediaTypeOfValue(media.Media_type.name);
+
+                // delete type-specific media record
+                switch(mediaType) {
+                    case MediaType.Book:
+                        Book book = (from m in db.Books
+                                     where m.media_id == mediaId
+                                     select m).First();
+                        db.Books.DeleteOnSubmit(book);
+                        break;
+                    case MediaType.Movie:
+                        Movie movie = (from m in db.Movies
+                                       where m.media_id == mediaId
+                                       select m).First();
+                        db.Movies.DeleteOnSubmit(movie);
+                        break;
+                    case MediaType.Album:
+                        Album album = (from m in db.Albums
+                                       where m.media_id == mediaId
+                                       select m).First();
+
+                        // get album/song junctions
+                        IQueryable<Album_song> albumSongs = from m in db.Album_songs
+                                                            where m.album_id == media.id
+                                                            select m;
+
+                        // delete all album/song junctions and songs
+                        foreach(var albumSong in albumSongs) {
+                            db.Album_songs.DeleteOnSubmit(albumSong);
+                            db.Songs.DeleteOnSubmit(albumSong.Song);
+                        }
+
+                        // delete album
+                        db.Albums.DeleteOnSubmit(album);
+                        break;
+                    case MediaType.Song:
+                        Song song = (from m in db.Songs
+                                     where m.media_id == mediaId
+                                     select m).First();
+
+                        // get album/song junctions
+                        IQueryable<Album_song> albumSongs2 = from m in db.Album_songs
+                                                             where m.song_id == media.id
+                                                             select m;
+
+                        // delete all album/song junctions and songs
+                        foreach(var albumSong in albumSongs2)
+                            db.Album_songs.DeleteOnSubmit(albumSong);
+
+                        db.Songs.DeleteOnSubmit(song);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
                 db.Medias.DeleteOnSubmit(media);
                 db.SubmitChanges();
+            } catch(ArgumentNullException) { // Media was not found
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("The Media with id " + mediaId + " does not exist."));
             } catch(Exception e) {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
@@ -821,17 +864,64 @@
             return file;
         }
 
-        /// <author>Lars Toft Jacobsen</author>
         /// <summary>
-        /// Upload new media file to database
+        /// Upload new media binary to database
         /// </summary>
-        /// <param name="mfile"></param>
-        /// <param name="account"></param>
+        /// <param name="mediaId">the id of the media the file is related to. If it exists the record will be updated
+        /// with the new data.</param>
+        /// <param name="mfile">The new file object</param>
+        /// <param name="credentials">User credentials</param>
         /// <returns></returns>
-        public bool UploadMediaData(MediaFile mfile, AccountCredentials account) {
+        public bool UploadMediaData(int mediaId, MediaFile mfile, AccountCredentials credentials) {
 
-            throw new NotImplementedException();
+            Account account = ValidateCredentials(credentials);
+            if (account == null) return false;
 
+            if (!Util.IsPublisher(account))
+                throw new FaultException<InvalidCredentialsException>(
+                    new InvalidCredentialsException("This user is not a publisher."));
+
+            DatabaseDataContext db;
+            try {
+                db = new DatabaseDataContext();
+            }
+            catch (Exception e) {
+                throw new FaultException<Exception>(
+                    new Exception("Could not connect to database", e));
+            }
+
+            // query the database for existing media id
+            IQueryable<Media_file> fs = from f in db.Media_files
+                                        where f.id.Equals(mediaId)
+                                        select f;
+                  
+            if (fs.Count() > 0) {
+                // update media file
+                RentItDatabase.Media_file efile = fs.First();
+                efile.data = mfile.FileData;
+                efile.name = mfile.FileName;
+                efile.extension = mfile.Extension;
+            }
+            else {
+                // insert new media file
+                var newm = new Media_file {
+                    id = mediaId,
+                    data = new System.Data.Linq.Binary(mfile.FileData),
+                    name = mfile.FileName,
+                    extension = mfile.Extension
+                };
+                db.Media_files.InsertOnSubmit(newm);
+            }
+
+            try {
+                db.SubmitChanges();
+                return true;
+            }
+            catch (Exception e) {
+                throw new FaultException<Exception>(
+                    new Exception("Could not update/insert record", e));
+            }
+                
         }
 
         /// <author>Per Mortensen</author>

@@ -1,7 +1,12 @@
-﻿namespace RentIt
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+
+namespace RentIt
 {
-    using System.ServiceModel;
-    using System.Data.Linq;
 
     [ServiceContract]
     public interface IRentIt
@@ -302,7 +307,7 @@
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
-        bool UploadMediaData(MediaFile mfile, AccountCredentials credentials);
+        bool UploadMediaData(int mediaId, MediaFile mfile, AccountCredentials credentials);
 
         /// <summary>
         /// Gets all the genres of the specified media type that the service currently
