@@ -1,9 +1,12 @@
-﻿namespace RentIt {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+using RentItDatabase;
 
-    using RentItDatabase;
+namespace RentIt {
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
