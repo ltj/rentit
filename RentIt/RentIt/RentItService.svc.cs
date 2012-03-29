@@ -906,7 +906,7 @@ namespace RentIt
                 // insert new media file
                 var newm = new Media_file {
                     id = mediaId,
-                    data = mfile.FileData,
+                    data = new System.Data.Linq.Binary(mfile.FileData),
                     name = mfile.FileName,
                     extension = mfile.Extension
                 };
