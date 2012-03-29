@@ -1,9 +1,14 @@
-﻿namespace RentIt
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+using RentItDatabase;
+using System.Data.Linq;
+
+namespace RentIt
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data.Linq;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// The type of a media item.

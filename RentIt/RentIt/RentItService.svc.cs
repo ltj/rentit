@@ -1,14 +1,14 @@
-﻿namespace RentIt
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+using System.Text.RegularExpressions;
+using RentItDatabase;
+
+namespace RentIt
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ServiceModel;
-    using System.Text.RegularExpressions;
-
-    using RentItDatabase;
-    using System.Data.Linq;
-    using System.Linq;
-
     public class RentItService : IRentIt
     {
         /// <author>Kenneth Søhrmann</author>

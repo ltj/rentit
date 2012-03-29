@@ -1,7 +1,12 @@
-﻿namespace RentIt
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.Serialization;
+using System.ServiceModel;
+using System.Text;
+
+namespace RentIt
 {
-    using System.ServiceModel;
-    using System.Data.Linq;
 
     [ServiceContract]
     public interface IRentIt
