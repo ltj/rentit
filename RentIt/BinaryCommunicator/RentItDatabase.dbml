@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RENTIT01" Class="RentItDatabaseDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=rentit.itu.dk;Initial Catalog=RENTIT01;Persist Security Info=True;User ID=rentit01db" SettingsObjectName="BinaryCommunicator.Properties.Settings" SettingsPropertyName="RENTIT01ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Account" Member="Accounts">
+    <Type Name="Account">
+      <Column Name="user_name" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="full_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="email" Type="System.String" DbType="VarChar(70) NOT NULL" CanBeNull="false" />
+      <Column Name="password" Type="System.String" DbType="Char(40) NOT NULL" CanBeNull="false" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Association Name="Account_User_account" Member="User_account" ThisKey="user_name" OtherKey="user_name" Type="User_account" Cardinality="One" />
+      <Association Name="Account_Publisher_account" Member="Publisher_account" ThisKey="user_name" OtherKey="user_name" Type="Publisher_account" Cardinality="One" />
+    </Type>
+  </Table>
+  <Table Name="dbo.User_account" Member="User_accounts">
+    <Type Name="User_account">
+      <Column Name="user_name" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="credit" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_account_Rental" Member="Rentals" ThisKey="user_name" OtherKey="user_name" Type="Rental" />
+      <Association Name="User_account_Review" Member="Reviews" ThisKey="user_name" OtherKey="user_name" Type="Review" />
+      <Association Name="Account_User_account" Member="Account" ThisKey="user_name" OtherKey="user_name" Type="Account" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Album" Member="Albums">
+    <Type Name="Album">
+      <Column Name="media_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="album_artist" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="description" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Association Name="Album_Album_song" Member="Album_songs" ThisKey="media_id" OtherKey="album_id" Type="Album_song" />
+      <Association Name="Media_Album" Member="Media" ThisKey="media_id" OtherKey="id" Type="Media" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Album_song" Member="Album_songs">
+    <Type Name="Album_song">
+      <Column Name="song_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="album_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Association Name="Album_Album_song" Member="Album" ThisKey="album_id" OtherKey="media_id" Type="Album" IsForeignKey="true" />
+      <Association Name="Song_Album_song" Member="Song" ThisKey="song_id" OtherKey="media_id" Type="Song" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Book" Member="Books">
+    <Type Name="Book">
+      <Column Name="media_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="author" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="pages" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="summary" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Association Name="Media_Book" Member="Media" ThisKey="media_id" OtherKey="id" Type="Media" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Genre" Member="Genres">
+    <Type Name="Genre">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(30) NOT NULL" CanBeNull="false" />
+      <Column Name="media_type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Genre_Media" Member="Medias" ThisKey="id" OtherKey="genre_id" Type="Media" />
+      <Association Name="Media_type_Genre" Member="Media_type1" ThisKey="media_type" OtherKey="id" Type="Media_type" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Media" Member="Medias">
+    <Type Name="Media">
+      <Column Name="title" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="type_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="genre_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="price" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="release_date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="publisher_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="thumbnail" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="media_file_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Media_Album" Member="Album" ThisKey="id" OtherKey="media_id" Type="Album" Cardinality="One" />
+      <Association Name="Media_Book" Member="Book" ThisKey="id" OtherKey="media_id" Type="Book" Cardinality="One" />
+      <Association Name="Media_Movie" Member="Movie" ThisKey="id" OtherKey="media_id" Type="Movie" Cardinality="One" />
+      <Association Name="Media_Rating" Member="Rating" ThisKey="id" OtherKey="media_id" Type="Rating" Cardinality="One" />
+      <Association Name="Media_Rental" Member="Rentals" ThisKey="id" OtherKey="media_id" Type="Rental" />
+      <Association Name="Media_Review" Member="Reviews" ThisKey="id" OtherKey="media_id" Type="Review" />
+      <Association Name="Media_Song" Member="Song" ThisKey="id" OtherKey="media_id" Type="Song" Cardinality="One" />
+      <Association Name="Genre_Media" Member="Genre" ThisKey="genre_id" OtherKey="id" Type="Genre" IsForeignKey="true" />
+      <Association Name="Media_file_Media" Member="Media_file" ThisKey="media_file_id" OtherKey="id" Type="Media_file" IsForeignKey="true" />
+      <Association Name="Media_type_Media" Member="Media_type" ThisKey="type_id" OtherKey="id" Type="Media_type" IsForeignKey="true" />
+      <Association Name="Publisher_Media" Member="Publisher" ThisKey="publisher_id" OtherKey="id" Type="Publisher" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Media_file" Member="Media_files">
+    <Type Name="Media_file">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(255) NOT NULL" CanBeNull="false" />
+      <Column Name="extension" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Column Name="data" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX) NOT NULL" CanBeNull="false" UpdateCheck="Never" />
+      <Association Name="Media_file_Media" Member="Medias" ThisKey="id" OtherKey="media_file_id" Type="Media" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Media_type" Member="Media_types">
+    <Type Name="Media_type">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="VarChar(10) NOT NULL" CanBeNull="false" />
+      <Association Name="Media_type_Genre" Member="Genres" ThisKey="id" OtherKey="media_type" Type="Genre" />
+      <Association Name="Media_type_Media" Member="Medias" ThisKey="id" OtherKey="type_id" Type="Media" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Movie" Member="Movies">
+    <Type Name="Movie">
+      <Column Name="media_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="director" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="length" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="summary" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Association Name="Media_Movie" Member="Media" ThisKey="media_id" OtherKey="id" Type="Media" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Publisher" Member="Publishers">
+    <Type Name="Publisher">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Publisher_Media" Member="Medias" ThisKey="id" OtherKey="publisher_id" Type="Media" />
+      <Association Name="Publisher_Publisher_account" Member="Publisher_accounts" ThisKey="id" OtherKey="publisher_id" Type="Publisher_account" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Publisher_account" Member="Publisher_accounts">
+    <Type Name="Publisher_account">
+      <Column Name="user_name" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="publisher_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Publisher_Publisher_account" Member="Publisher" ThisKey="publisher_id" OtherKey="id" Type="Publisher" IsForeignKey="true" />
+      <Association Name="Account_Publisher_account" Member="Account" ThisKey="user_name" OtherKey="user_name" Type="Account" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rating" Member="Ratings">
+    <Type Name="Rating">
+      <Column Name="media_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="ratings_count" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="avg_rating" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Association Name="Media_Rating" Member="Media" ThisKey="media_id" OtherKey="id" Type="Media" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rental" Member="Rentals">
+    <Type Name="Rental">
+      <Column Name="user_name" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="media_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="start_time" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="end_time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Media_Rental" Member="Media" ThisKey="media_id" OtherKey="id" Type="Media" IsForeignKey="true" />
+      <Association Name="User_account_Rental" Member="User_account" ThisKey="user_name" OtherKey="user_name" Type="User_account" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Review" Member="Reviews">
+    <Type Name="Review">
+      <Column Name="user_name" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="media_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="review" Member="review1" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />
+      <Column Name="rating" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Media_Review" Member="Media" ThisKey="media_id" OtherKey="id" Type="Media" IsForeignKey="true" />
+      <Association Name="User_account_Review" Member="User_account" ThisKey="user_name" OtherKey="user_name" Type="User_account" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Song" Member="Songs">
+    <Type Name="Song">
+      <Column Name="media_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="artist" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="length" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Song_Album_song" Member="Album_songs" ThisKey="media_id" OtherKey="song_id" Type="Album_song" />
+      <Association Name="Media_Song" Member="Media" ThisKey="media_id" OtherKey="id" Type="Media" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
