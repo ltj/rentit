@@ -1991,7 +1991,7 @@ namespace RentItDatabase
 
         private string _extension;
 
-        private System.Data.Linq.Binary _data;
+        private byte[] _data;
 
         private EntitySet<Media> _Medias;
 
@@ -2005,7 +2005,7 @@ namespace RentItDatabase
         partial void OnnameChanged();
         partial void OnextensionChanging(string value);
         partial void OnextensionChanged();
-        partial void OndataChanging(System.Data.Linq.Binary value);
+        partial void OndataChanging(byte[] value);
         partial void OndataChanged();
         #endregion
 
@@ -2076,7 +2076,7 @@ namespace RentItDatabase
         }
 
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_data", DbType = "VarBinary(MAX) NOT NULL", CanBeNull = false, UpdateCheck = UpdateCheck.Never)]
-        public System.Data.Linq.Binary data
+        public byte[] data
         {
             get
             {
