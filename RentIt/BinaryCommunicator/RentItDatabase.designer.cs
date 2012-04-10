@@ -1365,7 +1365,7 @@ namespace RentItDatabase
 
         private System.Nullable<int> _publisher_id;
 
-        private System.Data.Linq.Binary _thumbnail;
+        private byte[] _thumbnail;
 
         private System.Nullable<int> _media_file_id;
 
@@ -1409,7 +1409,7 @@ namespace RentItDatabase
         partial void Onrelease_dateChanged();
         partial void Onpublisher_idChanging(System.Nullable<int> value);
         partial void Onpublisher_idChanged();
-        partial void OnthumbnailChanging(System.Data.Linq.Binary value);
+        partial void OnthumbnailChanging(byte[] value);
         partial void OnthumbnailChanged();
         partial void Onmedia_file_idChanging(System.Nullable<int> value);
         partial void Onmedia_file_idChanged();
@@ -1584,7 +1584,7 @@ namespace RentItDatabase
         }
 
         [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_thumbnail", DbType = "VarBinary(MAX)", UpdateCheck = UpdateCheck.Never)]
-        public System.Data.Linq.Binary thumbnail
+        public byte[] thumbnail
         {
             get
             {

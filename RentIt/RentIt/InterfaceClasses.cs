@@ -748,7 +748,8 @@ namespace RentIt
         [DataMember]
         public readonly System.DateTime EndTime;
 
-        public Rental(int mediaId, MediaType mediaType, System.DateTime startTime, System.DateTime endTime) {
+        public Rental(int mediaId, MediaType mediaType, System.DateTime startTime, System.DateTime endTime)
+        {
             MediaId = mediaId;
             MediaType = mediaType;
             StartTime = startTime;
@@ -897,7 +898,8 @@ namespace RentIt
     /// Binary media file representation with metadata (Lars)
     /// </summary>
     [DataContract]
-    public struct MediaFile {
+    public struct MediaFile
+    {
 
         [DataMember]
         public readonly byte[] FileData;
@@ -908,13 +910,14 @@ namespace RentIt
         [DataMember]
         public readonly string Extension;
 
-        public MediaFile(byte[] fileData, string fileName, string extension) {
+        public MediaFile(byte[] fileData, string fileName, string extension)
+        {
             FileData = fileData;
             FileName = fileName;
             Extension = extension;
         }
     }
- 
+
     /// <summary>
     /// Indicates that the submitted user credentials are not valid for this action.
     /// </summary>

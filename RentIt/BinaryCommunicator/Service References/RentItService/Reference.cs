@@ -45,7 +45,7 @@ namespace BinaryCommunicator.RentItService {
         private System.DateTime ReleaseDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private BinaryCommunicator.RentItService.Binary ThumbnailField;
+        private System.Data.Linq.Binary ThumbnailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TitleField;
@@ -142,7 +142,7 @@ namespace BinaryCommunicator.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public BinaryCommunicator.RentItService.Binary Thumbnail {
+        public System.Data.Linq.Binary Thumbnail {
             get {
                 return this.ThumbnailField;
             }
@@ -253,51 +253,6 @@ namespace BinaryCommunicator.RentItService {
                 if ((object.ReferenceEquals(this.ReviewsField, value) != true)) {
                     this.ReviewsField = value;
                     this.RaisePropertyChanged("Reviews");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Binary", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Linq")]
-    [System.SerializableAttribute()]
-    public partial class Binary : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private byte[] BytesField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public byte[] Bytes {
-            get {
-                return this.BytesField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.BytesField, value) != true)) {
-                    this.BytesField = value;
-                    this.RaisePropertyChanged("Bytes");
                 }
             }
         }

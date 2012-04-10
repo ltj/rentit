@@ -244,7 +244,8 @@
     </xs:annotation>
     <xs:sequence>
       <xs:element minOccurs="0" name="EndTime" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="MediaItem" nillable="true" type="tns:MediaInfo" />
+      <xs:element minOccurs="0" name="MediaId" type="xs:int" />
+      <xs:element minOccurs="0" name="MediaType" type="tns:MediaType" />
       <xs:element minOccurs="0" name="StartTime" type="xs:dateTime" />
     </xs:sequence>
   </xs:complexType>

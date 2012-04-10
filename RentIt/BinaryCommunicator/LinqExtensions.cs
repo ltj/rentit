@@ -15,6 +15,7 @@ namespace RentIt
     /// </summary>
     internal static class LinqExtensions
     {
+        /// <author>Kenneth Søhrmann</author>
         /// <summary>
         /// Method that provides exist-quantification on a IQueryable.
         /// </summary>
