@@ -287,9 +287,9 @@ namespace RentIt
                                        where rental.media_id == id
                                        select rental.User_account.user_name;
             //Finds the rented medias made by all the users who rented the media.
-            IQueryable<RentItDatabase.Media> rentals = from rental in db.Rentals
+            IQueryable<RentItDatabase.Media> rentals = (from rental in db.Rentals
                                                         where users.Contains(rental.User_account.user_name)
-                                                        select rental.Media;
+                                                        select rental.Media).Distinct();
             //Returns a MediaItems object containing lists of all the medias rented by the users who also rented the media with the given id.
             return Util.CompileMedias(rentals, this);
         }
@@ -416,6 +416,10 @@ namespace RentIt
         {
             Account account = ValidateCredentials(credentials);
             
+            if(Util.IsPublisher(account))
+                throw new FaultException<InvalidCredentialsException>(
+                    new InvalidCredentialsException("Credentials must not belong to a publisher account."));
+
             User_account userAccount;
             try {
                 var db = new DatabaseDataContext();
@@ -435,23 +439,18 @@ namespace RentIt
                 foreach (var rental in userAccount.Rentals)
                 {
                     //Fills the userRentals-list with Rental-objects containing info from db.
-                    switch (Util.MediaTypeOfValue(rental.Media.Media_type.name))
+                    MediaType mediaType = Util.MediaTypeOfValue(rental.Media.Media_type.name);
+                    switch (mediaType)
                     {
-                        case MediaType.Book:
-                            userRentals.Add(new Rental(GetBookInfo(rental.media_id), rental.start_time, rental.end_time));
-                            break;
-                        case MediaType.Movie:
-                            userRentals.Add(new Rental(GetMovieInfo(rental.media_id), rental.start_time, rental.end_time));
-                            break;
                         case MediaType.Song:
-                            userRentals.Add(new Rental(Util.GetSongInfo(rental.media_id), rental.start_time, rental.end_time));
                             break;
-                        case MediaType.Album:
-                            userRentals.Add(new Rental(GetAlbumInfo(rental.media_id), rental.start_time, rental.end_time));
+                        default:
+                            userRentals.Add(new Rental(rental.media_id, mediaType, rental.start_time, rental.end_time));
                             break;
                     }
                 }
             }
+
             return new UserAccount(userAccount.user_name, userAccount.Account.full_name, userAccount.Account.email,
                 userAccount.Account.password, userAccount.credit, userRentals);
         }
