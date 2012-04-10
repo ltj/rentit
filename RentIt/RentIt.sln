@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryCommunicator", "Binar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserUploadControl", "UserUploadControl\UserUploadControl.csproj", "{E343B22B-9C57-44DD-A792-3031C9C0F9E8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryCommunicatorServer", "BinaryCommunicatorServer\BinaryCommunicatorServer.csproj", "{E3E76808-A686-4B18-BA26-E90FE5A5CD56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,16 @@ Global
 		{E343B22B-9C57-44DD-A792-3031C9C0F9E8}.Release|Mixed Platforms.Build.0 = Release|x86
 		{E343B22B-9C57-44DD-A792-3031C9C0F9E8}.Release|x86.ActiveCfg = Release|x86
 		{E343B22B-9C57-44DD-A792-3031C9C0F9E8}.Release|x86.Build.0 = Release|x86
+		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
