@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentIt", "RentIt\RentIt.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryCommunicator", "BinaryCommunicator\BinaryCommunicator.csproj", "{ACE790BF-DB92-4BC4-A940-E44B7C1D838B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserUploadControl", "..\..\PropertyGridTest\PropertyGridTest\UserUploadControl.csproj", "{E343B22B-9C57-44DD-A792-3031C9C0F9E8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserUploadControl", "UserUploadControl\UserUploadControl.csproj", "{E343B22B-9C57-44DD-A792-3031C9C0F9E8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
