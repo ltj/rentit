@@ -1,0 +1,235 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 14.5, 14.625" name="RentItDatabase">
+  <DataContextMoniker Name="/RentItDatabaseDataContext" />
+  <nestedChildShapes>
+    <classShape Id="ffbd9a82-a1b6-4586-b581-3dce4f7d4b88" absoluteBounds="6.5, 1.25, 2, 1.7708968098958329">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Account" />
+      <nestedChildShapes>
+        <elementListCompartment Id="295ce7ee-2269-4b51-908c-112cf138713b" absoluteBounds="6.515, 1.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="abf4acc4-1301-4d49-b806-96c8d3fc3386" absoluteBounds="9.25, 1.625, 2, 1.1939925130208335">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/User_account" />
+      <nestedChildShapes>
+        <elementListCompartment Id="910d00e6-4e7c-42f3-b8e8-c731c30f2754" absoluteBounds="9.265, 2.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="df39d4ab-bebd-4815-b08e-91ac462789e7" absoluteBounds="9, 4, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Album" />
+      <nestedChildShapes>
+        <elementListCompartment Id="08c73fb5-61d2-4dd7-a2e7-dcd8f02a5255" absoluteBounds="9.015, 4.46, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="ae76c459-e0f2-4cfb-a54a-5eb71e2219b6" absoluteBounds="11.75, 6.25, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Album_song" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a158fcb5-2abe-4168-b64b-a7f538904078" absoluteBounds="11.765, 6.71, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="1a79b735-2384-4a63-92f9-f3135a158b22" absoluteBounds="9, 10.375, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Book" />
+      <nestedChildShapes>
+        <elementListCompartment Id="136b31a5-f9dc-4dbd-a3c1-0a95a1fac836" absoluteBounds="9.015, 10.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2eaf1126-7e62-4f2e-b374-b4b08ea856c6" absoluteBounds="3.5, 8.5, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Genre" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5b0a24d1-f7c2-4c8b-9126-763e1d1c03df" absoluteBounds="3.515, 8.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" absoluteBounds="6.25, 7.875, 2, 2.5401025390624996">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Media" />
+      <nestedChildShapes>
+        <elementListCompartment Id="4b6ec893-ea4f-4118-906c-f597b0bb5248" absoluteBounds="6.265, 8.335, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="5276b66f-d8df-47ef-b04b-da8ec17d49e5" absoluteBounds="3.5, 11.375, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Media_file" />
+      <nestedChildShapes>
+        <elementListCompartment Id="092c400a-6e39-47a3-b9c0-16c49810485e" absoluteBounds="3.515, 11.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a1db54a6-13d6-40c0-95a7-57221ff05876" absoluteBounds="0.75, 8.625, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Media_type" />
+      <nestedChildShapes>
+        <elementListCompartment Id="eba8322d-02f9-4168-848a-8596ecbaf629" absoluteBounds="0.765, 9.085, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="16a2710b-e280-4d60-a647-734d104f4a80" absoluteBounds="9, 12.75, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Movie" />
+      <nestedChildShapes>
+        <elementListCompartment Id="14d4ae06-18b5-4c2b-b318-c6d28da8ab4d" absoluteBounds="9.015, 13.21, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f25605d7-55b0-4415-b57f-be6abcd9e93d" absoluteBounds="3.5, 6.375, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Publisher" />
+      <nestedChildShapes>
+        <elementListCompartment Id="919b3f7c-0aaf-4b91-8b8f-84c426111034" absoluteBounds="3.515, 6.835, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6f87b5ca-28fe-4b53-acd4-f465204f7881" absoluteBounds="12.25, 3.875, 2, 1.193992513020834">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Publisher_account" />
+      <nestedChildShapes>
+        <elementListCompartment Id="01d2a327-2617-488d-800c-90116e67a785" absoluteBounds="12.265, 4.335, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="6979ac65-f79a-4071-8365-1b036f0f4cc4" absoluteBounds="9, 6.125, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Rating" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1297b660-60d0-422e-9ed7-488d1d3a20e1" absoluteBounds="9.015, 6.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="981fbe0c-bb6b-4f30-bf86-7e1d40cdb681" absoluteBounds="12, 8.375, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Rental" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2131f890-db2b-42cc-9324-258e06f77b6b" absoluteBounds="12.015, 8.835, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="92c3091b-2554-4a19-ba97-dadd2eae6395" absoluteBounds="12, 11.25, 2, 1.7708968098958344">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Review" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5abcf891-9346-4f60-8deb-0873e3107fcb" absoluteBounds="12.015, 11.71, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="44eda176-26fb-4d9f-9ef1-7dd0520a5fb6" absoluteBounds="9, 8.25, 2, 1.3862939453124987">
+      <DataClassMoniker Name="/RentItDatabaseDataContext/Song" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ff84b5c9-410e-412d-8c85-4584df244e65" absoluteBounds="9.015, 8.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(8.5 : 2.22199625651042); (9.25 : 2.22199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Account/Account_User_account" />
+      <nodes>
+        <classShapeMoniker Id="ffbd9a82-a1b6-4586-b581-3dce4f7d4b88" />
+        <classShapeMoniker Id="abf4acc4-1301-4d49-b806-96c8d3fc3386" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11 : 5.25889322916667); (11.96875 : 5.25889322916667); (11.96875 : 6.25)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Album/Album_Album_song" />
+      <nodes>
+        <classShapeMoniker Id="df39d4ab-bebd-4815-b08e-91ac462789e7" />
+        <classShapeMoniker Id="ae76c459-e0f2-4cfb-a54a-5eb71e2219b6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.25 : 7.875); (7.25 : 4.69314697265625); (9 : 4.69314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Media/Media_Album" />
+      <nodes>
+        <classShapeMoniker Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" />
+        <classShapeMoniker Id="df39d4ab-bebd-4815-b08e-91ac462789e7" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.25 : 10.4151025390625); (7.25 : 11.1843494583333); (9 : 11.1843494583333)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Media/Media_Book" />
+      <nodes>
+        <classShapeMoniker Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" />
+        <classShapeMoniker Id="1a79b735-2384-4a63-92f9-f3135a158b22" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 9.19314697265625); (6.25 : 9.19314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Genre/Genre_Media" />
+      <nodes>
+        <classShapeMoniker Id="2eaf1126-7e62-4f2e-b374-b4b08ea856c6" />
+        <classShapeMoniker Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 12.1642976888021); (6.7187475 : 12.1642976888021); (6.7187475 : 10.4151025390625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Media_file/Media_file_Media" />
+      <nodes>
+        <classShapeMoniker Id="5276b66f-d8df-47ef-b04b-da8ec17d49e5" />
+        <classShapeMoniker Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(2.75 : 9.22199625651042); (3.5 : 9.22199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Media_type/Media_type_Genre" />
+      <nodes>
+        <classShapeMoniker Id="a1db54a6-13d6-40c0-95a7-57221ff05876" />
+        <classShapeMoniker Id="2eaf1126-7e62-4f2e-b374-b4b08ea856c6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(1.75 : 9.81899251302083); (1.75 : 10.1819482421875); (6.25 : 10.1819482421875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Media_type/Media_type_Media" />
+      <nodes>
+        <classShapeMoniker Id="a1db54a6-13d6-40c0-95a7-57221ff05876" />
+        <classShapeMoniker Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.7812525 : 10.4151025390625); (7.7812525 : 13.5392976888021); (9 : 13.5392976888021)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Media/Media_Movie" />
+      <nodes>
+        <classShapeMoniker Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" />
+        <classShapeMoniker Id="16a2710b-e280-4d60-a647-734d104f4a80" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(5.5 : 6.97199625651042); (6.7187475 : 6.97199625651042); (6.7187475 : 7.875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Publisher/Publisher_Media" />
+      <nodes>
+        <classShapeMoniker Id="f25605d7-55b0-4415-b57f-be6abcd9e93d" />
+        <classShapeMoniker Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(4.5 : 6.375); (4.5 : 3.90625); (12.25 : 3.90625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Publisher/Publisher_Publisher_account" />
+      <nodes>
+        <classShapeMoniker Id="f25605d7-55b0-4415-b57f-be6abcd9e93d" />
+        <classShapeMoniker Id="6f87b5ca-28fe-4b53-acd4-f465204f7881" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.875 : 3.02089680989583); (7.875 : 3.890625); (12.25 : 3.890625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Account/Account_Publisher_account" />
+      <nodes>
+        <classShapeMoniker Id="ffbd9a82-a1b6-4586-b581-3dce4f7d4b88" />
+        <classShapeMoniker Id="6f87b5ca-28fe-4b53-acd4-f465204f7881" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(7.7812525 : 7.875); (7.7812525 : 6.54849812825521); (9 : 6.54849812825521)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Media/Media_Rating" />
+      <nodes>
+        <classShapeMoniker Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" />
+        <classShapeMoniker Id="6979ac65-f79a-4071-8365-1b036f0f4cc4" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 9.82619466145833); (12 : 9.82619466145833)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Media/Media_Rental" />
+      <nodes>
+        <classShapeMoniker Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" />
+        <classShapeMoniker Id="981fbe0c-bb6b-4f30-bf86-7e1d40cdb681" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11.15625 : 2.81899251302083); (11.15625 : 9.73124180338542); (12 : 9.73124180338542)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/User_account/User_account_Rental" />
+      <nodes>
+        <classShapeMoniker Id="abf4acc4-1301-4d49-b806-96c8d3fc3386" />
+        <classShapeMoniker Id="981fbe0c-bb6b-4f30-bf86-7e1d40cdb681" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.04687875 : 10.4151025390625); (8.04687875 : 12.425898844401); (12 : 12.425898844401)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Media/Media_Review" />
+      <nodes>
+        <classShapeMoniker Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" />
+        <classShapeMoniker Id="92c3091b-2554-4a19-ba97-dadd2eae6395" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11.1875025 : 2.81899251302083); (11.1875025 : 12.1897446110026); (12 : 12.1897446110026)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/User_account/User_account_Review" />
+      <nodes>
+        <classShapeMoniker Id="abf4acc4-1301-4d49-b806-96c8d3fc3386" />
+        <classShapeMoniker Id="92c3091b-2554-4a19-ba97-dadd2eae6395" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(11 : 8.28125); (11.0729166666667 : 8.28125 : JumpStart); (11.2708358333333 : 8.28125 : JumpEnd); (11.84375 : 8.28125); (11.84375 : 7.44399251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Song/Song_Album_song" />
+      <nodes>
+        <classShapeMoniker Id="44eda176-26fb-4d9f-9ef1-7dd0520a5fb6" />
+        <classShapeMoniker Id="ae76c459-e0f2-4cfb-a54a-5eb71e2219b6" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.25 : 8.94314697265625); (9 : 8.94314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/RentItDatabaseDataContext/Media/Media_Song" />
+      <nodes>
+        <classShapeMoniker Id="b5008b7f-4b3b-4f75-84c7-096d3be8cfd7" />
+        <classShapeMoniker Id="44eda176-26fb-4d9f-9ef1-7dd0520a5fb6" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

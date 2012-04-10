@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/RentIt" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RentIt" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Data.Linq" />
+  <xs:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="BookInfo">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:MediaInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Author" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Pages" type="xs:int" />
+          <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="BookInfo" nillable="true" type="tns:BookInfo" />
+  <xs:complexType name="MediaInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Genre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Id" type="xs:int" />
+      <xs:element minOccurs="0" name="Price" type="xs:int" />
+      <xs:element minOccurs="0" name="Publisher" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Rating" nillable="true" type="tns:MediaRating" />
+      <xs:element minOccurs="0" name="ReleaseDate" type="xs:dateTime" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Data.Linq" minOccurs="0" name="Thumbnail" nillable="true" type="q1:Binary" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" type="tns:MediaType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MediaInfo" nillable="true" type="tns:MediaInfo" />
+  <xs:complexType name="MediaRating">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AverageRating" type="xs:float" />
+      <xs:element minOccurs="0" name="RatingsCount" type="xs:int" />
+      <xs:element minOccurs="0" name="Reviews" nillable="true" type="tns:ArrayOfMediaReview" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MediaRating" nillable="true" type="tns:MediaRating" />
+  <xs:complexType name="ArrayOfMediaReview">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MediaReview" type="tns:MediaReview" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMediaReview" nillable="true" type="tns:ArrayOfMediaReview" />
+  <xs:complexType name="MediaReview">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MediaId" type="xs:int" />
+      <xs:element minOccurs="0" name="Rating" type="tns:Rating" />
+      <xs:element minOccurs="0" name="ReviewText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Timestamp" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MediaReview" nillable="true" type="tns:MediaReview" />
+  <xs:simpleType name="Rating">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="One">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">1</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Two">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">2</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Three">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">3</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Four">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">4</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Five">
+        <xs:annotation>
+          <xs:appinfo>
+            <EnumerationValue xmlns="http://schemas.microsoft.com/2003/10/Serialization/">5</EnumerationValue>
+          </xs:appinfo>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="Rating" nillable="true" type="tns:Rating" />
+  <xs:simpleType name="MediaType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Any" />
+      <xs:enumeration value="Book" />
+      <xs:enumeration value="Movie" />
+      <xs:enumeration value="Album" />
+      <xs:enumeration value="Song" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MediaType" nillable="true" type="tns:MediaType" />
+  <xs:complexType name="MovieInfo">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:MediaInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Director" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Duration" type="ser:duration" />
+          <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MovieInfo" nillable="true" type="tns:MovieInfo" />
+  <xs:complexType name="AlbumInfo">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:MediaInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AlbumArtist" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Description" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Songs" nillable="true" type="tns:ArrayOfSongInfo" />
+          <xs:element minOccurs="0" name="TotalDuration" type="ser:duration" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="AlbumInfo" nillable="true" type="tns:AlbumInfo" />
+  <xs:complexType name="ArrayOfSongInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SongInfo" nillable="true" type="tns:SongInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSongInfo" nillable="true" type="tns:ArrayOfSongInfo" />
+  <xs:complexType name="SongInfo">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:MediaInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Artist" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Duration" type="ser:duration" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="SongInfo" nillable="true" type="tns:SongInfo" />
+  <xs:complexType name="MediaCriteria">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Genre" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Limit" type="xs:int" />
+      <xs:element minOccurs="0" name="Offset" type="xs:int" />
+      <xs:element minOccurs="0" name="Order" type="tns:MediaOrder" />
+      <xs:element minOccurs="0" name="SearchText" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Type" type="tns:MediaType" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MediaCriteria" nillable="true" type="tns:MediaCriteria" />
+  <xs:simpleType name="MediaOrder">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Default" />
+      <xs:enumeration value="ReleaseDateAsc" />
+      <xs:enumeration value="ReleaseDateDesc" />
+      <xs:enumeration value="RatingAsc" />
+      <xs:enumeration value="RatingDesc" />
+      <xs:enumeration value="PopularityAsc" />
+      <xs:enumeration value="PopularityDesc" />
+      <xs:enumeration value="AlphabeticalAsc" />
+      <xs:enumeration value="AlphabeticalDesc" />
+      <xs:enumeration value="PriceAsc" />
+      <xs:enumeration value="PriceDesc" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="MediaOrder" nillable="true" type="tns:MediaOrder" />
+  <xs:complexType name="MediaItems">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Albums" nillable="true" type="tns:ArrayOfAlbumInfo" />
+      <xs:element minOccurs="0" name="Books" nillable="true" type="tns:ArrayOfBookInfo" />
+      <xs:element minOccurs="0" name="Movies" nillable="true" type="tns:ArrayOfMovieInfo" />
+      <xs:element minOccurs="0" name="Songs" nillable="true" type="tns:ArrayOfSongInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="MediaItems" nillable="true" type="tns:MediaItems" />
+  <xs:complexType name="ArrayOfAlbumInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="AlbumInfo" nillable="true" type="tns:AlbumInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfAlbumInfo" nillable="true" type="tns:ArrayOfAlbumInfo" />
+  <xs:complexType name="ArrayOfBookInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="BookInfo" nillable="true" type="tns:BookInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBookInfo" nillable="true" type="tns:ArrayOfBookInfo" />
+  <xs:complexType name="ArrayOfMovieInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="MovieInfo" nillable="true" type="tns:MovieInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfMovieInfo" nillable="true" type="tns:ArrayOfMovieInfo" />
+  <xs:complexType name="AccountCredentials">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HashedPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="AccountCredentials" nillable="true" type="tns:AccountCredentials" />
+  <xs:complexType name="Account">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HashedPassword" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Account" nillable="true" type="tns:Account" />
+  <xs:complexType name="UserAccount">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Account">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Credits" type="xs:int" />
+          <xs:element minOccurs="0" name="Rentals" nillable="true" type="tns:ArrayOfRental" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="UserAccount" nillable="true" type="tns:UserAccount" />
+  <xs:complexType name="ArrayOfRental">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Rental" type="tns:Rental" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRental" nillable="true" type="tns:ArrayOfRental" />
+  <xs:complexType name="Rental">
+    <xs:annotation>
+      <xs:appinfo>
+        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EndTime" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="MediaItem" nillable="true" type="tns:MediaInfo" />
+      <xs:element minOccurs="0" name="StartTime" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Rental" nillable="true" type="tns:Rental" />
+  <xs:complexType name="PublisherAccount">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:Account">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="PublishedItems" nillable="true" type="tns:MediaItems" />
+          <xs:element minOccurs="0" name="PublisherName" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="PublisherAccount" nillable="true" type="tns:PublisherAccount" />
+</xs:schema>
