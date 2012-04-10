@@ -8,6 +8,9 @@ using RentItDatabase;
 
 namespace RentIt
 {
+    using System.IO;
+
+    using BinaryCommunicator;
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
@@ -16,159 +19,41 @@ namespace RentIt
     /// </summary>
     internal static class Util
     {
-
-        /// <author>Kenneth Søhrmann</author>
+        /// <auhtor>Kenneth Søhrmann</auhtor>
         /// <summary>
-        /// Converts a string representation of the MediaType-enum
-        /// to MediaType. 
+        /// Converts the image to the .jpeg-format and returns its bytes.
         /// </summary>
-        /// <param name="mediaType">
-        /// The string representation of the MediaType.
-        /// If the string is null or does not match any of the 
-        /// values in the MediaType-enum, MediaType.Any is returned.
-        /// </param>
-        /// <returns>
-        /// The MediaType of the string representation specified.
-        /// </returns>
-        public static MediaType MediaTypeOfValue(string mediaType)
+        /// <param name="imageIn"></param>
+        /// <returns></returns>
+        public static byte[] ImageToByteArray(System.Drawing.Image imageIn)
         {
-            switch (mediaType)
-            {
-                case "Book":
-                    return MediaType.Book;
-                case "Movie":
-                    return MediaType.Movie;
-                case "Album":
-                    return MediaType.Album;
-                case "Song":
-                    return MediaType.Song;
-                default:
-                    return MediaType.Any;
-            }
+            MemoryStream ms = new MemoryStream();
+            imageIn.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+            return ms.ToArray();
         }
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// Convert the specified int representation of Rating to
-        /// the Rating-type.
+        /// Converts the mediaType to its string representation.
         /// </summary>
-        /// <param name="rating">
-        /// The int representation to be converted. If the specified 
-        /// value is out of range of the Rating-type, Rating.One is
-        /// returned.
-        /// </param>
-        /// <returns>
-        /// The Rating of the int representation specified.
-        /// </returns>
-        public static Rating RatingOfValue(int rating)
-        {
-            switch (rating)
-            {
-                case 1:
-                    return Rating.One;
-                case 2:
-                    return Rating.Two;
-                case 3:
-                    return Rating.Three;
-                case 4:
-                    return Rating.Four;
-                case 5:
-                    return Rating.Five;
-                default:
-                    return Rating.One;
-            }
-        }
-
-        /// <author>Per Mortensen</author>
-        /// <summary>
-        /// Convert the specified Rating to int representation.
-        /// </summary>
-        /// <param name="rating">
-        /// The Rating to be converted.
-        /// </param>
-        /// <returns>
-        /// An int representation of the Rating object.
-        /// </returns>
-        public static int ValueOfRating(Rating rating)
-        {
-            switch (rating)
-            {
-                case Rating.One:
-                    return 1;
-                case Rating.Two:
-                    return 2;
-                case Rating.Three:
-                    return 3;
-                case Rating.Four:
-                    return 4;
-                case Rating.Five:
-                    return 5;
-                default:
-                    return 1;
-            }
-        }
-
-        public static string StringValueOfMediaType(MediaType mediaType)
+        /// <param name="mediaType"></param>
+        /// <returns></returns>
+        public static string StringValueOfMediaType(MediaTypeUpload mediaType)
         {
             switch (mediaType)
             {
-                case MediaType.Book:
+                case MediaTypeUpload.Book:
                     return "Book";
-                case MediaType.Movie:
+                case MediaTypeUpload.Movie:
                     return "Movie";
-                case MediaType.Album:
+                case MediaTypeUpload.Album:
                     return "Album";
-                case MediaType.Song:
+                case MediaTypeUpload.Song:
                     return "Song";
                 default:
                     return "Any";
             }
         }
-
-        /// <author>Kenneth Søhrmann</author>
-        /// <summary>
-        /// Returns a string, which is a concatenation of the metadata stored in the database
-        /// about a media. Utilized to easily apply search text the a media item.
-        /// </summary>
-        /// <param name="mediaItem">
-        /// 
-        /// </param>
-        /// <returns>
-        /// 
-        /// </returns>
-        public static string GetMediaMetadataAsString(Media mediaItem)
-        {
-            var metadataString = new StringBuilder();
-
-            metadataString.Append(mediaItem.title + " ");
-            metadataString.Append(mediaItem.Publisher.title);
-
-            switch (MediaTypeOfValue(mediaItem.Media_type.name))
-            {
-                case MediaType.Book:
-                    RentItDatabase.Book book = mediaItem.Book;
-                    metadataString.Append(book.author + " ");
-                    metadataString.Append(book.summary);
-                    return metadataString.ToString();
-                case MediaType.Movie:
-                    RentItDatabase.Movie movie = mediaItem.Movie;
-                    metadataString.Append(movie.director + " ");
-                    metadataString.Append(movie.summary);
-                    return metadataString.ToString();
-                case MediaType.Song:
-                    RentItDatabase.Song song = mediaItem.Song;
-                    metadataString.Append(song.artist + " ");
-                    return metadataString.ToString();
-                case MediaType.Album:
-                    RentItDatabase.Album album = mediaItem.Album;
-                    metadataString.Append(album.album_artist + " ");
-                    metadataString.Append(album.description);
-                    return metadataString.ToString();
-                default:
-                    return metadataString.ToString();
-            }
-        }
-
 
         /// <author>Per Mortensen</author>
         /// <summary>
@@ -178,7 +63,7 @@ namespace RentIt
         /// <param name="mediaType">The media type for which the new genre will be available.</param>
         /// <returns>The id of the newly added genre. If the genre already exists, the
         /// existing genre id is returned.</returns>
-        public static int AddGenre(string genreName, MediaType mediaType)
+        public static int AddGenre(string genreName, MediaTypeUpload mediaType)
         {
             var db = new RentItDatabaseDataContext();
 

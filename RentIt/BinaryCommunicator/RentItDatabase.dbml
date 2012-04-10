@@ -64,7 +64,7 @@
       <Column Name="price" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="release_date" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
       <Column Name="publisher_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="thumbnail" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="thumbnail" Type="System.Byte[]" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="media_file_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Media_Album" Member="Album" ThisKey="id" OtherKey="media_id" Type="Album" Cardinality="One" />
       <Association Name="Media_Book" Member="Book" ThisKey="id" OtherKey="media_id" Type="Book" Cardinality="One" />

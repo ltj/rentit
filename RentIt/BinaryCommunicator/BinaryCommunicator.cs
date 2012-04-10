@@ -13,6 +13,11 @@ namespace BinaryCommunicator
 
     using RentItDatabase;
 
+    /// <summary>
+    /// Event handler for the FileUploadedEvent.
+    /// </summary>
+    public delegate void FileUploaded();
+
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
     /// The methods of this class is used to communicate binary data of the 
@@ -23,135 +28,10 @@ namespace BinaryCommunicator
     public class BinaryCommuncator
     {
         /// <summary>
-        /// Convenience helper factory method for instantiatng a BookInfo instance.
-        /// The parameters specify all the data of a BookInfo-object that needs
-        /// to be instantiated before is it possible to upload a the media to the
-        /// server.
+        /// The FileUploadedEvent that is fired everytime a file has been
+        /// uploaded to the server.
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="genre"></param>
-        /// <param name="price"></param>
-        /// <param name="releaseDate"></param>
-        /// <param name="publisher"></param>
-        /// <param name="thumbnail"></param>
-        /// <param name="author"></param>
-        /// <param name="summary"></param>
-        /// <param name="pages"></param>
-        /// <returns></returns>
-        public static BookInfo MovieInfoFactory(string title, string genre, int price, DateTime releaseDate, string publisher, System.Data.Linq.Binary thumbnail, string author, string summary, int pages)
-        {
-            return new BookInfo()
-            {
-                Title = title,
-                Type = MediaType.Book,
-                Genre = genre,
-                Price = price,
-                ReleaseDate = releaseDate,
-                Publisher = publisher,
-                Thumbnail = thumbnail,
-                Author = author,
-                Summary = summary,
-                Pages = pages
-            };
-        }
-
-        /// <summary>
-        /// Convenience helper factory method for instantiatng a MovieInfo instance.
-        /// The parameters specify all the data of a BookInfo-object that needs
-        /// to be instantiated before is it possible to upload a the media to the
-        /// server.
-        /// </summary>
-        /// <param name="title"></param>
-        /// <param name="genre"></param>
-        /// <param name="price"></param>
-        /// <param name="releaseDate"></param>
-        /// <param name="publisher"></param>
-        /// <param name="thumbnail"></param>
-        /// <param name="author"></param>
-        /// <param name="summary"></param>
-        /// <param name="pages"></param>
-        /// <returns></returns>
-        public static MovieInfo MovieInfoFactory(string title, string genre, int price, DateTime releaseDate, string publisher, System.Data.Linq.Binary thumbnail, string director, string summary, TimeSpan duration)
-        {
-            return new MovieInfo()
-            {
-                Title = title,
-                Type = MediaType.Movie,
-                Genre = genre,
-                Price = price,
-                ReleaseDate = releaseDate,
-                Publisher = publisher,
-                Thumbnail = thumbnail,
-                Director = director,
-                Summary = summary,
-                Duration = duration
-            };
-        }
-
-        /// <summary>
-        /// Convenience helper factory method for instantiatng a AlbumInfo instance.
-        /// The parameters specify all the data of a BookInfo-object that needs
-        /// to be instantiated before is it possible to upload a the media to the
-        /// server.
-        /// </summary>
-        /// <param name="title"></param>
-        /// <param name="genre"></param>
-        /// <param name="price"></param>
-        /// <param name="releaseDate"></param>
-        /// <param name="publisher"></param>
-        /// <param name="thumbnail"></param>
-        /// <param name="author"></param>
-        /// <param name="summary"></param>
-        /// <param name="pages"></param>
-        /// <returns></returns>
-        public static AlbumInfo AlbumInfoFactory(string title, string genre, int price, DateTime releaseDate, string publisher, System.Data.Linq.Binary thumbnail, string albumArtist, string description)
-        {
-            return new AlbumInfo()
-            {
-                Title = title,
-                Type = MediaType.Album,
-                Genre = genre,
-                Price = price,
-                ReleaseDate = releaseDate,
-                Publisher = publisher,
-                Thumbnail = thumbnail,
-                AlbumArtist = albumArtist,
-                Description = description
-            };
-        }
-
-        /// <summary>
-        /// Convenience helper factory method for instantiatng a SongInfo instance.
-        /// The parameters specify all the data of a BookInfo-object that needs
-        /// to be instantiated before is it possible to upload a the media to the
-        /// server.
-        /// </summary>
-        /// <param name="title"></param>
-        /// <param name="genre"></param>
-        /// <param name="price"></param>
-        /// <param name="releaseDate"></param>
-        /// <param name="publisher"></param>
-        /// <param name="thumbnail"></param>
-        /// <param name="author"></param>
-        /// <param name="summary"></param>
-        /// <param name="pages"></param>
-        /// <returns></returns>
-        public static SongInfo SongInfoFactory(string title, string genre, int price, DateTime releaseDate, string publisher, System.Data.Linq.Binary thumbnail, string artist, TimeSpan length)
-        {
-            return new SongInfo()
-            {
-                Title = title,
-                Type = MediaType.Song,
-                Genre = genre,
-                Price = price,
-                ReleaseDate = releaseDate,
-                Publisher = publisher,
-                Thumbnail = thumbnail,
-                Artist = artist,
-                Duration = length
-            };
-        }
-
+        public static event FileUploaded FileUploadedEvent;
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
@@ -251,7 +131,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadBook(AccountCredentials credentials, string bookFilePath, BookInfo bookInfo)
+        public static void UploadBook(AccountCredentials credentials, string bookFilePath, BookInfoUpload bookInfo)
         {
             var db = new RentItDatabaseDataContext();
 
@@ -262,7 +142,7 @@ namespace BinaryCommunicator
                 throw new ArgumentException("The specified credentials is not authorized to publish media.");
             }
 
-            Util.AddGenre(bookInfo.Genre, MediaType.Book);
+            Util.AddGenre(bookInfo.Genre, MediaTypeUpload.Book);
 
             RentItDatabase.Book bookMedia = new Book()
             {
@@ -318,7 +198,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadAlbum(AccountCredentials credentials, Dictionary<SongInfo, string> songs, AlbumInfo albumInfo)
+        public static void UploadAlbum(AccountCredentials credentials, Dictionary<SongInfoUpload, string> songs, AlbumInfoUpload albumInfo)
         {
             var db = new RentItDatabaseDataContext();
 
@@ -353,9 +233,9 @@ namespace BinaryCommunicator
             }
 
             // Add the genres to the database if they are new.
-            foreach (SongInfo songInfos in songs.Keys)
+            foreach (SongInfoUpload songInfos in songs.Keys)
             {
-                Util.AddGenre(songInfos.Genre, MediaType.Song);
+                Util.AddGenre(songInfos.Genre, MediaTypeUpload.Song);
             }
 
             // For database clean up if upload fails.
@@ -364,7 +244,7 @@ namespace BinaryCommunicator
 
             // Process each song file; upload data to database, and upload song files to
             // server.
-            foreach (SongInfo songInfo in songs.Keys)
+            foreach (SongInfoUpload songInfo in songs.Keys)
             {
                 RentItDatabase.Song songMedia = new Song()
                     {
@@ -438,7 +318,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadMovie(AccountCredentials credentials, string movieFilePath, MovieInfo movieInfo)
+        public static void UploadMovie(AccountCredentials credentials, string movieFilePath, MovieInfoUpload movieInfo)
         {
             if (credentials == null)
             {
@@ -465,7 +345,7 @@ namespace BinaryCommunicator
                 throw new ArgumentException("The specified credentials is not authorized to publish media.");
             }
             // TODO check that genre exist
-            Util.AddGenre(movieInfo.Genre, MediaType.Song);
+            Util.AddGenre(movieInfo.Genre, MediaTypeUpload.Song);
 
             RentItDatabase.Movie movieMedia = new Movie()
             {
@@ -511,16 +391,16 @@ namespace BinaryCommunicator
         /// <returns>
         /// The created RentItDatabase.Media-object.
         /// </returns>
-        private static RentItDatabase.Media CompileBaseMedia(RentItDatabaseDataContext db, MediaInfo mediaInfo, AccountCredentials credentials)
+        private static RentItDatabase.Media CompileBaseMedia(RentItDatabaseDataContext db, MediaInfoUpload mediaInfo, AccountCredentials credentials)
         {
             RentItDatabase.Media baseMedia = new Media()
             {
                 title = mediaInfo.Title,
                 type_id = (from mType in db.Media_types
-                           where mType.name.Equals(Util.StringValueOfMediaType(mediaInfo.Type))
+                           where mType.name.Equals(Util.StringValueOfMediaType(mediaInfo.MediaType))
                            select mType.id).First(),
                 genre_id = (from mType in db.Media_types
-                            where mType.name.Equals(Util.StringValueOfMediaType(mediaInfo.Type))
+                            where mType.name.Equals(Util.StringValueOfMediaType(mediaInfo.MediaType))
                             select mType.id).First(),
                 price = mediaInfo.Price,
                 release_date = mediaInfo.ReleaseDate,
@@ -559,6 +439,12 @@ namespace BinaryCommunicator
                 uri.Append("&password=" + credentials.HashedPassword);
 
                 client.UploadFile(uri.ToString(), filePath); // FullName might be incorrect here.
+
+                // Fire the FileUploadedEvent
+                if (FileUploadedEvent != null)
+                {
+                    FileUploadedEvent();
+                }
             }
         }
 
@@ -575,7 +461,7 @@ namespace BinaryCommunicator
         /// <param name="credentials">
         /// The credentials of the publisher who is to upload the thumbnail.
         /// </param>
-        private static void UploadThumbnail(int mediaId, MediaInfo info, AccountCredentials credentials)
+        private static void UploadThumbnail(int mediaId, MediaInfoUpload info, AccountCredentials credentials)
         {
             using (WebClient client = new WebClient())
             {
@@ -585,35 +471,39 @@ namespace BinaryCommunicator
                 uri.Append("&userName=" + credentials.UserName);
                 uri.Append("&password=" + credentials.HashedPassword);
 
-                client.UploadData(uri.ToString(), info.Thumbnail.Bytes);
+                client.UploadData(uri.ToString(), Util.ImageToByteArray(info.Thumbnail));
             }
         }
 
 
         public static void Main(string[] args)
         {
+            // Set up the credentials of the publisher account.
             var credentials = new AccountCredentials()
                 {
                     UserName = "publishCorp",
-                    HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
+                    HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220" // The hashsed password.
                 };
 
-            var thumbnail = new System.Data.Linq.Binary();
-            thumbnail.Bytes = File.ReadAllBytes(@"C:\Users\Kenneth88\Desktop\gta\GtaThumb.jpg");
+            // Load the thumbnail to be uploaded into the memory.
+            //var thumbnail = new System.Data.Linq.Binary();
+            Image thumbnail = System.Drawing.Image.FromFile(@"C:\Users\Kenneth88\Desktop\gta\GtaThumb.jpg");
 
-            RentIt.MovieInfo movieInfo = MovieInfoFactory(
-                "Arrows in a box",
-                "Misc",
-                0,
-                DateTime.Now,
-                "publishCorp",
-                thumbnail,
-                "Rockstar",
-                "Arrows in a box - isn't it amazing?",
-                TimeSpan.FromSeconds(41D));
+            // Construct the MovieInfo-object holding the metadata of the movie to be uploaded.
+            MovieInfoUpload movieInfo = new MovieInfoUpload();
+            movieInfo.Title = "GTA V - Debut Trailer";
+            movieInfo.Genre = "Trailer";
+            movieInfo.Price = 0;
+            movieInfo.ReleaseDate = DateTime.Now;
+            movieInfo.Publisher = "publishCorp";
+            movieInfo.Thumbnail = thumbnail;
+            movieInfo.Director = "Rockstar";
+            movieInfo.Summary = "The very first trailer of the Grand Theft Auto V-game. Oh so sweet it is!";
+            movieInfo.Duration = TimeSpan.FromSeconds(41D);
 
+            // Upload the movie by calling the UploadMovie method.
             Console.WriteLine("Started upload");
-            UploadMovie(credentials, @"C:\Users\Kenneth88\Desktop\gta\arrows.mp4", movieInfo);
+            UploadMovie(credentials, @"C:\Users\Kenneth88\Desktop\gta\GTA V - Debut Trailer.mp4", movieInfo);
             Console.WriteLine("Done uploading!");
         }
     }
