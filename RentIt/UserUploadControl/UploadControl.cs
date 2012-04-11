@@ -47,6 +47,28 @@ namespace PropertyGridTest
 
         #region Controllers
 
+        private void uploadButton_Click(object sender, EventArgs e)
+        {
+            AccountCredentials credentials = new AccountCredentials()
+            {
+                UserName = "publishCorp",
+                HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
+            };
+
+            if (comboBox1.SelectedItem.ToString().Equals("Movie"))
+            {
+                BinaryCommuncator.UploadMovie(credentials, this.movieInfo);
+            }
+            else if (comboBox1.SelectedItem.ToString().Equals("Album"))
+            {
+                BinaryCommuncator.UploadAlbum(credentials, this.dic.Keys.ToList(), this.albumInfo);
+            }
+            else if (comboBox1.SelectedItem.ToString().Equals("Book"))
+            {
+                BinaryCommuncator.UploadBook(credentials, this.bookInfo);
+            }
+        }
+
         private void newSongButton_Click(object sender, EventArgs e)
         {
             SongInfoUpload cu = new SongInfoUpload();
@@ -125,7 +147,10 @@ namespace PropertyGridTest
             SongInfoUpload cu = (SongInfoUpload)songPropertyGrid.SelectedObject;
             ListViewItem item = dic[cu];
 
-            item.SubItems[0].Text = cu.Title;
+            if (!string.IsNullOrEmpty(cu.Title))
+            {
+                item.SubItems[0].Text = cu.Title;
+            }
         }
 
         private void ComboBox1_SelectedValueChanged(object sender, EventArgs e)
@@ -161,13 +186,5 @@ namespace PropertyGridTest
         }
 
         #endregion EventHandlers
-
-        private void uploadButton_Click(object sender, EventArgs e)
-        {
-            if (comboBox1.SelectedItem.ToString().Equals("Movie"))
-            {
-                BinaryCommuncator.UploadMovie(new AccountCredentials(), this.movieInfo.File, movieInfo);
-            }
-        }
     }
 }
