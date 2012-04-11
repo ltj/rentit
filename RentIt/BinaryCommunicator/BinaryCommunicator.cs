@@ -25,7 +25,7 @@ namespace BinaryCommunicator
     /// thumbnails and media files and it is possible to upload data to the service,
     /// if the client is a registered publisher of the service.
     /// </summary>
-    public class BinaryCommuncator
+    public static class BinaryCommuncator
     {
         /// <summary>
         /// The FileUploadedEvent that is fired everytime a file has been
@@ -160,7 +160,7 @@ namespace BinaryCommunicator
 
             try
             {
-                UploadMediaFile(bookInfo.File, bookMedia.media_id, credentials);
+                UploadMediaFile(bookInfo.FilePath, bookMedia.media_id, credentials);
                 UploadThumbnail(bookMedia.media_id, bookInfo, credentials);
             }
             catch (Exception e)
@@ -219,13 +219,13 @@ namespace BinaryCommunicator
             // Check specified song files
             foreach (SongInfoUpload song in songs)
             {
-                if (!File.Exists(song.File))
+                if (!File.Exists(song.FilePath))
                 {
-                    throw new ArgumentException("The file, " + song.File + ", does not exist.");
+                    throw new ArgumentException("The file, " + song.FilePath + ", does not exist.");
                 }
-                if (!new FileInfo(song.File).Extension.Equals(".mp3"))
+                if (!new FileInfo(song.FilePath).Extension.Equals(".mp3"))
                 {
-                    throw new ArgumentException("The file, " + song.File + ", does not have the supported extension, mp3.");
+                    throw new ArgumentException("The file, " + song.FilePath + ", does not have the supported extension, mp3.");
                 }
             }
 
@@ -293,7 +293,7 @@ namespace BinaryCommunicator
 
                 try
                 {
-                    UploadMediaFile(songInfo.File, songMedia.media_id, credentials);
+                    UploadMediaFile(songInfo.FilePath, songMedia.media_id, credentials);
                     UploadThumbnail(songMedia.media_id, songInfo, credentials);
                 }
                 catch (Exception e)
@@ -352,11 +352,11 @@ namespace BinaryCommunicator
             {
                 throw new ArgumentNullException("The movieInfo parameter is a null reference.");
             }
-            if (!File.Exists(movieInfo.File))
+            if (!File.Exists(movieInfo.FilePath))
             {
                 throw new ArgumentException("The specified file does not exist.");
             }
-            if (!new FileInfo(movieInfo.File).Extension.Equals(".mp4"))
+            if (!new FileInfo(movieInfo.FilePath).Extension.Equals(".mp4"))
             {
                 throw new ArgumentException("The specified file does not have the supported extension, mp4.");
             }
@@ -383,7 +383,7 @@ namespace BinaryCommunicator
 
             try
             {
-                UploadMediaFile(movieInfo.File, movieMedia.media_id, credentials);
+                UploadMediaFile(movieInfo.FilePath, movieMedia.media_id, credentials);
                 UploadThumbnail(movieMedia.media_id, movieInfo, credentials);
             }
             catch (Exception e)
@@ -467,7 +467,7 @@ namespace BinaryCommunicator
                 uri.Append("&userName=" + credentials.UserName);
                 uri.Append("&password=" + credentials.HashedPassword);
 
-                client.UploadFile(uri.ToString(), filePath); // FullName might be incorrect here.
+                client.UploadFile(uri.ToString(), filePath);
 
                 // Fire the FileUploadedEvent
                 if (FileUploadedEvent != null)
@@ -517,12 +517,11 @@ namespace BinaryCommunicator
                 };
 
             // Load the thumbnail to be uploaded into the memory.
-            // var thumbnail = new System.Data.Linq.Binary();
             Image thumbnail = System.Drawing.Image.FromFile(@"C:\Users\Kenneth88\Desktop\gta\GtaThumb.jpg");
 
             // Construct the MovieInfo-object holding the metadata of the movie to be uploaded.
             MovieInfoUpload movieInfo = new MovieInfoUpload();
-            movieInfo.File = @"C:\Users\Kenneth88\Desktop\gta\GTA V - Debut Trailer.mp4";
+            movieInfo.FilePath = @"C:\Users\Kenneth88\Desktop\gta\GTA V - Debut Trailer.mp4";
             movieInfo.Title = "GTA V - Debut Trailer";
             movieInfo.Genre = "Trailer";
             movieInfo.Price = 0;

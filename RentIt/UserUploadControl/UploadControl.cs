@@ -3,11 +3,7 @@ namespace PropertyGridTest
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
-    using System.Drawing;
     using System.Linq;
-    using System.Text;
     using System.Windows.Forms;
 
     using BinaryCommunicator;
@@ -16,15 +12,29 @@ namespace PropertyGridTest
 
     public partial class UploadControl : Form
     {
-        // The current book instance to upload.
+        /// <summary>
+        /// The current book instance to upload.
+        /// </summary>
         private BookInfoUpload bookInfo = new BookInfoUpload();
-        private AlbumInfoUpload albumInfo = new AlbumInfoUpload();
+
+        /// <summary>
+        /// The current movie instance to upload.
+        /// </summary>
         private MovieInfoUpload movieInfo = new MovieInfoUpload();
 
-        // Used for mapping from SongInfoUpload to ListViesItem
+        /// <summary>
+        /// The current album instance to upload.
+        /// </summary>
+        private AlbumInfoUpload albumInfo = new AlbumInfoUpload();
+
+        /// <summary>
+        /// Used for mapping from SongInfoUpload to ListViesItem.
+        /// </summary>
         private Dictionary<SongInfoUpload, ListViewItem> dic = new Dictionary<SongInfoUpload, ListViewItem>();
 
-        // Used for mapping from ListViewItem to SongInfoUpload
+        /// <summary>
+        /// Used for mapping from ListViewItem to SongInfoUpload.
+        /// </summary>
         private Dictionary<ListViewItem, SongInfoUpload> dic2 = new Dictionary<ListViewItem, SongInfoUpload>();
 
         public UploadControl()
@@ -47,6 +57,13 @@ namespace PropertyGridTest
 
         #region Controllers
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// This method is invoked whenever the Upload-button on the form 
+        /// has been clicked.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void uploadButton_Click(object sender, EventArgs e)
         {
             AccountCredentials credentials = new AccountCredentials()
@@ -69,6 +86,13 @@ namespace PropertyGridTest
             }
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// This mehod is invoked whenenver the "New Song"-button on the form
+        /// is clicked. It creates a new SongInfoUpload instance.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void newSongButton_Click(object sender, EventArgs e)
         {
             SongInfoUpload cu = new SongInfoUpload();
@@ -83,12 +107,24 @@ namespace PropertyGridTest
             songListView.Items.Add(item);
         }
 
+        /// <auhtor>Kenneth Søhrmann</auhtor>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void deleteAllSongsButton_Click(object sender, EventArgs e)
         {
             songPropertyGrid.SelectedObject = null;
             songListView.Items.Clear();
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void deleteSelectedSongsButton_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem songItem in songListView.SelectedItems)
@@ -99,6 +135,12 @@ namespace PropertyGridTest
             songPropertyGrid.SelectedObject = null;
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void discardButton_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem.ToString().Equals("Album"))
@@ -126,8 +168,13 @@ namespace PropertyGridTest
 
         #region EventHandlers
 
-        // Uses the SelectedItems property to retrieve and tally the price 
-        // of the selected menu items.
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// Eventhandler of the event that is fired whenever the 
+        /// selection in the ListView has changed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ListViewSelectionChanged(object sender, System.EventArgs e)
         {
             ListView.SelectedListViewItemCollection selectedItems =
@@ -142,6 +189,12 @@ namespace PropertyGridTest
             songPropertyGrid.SelectedObject = dic2[selectedItems[0]];
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SongPropertyGrid_PropertyValueChanged(Object sender, PropertyValueChangedEventArgs e)
         {
             SongInfoUpload cu = (SongInfoUpload)songPropertyGrid.SelectedObject;
@@ -153,6 +206,12 @@ namespace PropertyGridTest
             }
         }
 
+        /// <author>Kenneth Søhrmann</author>
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ComboBox1_SelectedValueChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex == -1)

@@ -168,14 +168,14 @@
         <classShapeMoniker Id="5bd95814-339c-4537-b734-31d5cad62824" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(4.5 : 6.375); (4.5 : 3.90625); (11.0729166666667 : 3.90625 : JumpStart); (11.2708358333333 : 3.90625 : JumpEnd); (12.25 : 3.90625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(4.5 : 6.375); (4.5 : 3.90625); (12.25 : 3.90625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DatabaseDataContext/Publisher/Publisher_Publisher_account" />
       <nodes>
         <classShapeMoniker Id="16c70926-e157-494e-86d7-2ad66bbc4fa1" />
         <classShapeMoniker Id="4d477884-0568-4305-b6c8-e1e8fd647674" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.875 : 3.02089680989583); (7.875 : 3.890625); (11.0729166666667 : 3.890625 : JumpStart); (11.2708358333333 : 3.890625 : JumpEnd); (12.25 : 3.890625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(7.875 : 3.02089680989583); (7.875 : 3.890625); (11.0729166666667 : 3.890625 : JumpStart); (11.2395833333333 : 3.890625 : JumpEnd); (12.25 : 3.890625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DatabaseDataContext/Account/Account_Publisher_account" />
       <nodes>
         <classShapeMoniker Id="1f3171dd-786d-47bc-8234-1e59bfaf8738" />
@@ -189,7 +189,7 @@
         <classShapeMoniker Id="44c4072b-0f54-432a-a097-ed0607483b5d" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(8.25 : 9.82619466145833); (11.1041691666667 : 9.82619466145833 : JumpStart); (11.2708358333333 : 9.82619466145833 : JumpEnd); (12 : 9.82619466145833)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(8.25 : 9.82619466145833); (12 : 9.82619466145833)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DatabaseDataContext/Media/Media_Rental" />
       <nodes>
         <classShapeMoniker Id="5bd95814-339c-4537-b734-31d5cad62824" />
@@ -217,7 +217,7 @@
         <classShapeMoniker Id="cbc70f0b-209a-4618-bb97-e8f4fcc1d54c" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(11 : 8.28125); (11.84375 : 8.28125); (11.84375 : 7.44399251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+    <associationConnector edgePoints="[(11 : 8.28125); (11.0729166666667 : 8.28125 : JumpStart); (11.2395833333333 : 8.28125 : JumpEnd); (11.84375 : 8.28125); (11.84375 : 7.44399251302083)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/DatabaseDataContext/Song/Song_Album_song" />
       <nodes>
         <classShapeMoniker Id="3d0d83f7-40ac-4741-a03b-91b7b7469153" />

@@ -64,9 +64,6 @@ namespace WebApplication1
                              where media.id == mediaId
                              select media).First().Media_file;
 
-            //select media.Media_file).First();
-            //int count = mediaDataa.Count();
-            //var mediaData = mediaDataa.First().Media_file;
             Response.ContentType = "application/octet-stream";
             Response.AddHeader("Content-Disposition", String.Format("attachment;filename=\"{0}\"", "media" + mediaData.extension));
             Response.AddHeader("Content-Length", mediaData.data.Length.ToString());
