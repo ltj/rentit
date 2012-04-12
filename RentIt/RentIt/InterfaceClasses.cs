@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Linq;
 
 namespace RentIt
 {
-
     /// <summary>
     /// The type of a media item.
     /// </summary>
@@ -591,17 +591,21 @@ namespace RentIt
         [DataMember]
         public readonly string Artist;
 
+        [DataMember]
+        public readonly int AlbumId;
+
         /// <summary>
         /// The duration of the song this object represents.
         /// </summary>
         [DataMember]
         public readonly System.TimeSpan Duration;
 
-        public SongInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, MediaRating rating, string artist, System.TimeSpan duration)
+        public SongInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, MediaRating rating, string artist, System.TimeSpan duration, int albumId)
             : base(id, title, type, genre, price, releaseDate, publisher, rating)
         {
             Artist = artist;
             Duration = duration;
+            AlbumId = albumId;
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -623,7 +627,8 @@ namespace RentIt
                 databaseMedia.Media.Publisher.title,
                 rating,
                 databaseMedia.artist,
-                System.TimeSpan.FromSeconds(databaseMedia.length));
+                System.TimeSpan.FromSeconds(databaseMedia.length),
+                databaseMedia.Album_songs.First().album_id);
         }
     }
 
