@@ -642,7 +642,8 @@ namespace RentIt
                 databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.artist,
-                System.TimeSpan.FromSeconds((int)databaseMedia.length));
+                System.TimeSpan.FromSeconds((int)databaseMedia.length),
+                databaseMedia.Album_songs.First().album_id);
         }
     }
 

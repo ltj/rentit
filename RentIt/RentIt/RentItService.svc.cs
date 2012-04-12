@@ -274,7 +274,8 @@ namespace RentIt
             //Returns rentals made by users who also rented the given media item.
             //TODO: Return a maximum number of media items of each media type. Should the method only return media of the same type as the given media - discuss 27.03
             DatabaseDataContext db;
-            try {
+            try
+            {
                 db = new DatabaseDataContext();
             }
             catch (Exception e)
@@ -352,14 +353,14 @@ namespace RentIt
             }
 
             // All information must be longer than 0 characters.
-            if(newAccount.UserName.Length == 0 || newAccount.FullName.Length == 0 || newAccount.HashedPassword.Length == 0)
+            if (newAccount.UserName.Length == 0 || newAccount.FullName.Length == 0 || newAccount.HashedPassword.Length == 0)
                 throw new FaultException<UserCreationException>(
                     new UserCreationException("One or more pieces of information were empty."));
-                
+
 
             // The e-mail address must adhere to a regex found on http://www.regular-expressions.info/email.html (reduced official standard)
             string emailRegex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
-            if(!Regex.IsMatch(newAccount.Email, emailRegex))
+            if (!Regex.IsMatch(newAccount.Email, emailRegex))
                 throw new FaultException<UserCreationException>(
                     new UserCreationException("The e-mail address is not valid."));
 
@@ -415,13 +416,14 @@ namespace RentIt
         public UserAccount GetAllCustomerData(AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
-            
-            if(Util.IsPublisher(account))
+
+            if (Util.IsPublisher(account))
                 throw new FaultException<InvalidCredentialsException>(
                     new InvalidCredentialsException("Credentials must not belong to a publisher account."));
 
             User_account userAccount;
-            try {
+            try
+            {
                 var db = new DatabaseDataContext();
                 userAccount = (from user in db.User_accounts
                                where user.Account.user_name.Equals(account.UserName)
@@ -463,14 +465,15 @@ namespace RentIt
         public PublisherAccount GetAllPublisherData(AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
-            
+
             DatabaseDataContext db;
             Publisher_account publisherAccount;
-            try {
+            try
+            {
                 db = new DatabaseDataContext();
                 publisherAccount = (from publisher in db.Publisher_accounts
-                                                      where publisher.Account.user_name.Equals(account.UserName)
-                                                      select publisher).First();
+                                    where publisher.Account.user_name.Equals(account.UserName)
+                                    select publisher).First();
             }
             catch (Exception e)
             {
@@ -504,7 +507,8 @@ namespace RentIt
 
             // The credentials was successfully validated.
             // Retrieve the corresponding account from the database.
-            try {
+            try
+            {
                 var db = new DatabaseDataContext();
 
                 RentItDatabase.Account dbAccount =
@@ -519,7 +523,9 @@ namespace RentIt
 
                 // Submit the changes to the database.
                 db.SubmitChanges();
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
             }
@@ -538,16 +544,19 @@ namespace RentIt
         {
             ValidateCredentials(credentials);
 
-            try {
+            try
+            {
                 var db = new DatabaseDataContext();
-            
+
                 IQueryable<User_account> userAccount = from user in db.User_accounts
                                                        where user.user_name.Equals(credentials.UserName)
                                                        select user;
 
                 userAccount.First().credit += (int)addAmount;
                 db.SubmitChanges();
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
             }
@@ -567,18 +576,22 @@ namespace RentIt
             Account account = ValidateCredentials(credentials);
             if (account == null) return false;
 
-            try {
+            try
+            {
                 var db = new DatabaseDataContext();
-                var r = new RentItDatabase.Rental {
-                                                      user_name = account.UserName,
-                                                      media_id = mediaId,
-                                                      start_time = DateTime.Now,
-                                                      end_time = DateTime.Now.AddDays(30)
-                                                  };
+                var r = new RentItDatabase.Rental
+                {
+                    user_name = account.UserName,
+                    media_id = mediaId,
+                    start_time = DateTime.Now,
+                    end_time = DateTime.Now.AddDays(30)
+                };
 
                 db.Rentals.InsertOnSubmit(r);
                 db.SubmitChanges();
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
             }
@@ -593,21 +606,27 @@ namespace RentIt
         /// <param name="info"></param>
         /// <param name="credentials"></param>
         /// <returns></returns>
-        public bool PublishMedia(MediaInfo info, AccountCredentials credentials)
+        public int PublishMedia(MediaInfo info, AccountCredentials credentials)
         {
             Account account = ValidateCredentials(credentials);
-            if (account == null) return false;
+            if (account == null)
+            {
+                throw new FaultException<InvalidCredentialsException>(
+                    new InvalidCredentialsException("No credentials submitted.")); ;
+            }
 
-            if(!Util.IsPublisher(account))
+            if (!Util.IsPublisher(account))
                 throw new FaultException<InvalidCredentialsException>(
                     new InvalidCredentialsException("This user is not a publisher."));
 
-            try {
+            try
+            {
                 var db = new DatabaseDataContext();
                 Genre genre;
 
                 // fetch mediatype and genre id's
-                if(! db.Media_types.Exists(t => t.name.Equals(info.Type))) {
+                if (!db.Media_types.Exists(t => t.name.Equals(info.Type)))
+                {
                     throw new FaultException<ArgumentException>(
                         new ArgumentException("Invalid media type parameter"));
                 }
@@ -615,16 +634,19 @@ namespace RentIt
                                     where t.name.Equals(info.Type)
                                     select t).First();
 
-                if (db.Genres.Exists(g => g.name.Equals(info.Genre))) {
-                    genre = (from g in db.Genres
-                                   where g.name.Equals(info.Genre) && g.media_type.Equals(mtype)
-                                   select g).First();
-                }
-                else {
+                // Check if the specfied genre exists.
+                if (!db.Genres.Exists(g => g.name.Equals(info.Genre)))
+                {
                     Util.AddGenre(info.Genre, info.Type);
                 }
 
-                if (!db.Publishers.Exists(p => p.title.Equals(info.Publisher))) {
+                genre = (from g in db.Genres
+                         where g.name.Equals(info.Genre) && g.media_type.Equals(mtype)
+                         select g).First();
+
+                // Check if the specified publisher exists.
+                if (!db.Publishers.Exists(p => p.title.Equals(info.Publisher)))
+                {
                     throw new FaultException<ArgumentException>(
                         new ArgumentException("Invalid publisher parameter"));
                 }
@@ -632,8 +654,8 @@ namespace RentIt
                                        where p.title.Equals(info.Publisher)
                                        select p).First();
 
-
-                var newMedia = new RentItDatabase.Media {
+                var newMedia = new RentItDatabase.Media
+                {
                     title = info.Title,
                     genre_id = genre.id,
                     type_id = mtype.id,
@@ -642,10 +664,12 @@ namespace RentIt
                     publisher_id = publisher.id
                 };
 
-                switch (info.Type) {
+                switch (info.Type)
+                {
                     case MediaType.Album:
                         AlbumInfo albumInfo = (AlbumInfo)info;
-                        RentItDatabase.Album newAlbum = new Album() {
+                        RentItDatabase.Album newAlbum = new Album()
+                        {
                             Media = newMedia,
                             album_artist = albumInfo.AlbumArtist,
                             description = albumInfo.Description
@@ -654,7 +678,8 @@ namespace RentIt
                         break;
                     case MediaType.Book:
                         BookInfo bookInfo = (BookInfo)info;
-                        RentItDatabase.Book newBook = new Book() {
+                        RentItDatabase.Book newBook = new Book()
+                        {
                             Media = newMedia,
                             author = bookInfo.Author,
                             pages = bookInfo.Pages,
@@ -664,7 +689,8 @@ namespace RentIt
                         break;
                     case MediaType.Movie:
                         MovieInfo movieInfo = (MovieInfo)info;
-                        RentItDatabase.Movie newMovie = new Movie() {
+                        RentItDatabase.Movie newMovie = new Movie()
+                        {
                             Media = newMedia,
                             director = movieInfo.Director,
                             length = (int)movieInfo.Duration.TotalSeconds,
@@ -674,7 +700,8 @@ namespace RentIt
                         break;
                     case MediaType.Song:
                         SongInfo songInfo = (SongInfo)info;
-                        RentItDatabase.Song newSong = new Song() {
+                        RentItDatabase.Song newSong = new Song()
+                        {
                             Media = newMedia,
                             artist = songInfo.Artist,
                             length = (int)songInfo.Duration.TotalSeconds
@@ -682,7 +709,8 @@ namespace RentIt
 
                         db.Songs.InsertOnSubmit(newSong);
 
-                        RentItDatabase.Album_song albumSong = new Album_song() {
+                        RentItDatabase.Album_song albumSong = new Album_song()
+                        {
                             album_id = songInfo.AlbumId,
                             Song = newSong
                         };
@@ -694,7 +722,8 @@ namespace RentIt
                 db.Medias.InsertOnSubmit(newMedia);
                 db.SubmitChanges();
 
-                var newRating = new RentItDatabase.Rating {
+                var newRating = new RentItDatabase.Rating
+                {
                     media_id = newMedia.id,
                     avg_rating = 0.0,
                     ratings_count = 0
@@ -702,11 +731,14 @@ namespace RentIt
                 db.Ratings.InsertOnSubmit(newRating);
                 db.SubmitChanges();
 
-            } catch(Exception e) {
+                return newMedia.id;
+            }
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
             }
-            
+
             return true;
         }
 
@@ -723,7 +755,8 @@ namespace RentIt
             Account account = ValidateCredentials(credentials);
             if (account == null) return false;
 
-            try {
+            try
+            {
                 var db = new DatabaseDataContext();
                 RentItDatabase.Account acctResult = (from user in db.Accounts
                                                      where user.user_name.Equals(account.UserName)
@@ -731,11 +764,13 @@ namespace RentIt
                 // set active flag
                 acctResult.active = false;
                 db.SubmitChanges();
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
             }
-            
+
             return true;
         }
 
@@ -745,22 +780,26 @@ namespace RentIt
             ValidateCredentials(credentials);
 
             DatabaseDataContext db;
-            try {
+            try
+            {
                 db = new DatabaseDataContext();
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
             }
 
             // Is publisher authorized for this media?
-            if(!Util.IsPublisherAuthorized(newData.Id, credentials, db, this))
+            if (!Util.IsPublisherAuthorized(newData.Id, credentials, db, this))
                 throw new FaultException<InvalidCredentialsException>(
                     new InvalidCredentialsException("This user is not authorized to update this media."));
 
-            try {
+            try
+            {
                 // find media based on id
                 IQueryable<Media> mediaResult = from m in db.Medias where m.id == newData.Id select m;
-                if(mediaResult.Count() <= 0) // media was not found
+                if (mediaResult.Count() <= 0) // media was not found
                     return false;
                 Media media = mediaResult.First();
 
@@ -774,7 +813,8 @@ namespace RentIt
                 media.title = newData.Title;
 
                 // update type-specific metadata
-                switch(newData.Type) {
+                switch (newData.Type)
+                {
                     case MediaType.Album:
                         var newAlbumData = (AlbumInfo)newData;
                         Album album = media.Album;
@@ -804,7 +844,9 @@ namespace RentIt
                 }
 
                 db.SubmitChanges();
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
             }
@@ -818,27 +860,32 @@ namespace RentIt
             ValidateCredentials(credentials);
 
             DatabaseDataContext db;
-            try {
+            try
+            {
                 db = new DatabaseDataContext();
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
             }
 
             // Is publisher authorized for this media?
-            if(!Util.IsPublisherAuthorized(mediaId, credentials, db, this))
+            if (!Util.IsPublisherAuthorized(mediaId, credentials, db, this))
                 throw new FaultException<InvalidCredentialsException>(
                     new InvalidCredentialsException("This user is not authorized to delete this media."));
 
 
-            try {
+            try
+            {
                 // find media based on id
                 Media media = (from m in db.Medias
                                where m.id == mediaId
                                select m).First();
 
                 // if refs to media in rentals/reviews only mark inactive
-                if (db.Reviews.Exists(r => r.media_id.Equals(mediaId)) || db.Rentals.Exists(r => r.media_id.Equals(mediaId))) {
+                if (db.Reviews.Exists(r => r.media_id.Equals(mediaId)) || db.Rentals.Exists(r => r.media_id.Equals(mediaId)))
+                {
                     media.active = false;
                     db.SubmitChanges();
                     return true;
@@ -848,7 +895,8 @@ namespace RentIt
                 MediaType mediaType = Util.MediaTypeOfValue(media.Media_type.name);
 
                 // delete type-specific media record
-                switch(mediaType) {
+                switch (mediaType)
+                {
                     case MediaType.Book:
                         Book book = (from m in db.Books
                                      where m.media_id == mediaId
@@ -872,7 +920,8 @@ namespace RentIt
                                                             select m;
 
                         // delete all album/song junctions and songs
-                        foreach(var albumSong in albumSongs) {
+                        foreach (var albumSong in albumSongs)
+                        {
                             db.Album_songs.DeleteOnSubmit(albumSong);
                             db.Songs.DeleteOnSubmit(albumSong.Song);
                         }
@@ -891,7 +940,7 @@ namespace RentIt
                                                              select m;
 
                         // delete all album/song junctions and songs
-                        foreach(var albumSong in albumSongs2)
+                        foreach (var albumSong in albumSongs2)
                             db.Album_songs.DeleteOnSubmit(albumSong);
 
                         db.Songs.DeleteOnSubmit(song);
@@ -904,10 +953,14 @@ namespace RentIt
                 db.Ratings.DeleteOnSubmit(rating);
                 db.Medias.DeleteOnSubmit(media);
                 db.SubmitChanges();
-            } catch(ArgumentNullException) { // Media was not found
+            }
+            catch (ArgumentNullException)
+            { // Media was not found
                 throw new FaultException<ArgumentException>(
                     new ArgumentException("The Media with id " + mediaId + " does not exist."));
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
             }
@@ -928,18 +981,20 @@ namespace RentIt
             if (account == null) throw new InvalidCredentialsException();
 
             DatabaseDataContext db;
-            try {
+            try
+            {
                 db = new DatabaseDataContext();
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("Could not connect to database", e));
             }
 
             // query db for file entity with id == mediaId
             IQueryable<RentItDatabase.Media_file> mfiles = from f in db.Media_files
-                                                          where f.id.Equals(mediaId)
-                                                          select f;
+                                                           where f.id.Equals(mediaId)
+                                                           select f;
 
             if (mfiles.Count() <= 0) throw new FaultException("File id not found in database");
 
@@ -956,7 +1011,8 @@ namespace RentIt
         /// <param name="mfile">The new file object</param>
         /// <param name="credentials">User credentials</param>
         /// <returns></returns>
-        public bool UploadMediaData(int mediaId, MediaFile mfile, AccountCredentials credentials) {
+        public bool UploadMediaData(int mediaId, MediaFile mfile, AccountCredentials credentials)
+        {
 
             Account account = ValidateCredentials(credentials);
             if (account == null) return false;
@@ -966,10 +1022,12 @@ namespace RentIt
                     new InvalidCredentialsException("This user is not a publisher."));
 
             DatabaseDataContext db;
-            try {
+            try
+            {
                 db = new DatabaseDataContext();
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("Could not connect to database", e));
             }
@@ -978,17 +1036,20 @@ namespace RentIt
             IQueryable<Media_file> fs = from f in db.Media_files
                                         where f.id.Equals(mediaId)
                                         select f;
-                  
-            if (fs.Count() > 0) {
+
+            if (fs.Count() > 0)
+            {
                 // update media file
                 RentItDatabase.Media_file efile = fs.First();
                 efile.data = mfile.FileData;
                 efile.name = mfile.FileName;
                 efile.extension = mfile.Extension;
             }
-            else {
+            else
+            {
                 // insert new media file
-                var newm = new Media_file {
+                var newm = new Media_file
+                {
                     id = mediaId,
                     data = new System.Data.Linq.Binary(mfile.FileData),
                     name = mfile.FileName,
@@ -997,15 +1058,17 @@ namespace RentIt
                 db.Media_files.InsertOnSubmit(newm);
             }
 
-            try {
+            try
+            {
                 db.SubmitChanges();
                 return true;
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("Could not update/insert record", e));
             }
-                
+
         }
 
         /// <author>Per Mortensen</author>
@@ -1017,9 +1080,12 @@ namespace RentIt
         public List<string> GetAllGenres(MediaType mediaType)
         {
             DatabaseDataContext db;
-            try {
+            try
+            {
                 db = new DatabaseDataContext();
-            } catch(Exception) {
+            }
+            catch (Exception)
+            {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
             }
@@ -1027,13 +1093,16 @@ namespace RentIt
             string typeString = Util.StringValueOfMediaType(mediaType);
             IQueryable<string> genreResult;
 
-            try {
-                if(!typeString.Equals(Util.StringValueOfMediaType(MediaType.Any)))
+            try
+            {
+                if (!typeString.Equals(Util.StringValueOfMediaType(MediaType.Any)))
                     // find genres for specific media type
                     genreResult = from t in db.Genres where t.Media_type1.name.Equals(typeString) select t.name;
                 else // get all genres (any media type)
                     genreResult = from t in db.Genres select t.name;
-            } catch(Exception e) {
+            }
+            catch (Exception e)
+            {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
             }

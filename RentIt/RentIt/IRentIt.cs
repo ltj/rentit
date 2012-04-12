@@ -223,7 +223,7 @@ namespace RentIt
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
-        bool PublishMedia(MediaInfo info, AccountCredentials credentials); // How to upload the media file has not been figured out.
+        int PublishMedia(MediaInfo info, AccountCredentials credentials); // How to upload the media file has not been figured out.
 
         /// <summary>
         /// Deletes the account identified by the credentials.
