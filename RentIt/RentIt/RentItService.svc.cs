@@ -604,17 +604,34 @@ namespace RentIt
 
             try {
                 var db = new DatabaseDataContext();
+                Genre genre;
 
                 // fetch mediatype and genre id's
+                if(! db.Media_types.Exists(t => t.name.Equals(info.Type))) {
+                    throw new FaultException<ArgumentException>(
+                        new ArgumentException("Invalid media type parameter"));
+                }
                 Media_type mtype = (from t in db.Media_types
                                     where t.name.Equals(info.Type)
                                     select t).First();
-                Genre genre = (from g in db.Genres
-                               where g.name.Equals(info.Genre) && g.media_type.Equals(mtype)
-                               select g).First();
+
+                if (db.Genres.Exists(g => g.name.Equals(info.Genre))) {
+                    genre = (from g in db.Genres
+                                   where g.name.Equals(info.Genre) && g.media_type.Equals(mtype)
+                                   select g).First();
+                }
+                else {
+                    Util.AddGenre(info.Genre, info.Type);
+                }
+
+                if (!db.Publishers.Exists(p => p.title.Equals(info.Publisher))) {
+                    throw new FaultException<ArgumentException>(
+                        new ArgumentException("Invalid publisher parameter"));
+                }
                 Publisher publisher = (from p in db.Publishers
                                        where p.title.Equals(info.Publisher)
                                        select p).First();
+
 
                 var newMedia = new RentItDatabase.Media {
                     title = info.Title,
@@ -625,8 +642,66 @@ namespace RentIt
                     publisher_id = publisher.id
                 };
 
+                switch (info.Type) {
+                    case MediaType.Album:
+                        AlbumInfo albumInfo = (AlbumInfo)info;
+                        RentItDatabase.Album newAlbum = new Album() {
+                            Media = newMedia,
+                            album_artist = albumInfo.AlbumArtist,
+                            description = albumInfo.Description
+                        };
+                        db.Albums.InsertOnSubmit(newAlbum);
+                        break;
+                    case MediaType.Book:
+                        BookInfo bookInfo = (BookInfo)info;
+                        RentItDatabase.Book newBook = new Book() {
+                            Media = newMedia,
+                            author = bookInfo.Author,
+                            pages = bookInfo.Pages,
+                            summary = bookInfo.Summary
+                        };
+                        db.Books.InsertOnSubmit(newBook);
+                        break;
+                    case MediaType.Movie:
+                        MovieInfo movieInfo = (MovieInfo)info;
+                        RentItDatabase.Movie newMovie = new Movie() {
+                            Media = newMedia,
+                            director = movieInfo.Director,
+                            length = (int)movieInfo.Duration.TotalSeconds,
+                            summary = movieInfo.Summary
+                        };
+                        db.Movies.InsertOnSubmit(newMovie);
+                        break;
+                    case MediaType.Song:
+                        SongInfo songInfo = (SongInfo)info;
+                        RentItDatabase.Song newSong = new Song() {
+                            Media = newMedia,
+                            artist = songInfo.Artist,
+                            length = (int)songInfo.Duration.TotalSeconds
+                        };
+
+                        db.Songs.InsertOnSubmit(newSong);
+
+                        RentItDatabase.Album_song albumSong = new Album_song() {
+                            album_id = songInfo.AlbumId,
+                            Song = newSong
+                        };
+
+                        db.Album_songs.InsertOnSubmit(albumSong);
+                        break;
+                }
+
                 db.Medias.InsertOnSubmit(newMedia);
                 db.SubmitChanges();
+
+                var newRating = new RentItDatabase.Rating {
+                    media_id = newMedia.id,
+                    avg_rating = 0.0,
+                    ratings_count = 0
+                };
+                db.Ratings.InsertOnSubmit(newRating);
+                db.SubmitChanges();
+
             } catch(Exception e) {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
@@ -755,11 +830,19 @@ namespace RentIt
                 throw new FaultException<InvalidCredentialsException>(
                     new InvalidCredentialsException("This user is not authorized to delete this media."));
 
+
             try {
                 // find media based on id
                 Media media = (from m in db.Medias
                                where m.id == mediaId
                                select m).First();
+
+                // if refs to media in rentals/reviews only mark inactive
+                if (db.Reviews.Exists(r => r.media_id.Equals(mediaId)) || db.Rentals.Exists(r => r.media_id.Equals(mediaId))) {
+                    media.active = false;
+                    db.SubmitChanges();
+                    return true;
+                }
 
                 // media type of the media
                 MediaType mediaType = Util.MediaTypeOfValue(media.Media_type.name);
@@ -816,7 +899,9 @@ namespace RentIt
                     default:
                         throw new ArgumentOutOfRangeException();
                 }
-                
+
+                RentItDatabase.Rating rating = media.Rating;
+                db.Ratings.DeleteOnSubmit(rating);
                 db.Medias.DeleteOnSubmit(media);
                 db.SubmitChanges();
             } catch(ArgumentNullException) { // Media was not found

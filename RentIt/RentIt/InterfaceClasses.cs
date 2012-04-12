@@ -605,17 +605,21 @@ namespace RentIt
         [DataMember]
         public readonly string Artist;
 
+        [DataMember]
+        public readonly int AlbumId;
+
         /// <summary>
         /// The duration of the song this object represents.
         /// </summary>
         [DataMember]
         public readonly System.TimeSpan Duration;
 
-        public SongInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating, string artist, System.TimeSpan duration)
+        public SongInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating, string artist, System.TimeSpan duration, int albumId)
             : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
         {
             Artist = artist;
             Duration = duration;
+            AlbumId = albumId;
         }
 
         /// <author>Kenneth Søhrmann</author>
