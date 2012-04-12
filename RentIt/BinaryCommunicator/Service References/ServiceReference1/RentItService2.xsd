@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/RentIt" />
-  <xs:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd6" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+  <xs:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
   <xs:element name="GetBookInfo">
     <xs:complexType>
       <xs:sequence>
@@ -184,7 +184,7 @@
   <xs:element name="PublishMediaResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="PublishMediaResult" type="xs:boolean" />
+        <xs:element minOccurs="0" name="PublishMediaResult" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -232,56 +232,25 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="GetMediaData">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="mediaId" nillable="true" type="xs:string" />
-        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/RentIt" minOccurs="0" name="credentials" nillable="true" type="q24:AccountCredentials" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetMediaDataResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/RentIt" minOccurs="0" name="GetMediaDataResult" type="q25:MediaFile" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UploadMediaData">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="mediaId" type="xs:int" />
-        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/RentIt" minOccurs="0" name="mfile" type="q26:MediaFile" />
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/RentIt" minOccurs="0" name="credentials" nillable="true" type="q27:AccountCredentials" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UploadMediaDataResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="UploadMediaDataResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="GetAllGenres">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/RentIt" minOccurs="0" name="mediaType" type="q28:MediaType" />
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/RentIt" minOccurs="0" name="mediaType" type="q24:MediaType" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="GetAllGenresResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q29="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAllGenresResult" nillable="true" type="q29:ArrayOfstring" />
+        <xs:element xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetAllGenresResult" nillable="true" type="q25:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="SubmitReview">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/RentIt" minOccurs="0" name="review" type="q30:MediaReview" />
-        <xs:element xmlns:q31="http://schemas.datacontract.org/2004/07/RentIt" minOccurs="0" name="credentials" nillable="true" type="q31:AccountCredentials" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/RentIt" minOccurs="0" name="review" type="q26:MediaReview" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/RentIt" minOccurs="0" name="credentials" nillable="true" type="q27:AccountCredentials" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

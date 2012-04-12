@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BinaryCommunicator.RentItService {
+namespace BinaryCommunicator.ServiceReference1 {
     using System.Runtime.Serialization;
     using System;
     
@@ -17,10 +17,10 @@ namespace BinaryCommunicator.RentItService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MediaInfo", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
     [System.SerializableAttribute()]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BinaryCommunicator.RentItService.MovieInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BinaryCommunicator.RentItService.AlbumInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BinaryCommunicator.RentItService.SongInfo))]
-    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BinaryCommunicator.RentItService.BookInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BinaryCommunicator.ServiceReference1.AlbumInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BinaryCommunicator.ServiceReference1.SongInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BinaryCommunicator.ServiceReference1.MovieInfo))]
+    [System.Runtime.Serialization.KnownTypeAttribute(typeof(BinaryCommunicator.ServiceReference1.BookInfo))]
     public partial class MediaInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
@@ -39,19 +39,16 @@ namespace BinaryCommunicator.RentItService {
         private string PublisherField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private BinaryCommunicator.RentItService.MediaRating RatingField;
+        private BinaryCommunicator.ServiceReference1.MediaRating RatingField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private System.DateTime ReleaseDateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.Data.Linq.Binary ThumbnailField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TitleField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private BinaryCommunicator.RentItService.MediaType TypeField;
+        private BinaryCommunicator.ServiceReference1.MediaType TypeField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -116,7 +113,7 @@ namespace BinaryCommunicator.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public BinaryCommunicator.RentItService.MediaRating Rating {
+        public BinaryCommunicator.ServiceReference1.MediaRating Rating {
             get {
                 return this.RatingField;
             }
@@ -142,19 +139,6 @@ namespace BinaryCommunicator.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Data.Linq.Binary Thumbnail {
-            get {
-                return this.ThumbnailField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ThumbnailField, value) != true)) {
-                    this.ThumbnailField = value;
-                    this.RaisePropertyChanged("Thumbnail");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
         public string Title {
             get {
                 return this.TitleField;
@@ -168,7 +152,7 @@ namespace BinaryCommunicator.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public BinaryCommunicator.RentItService.MediaType Type {
+        public BinaryCommunicator.ServiceReference1.MediaType Type {
             get {
                 return this.TypeField;
             }
@@ -206,7 +190,7 @@ namespace BinaryCommunicator.RentItService {
         private int RatingsCountField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private BinaryCommunicator.RentItService.MediaReview[] ReviewsField;
+        private BinaryCommunicator.ServiceReference1.MediaReview[] ReviewsField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -245,7 +229,7 @@ namespace BinaryCommunicator.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public BinaryCommunicator.RentItService.MediaReview[] Reviews {
+        public BinaryCommunicator.ServiceReference1.MediaReview[] Reviews {
             get {
                 return this.ReviewsField;
             }
@@ -269,9 +253,135 @@ namespace BinaryCommunicator.RentItService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="AlbumInfo", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
+    [System.SerializableAttribute()]
+    public partial class AlbumInfo : BinaryCommunicator.ServiceReference1.MediaInfo {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string AlbumArtistField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string DescriptionField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private BinaryCommunicator.ServiceReference1.SongInfo[] SongsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.TimeSpan TotalDurationField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string AlbumArtist {
+            get {
+                return this.AlbumArtistField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.AlbumArtistField, value) != true)) {
+                    this.AlbumArtistField = value;
+                    this.RaisePropertyChanged("AlbumArtist");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Description {
+            get {
+                return this.DescriptionField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
+                    this.DescriptionField = value;
+                    this.RaisePropertyChanged("Description");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public BinaryCommunicator.ServiceReference1.SongInfo[] Songs {
+            get {
+                return this.SongsField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.SongsField, value) != true)) {
+                    this.SongsField = value;
+                    this.RaisePropertyChanged("Songs");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.TimeSpan TotalDuration {
+            get {
+                return this.TotalDurationField;
+            }
+            set {
+                if ((this.TotalDurationField.Equals(value) != true)) {
+                    this.TotalDurationField = value;
+                    this.RaisePropertyChanged("TotalDuration");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="SongInfo", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
+    [System.SerializableAttribute()]
+    public partial class SongInfo : BinaryCommunicator.ServiceReference1.MediaInfo {
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int AlbumIdField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ArtistField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.TimeSpan DurationField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AlbumId {
+            get {
+                return this.AlbumIdField;
+            }
+            set {
+                if ((this.AlbumIdField.Equals(value) != true)) {
+                    this.AlbumIdField = value;
+                    this.RaisePropertyChanged("AlbumId");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Artist {
+            get {
+                return this.ArtistField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ArtistField, value) != true)) {
+                    this.ArtistField = value;
+                    this.RaisePropertyChanged("Artist");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.TimeSpan Duration {
+            get {
+                return this.DurationField;
+            }
+            set {
+                if ((this.DurationField.Equals(value) != true)) {
+                    this.DurationField = value;
+                    this.RaisePropertyChanged("Duration");
+                }
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MovieInfo", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
     [System.SerializableAttribute()]
-    public partial class MovieInfo : BinaryCommunicator.RentItService.MediaInfo {
+    public partial class MovieInfo : BinaryCommunicator.ServiceReference1.MediaInfo {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DirectorField;
@@ -324,119 +434,9 @@ namespace BinaryCommunicator.RentItService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="AlbumInfo", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
-    [System.SerializableAttribute()]
-    public partial class AlbumInfo : BinaryCommunicator.RentItService.MediaInfo {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string AlbumArtistField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string DescriptionField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private BinaryCommunicator.RentItService.SongInfo[] SongsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.TimeSpan TotalDurationField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AlbumArtist {
-            get {
-                return this.AlbumArtistField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.AlbumArtistField, value) != true)) {
-                    this.AlbumArtistField = value;
-                    this.RaisePropertyChanged("AlbumArtist");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Description {
-            get {
-                return this.DescriptionField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.DescriptionField, value) != true)) {
-                    this.DescriptionField = value;
-                    this.RaisePropertyChanged("Description");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public BinaryCommunicator.RentItService.SongInfo[] Songs {
-            get {
-                return this.SongsField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.SongsField, value) != true)) {
-                    this.SongsField = value;
-                    this.RaisePropertyChanged("Songs");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.TimeSpan TotalDuration {
-            get {
-                return this.TotalDurationField;
-            }
-            set {
-                if ((this.TotalDurationField.Equals(value) != true)) {
-                    this.TotalDurationField = value;
-                    this.RaisePropertyChanged("TotalDuration");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="SongInfo", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
-    [System.SerializableAttribute()]
-    public partial class SongInfo : BinaryCommunicator.RentItService.MediaInfo {
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string ArtistField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.TimeSpan DurationField;
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Artist {
-            get {
-                return this.ArtistField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.ArtistField, value) != true)) {
-                    this.ArtistField = value;
-                    this.RaisePropertyChanged("Artist");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.TimeSpan Duration {
-            get {
-                return this.DurationField;
-            }
-            set {
-                if ((this.DurationField.Equals(value) != true)) {
-                    this.DurationField = value;
-                    this.RaisePropertyChanged("Duration");
-                }
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BookInfo", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
     [System.SerializableAttribute()]
-    public partial class BookInfo : BinaryCommunicator.RentItService.MediaInfo {
+    public partial class BookInfo : BinaryCommunicator.ServiceReference1.MediaInfo {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AuthorField;
@@ -520,7 +520,7 @@ namespace BinaryCommunicator.RentItService {
         private int MediaIdField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private BinaryCommunicator.RentItService.Rating RatingField;
+        private BinaryCommunicator.ServiceReference1.Rating RatingField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ReviewTextField;
@@ -554,7 +554,7 @@ namespace BinaryCommunicator.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public BinaryCommunicator.RentItService.Rating Rating {
+        public BinaryCommunicator.ServiceReference1.Rating Rating {
             get {
                 return this.RatingField;
             }

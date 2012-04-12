@@ -37,8 +37,6 @@ namespace RentIt
         
         private System.DateTime ReleaseDateField;
         
-        private System.Data.Linq.Binary ThumbnailField;
-        
         private string TitleField;
         
         private RentIt.MediaType TypeField;
@@ -130,19 +128,6 @@ namespace RentIt
             set
             {
                 this.ReleaseDateField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Data.Linq.Binary Thumbnail
-        {
-            get
-            {
-                return this.ThumbnailField;
-            }
-            set
-            {
-                this.ThumbnailField = value;
             }
         }
         
@@ -364,9 +349,24 @@ namespace RentIt
     public partial class SongInfo : RentIt.MediaInfo
     {
         
+        private int AlbumIdField;
+        
         private string ArtistField;
         
         private System.TimeSpan DurationField;
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int AlbumId
+        {
+            get
+            {
+                return this.AlbumIdField;
+            }
+            set
+            {
+                this.AlbumIdField = value;
+            }
+        }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
         public string Artist
@@ -1034,7 +1034,9 @@ namespace RentIt
         
         private System.DateTime EndTimeField;
         
-        private RentIt.MediaInfo MediaItemField;
+        private int MediaIdField;
+        
+        private RentIt.MediaType MediaTypeField;
         
         private System.DateTime StartTimeField;
         
@@ -1064,15 +1066,28 @@ namespace RentIt
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public RentIt.MediaInfo MediaItem
+        public int MediaId
         {
             get
             {
-                return this.MediaItemField;
+                return this.MediaIdField;
             }
             set
             {
-                this.MediaItemField = value;
+                this.MediaIdField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public RentIt.MediaType MediaType
+        {
+            get
+            {
+                return this.MediaTypeField;
+            }
+            set
+            {
+                this.MediaTypeField = value;
             }
         }
         
@@ -1086,113 +1101,6 @@ namespace RentIt
             set
             {
                 this.StartTimeField = value;
-            }
-        }
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="MediaFile", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
-    public partial struct MediaFile : System.Runtime.Serialization.IExtensibleDataObject
-    {
-        
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private string ExtensionField;
-        
-        private byte[] FileDataField;
-        
-        private string FileNameField;
-        
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
-        {
-            get
-            {
-                return this.extensionDataField;
-            }
-            set
-            {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Extension
-        {
-            get
-            {
-                return this.ExtensionField;
-            }
-            set
-            {
-                this.ExtensionField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public byte[] FileData
-        {
-            get
-            {
-                return this.FileDataField;
-            }
-            set
-            {
-                this.FileDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string FileName
-        {
-            get
-            {
-                return this.FileNameField;
-            }
-            set
-            {
-                this.FileNameField = value;
-            }
-        }
-    }
-}
-namespace System.Data.Linq
-{
-    using System.Runtime.Serialization;
-    
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Binary", Namespace="http://schemas.datacontract.org/2004/07/System.Data.Linq")]
-    public partial class Binary : object, System.Runtime.Serialization.IExtensibleDataObject
-    {
-        
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        private byte[] BytesField;
-        
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData
-        {
-            get
-            {
-                return this.extensionDataField;
-            }
-            set
-            {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public byte[] Bytes
-        {
-            get
-            {
-                return this.BytesField;
-            }
-            set
-            {
-                this.BytesField = value;
             }
         }
     }
@@ -1244,16 +1152,17 @@ public interface IRentIt
     RentIt.MovieInfo GetMovieInfo(int id);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/GetAlbumInfo", ReplyAction="http://tempuri.org/IRentIt/GetAlbumInfoResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/GetAlbumInfoFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/GetAlbumInfoFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/GetAlbumInfoFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     RentIt.AlbumInfo GetAlbumInfo(int id);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/GetMediaItems", ReplyAction="http://tempuri.org/IRentIt/GetMediaItemsResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/GetMediaItemsFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/GetMediaItemsFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/GetMediaItemsFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     RentIt.MediaItems GetMediaItems(RentIt.MediaCriteria criteria);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/GetAlsoRentedItems", ReplyAction="http://tempuri.org/IRentIt/GetAlsoRentedItemsResponse")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/GetAlsoRentedItemsFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/GetAlsoRentedItemsFaultExceptionOf_ArgumentExceptionFa" +
         "ult", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     RentIt.MediaItems GetAlsoRentedItems(int id);
@@ -1267,18 +1176,18 @@ public interface IRentIt
     RentIt.Account ValidateCredentials(RentIt.AccountCredentials credentials);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/CreateNewUser", ReplyAction="http://tempuri.org/IRentIt/CreateNewUserResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/CreateNewUserFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/CreateNewUserFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfUserCreationExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/CreateNewUserFaultExceptionOf_UserCreationExceptionFau" +
         "lt", Name="FaultExceptionOfUserCreationExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/CreateNewUserFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/CreateNewUserFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     bool CreateNewUser(RentIt.Account newAccount);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/GetAllCustomerData", ReplyAction="http://tempuri.org/IRentIt/GetAllCustomerDataResponse")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/GetAllCustomerDataFaultExceptionOf_InvalidCredentialsE" +
+        "xceptionFault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/GetAllCustomerDataFaultExceptionOf_ArgumentExceptionFa" +
         "ult", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/GetAllCustomerDataFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/GetAllCustomerDataFaultExceptionOf_InvalidCredentialsE" +
-        "xceptionFault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     RentIt.UserAccount GetAllCustomerData(RentIt.AccountCredentials credentials);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/GetAllPublisherData", ReplyAction="http://tempuri.org/IRentIt/GetAllPublisherDataResponse")]
@@ -1290,33 +1199,33 @@ public interface IRentIt
     RentIt.PublisherAccount GetAllPublisherData(RentIt.AccountCredentials credentials);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/UpdateAccountInfo", ReplyAction="http://tempuri.org/IRentIt/UpdateAccountInfoResponse")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/UpdateAccountInfoFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/UpdateAccountInfoFaultExceptionOf_InvalidCredentialsEx" +
         "ceptionFault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/UpdateAccountInfoFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/UpdateAccountInfoFaultExceptionOf_ArgumentExceptionFau" +
         "lt", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     bool UpdateAccountInfo(RentIt.AccountCredentials credentials, RentIt.Account account);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/AddCredits", ReplyAction="http://tempuri.org/IRentIt/AddCreditsResponse")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/AddCreditsFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/AddCreditsFaultExceptionOf_InvalidCredentialsException" +
         "Fault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/AddCreditsFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/AddCreditsFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     bool AddCredits(RentIt.AccountCredentials credentials, uint addAmount);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/RentMedia", ReplyAction="http://tempuri.org/IRentIt/RentMediaResponse")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/RentMediaFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/RentMediaFaultExceptionOf_InvalidCredentialsExceptionF" +
         "ault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/RentMediaFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/RentMediaFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     bool RentMedia(int mediaId, RentIt.AccountCredentials credentials);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/PublishMedia", ReplyAction="http://tempuri.org/IRentIt/PublishMediaResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/PublishMediaFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/PublishMediaFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/PublishMediaFaultExceptionOf_InvalidCredentialsExcepti" +
         "onFault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/PublishMediaFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    bool PublishMedia(RentIt.MediaInfo info, RentIt.AccountCredentials credentials);
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/PublishMediaFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
+    int PublishMedia(RentIt.MediaInfo info, RentIt.AccountCredentials credentials);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/DeleteAccount", ReplyAction="http://tempuri.org/IRentIt/DeleteAccountResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/DeleteAccountFaultExceptionOf_InvalidCredentialsExcept" +
@@ -1327,41 +1236,28 @@ public interface IRentIt
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/UpdateMediaMetadata", ReplyAction="http://tempuri.org/IRentIt/UpdateMediaMetadataResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/UpdateMediaMetadataFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/UpdateMediaMetadataFaultExceptionOf_InvalidCredentials" +
-        "ExceptionFault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/UpdateMediaMetadataFaultExceptionOf_ArgumentExceptionF" +
         "ault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/UpdateMediaMetadataFaultExceptionOf_InvalidCredentials" +
+        "ExceptionFault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     bool UpdateMediaMetadata(RentIt.MediaInfo newData, RentIt.AccountCredentials credentials);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/DeleteMedia", ReplyAction="http://tempuri.org/IRentIt/DeleteMediaResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/DeleteMediaFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/DeleteMediaFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/DeleteMediaFaultExceptionOf_InvalidCredentialsExceptio" +
         "nFault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/DeleteMediaFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/DeleteMediaFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     bool DeleteMedia(int mediaId, RentIt.AccountCredentials credentials);
     
-    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/GetMediaData", ReplyAction="http://tempuri.org/IRentIt/GetMediaDataResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/GetMediaDataFaultExceptionOf_InvalidCredentialsExcepti" +
-        "onFault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/GetMediaDataFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/GetMediaDataFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    RentIt.MediaFile GetMediaData(string mediaId, RentIt.AccountCredentials credentials);
-    
-    [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/UploadMediaData", ReplyAction="http://tempuri.org/IRentIt/UploadMediaDataResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/UploadMediaDataFaultExceptionOf_InvalidCredentialsExce" +
-        "ptionFault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/UploadMediaDataFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    bool UploadMediaData(int mediaId, RentIt.MediaFile mfile, RentIt.AccountCredentials credentials);
-    
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/GetAllGenres", ReplyAction="http://tempuri.org/IRentIt/GetAllGenresResponse")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ArgumentException), Action="http://tempuri.org/IRentIt/GetAllGenresArgumentExceptionFault", Name="ArgumentException", Namespace="http://schemas.datacontract.org/2004/07/System")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.Exception), Action="http://tempuri.org/IRentIt/GetAllGenresExceptionFault", Name="Exception", Namespace="http://schemas.datacontract.org/2004/07/System")]
     string[] GetAllGenres(RentIt.MediaType mediaType);
     
     [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRentIt/SubmitReview", ReplyAction="http://tempuri.org/IRentIt/SubmitReviewResponse")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.Exception>), Action="http://tempuri.org/IRentIt/SubmitReviewFaultExceptionOf_ExceptionFault", Name="FaultExceptionOfException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
-    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/SubmitReviewFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0), Action="http://tempuri.org/IRentIt/SubmitReviewFaultExceptionOf_InvalidCredentialsExcepti" +
         "onFault", Name="FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
+    [System.ServiceModel.FaultContractAttribute(typeof(System.ServiceModel.FaultException<System.ArgumentException>), Action="http://tempuri.org/IRentIt/SubmitReviewFaultExceptionOf_ArgumentExceptionFault", Name="FaultExceptionOfArgumentException5F2dSckg", Namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel")]
     bool SubmitReview(RentIt.MediaReview review, RentIt.AccountCredentials credentials);
 }
 
@@ -1459,7 +1355,7 @@ public partial class RentItClient : System.ServiceModel.ClientBase<IRentIt>, IRe
         return base.Channel.RentMedia(mediaId, credentials);
     }
     
-    public bool PublishMedia(RentIt.MediaInfo info, RentIt.AccountCredentials credentials)
+    public int PublishMedia(RentIt.MediaInfo info, RentIt.AccountCredentials credentials)
     {
         return base.Channel.PublishMedia(info, credentials);
     }
@@ -1477,16 +1373,6 @@ public partial class RentItClient : System.ServiceModel.ClientBase<IRentIt>, IRe
     public bool DeleteMedia(int mediaId, RentIt.AccountCredentials credentials)
     {
         return base.Channel.DeleteMedia(mediaId, credentials);
-    }
-    
-    public RentIt.MediaFile GetMediaData(string mediaId, RentIt.AccountCredentials credentials)
-    {
-        return base.Channel.GetMediaData(mediaId, credentials);
-    }
-    
-    public bool UploadMediaData(int mediaId, RentIt.MediaFile mfile, RentIt.AccountCredentials credentials)
-    {
-        return base.Channel.UploadMediaData(mediaId, mfile, credentials);
     }
     
     public string[] GetAllGenres(RentIt.MediaType mediaType)

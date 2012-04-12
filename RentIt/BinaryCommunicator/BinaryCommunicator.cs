@@ -361,6 +361,17 @@ namespace BinaryCommunicator
                 throw new ArgumentException("The specified file does not have the supported extension, mp4.");
             }
 
+            var serviceClient = new RentItClient();
+            try
+            {
+                serviceClient.ValidateCredentials(credentials);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Invalid credentials submitted.");
+            }
+
+            /*
             var db = new RentItDatabaseDataContext();
             if (!db.Publisher_accounts.Exists(
                  pub => pub.user_name.Equals(credentials.UserName) &&
@@ -368,6 +379,7 @@ namespace BinaryCommunicator
             {
                 throw new ArgumentException("The specified credentials is not authorized to publish media.");
             }
+            
             // TODO check that genre exist
             Util.AddGenre(movieInfo.Genre, MediaTypeUpload.Song);
 
@@ -380,14 +392,36 @@ namespace BinaryCommunicator
             };
             db.Movies.InsertOnSubmit(movieMedia);
             db.SubmitChanges();
+            */
+
+            //movieInfo.
+
+            var mInfo = new MovieInfo()
+                {
+                    Title = movieInfo.Title,
+                    Type = MediaType.Movie,
+                    Genre = movieInfo.Genre,
+                    Price = movieInfo.Price,
+                    Publisher = movieInfo.Publisher,
+                    ReleaseDate = movieInfo.ReleaseDate,
+
+                    Director = movieInfo.Director,
+                    Duration = movieInfo.Duration,
+                    Summary = movieInfo.Summary,
+                };
+
+            int movieId = serviceClient.PublishMedia(mInfo, credentials);
 
             try
             {
-                UploadMediaFile(movieInfo.FilePath, movieMedia.media_id, credentials);
-                UploadThumbnail(movieMedia.media_id, movieInfo, credentials);
+                UploadMediaFile(movieInfo.FilePath, movieId, credentials);
+                UploadThumbnail(movieId, movieInfo, credentials);
             }
             catch (Exception e)
             {
+                serviceClient.DeleteMedia(movieId, credentials);
+
+                /*
                 // The upload failed, so clean up database. 
                 db.Movies.DeleteOnSubmit(movieMedia);
                 db.Medias.DeleteOnSubmit(movieMedia.Media);
@@ -400,6 +434,7 @@ namespace BinaryCommunicator
 
                 db.SubmitChanges();
                 throw new WebException("Upload failed", e);
+                 * */
             }
         }
 
@@ -526,7 +561,7 @@ namespace BinaryCommunicator
             movieInfo.Genre = "Trailer";
             movieInfo.Price = 0;
             movieInfo.ReleaseDate = DateTime.Now;
-            movieInfo.Publisher = "publishCorp";
+            movieInfo.Publisher = "Publish Corp. International";
             movieInfo.Thumbnail = thumbnail;
             movieInfo.Director = "Rockstar";
             movieInfo.Summary = "The very first trailer of the Grand Theft Auto V-game. Oh so sweet it is!";

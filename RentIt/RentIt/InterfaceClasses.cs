@@ -400,6 +400,10 @@ namespace RentIt
     /// book, movies, songs and music albums (represented by instances of BookInfo,
     /// MovieInfo, SongInfo and AlbumInfo respectively)
     /// </summary>
+    [KnownType(typeof(BookInfo))]
+    [KnownType(typeof(AlbumInfo))]
+    [KnownType(typeof(SongInfo))]
+    [KnownType(typeof(MovieInfo))]
     [DataContract]
     public abstract class MediaInfo
     {
