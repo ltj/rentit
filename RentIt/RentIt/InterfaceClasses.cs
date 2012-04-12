@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
-using RentItDatabase;
-using System.Data.Linq;
 
 namespace RentIt
 {
@@ -451,18 +446,12 @@ namespace RentIt
         public readonly string Publisher;
 
         /// <summary>
-        /// The thumbnail associated with the media item this object represents.
-        /// </summary>
-        [DataMember]
-        public readonly Binary Thumbnail;
-
-        /// <summary>
         /// The rating of the media item this object represents.
         /// </summary>
         [DataMember]
         public readonly MediaRating Rating;
 
-        protected MediaInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating)
+        protected MediaInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, MediaRating rating)
         {
             Id = id;
             Title = title;
@@ -471,7 +460,6 @@ namespace RentIt
             Price = price;
             ReleaseDate = releaseDate;
             Publisher = publisher;
-            Thumbnail = thumbnail;
             Rating = rating;
         }
     }
@@ -501,8 +489,8 @@ namespace RentIt
         [DataMember]
         public readonly string Summary;
 
-        public BookInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating, string author, int pages, string summary)
-            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
+        public BookInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, MediaRating rating, string author, int pages, string summary)
+            : base(id, title, type, genre, price, releaseDate, publisher, rating)
         {
             Author = author;
             Pages = pages;
@@ -523,13 +511,12 @@ namespace RentIt
                 databaseMedia.Media.title,
                 Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
                 databaseMedia.Media.Genre.name,
-                (int)databaseMedia.Media.price,
-                (System.DateTime)databaseMedia.Media.release_date,
+                databaseMedia.Media.price,
+                databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
-                databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.author,
-                (int)databaseMedia.pages,
+                databaseMedia.pages,
                 databaseMedia.summary);
         }
     }
@@ -560,8 +547,8 @@ namespace RentIt
         [DataMember]
         public readonly string Summary;
 
-        public MovieInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating, string director, System.TimeSpan duration, string summary)
-            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
+        public MovieInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, MediaRating rating, string director, System.TimeSpan duration, string summary)
+            : base(id, title, type, genre, price, releaseDate, publisher, rating)
         {
             Director = director;
             Duration = duration;
@@ -585,7 +572,6 @@ namespace RentIt
                 databaseMedia.Media.price,
                 databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
-                databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.director,
                 TimeSpan.FromSeconds(databaseMedia.length),
@@ -611,8 +597,8 @@ namespace RentIt
         [DataMember]
         public readonly System.TimeSpan Duration;
 
-        public SongInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating, string artist, System.TimeSpan duration)
-            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
+        public SongInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, MediaRating rating, string artist, System.TimeSpan duration)
+            : base(id, title, type, genre, price, releaseDate, publisher, rating)
         {
             Artist = artist;
             Duration = duration;
@@ -632,13 +618,12 @@ namespace RentIt
                 databaseMedia.Media.title,
                 Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
                 databaseMedia.Media.Genre.name,
-                (int)databaseMedia.Media.price,
-                (System.DateTime)databaseMedia.Media.release_date,
+                databaseMedia.Media.price,
+                databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
-                databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.artist,
-                System.TimeSpan.FromSeconds((int)databaseMedia.length));
+                System.TimeSpan.FromSeconds(databaseMedia.length));
         }
     }
 
@@ -673,8 +658,8 @@ namespace RentIt
         [DataMember]
         public readonly System.Collections.Generic.List<SongInfo> Songs;
 
-        public AlbumInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, Binary thumbnail, MediaRating rating, string albumArtist, System.TimeSpan totalDuration, string description, System.Collections.Generic.List<SongInfo> songs)
-            : base(id, title, type, genre, price, releaseDate, publisher, thumbnail, rating)
+        public AlbumInfo(int id, string title, MediaType type, string genre, int price, System.DateTime releaseDate, string publisher, MediaRating rating, string albumArtist, System.TimeSpan totalDuration, string description, System.Collections.Generic.List<SongInfo> songs)
+            : base(id, title, type, genre, price, releaseDate, publisher, rating)
         {
             AlbumArtist = albumArtist;
             TotalDuration = totalDuration;
@@ -696,7 +681,7 @@ namespace RentIt
 
             foreach (RentItDatabase.Album_song song in databaseMedia.Album_songs)
             {
-                albumDuration += (int)song.Song.length;
+                albumDuration += song.Song.length;
             }
 
             return new AlbumInfo(
@@ -704,10 +689,9 @@ namespace RentIt
                 databaseMedia.Media.title,
                 Util.MediaTypeOfValue(databaseMedia.Media.Media_type.name),
                 databaseMedia.Media.Genre.name,
-                (int)databaseMedia.Media.price,
-                (System.DateTime)databaseMedia.Media.release_date,
+                databaseMedia.Media.price,
+                databaseMedia.Media.release_date,
                 databaseMedia.Media.Publisher.title,
-                databaseMedia.Media.thumbnail,
                 rating,
                 databaseMedia.album_artist,
                 System.TimeSpan.FromSeconds(albumDuration),
@@ -891,30 +875,6 @@ namespace RentIt
         {
             UserName = userName;
             HashedPassword = hashedPassword;
-        }
-    }
-
-    /// <summary>
-    /// Binary media file representation with metadata (Lars)
-    /// </summary>
-    [DataContract]
-    public struct MediaFile
-    {
-
-        [DataMember]
-        public readonly byte[] FileData;
-
-        [DataMember]
-        public readonly string FileName;
-
-        [DataMember]
-        public readonly string Extension;
-
-        public MediaFile(byte[] fileData, string fileName, string extension)
-        {
-            FileData = fileData;
-            FileName = fileName;
-            Extension = extension;
         }
     }
 
