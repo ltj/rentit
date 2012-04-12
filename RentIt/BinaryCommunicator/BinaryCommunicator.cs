@@ -22,10 +22,10 @@ namespace BinaryCommunicator
     /// <summary>
     /// The methods of this class is used to communicate binary data of the 
     /// RentItService-web service. With these methods it is possible to download
-    /// thumbnails, media files and it is possible to upload data to the service,
+    /// thumbnails and media files and it is possible to upload data to the service,
     /// if the client is a registered publisher of the service.
     /// </summary>
-    public class BinaryCommuncator
+    public static class BinaryCommuncator
     {
         /// <summary>
         /// The FileUploadedEvent that is fired everytime a file has been
@@ -62,7 +62,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the specified media id is does not exist.
         /// </exception>
-        public static Uri DownloadMedia(AccountCredentials credentials, int mediaId)
+        public static Uri DownloadMediaURL(AccountCredentials credentials, int mediaId)
         {
             if (credentials == null)
             {
@@ -118,11 +118,15 @@ namespace BinaryCommunicator
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// 
+        /// Convenience method for uploading a book to the server.
+        /// The methods blocks during upload.
         /// </summary>
-        /// <param name="credentials"></param>
-        /// <param name="bookFilePath"></param>
-        /// <param name="bookInfo"></param>
+        /// <param name="credentials">
+        /// The credentials of the publisher who is to upload the book.
+        /// </param>
+        /// <param name="bookInfo">
+        /// The metadata of the book to be uploaded.
+        /// </param>
         /// <exception cref="WebException">
         /// Is thrown if the upload failed. There can be several reasons for that:
         /// Either the user was not authenticated, an internal error happened or the
@@ -131,7 +135,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadBook(AccountCredentials credentials, string bookFilePath, BookInfoUpload bookInfo)
+        public static void UploadBook(AccountCredentials credentials, BookInfoUpload bookInfo)
         {
             var db = new RentItDatabaseDataContext();
 
@@ -156,7 +160,7 @@ namespace BinaryCommunicator
 
             try
             {
-                UploadMediaFile(bookFilePath, bookMedia.media_id, credentials);
+                UploadMediaFile(bookInfo.FilePath, bookMedia.media_id, credentials);
                 UploadThumbnail(bookMedia.media_id, bookInfo, credentials);
             }
             catch (Exception e)
@@ -164,6 +168,8 @@ namespace BinaryCommunicator
                 // Upload failed, clean up database.
                 db.Books.DeleteOnSubmit(bookMedia);
                 db.Medias.DeleteOnSubmit(bookMedia.Media);
+
+                // Sometimes the Media_file entity is created, sometimes not.
                 if (bookMedia.Media.Media_file != null)
                 {
                     db.Media_files.DeleteOnSubmit(bookMedia.Media.Media_file);
@@ -176,16 +182,16 @@ namespace BinaryCommunicator
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// 
+        /// Convenience method for uploading an album and its songs to the 
+        /// server. 
+        /// The methods blocks during upload.
         /// </summary>
         /// <param name="credentials">
         /// The credentials of the publisher who is uploading the specified album.
         /// </param>
         /// <param name="songs">
-        /// Dictionary of the songs metadata and their file path. These are the songs
-        /// that make up the album.
-        /// The key represents the SongInfo of the song file, which file path is the 
-        /// corresponding string value.
+        /// A list of SongInfoUpload-objects each representing the metadata of the songs
+        /// that is a part of the album.
         /// </param>
         /// <param name="albumInfo">
         /// Instance holding the metadata of the album to be uploaded.
@@ -198,15 +204,29 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadAlbum(AccountCredentials credentials, Dictionary<SongInfoUpload, string> songs, AlbumInfoUpload albumInfo)
+        public static void UploadAlbum(AccountCredentials credentials, List<SongInfoUpload> songs, AlbumInfoUpload albumInfo)
         {
             var db = new RentItDatabaseDataContext();
 
+            // Check credentials
             if (!db.Publisher_accounts.Exists(
                 pub => pub.user_name.Equals(credentials.UserName) &&
                     pub.Account.password.Equals(credentials.HashedPassword)))
             {
                 throw new ArgumentException("The specified credentials is not authorized to publish media.");
+            }
+
+            // Check specified song files
+            foreach (SongInfoUpload song in songs)
+            {
+                if (!File.Exists(song.FilePath))
+                {
+                    throw new ArgumentException("The file, " + song.FilePath + ", does not exist.");
+                }
+                if (!new FileInfo(song.FilePath).Extension.Equals(".mp3"))
+                {
+                    throw new ArgumentException("The file, " + song.FilePath + ", does not have the supported extension, mp3.");
+                }
             }
 
             // Add the album metadata to the database.
@@ -233,7 +253,7 @@ namespace BinaryCommunicator
             }
 
             // Add the genres to the database if they are new.
-            foreach (SongInfoUpload songInfos in songs.Keys)
+            foreach (SongInfoUpload songInfos in songs)
             {
                 Util.AddGenre(songInfos.Genre, MediaTypeUpload.Song);
             }
@@ -244,7 +264,7 @@ namespace BinaryCommunicator
 
             // Process each song file; upload data to database, and upload song files to
             // server.
-            foreach (SongInfoUpload songInfo in songs.Keys)
+            foreach (SongInfoUpload songInfo in songs)
             {
                 RentItDatabase.Song songMedia = new Song()
                     {
@@ -255,6 +275,8 @@ namespace BinaryCommunicator
 
                 db.Songs.InsertOnSubmit(songMedia);
                 db.SubmitChanges();
+
+                // For rollback if upload fails.
                 databaseSongs.Add(songMedia);
 
                 RentItDatabase.Album_song albumSong = new Album_song()
@@ -265,11 +287,13 @@ namespace BinaryCommunicator
 
                 db.Album_songs.InsertOnSubmit(albumSong);
                 db.SubmitChanges();
+
+                // For rollback if upload fails.
                 databaseAlbumSongs.Add(albumSong);
 
                 try
                 {
-                    UploadMediaFile(songs[songInfo], songMedia.media_id, credentials);
+                    UploadMediaFile(songInfo.FilePath, songMedia.media_id, credentials);
                     UploadThumbnail(songMedia.media_id, songInfo, credentials);
                 }
                 catch (Exception e)
@@ -279,6 +303,8 @@ namespace BinaryCommunicator
                         db.Album_songs.DeleteOnSubmit(databaseAlbumSongs[i]);
                         db.Songs.DeleteOnSubmit(databaseSongs[i]);
                         db.Medias.DeleteOnSubmit(databaseSongs[i].Media);
+
+                        // Sometimes the Media_file entity is created, sometimes not.
                         if (databaseSongs[i].Media.Media_file != null)
                         {
                             db.Media_files.DeleteOnSubmit(databaseSongs[i].Media.Media_file);
@@ -295,14 +321,12 @@ namespace BinaryCommunicator
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// 
+        /// Convenience method for uploading a movie to the server.
+        /// The methods blocks during upload.
         /// </summary>
         /// <param name="credentials">
         /// The credentials of the publisher who is to upload the specified
         /// movie.
-        /// </param>
-        /// <param name="movieFilePath">
-        /// The path of the movie to be uploaded.
         /// </param>
         /// <param name="movieInfo">
         /// The metadata of the movie to be uploaded.
@@ -318,7 +342,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadMovie(AccountCredentials credentials, string movieFilePath, MovieInfoUpload movieInfo)
+        public static void UploadMovie(AccountCredentials credentials, MovieInfoUpload movieInfo)
         {
             if (credentials == null)
             {
@@ -328,11 +352,11 @@ namespace BinaryCommunicator
             {
                 throw new ArgumentNullException("The movieInfo parameter is a null reference.");
             }
-            if (!File.Exists(movieFilePath))
+            if (!File.Exists(movieInfo.FilePath))
             {
                 throw new ArgumentException("The specified file does not exist.");
             }
-            if (!new FileInfo(movieFilePath).Extension.Equals(".mp4"))
+            if (!new FileInfo(movieInfo.FilePath).Extension.Equals(".mp4"))
             {
                 throw new ArgumentException("The specified file does not have the supported extension, mp4.");
             }
@@ -359,7 +383,7 @@ namespace BinaryCommunicator
 
             try
             {
-                UploadMediaFile(movieFilePath, movieMedia.media_id, credentials);
+                UploadMediaFile(movieInfo.FilePath, movieMedia.media_id, credentials);
                 UploadThumbnail(movieMedia.media_id, movieInfo, credentials);
             }
             catch (Exception e)
@@ -367,6 +391,8 @@ namespace BinaryCommunicator
                 // The upload failed, so clean up database. 
                 db.Movies.DeleteOnSubmit(movieMedia);
                 db.Medias.DeleteOnSubmit(movieMedia.Media);
+
+                // Sometimes the Media_file entity is created, sometimes not.
                 if (movieMedia.Media.Media_file != null)
                 {
                     db.Media_files.DeleteOnSubmit(movieMedia.Media.Media_file);
@@ -388,6 +414,9 @@ namespace BinaryCommunicator
         /// <param name="mediaInfo">
         /// The data of the RentiDatabase.Media object to be created.
         /// </param>
+        /// <param name="credentials">
+        /// The credentials of the publisher who is to upload the song.
+        /// </param>
         /// <returns>
         /// The created RentItDatabase.Media-object.
         /// </returns>
@@ -398,15 +427,15 @@ namespace BinaryCommunicator
                 title = mediaInfo.Title,
                 type_id = (from mType in db.Media_types
                            where mType.name.Equals(Util.StringValueOfMediaType(mediaInfo.MediaType))
-                           select mType.id).First(),
+                           select mType).First().id,
                 genre_id = (from mType in db.Media_types
                             where mType.name.Equals(Util.StringValueOfMediaType(mediaInfo.MediaType))
-                            select mType.id).First(),
+                            select mType).First().id,
                 price = mediaInfo.Price,
                 release_date = mediaInfo.ReleaseDate,
                 publisher_id = (from pub in db.Publisher_accounts
                                 where pub.user_name.Equals(credentials.UserName)
-                                select pub.publisher_id).First()
+                                select pub).First().publisher_id
             };
 
             return baseMedia;
@@ -438,7 +467,7 @@ namespace BinaryCommunicator
                 uri.Append("&userName=" + credentials.UserName);
                 uri.Append("&password=" + credentials.HashedPassword);
 
-                client.UploadFile(uri.ToString(), filePath); // FullName might be incorrect here.
+                client.UploadFile(uri.ToString(), filePath);
 
                 // Fire the FileUploadedEvent
                 if (FileUploadedEvent != null)
@@ -475,8 +504,10 @@ namespace BinaryCommunicator
             }
         }
 
-
-        public static void Main(string[] args)
+        /// <summary>
+        /// Used for initial testing.
+        /// </summary>
+        public static void Main()
         {
             // Set up the credentials of the publisher account.
             var credentials = new AccountCredentials()
@@ -486,11 +517,11 @@ namespace BinaryCommunicator
                 };
 
             // Load the thumbnail to be uploaded into the memory.
-            //var thumbnail = new System.Data.Linq.Binary();
             Image thumbnail = System.Drawing.Image.FromFile(@"C:\Users\Kenneth88\Desktop\gta\GtaThumb.jpg");
 
             // Construct the MovieInfo-object holding the metadata of the movie to be uploaded.
             MovieInfoUpload movieInfo = new MovieInfoUpload();
+            movieInfo.FilePath = @"C:\Users\Kenneth88\Desktop\gta\GTA V - Debut Trailer.mp4";
             movieInfo.Title = "GTA V - Debut Trailer";
             movieInfo.Genre = "Trailer";
             movieInfo.Price = 0;
@@ -503,7 +534,7 @@ namespace BinaryCommunicator
 
             // Upload the movie by calling the UploadMovie method.
             Console.WriteLine("Started upload");
-            UploadMovie(credentials, @"C:\Users\Kenneth88\Desktop\gta\GTA V - Debut Trailer.mp4", movieInfo);
+            UploadMovie(credentials, movieInfo);
             Console.WriteLine("Done uploading!");
         }
     }
