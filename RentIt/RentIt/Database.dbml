@@ -2,7 +2,7 @@
   <Connection Mode="WebSettings" ConnectionString="Data Source=rentit.itu.dk;Initial Catalog=RENTIT01;Persist Security Info=True;User ID=rentit01db" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RENTIT01ConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Account" Member="Accounts">
     <Type Name="Account">
-      <Column Name="user_name" Type="System.String" DbType="Char(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="full_name" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
       <Column Name="email" Type="System.String" DbType="VarChar(70) NOT NULL" CanBeNull="false" />
       <Column Name="password" Type="System.String" DbType="Char(40) NOT NULL" CanBeNull="false" />
@@ -13,7 +13,7 @@
   </Table>
   <Table Name="dbo.User_account" Member="User_accounts">
     <Type Name="User_account">
-      <Column Name="user_name" Type="System.String" DbType="Char(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="credit" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Association Name="User_account_Rental" Member="Rentals" ThisKey="user_name" OtherKey="user_name" Type="Rental" />
       <Association Name="User_account_Review" Member="Reviews" ThisKey="user_name" OtherKey="user_name" Type="Review" />
@@ -66,6 +66,7 @@
       <Column Name="publisher_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="thumbnail" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
       <Column Name="media_file_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="active" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
       <Association Name="Media_Album" Member="Album" ThisKey="id" OtherKey="media_id" Type="Album" Cardinality="One" />
       <Association Name="Media_Book" Member="Book" ThisKey="id" OtherKey="media_id" Type="Book" Cardinality="One" />
       <Association Name="Media_Movie" Member="Movie" ThisKey="id" OtherKey="media_id" Type="Movie" Cardinality="One" />
@@ -115,7 +116,7 @@
   </Table>
   <Table Name="dbo.Publisher_account" Member="Publisher_accounts">
     <Type Name="Publisher_account">
-      <Column Name="user_name" Type="System.String" DbType="Char(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="publisher_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Publisher_Publisher_account" Member="Publisher" ThisKey="publisher_id" OtherKey="id" Type="Publisher" IsForeignKey="true" />
       <Association Name="Account_Publisher_account" Member="Account" ThisKey="user_name" OtherKey="user_name" Type="Account" IsForeignKey="true" />
@@ -131,7 +132,7 @@
   </Table>
   <Table Name="dbo.Rental" Member="Rentals">
     <Type Name="Rental">
-      <Column Name="user_name" Type="System.String" DbType="Char(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="media_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="start_time" Type="System.DateTime" DbType="DateTime NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="end_time" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
@@ -141,7 +142,7 @@
   </Table>
   <Table Name="dbo.Review" Member="Reviews">
     <Type Name="Review">
-      <Column Name="user_name" Type="System.String" DbType="Char(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="user_name" Type="System.String" DbType="VarChar(20) NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="media_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="timestamp" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
       <Column Name="review" Member="review1" Type="System.String" DbType="VarChar(500) NOT NULL" CanBeNull="false" />

@@ -282,7 +282,7 @@ namespace RentItDatabase
             OnCreated();
         }
 
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "VarChar(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
         public string user_name
         {
             get
@@ -495,7 +495,7 @@ namespace RentItDatabase
             OnCreated();
         }
 
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "VarChar(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
         public string user_name
         {
             get
@@ -1369,6 +1369,8 @@ namespace RentItDatabase
 
         private System.Nullable<int> _media_file_id;
 
+        private bool _active;
+
         private EntityRef<Album> _Album;
 
         private EntityRef<Book> _Book;
@@ -1413,6 +1415,8 @@ namespace RentItDatabase
         partial void OnthumbnailChanged();
         partial void Onmedia_file_idChanging(System.Nullable<int> value);
         partial void Onmedia_file_idChanged();
+        partial void OnactiveChanging(bool value);
+        partial void OnactiveChanged();
         #endregion
 
         public Media()
@@ -1623,6 +1627,26 @@ namespace RentItDatabase
                     this._media_file_id = value;
                     this.SendPropertyChanged("media_file_id");
                     this.Onmedia_file_idChanged();
+                }
+            }
+        }
+
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_active", DbType = "Bit NOT NULL")]
+        public bool active
+        {
+            get
+            {
+                return this._active;
+            }
+            set
+            {
+                if ((this._active != value))
+                {
+                    this.OnactiveChanging(value);
+                    this.SendPropertyChanging();
+                    this._active = value;
+                    this.SendPropertyChanged("active");
+                    this.OnactiveChanged();
                 }
             }
         }
@@ -2631,7 +2655,7 @@ namespace RentItDatabase
             OnCreated();
         }
 
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "VarChar(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
         public string user_name
         {
             get
@@ -2958,7 +2982,7 @@ namespace RentItDatabase
             OnCreated();
         }
 
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "VarChar(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
         public string user_name
         {
             get
@@ -3178,7 +3202,7 @@ namespace RentItDatabase
             OnCreated();
         }
 
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "Char(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
+        [global::System.Data.Linq.Mapping.ColumnAttribute(Storage = "_user_name", DbType = "VarChar(20) NOT NULL", CanBeNull = false, IsPrimaryKey = true)]
         public string user_name
         {
             get
