@@ -380,7 +380,6 @@ namespace BinaryCommunicator
                 throw new ArgumentException("The specified credentials is not authorized to publish media.");
             }
             
-            // TODO check that genre exist
             Util.AddGenre(movieInfo.Genre, MediaTypeUpload.Song);
 
             RentItDatabase.Movie movieMedia = new Movie()
@@ -410,7 +409,15 @@ namespace BinaryCommunicator
                     Summary = movieInfo.Summary,
                 };
 
-            int movieId = serviceClient.PublishMedia(mInfo, credentials);
+            int movieId;
+            try
+            {
+                movieId = serviceClient.PublishMedia(mInfo, credentials);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Something went wrong: " + e.Message);
+            }
 
             try
             {
@@ -421,6 +428,7 @@ namespace BinaryCommunicator
             {
                 serviceClient.DeleteMedia(movieId, credentials);
 
+                throw new WebException("Upload of media failed.");
                 /*
                 // The upload failed, so clean up database. 
                 db.Movies.DeleteOnSubmit(movieMedia);

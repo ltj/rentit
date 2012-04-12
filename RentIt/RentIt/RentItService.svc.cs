@@ -613,41 +613,43 @@ namespace RentIt
                 throw new FaultException<InvalidCredentialsException>(
                     new InvalidCredentialsException("This user is not a publisher."));
 
+
+            var db = new DatabaseDataContext();
+            Genre genre;
+
+            // fetch mediatype and genre id's
+            if (!db.Media_types.Exists(t => t.name.Equals(info.Type)))
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("Invalid media type parameter"));
+            }
+            Media_type mtype = (from t in db.Media_types
+                                where t.name.Equals(info.Type)
+                                select t).First();
+
+            // Check if the specfied genre exists.
+            if (!db.Genres.Exists(g => g.name.Equals(info.Genre)))
+            {
+                Util.AddGenre(info.Genre, info.Type);
+            }
+
+            genre = (from g in db.Genres
+                     where g.name.Equals(info.Genre) // && g.Media_type1.id.Equals(mtype.id)
+                     select g).First();
+
+            // Check if the specified publisher exists.
+            if (!db.Publishers.Exists(p => p.title.Equals(info.Publisher)))
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("Invalid publisher parameter"));
+            }
+
+            Publisher publisher = (from p in db.Publishers
+                                   where p.title.Equals(info.Publisher)
+                                   select p).First();
+
             try
             {
-                var db = new DatabaseDataContext();
-                Genre genre;
-
-                // fetch mediatype and genre id's
-                if (!db.Media_types.Exists(t => t.name.Equals(info.Type)))
-                {
-                    throw new FaultException<ArgumentException>(
-                        new ArgumentException("Invalid media type parameter"));
-                }
-                Media_type mtype = (from t in db.Media_types
-                                    where t.name.Equals(info.Type)
-                                    select t).First();
-
-                // Check if the specfied genre exists.
-                if (!db.Genres.Exists(g => g.name.Equals(info.Genre)))
-                {
-                    Util.AddGenre(info.Genre, info.Type);
-                }
-
-                genre = (from g in db.Genres
-                         where g.name.Equals(info.Genre) && g.Media_type1.Equals(mtype)
-                         select g).First();
-
-                // Check if the specified publisher exists.
-                if (!db.Publishers.Exists(p => p.title.Equals(info.Publisher)))
-                {
-                    throw new FaultException<ArgumentException>(
-                        new ArgumentException("Invalid publisher parameter"));
-                }
-                Publisher publisher = (from p in db.Publishers
-                                       where p.title.Equals(info.Publisher)
-                                       select p).First();
-
                 var newMedia = new RentItDatabase.Media
                 {
                     title = info.Title,
@@ -730,7 +732,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input: " + e.Message));
             }
         }
 
