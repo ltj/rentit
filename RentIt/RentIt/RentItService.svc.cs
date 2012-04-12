@@ -534,12 +534,6 @@ namespace RentIt
         }
 
         /// <author>Per Mortensen</author>
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="credentials"></param>
-        /// <param name="addAmount"></param>
-        /// <returns></returns>
         public bool AddCredits(AccountCredentials credentials, uint addAmount)
         {
             ValidateCredentials(credentials);
@@ -738,8 +732,6 @@ namespace RentIt
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input.", e));
             }
-
-            return true;
         }
 
         /// <author>Lars Toft Jacobsen</author>
@@ -859,6 +851,8 @@ namespace RentIt
         {
             ValidateCredentials(credentials);
 
+            // todo: hvis der findes review og rentals, slettes de fra databasen, ellers sættes de inactive, og slet også file record
+
             DatabaseDataContext db;
             try
             {
@@ -968,6 +962,7 @@ namespace RentIt
             return true;
         }
 
+        /*
         /// <author>Lars Toft Jacobsen</author>
         /// <summary>
         /// Fetches a file with metadata from the database by id
@@ -1070,6 +1065,7 @@ namespace RentIt
             }
 
         }
+        */
 
         /// <author>Per Mortensen</author>
         /// <summary>
