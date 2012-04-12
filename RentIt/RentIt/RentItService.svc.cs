@@ -528,12 +528,6 @@ namespace RentIt
         }
 
         /// <author>Per Mortensen</author>
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="credentials"></param>
-        /// <param name="addAmount"></param>
-        /// <returns></returns>
         public bool AddCredits(AccountCredentials credentials, uint addAmount)
         {
             ValidateCredentials(credentials);
@@ -742,6 +736,8 @@ namespace RentIt
         {
             ValidateCredentials(credentials);
 
+            // todo: hvis der findes review og rentals, slettes de fra databasen, ellers sættes de inactive, og slet også file record
+
             DatabaseDataContext db;
             try {
                 db = new DatabaseDataContext();
@@ -924,11 +920,6 @@ namespace RentIt
         }
 
         /// <author>Per Mortensen</author>
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mediaType"></param>
-        /// <returns></returns>
         public List<string> GetAllGenres(MediaType mediaType)
         {
             DatabaseDataContext db;
