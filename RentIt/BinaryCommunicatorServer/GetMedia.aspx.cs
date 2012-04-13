@@ -21,11 +21,8 @@ namespace WebApplication1
             string password = Request.QueryString["password"];
             int mediaId = int.Parse(Request.QueryString["mediaId"]);
 
-            //Response.Write("Hello " + userName + "! :D");
-            //Response.End();
-
             RentItClient client = new RentItClient();
-            /*
+
             try
             {
                 client.ValidateCredentials(
@@ -37,9 +34,9 @@ namespace WebApplication1
                 Response.StatusDescription = "Incorrect credentials";
                 Response.End();
             }
-            */
+
             RentItDatabaseDataContext db = new RentItDatabaseDataContext();
-            /*
+
             // Check if the requested media exists  
             if (!db.Medias.Exists(media => media.id == mediaId))
             {
@@ -48,29 +45,31 @@ namespace WebApplication1
                 Response.End();
             }
 
+            // Get the media metadata from the database.
+            var mediaMetadata = (from media in db.Medias
+                                 where media.id == mediaId
+                                 select media).First();
+
+            // Does any active rentals exist for the specified user?
+            bool existsRentals = db.Rentals.Exists(
+             rental => rental.user_name.Equals(userName) && rental.media_id == mediaId && rental.end_time > DateTime.Now);
+
             // Check if the requested media is rented by the user.
-            if (!db.Rentals.Exists(
-                rental => rental.user_name.Equals(userName) && rental.media_id == mediaId && rental.end_time > DateTime.Now))
+            if (mediaMetadata.price != 0 && !existsRentals)
             {
                 Response.StatusCode = 400;
                 Response.StatusDescription = "The specified user has not currently an active rental of the requested media.";
                 Response.End();
             }
-            */
-            // Get the media from the database.
-            //var mediaDataa = (from media in db.Medias where media.id.Equals(mediaId) select media);
 
-            var mediaData = (from media in db.Medias
-                             where media.id == mediaId
-                             select media).First().Media_file;
+            // Get the media data from the database.
+            var mediaData = mediaMetadata.Media_file;
 
             Response.ContentType = "application/octet-stream";
-            Response.AddHeader("Content-Disposition", String.Format("attachment;filename=\"{0}\"", "media" + mediaData.extension));
+            Response.AddHeader("Content-Disposition", String.Format("attachment;filename=\"{0}\"", mediaMetadata.title + mediaData.extension));
             Response.AddHeader("Content-Length", mediaData.data.Length.ToString());
             Response.BinaryWrite(mediaData.data);
-            //Response.ContentType = "video/mpeg";
             Response.End();
-
 
             /*
             String filePath = @"C:\RentItServices\RentIt01\test.bin";

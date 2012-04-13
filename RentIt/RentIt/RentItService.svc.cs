@@ -657,7 +657,8 @@ namespace RentIt
                     type_id = mtype.id,
                     price = info.Price,
                     release_date = info.ReleaseDate,
-                    publisher_id = publisher.id
+                    publisher_id = publisher.id,
+                    active = true
                 };
 
                 switch (info.Type)
