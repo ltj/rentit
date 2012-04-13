@@ -947,6 +947,12 @@ namespace RentIt
 
                 RentItDatabase.Rating rating = media.Rating;
                 db.Ratings.DeleteOnSubmit(rating);
+
+                if (media.Media_file != null)
+                {
+                    db.Media_files.DeleteOnSubmit(media.Media_file);
+                }
+
                 db.Medias.DeleteOnSubmit(media);
                 db.SubmitChanges();
             }

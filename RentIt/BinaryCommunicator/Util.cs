@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
-using RentItDatabase;
 
 namespace RentIt
 {
@@ -53,41 +52,6 @@ namespace RentIt
                 default:
                     return "Any";
             }
-        }
-
-        /// <author>Per Mortensen</author>
-        /// <summary>
-        /// Adds a new genre to the database, if it doesn't already exist.
-        /// </summary>
-        /// <param name="genreName">The name of the new genre.</param>
-        /// <param name="mediaType">The media type for which the new genre will be available.</param>
-        /// <returns>The id of the newly added genre. If the genre already exists, the
-        /// existing genre id is returned.</returns>
-        public static int AddGenre(string genreName, MediaTypeUpload mediaType)
-        {
-            var db = new RentItDatabaseDataContext();
-
-            // Get media type id
-            int mediaTypeId = (from t in db.Media_types
-                               where t.name.Equals(StringValueOfMediaType(mediaType))
-                               select t.id).First();
-
-            // Check if genre already exists for the given media type
-            IQueryable<int> genreIds = from g in db.Genres
-                                       where g.media_type == mediaTypeId && g.name.Equals(genreName)
-                                       select g.id;
-            if (genreIds.Count() > 0)
-                return genreIds.First(); // Genre and media type combination already exists, return its genre id
-
-            // add genre to database
-            var newGenre = new RentItDatabase.Genre { media_type = mediaTypeId, name = genreName };
-            db.Genres.InsertOnSubmit(newGenre);
-            db.SubmitChanges();
-
-            // Return the newly added genre id
-            return (from g in db.Genres
-                    where g.media_type == mediaTypeId && g.name.Equals(genreName)
-                    select g.id).First();
         }
     }
 }

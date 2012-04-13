@@ -56,11 +56,6 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="RentItDatabase.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RentItDatabase.dbml</DependentUpon>
-    </Compile>
     <Compile Include="RentItProxy.cs" />
     <Compile Include="Service References\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -78,11 +73,6 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <None Include="RentItDatabase.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>RentItDatabase.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
     </None>
     <None Include="Service References\ServiceReference1\RentItService.wsdl" />
     <None Include="Service References\ServiceReference1\RentItService.xsd">
@@ -106,11 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="RentItDatabase.dbml.layout">
-      <DependentUpon>RentItDatabase.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadataStorage Include="Service References\ServiceReference1\" />
