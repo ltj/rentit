@@ -208,10 +208,9 @@ namespace RentIt
             {
                 // Get medias based on the media type.
                 IQueryable<RentItDatabase.Media> medias;
-                string mediaType = Util.StringValueOfMediaType(criteria.Type);
 
                 // If the value is specified to "any", all medias of the database is retrieved.
-                if (mediaType.Equals("any"))
+                if (criteria.Type == MediaType.Any)
                 {
                     medias = from media in db.Medias
                              select media;
@@ -219,7 +218,7 @@ namespace RentIt
                 else
                 {
                     medias = from media in db.Medias
-                             where media.Media_type.name.Equals(mediaType)
+                             where media.Media_type.name.Equals(Util.StringValueOfMediaType(criteria.Type))
                              select media;
                 }
 
