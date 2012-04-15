@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
+﻿using System.ServiceModel;
 
 namespace RentIt
 {
@@ -292,7 +287,7 @@ namespace RentIt
         /// The credentials of the uploader's account.
         /// </param>
         /// <returns>
-        /// True if the media was successfully published, false otherwise.
+        /// The id of the successfully published media.
         /// </returns>
         /// <exception cref="System.ServiceModel.FaultException">
         /// The FaultException is parameterized with:

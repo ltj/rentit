@@ -161,10 +161,10 @@ namespace RentIt
                 MediaRating mediaRating = Util.CollectMediaReviews(album.media_id, rating, db);
 
                 // Collect album songs
-                IQueryable<Song> songs = from s in db.Songs where s.media_id.Equals(album.media_id) select s;
+                IQueryable<Album_song> songs = from s in db.Album_songs where s.album_id.Equals(album.media_id) select s;
 
                 // Collect data of all the songs contained in the album.
-                List<RentIt.SongInfo> albumSongs = songs.Select(song => Util.GetSongInfo(song.media_id)).ToList();
+                List<RentIt.SongInfo> albumSongs = songs.Select(song => Util.GetSongInfo(song.song_id)).ToList();
                 albumInfo = RentIt.AlbumInfo.ValueOf(album, albumSongs, mediaRating);
             }
             catch (Exception e)
