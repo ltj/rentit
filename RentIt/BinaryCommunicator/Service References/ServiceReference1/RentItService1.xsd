@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/RentIt" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/RentIt" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Data.Linq" />
   <xs:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="BookInfo">
     <xs:complexContent mixed="false">
@@ -22,7 +21,6 @@
       <xs:element minOccurs="0" name="Publisher" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Rating" nillable="true" type="tns:MediaRating" />
       <xs:element minOccurs="0" name="ReleaseDate" type="xs:dateTime" />
-      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/System.Data.Linq" minOccurs="0" name="Thumbnail" nillable="true" type="q1:Binary" />
       <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Type" type="tns:MediaType" />
     </xs:sequence>
@@ -107,18 +105,6 @@
     </xs:restriction>
   </xs:simpleType>
   <xs:element name="MediaType" nillable="true" type="tns:MediaType" />
-  <xs:complexType name="MovieInfo">
-    <xs:complexContent mixed="false">
-      <xs:extension base="tns:MediaInfo">
-        <xs:sequence>
-          <xs:element minOccurs="0" name="Director" nillable="true" type="xs:string" />
-          <xs:element minOccurs="0" name="Duration" type="ser:duration" />
-          <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
-        </xs:sequence>
-      </xs:extension>
-    </xs:complexContent>
-  </xs:complexType>
-  <xs:element name="MovieInfo" nillable="true" type="tns:MovieInfo" />
   <xs:complexType name="AlbumInfo">
     <xs:complexContent mixed="false">
       <xs:extension base="tns:MediaInfo">
@@ -142,6 +128,7 @@
     <xs:complexContent mixed="false">
       <xs:extension base="tns:MediaInfo">
         <xs:sequence>
+          <xs:element minOccurs="0" name="AlbumId" type="xs:int" />
           <xs:element minOccurs="0" name="Artist" nillable="true" type="xs:string" />
           <xs:element minOccurs="0" name="Duration" type="ser:duration" />
         </xs:sequence>
@@ -149,6 +136,18 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="SongInfo" nillable="true" type="tns:SongInfo" />
+  <xs:complexType name="MovieInfo">
+    <xs:complexContent mixed="false">
+      <xs:extension base="tns:MediaInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="Director" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="Duration" type="ser:duration" />
+          <xs:element minOccurs="0" name="Summary" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+  <xs:element name="MovieInfo" nillable="true" type="tns:MovieInfo" />
   <xs:complexType name="MediaCriteria">
     <xs:sequence>
       <xs:element minOccurs="0" name="Genre" nillable="true" type="xs:string" />
@@ -261,17 +260,4 @@
     </xs:complexContent>
   </xs:complexType>
   <xs:element name="PublisherAccount" nillable="true" type="tns:PublisherAccount" />
-  <xs:complexType name="MediaFile">
-    <xs:annotation>
-      <xs:appinfo>
-        <IsValueType xmlns="http://schemas.microsoft.com/2003/10/Serialization/">true</IsValueType>
-      </xs:appinfo>
-    </xs:annotation>
-    <xs:sequence>
-      <xs:element minOccurs="0" name="Extension" nillable="true" type="xs:string" />
-      <xs:element minOccurs="0" name="FileData" nillable="true" type="xs:base64Binary" />
-      <xs:element minOccurs="0" name="FileName" nillable="true" type="xs:string" />
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="MediaFile" nillable="true" type="tns:MediaFile" />
 </xs:schema>

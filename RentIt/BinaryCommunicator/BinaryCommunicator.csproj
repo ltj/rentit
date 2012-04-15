@@ -56,13 +56,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="RentItDatabase.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>RentItDatabase.dbml</DependentUpon>
-    </Compile>
     <Compile Include="RentItProxy.cs" />
-    <Compile Include="Service References\RentItService\Reference.cs">
+    <Compile Include="Service References\ServiceReference1\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -79,31 +74,23 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="RentItDatabase.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>RentItDatabase.designer.cs</LastGenOutput>
+    <None Include="Service References\ServiceReference1\RentItService.wsdl" />
+    <None Include="Service References\ServiceReference1\RentItService.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RentItService\RentItService.wsdl" />
-    <None Include="Service References\RentItService\RentItService.xsd">
+    <None Include="Service References\ServiceReference1\RentItService1.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RentItService\RentItService1.xsd">
+    <None Include="Service References\ServiceReference1\RentItService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RentItService\RentItService2.xsd">
+    <None Include="Service References\ServiceReference1\RentItService3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RentItService\RentItService3.xsd">
+    <None Include="Service References\ServiceReference1\RentItService4.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\RentItService\RentItService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\RentItService\RentItService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\RentItService\RentItService6.xsd">
+    <None Include="Service References\ServiceReference1\RentItService5.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -111,24 +98,19 @@
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="RentItDatabase.dbml.layout">
-      <DependentUpon>RentItDatabase.dbml</DependentUpon>
-    </None>
+    <WCFMetadataStorage Include="Service References\ServiceReference1\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Service References\RentItService\" />
+    <None Include="Service References\ServiceReference1\RentItService.disco" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\RentItService\RentItService.disco" />
+    <None Include="Service References\ServiceReference1\configuration91.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\RentItService\configuration91.svcinfo" />
+    <None Include="Service References\ServiceReference1\configuration.svcinfo" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\RentItService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\RentItService\Reference.svcmap">
+    <None Include="Service References\ServiceReference1\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

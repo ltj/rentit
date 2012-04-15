@@ -197,7 +197,6 @@
             this.mainGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.mainGroupBox.Controls.Add(this.uploadLabel);
             this.mainGroupBox.Controls.Add(this.uploadButton);
             this.mainGroupBox.Controls.Add(this.metaDataLabel);
             this.mainGroupBox.Controls.Add(this.discardButton);
@@ -207,25 +206,27 @@
             this.mainGroupBox.Controls.Add(this.comboBox1);
             this.mainGroupBox.Location = new System.Drawing.Point(12, 12);
             this.mainGroupBox.Name = "mainGroupBox";
-            this.mainGroupBox.Size = new System.Drawing.Size(778, 481);
+            this.mainGroupBox.Size = new System.Drawing.Size(778, 491);
             this.mainGroupBox.TabIndex = 12;
             this.mainGroupBox.TabStop = false;
             this.mainGroupBox.Text = "Upload file and metadata";
             // 
             // uploadLabel
             // 
+            this.uploadLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.uploadLabel.AutoSize = true;
-            this.uploadLabel.Location = new System.Drawing.Point(644, 92);
+            this.uploadLabel.Location = new System.Drawing.Point(9, 510);
             this.uploadLabel.Name = "uploadLabel";
-            this.uploadLabel.Size = new System.Drawing.Size(100, 13);
+            this.uploadLabel.Size = new System.Drawing.Size(62, 13);
             this.uploadLabel.TabIndex = 12;
-            this.uploadLabel.Text = "Uploading file 1/2...";
+            this.uploadLabel.Text = "Status label";
             // 
             // UploadControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(802, 505);
+            this.ClientSize = new System.Drawing.Size(802, 532);
+            this.Controls.Add(this.uploadLabel);
             this.Controls.Add(this.mainGroupBox);
             this.Name = "UploadControl";
             this.Text = "Upload Media Control";
@@ -233,6 +234,7 @@
             this.mainGroupBox.ResumeLayout(false);
             this.mainGroupBox.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

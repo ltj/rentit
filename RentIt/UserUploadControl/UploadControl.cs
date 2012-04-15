@@ -45,7 +45,7 @@ namespace PropertyGridTest
             comboBox1.SelectedIndex = 0;
             mediaPropertyGrid.SelectedObject = bookInfo;
 
-            this.Size = new System.Drawing.Size(400, 543);
+            this.Size = new System.Drawing.Size(400, 570);
 
             // Add the event handlers
             songListView.SelectedIndexChanged += this.ListViewSelectionChanged;
@@ -66,6 +66,9 @@ namespace PropertyGridTest
         /// <param name="e"></param>
         private void uploadButton_Click(object sender, EventArgs e)
         {
+            uploadLabel.Text = "Begun uploading...";
+            uploadLabel.Refresh();
+
             AccountCredentials credentials = new AccountCredentials()
             {
                 UserName = "publishCorp",
@@ -75,14 +78,17 @@ namespace PropertyGridTest
             if (comboBox1.SelectedItem.ToString().Equals("Movie"))
             {
                 BinaryCommuncator.UploadMovie(credentials, this.movieInfo);
+                uploadLabel.Text = "Upload of movie done!";
             }
             else if (comboBox1.SelectedItem.ToString().Equals("Album"))
             {
                 BinaryCommuncator.UploadAlbum(credentials, this.dic.Keys.ToList(), this.albumInfo);
+                uploadLabel.Text = "Upload of album done!";
             }
             else if (comboBox1.SelectedItem.ToString().Equals("Book"))
             {
                 BinaryCommuncator.UploadBook(credentials, this.bookInfo);
+                uploadLabel.Text = "Upload of book done!";
             }
         }
 
@@ -225,12 +231,12 @@ namespace PropertyGridTest
             if (comboBox1.SelectedItem.ToString().Equals("Album"))
             {
                 mediaPropertyGrid.SelectedObject = albumInfo;
-                this.Size = new System.Drawing.Size(818, 543);
+                this.Size = new System.Drawing.Size(818, 570);
                 songsGroupBox.Visible = true;
             }
             else
             {
-                this.Size = new System.Drawing.Size(400, 543);
+                this.Size = new System.Drawing.Size(400, 570);
                 songsGroupBox.Visible = false;
             }
             if (comboBox1.SelectedItem.ToString().Equals("Movie"))

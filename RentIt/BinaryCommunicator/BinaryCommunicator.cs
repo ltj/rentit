@@ -11,8 +11,6 @@ namespace BinaryCommunicator
 
     using RentIt;
 
-    using RentItDatabase;
-
     /// <summary>
     /// Event handler for the FileUploadedEvent.
     /// </summary>
@@ -67,12 +65,6 @@ namespace BinaryCommunicator
             if (credentials == null)
             {
                 throw new ArgumentNullException("credentials parameter is null.");
-            }
-
-            // Check if the requested media exists.
-            if (!new RentItDatabaseDataContext().Medias.Exists(media => media.id == mediaId))
-            {
-                throw new ArgumentException("The requested media does not exist.");
             }
 
             StringBuilder uri = new StringBuilder();
@@ -137,45 +129,43 @@ namespace BinaryCommunicator
         /// </exception>
         public static void UploadBook(AccountCredentials credentials, BookInfoUpload bookInfo)
         {
-            var db = new RentItDatabaseDataContext();
-
-            if (!db.Publisher_accounts.Exists(
-                pub => pub.user_name.Equals(credentials.UserName) &&
-                    pub.Account.password.Equals(credentials.HashedPassword)))
-            {
-                throw new ArgumentException("The specified credentials is not authorized to publish media.");
-            }
-
-            Util.AddGenre(bookInfo.Genre, MediaTypeUpload.Book);
-
-            RentItDatabase.Book bookMedia = new Book()
-            {
-                Media = CompileBaseMedia(db, bookInfo, credentials),
-                author = bookInfo.Author,
-                pages = bookInfo.Pages,
-                summary = bookInfo.Summary
-            };
-            db.Books.InsertOnSubmit(bookMedia);
-            db.SubmitChanges();
+            RentItClient serviceClient = new RentItClient();
 
             try
             {
-                UploadMediaFile(bookInfo.FilePath, bookMedia.media_id, credentials);
-                UploadThumbnail(bookMedia.media_id, bookInfo, credentials);
+                serviceClient.ValidateCredentials(credentials);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Invalid credentials submitted.");
+            }
+
+            BookInfo bookMedia = new BookInfo()
+            {
+                Title = bookInfo.Title,
+                Type = MediaType.Book,
+                Genre = bookInfo.Genre,
+                Price = bookInfo.Price,
+                Publisher = bookInfo.Publisher,
+                ReleaseDate = bookInfo.ReleaseDate,
+
+                Author = bookInfo.Author,
+                Pages = bookInfo.Pages,
+                Summary = bookInfo.Summary
+            };
+
+            int bookMediaId = serviceClient.PublishMedia(bookMedia, credentials);
+
+            try
+            {
+                UploadMediaFile(bookInfo.FilePath, bookMediaId, credentials);
+                UploadThumbnail(bookMediaId, bookInfo, credentials);
             }
             catch (Exception e)
             {
                 // Upload failed, clean up database.
-                db.Books.DeleteOnSubmit(bookMedia);
-                db.Medias.DeleteOnSubmit(bookMedia.Media);
 
-                // Sometimes the Media_file entity is created, sometimes not.
-                if (bookMedia.Media.Media_file != null)
-                {
-                    db.Media_files.DeleteOnSubmit(bookMedia.Media.Media_file);
-                }
-                db.SubmitChanges();
-
+                serviceClient.DeleteMedia(bookMediaId, credentials);
                 throw new WebException("Upload failed, please try again: " + e.Message);
             }
         }
@@ -206,16 +196,6 @@ namespace BinaryCommunicator
         /// </exception>
         public static void UploadAlbum(AccountCredentials credentials, List<SongInfoUpload> songs, AlbumInfoUpload albumInfo)
         {
-            var db = new RentItDatabaseDataContext();
-
-            // Check credentials
-            if (!db.Publisher_accounts.Exists(
-                pub => pub.user_name.Equals(credentials.UserName) &&
-                    pub.Account.password.Equals(credentials.HashedPassword)))
-            {
-                throw new ArgumentException("The specified credentials is not authorized to publish media.");
-            }
-
             // Check specified song files
             foreach (SongInfoUpload song in songs)
             {
@@ -229,91 +209,87 @@ namespace BinaryCommunicator
                 }
             }
 
-            // Add the album metadata to the database.
-            RentItDatabase.Album albumMedia = new Album()
+            RentItClient serviceClient = new RentItClient();
+
+            try
+            {
+                serviceClient.ValidateCredentials(credentials);
+            }
+            catch (Exception e)
+            {
+                throw new ArgumentException("Invalid credentials submitted.");
+            }
+
+            AlbumInfo albumMedia = new AlbumInfo()
                 {
-                    Media = CompileBaseMedia(db, albumInfo, credentials),
-                    album_artist = albumInfo.AlbumArtist,
-                    description = albumInfo.Description
+                    Title = albumInfo.Title,
+                    Type = MediaType.Album,
+                    Genre = albumInfo.Genre,
+                    Price = albumInfo.Price,
+                    Publisher = albumInfo.Publisher,
+                    ReleaseDate = albumInfo.ReleaseDate,
+
+                    AlbumArtist = albumInfo.AlbumArtist,
+                    Description = albumInfo.Description,
                 };
-            db.Albums.InsertOnSubmit(albumMedia);
-            db.SubmitChanges();
+
+            int albumMediaId = serviceClient.PublishMedia(albumMedia, credentials);
 
             // Upload the thumbnail of the album.
             try
             {
-                UploadThumbnail(albumMedia.media_id, albumInfo, credentials);
+                UploadThumbnail(albumMediaId, albumInfo, credentials);
             }
             catch (Exception e)
             {
-                db.Albums.DeleteOnSubmit(albumMedia);
-                db.Medias.DeleteOnSubmit(albumMedia.Media);
-                db.SubmitChanges();
+                serviceClient.DeleteMedia(albumMediaId, credentials);
                 throw new WebException("Upload failed: " + e.Message);
             }
 
-            // Add the genres to the database if they are new.
-            foreach (SongInfoUpload songInfos in songs)
-            {
-                Util.AddGenre(songInfos.Genre, MediaTypeUpload.Song);
-            }
-
             // For database clean up if upload fails.
-            var databaseSongs = new List<RentItDatabase.Song>();
-            var databaseAlbumSongs = new List<RentItDatabase.Album_song>();
+            var publishedSongs = new List<int>();
 
             // Process each song file; upload data to database, and upload song files to
             // server.
             foreach (SongInfoUpload songInfo in songs)
             {
-                RentItDatabase.Song songMedia = new Song()
-                    {
-                        Media = CompileBaseMedia(db, songInfo, credentials),
-                        artist = songInfo.Artist,
-                        length = (int)songInfo.Duration.TotalSeconds
-                    };
+                SongInfo songMedia = new SongInfo()
+                {
+                    Title = songInfo.Title,
+                    Type = MediaType.Song,
+                    Genre = songInfo.Genre,
+                    Price = songInfo.Price,
+                    Publisher = songInfo.Publisher,
+                    ReleaseDate = songInfo.ReleaseDate,
 
-                db.Songs.InsertOnSubmit(songMedia);
-                db.SubmitChanges();
+                    Artist = songInfo.Artist,
+                    Duration = songInfo.Duration
+                };
 
-                // For rollback if upload fails.
-                databaseSongs.Add(songMedia);
+                // publish the metadata of the song to the server.
+                int songMediaId = serviceClient.PublishMedia(songMedia, credentials);
 
-                RentItDatabase.Album_song albumSong = new Album_song()
-                    {
-                        Album = albumMedia,
-                        Song = songMedia
-                    };
-
-                db.Album_songs.InsertOnSubmit(albumSong);
-                db.SubmitChanges();
-
-                // For rollback if upload fails.
-                databaseAlbumSongs.Add(albumSong);
+                // For rollback if upload of binary data fails.
+                publishedSongs.Add(songMediaId);
 
                 try
                 {
-                    UploadMediaFile(songInfo.FilePath, songMedia.media_id, credentials);
-                    UploadThumbnail(songMedia.media_id, songInfo, credentials);
+                    UploadMediaFile(songInfo.FilePath, songMediaId, credentials);
+
+                    if (songInfo.Thumbnail != null)
+                    {
+                        UploadThumbnail(songMediaId, songInfo, credentials);
+                    }
                 }
                 catch (Exception e)
                 {
-                    for (int i = 0; i < databaseSongs.Count; i++)
+                    // Clean up server database upon upload failure.
+                    foreach (int songId in publishedSongs)
                     {
-                        db.Album_songs.DeleteOnSubmit(databaseAlbumSongs[i]);
-                        db.Songs.DeleteOnSubmit(databaseSongs[i]);
-                        db.Medias.DeleteOnSubmit(databaseSongs[i].Media);
-
-                        // Sometimes the Media_file entity is created, sometimes not.
-                        if (databaseSongs[i].Media.Media_file != null)
-                        {
-                            db.Media_files.DeleteOnSubmit(databaseSongs[i].Media.Media_file);
-                        }
+                        serviceClient.DeleteMedia(songId, credentials);
                     }
 
-                    db.Albums.DeleteOnSubmit(albumMedia);
-                    db.Medias.DeleteOnSubmit(albumMedia.Media);
-                    db.SubmitChanges();
+                    serviceClient.DeleteMedia(albumMediaId, credentials);
                     throw new WebException("Upload failed: " + e.Message);
                 }
             }
@@ -361,84 +337,51 @@ namespace BinaryCommunicator
                 throw new ArgumentException("The specified file does not have the supported extension, mp4.");
             }
 
-            var db = new RentItDatabaseDataContext();
-            if (!db.Publisher_accounts.Exists(
-                 pub => pub.user_name.Equals(credentials.UserName) &&
-                  pub.Account.password.Equals(credentials.HashedPassword)))
-            {
-                throw new ArgumentException("The specified credentials is not authorized to publish media.");
-            }
-            // TODO check that genre exist
-            Util.AddGenre(movieInfo.Genre, MediaTypeUpload.Song);
-
-            RentItDatabase.Movie movieMedia = new Movie()
-            {
-                Media = CompileBaseMedia(db, movieInfo, credentials),
-                director = movieInfo.Director,
-                length = (int)movieInfo.Duration.TotalSeconds,
-                summary = movieInfo.Summary
-            };
-            db.Movies.InsertOnSubmit(movieMedia);
-            db.SubmitChanges();
-
+            var serviceClient = new RentItClient();
             try
             {
-                UploadMediaFile(movieInfo.FilePath, movieMedia.media_id, credentials);
-                UploadThumbnail(movieMedia.media_id, movieInfo, credentials);
+                serviceClient.ValidateCredentials(credentials);
             }
             catch (Exception e)
             {
-                // The upload failed, so clean up database. 
-                db.Movies.DeleteOnSubmit(movieMedia);
-                db.Medias.DeleteOnSubmit(movieMedia.Media);
-
-                // Sometimes the Media_file entity is created, sometimes not.
-                if (movieMedia.Media.Media_file != null)
-                {
-                    db.Media_files.DeleteOnSubmit(movieMedia.Media.Media_file);
-                }
-
-                db.SubmitChanges();
-                throw new WebException("Upload failed", e);
+                throw new ArgumentException("Invalid credentials submitted.");
             }
-        }
 
-        /// <author>Kenneth Søhrmann</author>
-        /// <summary>
-        /// Helper method, used to create an RentItDatabase.Media instance with the data
-        /// provided in mediaInfo.
-        /// </summary>
-        /// <param name="db">
-        /// The database which the returned value is must be a member of.
-        /// </param>
-        /// <param name="mediaInfo">
-        /// The data of the RentiDatabase.Media object to be created.
-        /// </param>
-        /// <param name="credentials">
-        /// The credentials of the publisher who is to upload the song.
-        /// </param>
-        /// <returns>
-        /// The created RentItDatabase.Media-object.
-        /// </returns>
-        private static RentItDatabase.Media CompileBaseMedia(RentItDatabaseDataContext db, MediaInfoUpload mediaInfo, AccountCredentials credentials)
-        {
-            RentItDatabase.Media baseMedia = new Media()
+            var mInfo = new MovieInfo()
+                {
+                    Title = movieInfo.Title,
+                    Type = MediaType.Movie,
+                    Genre = movieInfo.Genre,
+                    Price = movieInfo.Price,
+                    Publisher = movieInfo.Publisher,
+                    ReleaseDate = movieInfo.ReleaseDate,
+
+                    Director = movieInfo.Director,
+                    Duration = movieInfo.Duration,
+                    Summary = movieInfo.Summary,
+                };
+
+            int movieId;
+            try
             {
-                title = mediaInfo.Title,
-                type_id = (from mType in db.Media_types
-                           where mType.name.Equals(Util.StringValueOfMediaType(mediaInfo.MediaType))
-                           select mType).First().id,
-                genre_id = (from mType in db.Media_types
-                            where mType.name.Equals(Util.StringValueOfMediaType(mediaInfo.MediaType))
-                            select mType).First().id,
-                price = mediaInfo.Price,
-                release_date = mediaInfo.ReleaseDate,
-                publisher_id = (from pub in db.Publisher_accounts
-                                where pub.user_name.Equals(credentials.UserName)
-                                select pub).First().publisher_id
-            };
+                movieId = serviceClient.PublishMedia(mInfo, credentials);
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Something went wrong: " + e.Message);
+            }
 
-            return baseMedia;
+            try
+            {
+                UploadMediaFile(movieInfo.FilePath, movieId, credentials);
+                UploadThumbnail(movieId, movieInfo, credentials);
+            }
+            catch (Exception e)
+            {
+                // Clean up server database if the upload failed.
+                serviceClient.DeleteMedia(movieId, credentials);
+                throw new WebException("Upload of media failed.");
+            }
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -526,7 +469,7 @@ namespace BinaryCommunicator
             movieInfo.Genre = "Trailer";
             movieInfo.Price = 0;
             movieInfo.ReleaseDate = DateTime.Now;
-            movieInfo.Publisher = "publishCorp";
+            movieInfo.Publisher = "Publish Corp. International";
             movieInfo.Thumbnail = thumbnail;
             movieInfo.Director = "Rockstar";
             movieInfo.Summary = "The very first trailer of the Grand Theft Auto V-game. Oh so sweet it is!";

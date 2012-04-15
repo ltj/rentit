@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.ServiceModel;
-using System.Text;
+﻿using System.ServiceModel;
 
 namespace RentIt
 {
@@ -22,6 +17,11 @@ namespace RentIt
         /// Returns null if the specified id does not exist in the server
         /// database.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the specified book does not exist.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -38,6 +38,11 @@ namespace RentIt
         /// Returns null if the specified id does not exist in the server
         /// database.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the specified movie does not exist.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -54,6 +59,11 @@ namespace RentIt
         /// Returns null if the specified id does not exist in the server
         /// database.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the specified album does not exist.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -69,6 +79,11 @@ namespace RentIt
         /// An object containing four lists of books, movies, albums and songs, respectively.
         /// Returns null if the specified criteria is a null reference.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error or an internal error occurs.
+        /// System.ArgumentException if the criteria parameter is a null reference.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -83,7 +98,13 @@ namespace RentIt
         /// <returns>
         /// An object containing four lists of books, movies, albums and songs, respectively.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the specified media id does not exist.
+        /// </exception>
         [OperationContract]
+        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
         MediaItems GetAlsoRentedItems(int id);
 
@@ -97,6 +118,12 @@ namespace RentIt
         /// If the credentials are valid, an Account object representing the successfully validated account is returned.
         /// Otherwise, null is returnes.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the credentials parameter is a null reference.
+        /// System.InvalidCredentialsException if the submitted credentials are not valid for an active account.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -108,10 +135,21 @@ namespace RentIt
         /// </summary>
         /// <param name="newAccount">
         /// The account to be created and stored.
+        /// To adhere to our validation guidelines, the submitted information must contain data as such:
+        /// The user name, full name and hashed password must all be longer than zero characters.
+        /// The e-mail address must adhere to the following regular expression:
+        /// [a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?
+        /// The user name must not already be registered.
         /// </param>
         /// <returns>
         /// True if the account creation was successful, false otherwise.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the newAccount parameter is a null reference.
+        /// System.UserCreationException if the submitted user information does not adhere to the above rules.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -126,8 +164,15 @@ namespace RentIt
         /// The credentials of the user's account.
         /// </param>
         /// <returns>
-        /// UserAccount-instance representing all the user data of the specified user account.
+        /// UserAccount instance representing all the user data of the specified user account.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the credentials parameter is a null reference.
+        /// System.InvalidCredentialsException if the submitted credentials are not valid for an active account,
+        /// or if the credentials are for a publisher account.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -144,6 +189,13 @@ namespace RentIt
         /// <returns>
         /// PublisherAccount-instance representing all the publisher data of the specified publisher account.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the credentials parameter is a null reference.
+        /// System.InvalidCredentialsException if the submitted credentials are not valid for an active account,
+        /// or if the credentials are not for a publisher account.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -164,6 +216,12 @@ namespace RentIt
         /// True if the update was successful (credentials were valid and the database record was changed), 
         /// false otherwise (credentials were invalid or another error in the supplied information was found).
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the account or credentials parameter is a null reference.
+        /// System.InvalidCredentialsException if the submitted credentials are not valid for an active account.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -183,6 +241,12 @@ namespace RentIt
         /// True if the update was successful (credentials were valid and the database record was changed), 
         /// false otherwise (credentials were invalid or another error in the supplied information was found).
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the credentials parameter is a null reference.
+        /// System.InvalidCredentialsException if the submitted credentials are not valid for an active account.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -190,7 +254,7 @@ namespace RentIt
         bool AddCredits(AccountCredentials credentials, uint addAmount);
 
         /// <summary>
-        /// Rents the media on a given account.
+        /// Rents the media on a given account for 30 days.
         /// </summary>
         /// <param name="mediaId">
         /// The id of the media to be rented.
@@ -201,6 +265,12 @@ namespace RentIt
         /// <returns>
         /// True if the rent was successful, false otherwise.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the credentials parameter is a null reference.
+        /// System.InvalidCredentialsException if the submitted credentials are not valid for an active user account.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -217,13 +287,20 @@ namespace RentIt
         /// The credentials of the uploader's account.
         /// </param>
         /// <returns>
-        /// True if the media was successfully published, false otherwise.
+        /// The id of the successfully published media.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the credentials parameter is a null reference.
+        /// System.InvalidCredentialsException if the submitted credentials are not valid for an active account,
+        /// or if the matched account is not a publisher account.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
-        bool PublishMedia(MediaInfo info, AccountCredentials credentials); // How to upload the media file has not been figured out.
+        int PublishMedia(MediaInfo info, AccountCredentials credentials);
 
         /// <summary>
         /// Deletes the account identified by the credentials.
@@ -234,6 +311,12 @@ namespace RentIt
         /// <returns>
         /// True if the deletion was successful, false otherwise.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the credentials parameter is a null reference.
+        /// System.InvalidCredentialsException if the submitted credentials are not valid for an active account.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -254,6 +337,13 @@ namespace RentIt
         /// <returns>
         /// True if the update was successful, false otherwise.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the credentials parameter is a null reference.
+        /// System.InvalidCredentialsException if the submitted credentials are not valid for an active account,
+        /// or if the matched account is not a publisher account.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
@@ -272,42 +362,18 @@ namespace RentIt
         /// <returns>
         /// True if the deletion was successful, false otherwise.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the credentials parameter is a null reference.
+        /// System.InvalidCredentialsException if the submitted credentials are not valid for an active account,
+        /// or if the credentials are not valid for the publisher listed as the owner of the submitted media id.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
         bool DeleteMedia(int mediaId, AccountCredentials credentials);
-
-        /// <summary>
-        /// When a media has been paid for and is an active rental, this service method is used
-        /// to get binary+metadata of the specified media.
-        /// </summary>
-        /// <param name="mediaId">
-        /// The media to be obtained identified by this media id.
-        /// </param>
-        /// <param name="credentials">
-        /// The credentials of the user account used to verify that the media has been paid for prior
-        /// downloading the specified media.
-        /// </param>
-        /// <returns>
-        /// An address for the specified media.
-        /// </returns>
-        [OperationContract]
-        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
-        [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
-        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
-        MediaFile GetMediaData(string mediaId, AccountCredentials credentials);
-
-        /// <summary>
-        /// Method to upload actual media files (binaries) by a publisher
-        /// </summary>
-        /// <param name="mfile">The media file to be uploaded</param>
-        /// <param name="credentials">User crendetials - must be a publisher</param>
-        /// <returns>True if insertion went well, false if crendentials are invalid. Throws exceptions</returns>
-        [OperationContract]
-        [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
-        [FaultContract(typeof(System.ServiceModel.FaultException<InvalidCredentialsException>))]
-        bool UploadMediaData(int mediaId, MediaFile mfile, AccountCredentials credentials);
 
         /// <summary>
         /// Gets all the genres of the specified media type that the service currently
@@ -319,8 +385,12 @@ namespace RentIt
         /// <returns>
         /// A list containing all genres for the given media type.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// </exception>
         [OperationContract]
-        [FaultContract(typeof(System.ArgumentException))]
+        [FaultContract(typeof(System.Exception))]
         System.Collections.Generic.List<string> GetAllGenres(MediaType mediaType);
 
         /// <summary>
@@ -334,6 +404,14 @@ namespace RentIt
         /// <returns>
         /// true if the review was accepted, false otherwise.
         /// </returns>
+        /// <exception cref="System.ServiceModel.FaultException">
+        /// The FaultException is parameterized with:
+        /// System.Exception if a general database error occurs.
+        /// System.ArgumentException if the credentials parameter is a null reference, if the user name in
+        /// the credentials does not match the user name in the review, if the media id in the review does
+        /// not exist, or if the credentials match a publisher account instead of a user account.
+        /// System.InvalidCredentialsException if the submitted credentials are not valid for an active account.
+        /// </exception>
         [OperationContract]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.Exception>))]
         [FaultContract(typeof(System.ServiceModel.FaultException<System.ArgumentException>))]
