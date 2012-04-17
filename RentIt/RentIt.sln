@@ -4,12 +4,27 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentIt", "RentIt\RentIt.csproj", "{3FC026C4-40DF-44C3-A2C8-3A690359BE6B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryCommunicator", "BinaryCommunicator\BinaryCommunicator.csproj", "{ACE790BF-DB92-4BC4-A940-E44B7C1D838B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3FC026C4-40DF-44C3-A2C8-3A690359BE6B} = {3FC026C4-40DF-44C3-A2C8-3A690359BE6B}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserUploadControl", "UserUploadControl\UserUploadControl.csproj", "{E343B22B-9C57-44DD-A792-3031C9C0F9E8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BinaryCommunicatorServer", "BinaryCommunicatorServer\BinaryCommunicatorServer.csproj", "{E3E76808-A686-4B18-BA26-E90FE5A5CD56}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentItTest", "RentItTest\RentItTest.csproj", "{C4557322-0391-45AE-8B6E-8C416953120A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6ABD68F0-CD6B-4FCC-93A2-C169BA098EAC}"
+	ProjectSection(SolutionItems) = preProject
+		Local.testsettings = Local.testsettings
+		RentIt.vsmdi = RentIt.vsmdi
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = RentIt.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Debug|Mixed Platforms = Debug|Mixed Platforms
@@ -59,6 +74,16 @@ Global
 		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{E3E76808-A686-4B18-BA26-E90FE5A5CD56}.Release|x86.ActiveCfg = Release|Any CPU
+		{C4557322-0391-45AE-8B6E-8C416953120A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4557322-0391-45AE-8B6E-8C416953120A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4557322-0391-45AE-8B6E-8C416953120A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C4557322-0391-45AE-8B6E-8C416953120A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{C4557322-0391-45AE-8B6E-8C416953120A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C4557322-0391-45AE-8B6E-8C416953120A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4557322-0391-45AE-8B6E-8C416953120A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4557322-0391-45AE-8B6E-8C416953120A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{C4557322-0391-45AE-8B6E-8C416953120A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{C4557322-0391-45AE-8B6E-8C416953120A}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
