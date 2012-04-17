@@ -504,6 +504,8 @@ namespace RentIt
 
             ValidateCredentials(credentials);
 
+            //TODO: only update fields which are non-empty!
+
             // The credentials was successfully validated.
             // Retrieve the corresponding account from the database.
             try
