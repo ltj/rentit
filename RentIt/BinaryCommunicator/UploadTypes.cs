@@ -29,7 +29,7 @@ namespace BinaryCommunicator
     /// MediaFileUpload represents all the metadata that must be registered about
     /// a particular media item before it can be uploaded. MediaFileUpload represents
     /// all the metadata-properties that all media types (Book, Movie, Album and Song)
-    /// have in common.
+    /// have in common. It holds the thumbnail of the media item as well.
     /// </summary>
     public abstract class MediaInfoUpload
     {
@@ -170,7 +170,7 @@ namespace BinaryCommunicator
     /// <summary>
     /// BookInfoUpload holds all the metadata of a book. It holds all the base metadata
     /// (the metadata that are common for all media types) as well as the metadata that
-    /// are specific for books.
+    /// are specific for books. It holds the file path of the book file to be uploaded as well.
     /// </summary>
     public class BookInfoUpload : MediaInfoUpload
     {
@@ -260,7 +260,7 @@ namespace BinaryCommunicator
     /// <summary>
     /// AlbumInfoUpload holds all the metadata of an album. It holds all the base metadata
     /// (the metadata that are common for all media types) as well as the metadata that
-    /// are specific for albums.
+    /// are specific for albums. 
     /// An AlbumInfoUpload object does not contain any data about what songs are a part of this album.
     /// </summary>
     public class AlbumInfoUpload : MediaInfoUpload
@@ -313,7 +313,7 @@ namespace BinaryCommunicator
     /// <summary>
     /// MovieInfoUpload holds all the metadata of a movie. It holds all the base metadata
     /// (the metadata that are common for all media types) as well as the metadata that
-    /// are specific for movies.
+    /// are specific for movies. It holds the file path of the movie file to be uploaded as well.
     /// </summary>
     public class MovieInfoUpload : MediaInfoUpload
     {
@@ -403,7 +403,7 @@ namespace BinaryCommunicator
     /// <summary>
     /// SongInfoUpload hold all the metadata of a song. It holds all the base metadata 
     /// (the metadata that are common for all media types) as well as the metadata that
-    /// are specific for songs.
+    /// are specific for songs. It holds the file path of the song file to be uploaded as well.
     /// </summary>
     public class SongInfoUpload : MediaInfoUpload
     {

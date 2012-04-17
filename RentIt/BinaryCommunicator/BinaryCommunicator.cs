@@ -38,7 +38,8 @@ namespace BinaryCommunicator
         /// requests, e.g. requests where the credentials are invalid, the media does not 
         /// exist or the user, identified by the credentials, have not currently rented the
         /// specified media. Invoking the URL under such circumstances will make the HTTP
-        /// request get a "Bad Request 400"-error message.
+        /// request get a "Bad Request 400"-error message. Please refer to the documentation
+        /// of the GetMedia.aspx Web Page for more info.
         /// 
         /// Example:
         /// In order to play a downloaded media, the returned URL can be given as an parameter
@@ -85,6 +86,10 @@ namespace BinaryCommunicator
         /// <returns>
         /// An image-instance representing the thumbnail of the requested media.
         /// </returns>
+        /// <exception cref="WebException">
+        /// The WebExceptions is thrown if the download failed or if the specfied
+        /// media id does not identify a media of the server database.
+        /// </exception>
         public static Image GetThumbnail(int mediaId)
         {
             Image tmpImage = null;
@@ -120,9 +125,7 @@ namespace BinaryCommunicator
         /// The metadata of the book to be uploaded.
         /// </param>
         /// <exception cref="WebException">
-        /// Is thrown if the upload failed. There can be several reasons for that:
-        /// Either the user was not authenticated, an internal error happened or the
-        /// upload of the file failed.
+        /// Is thrown if the upload of the mediafile or media thumbnail failed.
         /// </exception>
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
@@ -187,9 +190,7 @@ namespace BinaryCommunicator
         /// Instance holding the metadata of the album to be uploaded.
         /// </param>
         /// <exception cref="WebException">
-        /// Is thrown if the upload failed. There can be several reasons for that:
-        /// Either the user was not authenticated, an internal error happened or the
-        /// upload of the file failed.
+        /// Is thrown if the upload of one of the songs or the thumbnail failed.
         /// </exception>
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
@@ -308,26 +309,13 @@ namespace BinaryCommunicator
         /// The metadata of the movie to be uploaded.
         /// </param>
         /// <exception cref="WebException">
-        /// Is thrown if the upload failed. There can be several reasons for that:
-        /// Either the user was not authenticated, an internal error happened or the
-        /// upload of the file failed.
-        /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// Is thrown if one of the arguments is a null reference.
+        /// Is thrown if the upload of the movie failed.
         /// </exception>
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
         public static void UploadMovie(AccountCredentials credentials, MovieInfoUpload movieInfo)
         {
-            if (credentials == null)
-            {
-                throw new ArgumentNullException("Credentials parameter is a null reference.");
-            }
-            if (movieInfo == null)
-            {
-                throw new ArgumentNullException("The movieInfo parameter is a null reference.");
-            }
             if (!File.Exists(movieInfo.FilePath))
             {
                 throw new ArgumentException("The specified file does not exist.");
