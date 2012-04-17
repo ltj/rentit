@@ -756,6 +756,8 @@ namespace RentIt
     /// publisher and user accounts (represented by instances of PublisherAccount and
     /// UserAccount respectively)
     /// </summary>
+    [KnownType(typeof(UserAccount))]
+    [KnownType(typeof(PublisherAccount))]
     [DataContract]
     public class Account
     {

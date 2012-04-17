@@ -27,7 +27,7 @@ namespace RentIt
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             // Get the book.
@@ -62,7 +62,7 @@ namespace RentIt
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
-                  new Exception("An internal error has occured. This is not related to the input.", e));
+                  new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return bookInfo;
@@ -83,7 +83,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             // Get the movie.
@@ -113,7 +113,7 @@ namespace RentIt
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return movieInfo;
@@ -135,7 +135,7 @@ namespace RentIt
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             // Get the Album
@@ -171,7 +171,7 @@ namespace RentIt
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return albumInfo;
@@ -199,7 +199,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             // The MediaItems-instance to be compiled and returned to the client.
@@ -252,7 +252,7 @@ namespace RentIt
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return mediaItems;
@@ -280,7 +280,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("Something unexpected went wrong (internally).", e));
+                    new Exception("Something unexpected went wrong (internally)."));
             }
             //Finds the user accounts who rented the media.
             IQueryable<string> users = from rental in db.Rentals
@@ -315,7 +315,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             // The Account-instance to be retrieved from the database.
@@ -371,7 +371,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             // If there exist an account with the submitted user name...
@@ -401,7 +401,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return true;
@@ -431,7 +431,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("Something unexpected went wrong (internally).", e));
+                    new Exception("Something unexpected went wrong (internally)."));
             }
             //List of rentals made by the user. 
             var userRentals = new List<Rental>();
@@ -477,7 +477,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("Something unexpected went wrong (internally).", e));
+                    new Exception("Something unexpected went wrong (internally)."));
             }
             //Medias published by the given publisher account.
             IQueryable<RentItDatabase.Media> publishedMedias = from media in db.Medias
@@ -504,6 +504,8 @@ namespace RentIt
 
             ValidateCredentials(credentials);
 
+            //TODO: only update fields which are non-empty!
+
             // The credentials was successfully validated.
             // Retrieve the corresponding account from the database.
             try
@@ -526,7 +528,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return true;
@@ -551,7 +553,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return true;
@@ -586,7 +588,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return true;
@@ -605,7 +607,7 @@ namespace RentIt
             if (account == null)
             {
                 throw new FaultException<InvalidCredentialsException>(
-                    new InvalidCredentialsException("No credentials submitted.")); ;
+                    new InvalidCredentialsException("Invalid credentials submitted.")); ;
             }
 
             if (!Util.IsPublisher(account))
@@ -762,7 +764,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return true;
@@ -781,7 +783,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             // Is publisher authorized for this media?
@@ -842,7 +844,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return true;
@@ -863,7 +865,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             // Is publisher authorized for this media?
@@ -964,7 +966,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return true;
@@ -1108,7 +1110,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input.", e));
+                    new Exception("An internal error has occured. This is not related to the input."));
             }
 
             return genreResult.ToList();
