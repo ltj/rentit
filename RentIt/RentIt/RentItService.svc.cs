@@ -213,12 +213,13 @@ namespace RentIt
                 if (criteria.Type == MediaType.Any)
                 {
                     medias = from media in db.Medias
+                             where media.active
                              select media;
                 }
                 else
                 {
                     medias = from media in db.Medias
-                             where media.Media_type.name.Equals(Util.StringValueOfMediaType(criteria.Type))
+                             where media.Media_type.name.Equals(Util.StringValueOfMediaType(criteria.Type)) && media.active
                              select media;
                 }
 
@@ -331,7 +332,7 @@ namespace RentIt
             catch (Exception)
             {
                 throw new FaultException<InvalidCredentialsException>(
-                    new InvalidCredentialsException("The submitted credentials are invalid."));
+                    new InvalidCredentialsException(), "The sumitted Credentials are invalid");
             }
 
             // The credentials has successfully been evaluated, return account details to caller.

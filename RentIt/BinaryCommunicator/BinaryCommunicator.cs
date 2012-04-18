@@ -263,6 +263,7 @@ namespace BinaryCommunicator
                     Publisher = songInfo.Publisher,
                     ReleaseDate = songInfo.ReleaseDate,
 
+                    AlbumId = albumMediaId, // Set the album media id to the one received when publishing the album metadata.
                     Artist = songInfo.Artist,
                     Duration = songInfo.Duration
                 };
