@@ -35,7 +35,7 @@ namespace RentIt
             try
             {
                 book = (from b in db.Books
-                        where b.media_id.Equals(id)
+                        where b.media_id.Equals(id) && b.Media.active
                         select b).First();
             }
 
@@ -91,7 +91,7 @@ namespace RentIt
             try
             {
                 movie = (from m in db.Movies
-                         where m.media_id.Equals(id)
+                         where m.media_id.Equals(id) && m.Media.active
                          select m).First();
             }
             catch (Exception)
@@ -143,7 +143,7 @@ namespace RentIt
             try
             {
                 album = (from a in db.Albums
-                         where a.media_id.Equals(id)
+                         where a.media_id.Equals(id) && a.Media.active
                          select a).First();
             }
             catch (Exception)
@@ -213,12 +213,13 @@ namespace RentIt
                 if (criteria.Type == MediaType.Any)
                 {
                     medias = from media in db.Medias
+                             where media.active
                              select media;
                 }
                 else
                 {
                     medias = from media in db.Medias
-                             where media.Media_type.name.Equals(Util.StringValueOfMediaType(criteria.Type))
+                             where media.Media_type.name.Equals(Util.StringValueOfMediaType(criteria.Type)) && media.active
                              select media;
                 }
 
@@ -331,7 +332,7 @@ namespace RentIt
             catch (Exception)
             {
                 throw new FaultException<InvalidCredentialsException>(
-                    new InvalidCredentialsException("The submitted credentials are invalid."));
+                    new InvalidCredentialsException(), "The sumitted Credentials are invalid");
             }
 
             // The credentials has successfully been evaluated, return account details to caller.
