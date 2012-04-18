@@ -892,22 +892,24 @@ namespace RentIt
     /// <summary>
     /// Indicates that the submitted user credentials are not valid for this action.
     /// </summary>
-    [DataContract]
+    [Serializable]
     public class InvalidCredentialsException : System.Exception
     {
         public InvalidCredentialsException() { }
         public InvalidCredentialsException(string message) : base(message) { }
         public InvalidCredentialsException(string message, System.Exception inner) : base(message, inner) { }
+        public InvalidCredentialsException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 
     /// <summary>
     /// Indicates that the submitted user information is not valid for creating a new user.
     /// </summary>
-    [DataContract]
+    [Serializable]
     public class UserCreationException : System.Exception
     {
         public UserCreationException() { }
         public UserCreationException(string message) : base(message) { }
         public UserCreationException(string message, System.Exception inner) : base(message, inner) { }
+        public UserCreationException(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
     }
 }

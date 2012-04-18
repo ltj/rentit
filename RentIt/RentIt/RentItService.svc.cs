@@ -35,7 +35,7 @@ namespace RentIt
             try
             {
                 book = (from b in db.Books
-                        where b.media_id.Equals(id)
+                        where b.media_id.Equals(id) && b.Media.active
                         select b).First();
             }
 
@@ -91,7 +91,7 @@ namespace RentIt
             try
             {
                 movie = (from m in db.Movies
-                         where m.media_id.Equals(id)
+                         where m.media_id.Equals(id) && m.Media.active
                          select m).First();
             }
             catch (Exception)
@@ -143,7 +143,7 @@ namespace RentIt
             try
             {
                 album = (from a in db.Albums
-                         where a.media_id.Equals(id)
+                         where a.media_id.Equals(id) && a.Media.active
                          select a).First();
             }
             catch (Exception)
@@ -794,7 +794,9 @@ namespace RentIt
             try
             {
                 // find media based on id
-                IQueryable<Media> mediaResult = from m in db.Medias where m.id == newData.Id select m;
+                IQueryable<Media> mediaResult = from m in db.Medias
+                                                where m.id == newData.Id && m.active
+                                                select m;
                 if (mediaResult.Count() <= 0) // media was not found
                     return false;
                 Media media = mediaResult.First();
@@ -1078,11 +1080,6 @@ namespace RentIt
         */
 
         /// <author>Per Mortensen</author>
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mediaType"></param>
-        /// <returns></returns>
         public List<string> GetAllGenres(MediaType mediaType)
         {
             DatabaseDataContext db;
