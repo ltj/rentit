@@ -19,10 +19,33 @@ namespace RentItTest
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     using RentIt;
+    using System.ServiceModel;
 
     [TestClass]
     public class LarsTest
     {
+
+        [TestInitialize]
+        public void init() {
+            RentItClient target = new RentItClient();
+            Account newAccount = new Account {
+                UserName = "xyztest3",
+                FullName = "Test Testesen",
+                Email = "test@test.com",
+                HashedPassword = "1234"
+            };
+            target.CreateNewUser(newAccount);
+
+            newAccount = new Account {
+                UserName = "xyztest2",
+                FullName = "Test Testesen",
+                Email = "test@test.com",
+                HashedPassword = "1234"
+            };
+            target.CreateNewUser(newAccount);
+        }
+
+
         [TestMethod]
         public void TestMethod1()
         {
@@ -40,11 +63,10 @@ namespace RentItTest
         // http://.../Default.aspx). This is necessary for the unit test to be executed on the web server,
         // whether you are testing a page, web service, or a WCF service.
         [TestMethod()]
-        [ExpectedException(typeof(UserCreationException))]
         public void CreateNewUserTest() {
             RentItClient target = new RentItClient();
             Account newAccount = new Account {
-                UserName = "fyfeluf",
+                UserName = "xyztest",
                 FullName = "Test Testesen",
                 Email = "test@test.com",
                 HashedPassword = "1234"
@@ -53,6 +75,18 @@ namespace RentItTest
             bool actual;
             actual = target.CreateNewUser(newAccount);
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod()]
+        [ExpectedException(typeof(FaultException))]
+        public void CreateNewUserTest2() {
+            RentItClient target = new RentItClient();
+            Account newAccount = new Account {
+                UserName = "xyztest2",
+                FullName = "Test Testesen",
+                Email = "test@test.com",
+                HashedPassword = "1234"
+            };
             target.CreateNewUser(newAccount);
         }
 
@@ -66,7 +100,7 @@ namespace RentItTest
         public void DeleteAccountTest() {
             RentItClient target = new RentItClient();
             AccountCredentials credentials = new AccountCredentials {
-                UserName = "fyfeluf",
+                UserName = "xyztest3",
                 HashedPassword = "1234"
             };
             bool expected = true;
@@ -74,5 +108,7 @@ namespace RentItTest
             actual = target.DeleteAccount(credentials);
             Assert.AreEqual(expected, actual);
         }
+
+
     }
 }
