@@ -1,6 +1,5 @@
 ﻿namespace RentItTest
 {
-    using System;
     using System.ServiceModel;
 
     using RentIt;
@@ -28,7 +27,7 @@
         /// <summary>
         ///A test for UpdateAccountInfo
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void UpdateAccountInfoTest1() {
             RentItClient target = new RentItClient();
             AccountCredentials credentials = new AccountCredentials {
@@ -71,7 +70,7 @@
         /// <summary>
         ///A test for AddCredits
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void AddCreditsTest() {
             RentItClient target = new RentItClient();
             AccountCredentials credentials = new AccountCredentials {
@@ -92,7 +91,7 @@
         /// <summary>
         ///A test for UpdateMediaMetadata
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void UpdateMediaMetadataTest() {
             RentItClient target = new RentItClient();
             AccountCredentials credentials = new AccountCredentials {
@@ -134,7 +133,7 @@
         /// <summary>
         ///A test for GetAllGenres
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         public void GetAllGenresTest() {
             RentItClient target = new RentItClient();
             MediaType mediaType = MediaType.Any;
@@ -162,7 +161,7 @@
         /// <summary>
         ///A test for DeleteMedia
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FaultException))]
         public void DeleteMediaTest1() {
             RentItClient target = new RentItClient();
@@ -180,7 +179,7 @@
         /// <summary>
         ///A test for DeleteMedia
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FaultException))]
         public void DeleteMediaTest2() {
             RentItClient target = new RentItClient();
@@ -196,7 +195,7 @@
         /// <summary>
         ///A test for DeleteMedia
         ///</summary>
-        [TestMethod()]
+        [TestMethod]
         [ExpectedException(typeof(FaultException))]
         public void DeleteMediaTest3() {
             RentItClient target = new RentItClient();
