@@ -504,8 +504,6 @@ namespace RentIt
 
             ValidateCredentials(credentials);
 
-            //TODO: only update fields which are non-empty!
-
             // The credentials was successfully validated.
             // Retrieve the corresponding account from the database.
             try
@@ -514,16 +512,29 @@ namespace RentIt
 
                 RentItDatabase.Account dbAccount =
                     (from acc in db.Accounts
-                     where acc.user_name.Equals(credentials.UserName)
+                     where acc.user_name.Equals(credentials.UserName) && acc.active
                      select acc).First();
 
                 // Update the database with the new submitted data.
-                dbAccount.full_name = account.FullName;
-                dbAccount.email = account.Email;
-                dbAccount.password = account.HashedPassword;
+                if(account.FullName.Length > 0)
+                    dbAccount.full_name = account.FullName;
+                string emailRegex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+                if(account.Email.Length > 0)
+                {
+                    if(Regex.IsMatch(account.Email, emailRegex))
+                        dbAccount.email = account.Email;
+                    else
+                        throw new ArgumentException("The e-mail address was not valid.");
+                }
+                if(account.HashedPassword.Length > 0)
+                    dbAccount.password = account.HashedPassword;
 
                 // Submit the changes to the database.
                 db.SubmitChanges();
+            }
+            catch(ArgumentException e)
+            {
+                throw new FaultException<ArgumentException>(e);
             }
             catch (Exception e)
             {
@@ -857,8 +868,6 @@ namespace RentIt
         {
             ValidateCredentials(credentials);
 
-            // todo: hvis der findes review og rentals, slettes de fra databasen, ellers sættes de inactive, og slet også file record
-
             DatabaseDataContext db;
             try
             {
@@ -870,18 +879,17 @@ namespace RentIt
                     new Exception("An internal error has occured. This is not related to the input."));
             }
 
-            // Is publisher authorized for this media?
-            if (!Util.IsPublisherAuthorized(mediaId, credentials, db, this))
-                throw new FaultException<InvalidCredentialsException>(
-                    new InvalidCredentialsException("This user is not authorized to delete this media."));
-
-
             try
             {
                 // find media based on id
                 Media media = (from m in db.Medias
-                               where m.id == mediaId
+                               where m.id == mediaId && m.active
                                select m).First();
+
+                // Is publisher authorized for this media?
+                if(!Util.IsPublisherAuthorized(mediaId, credentials, db, this))
+                    throw new FaultException<InvalidCredentialsException>(
+                        new InvalidCredentialsException("This user is not authorized to delete this media."));
 
                 // if refs to media in rentals/reviews only mark inactive
                 if (db.Reviews.Exists(r => r.media_id.Equals(mediaId)) || db.Rentals.Exists(r => r.media_id.Equals(mediaId)))
