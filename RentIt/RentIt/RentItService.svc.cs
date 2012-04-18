@@ -795,7 +795,9 @@ namespace RentIt
             try
             {
                 // find media based on id
-                IQueryable<Media> mediaResult = from m in db.Medias where m.id == newData.Id select m;
+                IQueryable<Media> mediaResult = from m in db.Medias
+                                                where m.id == newData.Id && m.active
+                                                select m;
                 if (mediaResult.Count() <= 0) // media was not found
                     return false;
                 Media media = mediaResult.First();
@@ -1079,11 +1081,6 @@ namespace RentIt
         */
 
         /// <author>Per Mortensen</author>
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mediaType"></param>
-        /// <returns></returns>
         public List<string> GetAllGenres(MediaType mediaType)
         {
             DatabaseDataContext db;
