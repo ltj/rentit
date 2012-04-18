@@ -1109,9 +1109,12 @@ namespace RentIt
             {
                 if (!typeString.Equals(Util.StringValueOfMediaType(MediaType.Any)))
                     // find genres for specific media type
-                    genreResult = from t in db.Genres where t.Media_type1.name.Equals(typeString) select t.name;
+                    genreResult = from t in db.Genres
+                                  where string.Compare(t.Media_type1.name, typeString, true) == 0
+                                  select t.name;
                 else // get all genres (any media type)
-                    genreResult = from t in db.Genres select t.name;
+                    genreResult = from t in db.Genres
+                                  select t.name;
             }
             catch (Exception e)
             {
