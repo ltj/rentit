@@ -237,15 +237,29 @@ namespace RentIt
                 if (!string.IsNullOrEmpty(criteria.Genre))
                 {
                     orderedMedias = from media in orderedMedias
-                                    where media.Genre.name.Contains(criteria.Genre)
+                                    where media.Genre.name.Equals(criteria.Genre)
                                     select media;
                 }
 
                 if (!string.IsNullOrEmpty(criteria.SearchText))
                 {
+                    List<Media> list = new List<Media>();
+                    foreach (Media m in orderedMedias)
+                    {
+                        if (Util.ContainsIgnoreCase(Util.GetMediaMetadataAsString(m), criteria.SearchText))
+                        {
+                            list.Add(m);
+                        }
+                    }
+
+                    orderedMedias = list.AsQueryable();
+
+                    /*
+                    This was the original code, but it could not be translated to SQL statements by LINQ to SQL:
                     orderedMedias =
                         orderedMedias.Where(
                         media => Util.ContainsIgnoreCase(Util.GetMediaMetadataAsString(media), criteria.SearchText));
+                    */
                 }
 
                 // Apply the offset and limit of the number of medias to return as specified.
@@ -261,7 +275,7 @@ namespace RentIt
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input."));
+                    new Exception("An internal error has occured. This is not related to the input: " + e.Message));
             }
 
             return mediaItems;
@@ -531,23 +545,23 @@ namespace RentIt
                      select acc).First();
 
                 // Update the database with the new submitted data.
-                if(account.FullName.Length > 0)
+                if (account.FullName.Length > 0)
                     dbAccount.full_name = account.FullName;
                 string emailRegex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
-                if(account.Email.Length > 0)
+                if (account.Email.Length > 0)
                 {
-                    if(Regex.IsMatch(account.Email, emailRegex))
+                    if (Regex.IsMatch(account.Email, emailRegex))
                         dbAccount.email = account.Email;
                     else
                         throw new ArgumentException("The e-mail address was not valid.");
                 }
-                if(account.HashedPassword.Length > 0)
+                if (account.HashedPassword.Length > 0)
                     dbAccount.password = account.HashedPassword;
 
                 // Submit the changes to the database.
                 db.SubmitChanges();
             }
-            catch(ArgumentException e)
+            catch (ArgumentException e)
             {
                 throw new FaultException<ArgumentException>(e);
             }
@@ -902,7 +916,7 @@ namespace RentIt
                                select m).First();
 
                 // Is publisher authorized for this media?
-                if(!Util.IsPublisherAuthorized(mediaId, credentials, db, this))
+                if (!Util.IsPublisherAuthorized(mediaId, credentials, db, this))
                     throw new FaultException<InvalidCredentialsException>(
                         new InvalidCredentialsException("This user is not authorized to delete this media."));
 
