@@ -10,7 +10,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting.Web;
 
 namespace RentItTest
 {
-    using System.Collections.Generic;
     using System.ServiceModel;
 
     /// <summary>
@@ -20,26 +19,6 @@ namespace RentItTest
     [TestClass()]
     public class RentItServiceTest
     {
-
-
-        private TestContext testContextInstance;
-
-        /// <summary>
-        ///Gets or sets the test context which provides
-        ///information about and functionality for the current test run.
-        ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
-
         #region Additional test attributes
         // 
         //You can use the following additional attributes as you write your tests:
@@ -140,6 +119,8 @@ namespace RentItTest
         }
 
         #endregion
+
+        #region GetMediaItems test
 
         /// <summary>
         /// A test for GetMediaItems
@@ -343,7 +324,7 @@ namespace RentItTest
             MediaItems actual;
             actual = target.GetMediaItems(criteria);
 
-            Assert.IsTrue(actual.Albums.Length == 1);
+            Assert.IsTrue(actual.Albums.Length > 0);
             Assert.IsTrue(actual.Songs.Length == 0);
             Assert.IsTrue(actual.Movies.Length == 0);
             Assert.IsTrue(actual.Books.Length == 0);
@@ -364,7 +345,7 @@ namespace RentItTest
                 //Genre = string.Empty,
                 Limit = -1,
                 //Offset = 0,
-                Order = MediaOrder.AlphabeticalDesc,
+                Order = MediaOrder.AlphabeticalAsc,
                 //Type = MediaType.Album,
                 //SearchText = "The CUre"
             };
@@ -396,6 +377,8 @@ namespace RentItTest
             }
             return true;
         }
+
+        #endregion
 
         #region GetMovieInfo tests
 
