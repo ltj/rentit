@@ -211,11 +211,20 @@ namespace RentIt {
         /// <returns>
         /// true if the publisher can change the media, false otherwise.
         /// </returns>
-        public static bool IsPublisherAuthorized(
-            int mediaId, AccountCredentials credentials, DatabaseDataContext db, RentItService service) {
-            if(service.ValidateCredentials(credentials) == null) return false;
+        public static bool IsPublisherAuthorized(int mediaId, AccountCredentials credentials, DatabaseDataContext db, RentItService service)
+        {
+            try
+            {
+                service.ValidateCredentials(credentials);
+            }
+            catch(Exception)
+            {
+                return false;
+            }
 
-            IQueryable<Media> mediaResult = from m in db.Medias where m.id == mediaId select m;
+            IQueryable<Media> mediaResult = from m in db.Medias
+                                            where m.id == mediaId && m.active
+                                            select m;
 
             if(mediaResult.Count() <= 0) // if the media with the specified id was not found
                 return false;
@@ -403,7 +412,9 @@ namespace RentIt {
             var db = new DatabaseDataContext();
 
             // Get the song.
-            RentItDatabase.Song song = (from m in db.Songs where m.media_id.Equals(id) select m).First();
+            RentItDatabase.Song song = (from m in db.Songs
+                                        where m.media_id.Equals(id) && m.Media.active
+                                        select m).First();
 
             RentItDatabase.Rating songRatings = GetMediaRating(song.media_id, db);
 
