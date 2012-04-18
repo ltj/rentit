@@ -6,14 +6,16 @@ using System.ServiceModel;
 using System.Text;
 using RentItDatabase;
 
-namespace RentIt {
+namespace RentIt
+{
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
     /// This class provides convenient conversion methods of
     /// the two enums MediaType and Rating.
     /// </summary>
-    public static class Util {
+    public static class Util
+    {
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
@@ -28,8 +30,10 @@ namespace RentIt {
         /// <returns>
         /// The MediaType of the string representation specified.
         /// </returns>
-        public static MediaType MediaTypeOfValue(string mediaType) {
-            switch(mediaType) {
+        public static MediaType MediaTypeOfValue(string mediaType)
+        {
+            switch (mediaType)
+            {
                 case "Book":
                     return MediaType.Book;
                 case "Movie":
@@ -56,8 +60,10 @@ namespace RentIt {
         /// <returns>
         /// The Rating of the int representation specified.
         /// </returns>
-        public static Rating RatingOfValue(int rating) {
-            switch(rating) {
+        public static Rating RatingOfValue(int rating)
+        {
+            switch (rating)
+            {
                 case 1:
                     return Rating.One;
                 case 2:
@@ -83,8 +89,10 @@ namespace RentIt {
         /// <returns>
         /// An int representation of the Rating object.
         /// </returns>
-        public static int ValueOfRating(Rating rating) {
-            switch(rating) {
+        public static int ValueOfRating(Rating rating)
+        {
+            switch (rating)
+            {
                 case Rating.One:
                     return 1;
                 case Rating.Two:
@@ -100,8 +108,10 @@ namespace RentIt {
             }
         }
 
-        public static string StringValueOfMediaType(MediaType mediaType) {
-            switch(mediaType) {
+        public static string StringValueOfMediaType(MediaType mediaType)
+        {
+            switch (mediaType)
+            {
                 case MediaType.Book:
                     return "Book";
                 case MediaType.Movie:
@@ -124,11 +134,12 @@ namespace RentIt {
         /// <param name="mediaId"></param>
         /// <param name="db"></param>
         /// <returns></returns>
-        public static RentItDatabase.Rating GetMediaRating(int mediaId, DatabaseDataContext db) {
-            IQueryable<RentItDatabase.Rating> ratings = from r in db.Ratings 
-                                                        where r.media_id.Equals(mediaId) 
+        public static RentItDatabase.Rating GetMediaRating(int mediaId, DatabaseDataContext db)
+        {
+            IQueryable<RentItDatabase.Rating> ratings = from r in db.Ratings
+                                                        where r.media_id.Equals(mediaId)
                                                         select r;
-            if(ratings.Count() <= 0) return default (RentItDatabase.Rating);
+            if (ratings.Count() <= 0) return default(RentItDatabase.Rating);
             return ratings.First();
         }
 
@@ -151,13 +162,15 @@ namespace RentIt {
         /// media item.
         /// </returns>
         public static RentIt.MediaRating CollectMediaReviews(
-            int mediaId, RentItDatabase.Rating rating, DatabaseDataContext db) {
+            int mediaId, RentItDatabase.Rating rating, DatabaseDataContext db)
+        {
             // Get all the user reviews of the book.
             List<Review> reviews = (from r in db.Reviews where r.media_id.Equals(mediaId) select r).ToList();
 
             var mediaReviews = new List<MediaReview>();
 
-            foreach(Review review in reviews) {
+            foreach (Review review in reviews)
+            {
                 mediaReviews.Add(
                     new MediaReview(
                         review.media_id,
@@ -180,14 +193,15 @@ namespace RentIt {
         /// </summary>
         /// <param name="acct"></param>
         /// <returns></returns>
-        public static bool IsPublisher(Account acct) {
+        public static bool IsPublisher(Account acct)
+        {
             var db = new DatabaseDataContext();
 
             IQueryable<Publisher_account> pubResult = from user in db.Publisher_accounts
                                                       where user.user_name.Equals(acct.UserName)
                                                       select user;
 
-            if(pubResult.Count() <= 0) return false;
+            if (pubResult.Count() <= 0) return false;
             return true;
         }
 
@@ -217,7 +231,7 @@ namespace RentIt {
             {
                 service.ValidateCredentials(credentials);
             }
-            catch(Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -226,7 +240,7 @@ namespace RentIt {
                                             where m.id == mediaId && m.active
                                             select m;
 
-            if(mediaResult.Count() <= 0) // if the media with the specified id was not found
+            if (mediaResult.Count() <= 0) // if the media with the specified id was not found
                 return false;
 
             Media media = mediaResult.First();
@@ -242,6 +256,29 @@ namespace RentIt {
             return p.Count() > 0;
         }
 
+        /// <auhtor>Kenneth Søhrmann</auhtor>
+        /// <summary>
+        /// Determine if the serachString is contained in the source string.
+        /// The determination is case-insensive.
+        /// </summary>
+        /// <param name="source">
+        /// The string in which the search string will be determined to
+        /// be contained in.
+        /// </param>
+        /// <param name="searchString">
+        /// The string to be determined if it exists in the source string.
+        /// </param>
+        /// <returns>
+        /// True if the search string is contained in the source string.
+        /// </returns>
+        public static bool ContainsIgnoreCase(string source, string searchString)
+        {
+            string sourceLower = source.ToLower();
+            string searchStringLower = searchString.ToLower();
+
+            return sourceLower.Contains(searchStringLower);
+        }
+
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
         /// 
@@ -250,10 +287,12 @@ namespace RentIt {
         /// <param name="criteria"></param>
         /// <returns></returns>
         public static IQueryable<RentItDatabase.Media> OrderMedia(
-            IQueryable<RentItDatabase.Media> mediaItems, MediaCriteria criteria) {
+            IQueryable<RentItDatabase.Media> mediaItems, MediaCriteria criteria)
+        {
             var db = new DatabaseDataContext();
 
-            switch(criteria.Order) {
+            switch (criteria.Order)
+            {
                 case MediaOrder.AlphabeticalAsc:
                     return from media in mediaItems orderby media.title select media;
                 case MediaOrder.AlphabeticalDesc:
@@ -262,10 +301,11 @@ namespace RentIt {
                     // Collect structures with media id an the number of rentals for the media id.
                     var ac = from m in mediaItems
                              select
-                                 new {
-                                         m.id,
-                                         RentalCount = (from mr in db.Rentals where mr.media_id == m.id select mr).Count()
-                                     };
+                                 new
+                                 {
+                                     m.id,
+                                     RentalCount = (from mr in db.Rentals where mr.media_id == m.id select mr).Count()
+                                 };
 
                     // Order the media items after rentals, ascending order.
                     return from media in mediaItems
@@ -278,11 +318,12 @@ namespace RentIt {
                     // Collect structures with media id an the number of rentals for the media id.
                     var ac2 = from m in mediaItems
                               select
-                                  new {
-                                          m.id,
-                                          RentalCount =
-                                  (from mr in db.Rentals where mr.media_id == m.id select mr).Count()
-                                      };
+                                  new
+                                  {
+                                      m.id,
+                                      RentalCount =
+                              (from mr in db.Rentals where mr.media_id == m.id select mr).Count()
+                                  };
 
                     // Order the media items after rentals, descending order.
                     return from media in mediaItems
@@ -325,13 +366,15 @@ namespace RentIt {
         /// <returns>
         /// 
         /// </returns>
-        public static string GetMediaMetadataAsString(Media mediaItem) {
+        public static string GetMediaMetadataAsString(Media mediaItem)
+        {
             var metadataString = new StringBuilder();
 
             metadataString.Append(mediaItem.title + " ");
             metadataString.Append(mediaItem.Publisher.title);
 
-            switch(MediaTypeOfValue(mediaItem.Media_type.name)) {
+            switch (MediaTypeOfValue(mediaItem.Media_type.name))
+            {
                 case MediaType.Book:
                     RentItDatabase.Book book = mediaItem.Book;
                     metadataString.Append(book.author + " ");
@@ -371,14 +414,17 @@ namespace RentIt {
         /// <returns>
         /// A MediaItems-instance holding all metadata of all the medias submitted.
         /// </returns>
-        public static MediaItems CompileMedias(IQueryable<RentItDatabase.Media> mediaList, RentItService service) {
+        public static MediaItems CompileMedias(IQueryable<RentItDatabase.Media> mediaList, RentItService service)
+        {
             var bookInfos = new List<BookInfo>();
             var movieInfos = new List<MovieInfo>();
             var songInfos = new List<SongInfo>();
             var albumInfos = new List<AlbumInfo>();
 
-            foreach(RentItDatabase.Media media in mediaList) {
-                switch(MediaTypeOfValue(media.Media_type.name)) {
+            foreach (RentItDatabase.Media media in mediaList)
+            {
+                switch (MediaTypeOfValue(media.Media_type.name))
+                {
                     case MediaType.Book:
                         bookInfos.Add(service.GetBookInfo(media.id));
                         break;
@@ -408,7 +454,8 @@ namespace RentIt {
         /// A instance of SongInfo holding all data of the specified
         /// song item.
         /// </returns>
-        public static SongInfo GetSongInfo(int id) {
+        public static SongInfo GetSongInfo(int id)
+        {
             var db = new DatabaseDataContext();
 
             // Get the song.
@@ -431,7 +478,8 @@ namespace RentIt {
         /// <param name="mediaType">The media type for which the new genre will be available.</param>
         /// <returns>The id of the newly added genre. If the genre already exists, the
         /// existing genre id is returned.</returns>
-        public static int AddGenre(string genreName, MediaType mediaType) {
+        public static int AddGenre(string genreName, MediaType mediaType)
+        {
             var db = new DatabaseDataContext();
 
             // Get media type id
@@ -443,9 +491,9 @@ namespace RentIt {
             IQueryable<int> genreIds = from g in db.Genres
                                        where g.media_type == mediaTypeId && g.name.Equals(genreName)
                                        select g.id;
-            if(genreIds.Count() > 0)
+            if (genreIds.Count() > 0)
                 return genreIds.First(); // Genre and media type combination already exists, return its genre id
-            
+
             // add genre to database
             var newGenre = new RentItDatabase.Genre { media_type = mediaTypeId, name = genreName };
             db.Genres.InsertOnSubmit(newGenre);

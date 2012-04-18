@@ -209,8 +209,15 @@ namespace RentIt
                 // Get medias based on the media type.
                 IQueryable<RentItDatabase.Media> medias;
 
+                // Determine if the MediaType-value is MediaType.Any
+                bool mediaTypeAny = true;
+                if (criteria.Type != null)
+                {
+                    mediaTypeAny = criteria.Type == MediaType.Any;
+                }
+
                 // If the value is specified to "any", all medias of the database is retrieved.
-                if (criteria.Type == MediaType.Any)
+                if (mediaTypeAny)
                 {
                     medias = from media in db.Medias
                              where media.active
@@ -227,17 +234,18 @@ namespace RentIt
                 IQueryable<Media> orderedMedias = Util.OrderMedia(medias, criteria);
 
                 // Filter the above medias after the genre if specified in the criteria.
-                if (!criteria.Genre.Equals(string.Empty))
+                if (!string.IsNullOrEmpty(criteria.Genre))
                 {
                     orderedMedias = from media in orderedMedias
                                     where media.Genre.name.Contains(criteria.Genre)
                                     select media;
                 }
 
-                if (!criteria.SearchText.Equals(string.Empty))
+                if (!string.IsNullOrEmpty(criteria.SearchText))
                 {
                     orderedMedias =
-                        orderedMedias.Where(media => Util.GetMediaMetadataAsString(media).Contains(criteria.SearchText));
+                        orderedMedias.Where(
+                        media => Util.ContainsIgnoreCase(Util.GetMediaMetadataAsString(media), criteria.SearchText));
                 }
 
                 // Apply the offset and limit of the number of medias to return as specified.
@@ -308,6 +316,12 @@ namespace RentIt
                     new ArgumentException("The credentials-parameter is a null reference."));
             }
 
+            if (string.IsNullOrEmpty(credentials.UserName) || string.IsNullOrEmpty(credentials.HashedPassword))
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("Invalid credentials."));
+            }
+
             DatabaseDataContext db;
             try
             {
@@ -332,7 +346,7 @@ namespace RentIt
             catch (Exception)
             {
                 throw new FaultException<InvalidCredentialsException>(
-                    new InvalidCredentialsException(), "The sumitted Credentials are invalid");
+                    new InvalidCredentialsException(), "The submitted Credentials are invalid");
             }
 
             // The credentials has successfully been evaluated, return account details to caller.
