@@ -32,9 +32,9 @@ namespace RentItTest
 
             MediaItems actual = target.GetAlsoRentedItems(Id);
 
-            Assert.IsTrue(actual.Books.ToList().Exists(x => x.Id == 2 && x.Title == "House of Leaves" && x.Author == "Mark Z. Danielewski"));
+            Assert.IsTrue(actual.Books.ToList().Exists(x => x.Id == 2 && x.Title == "House of Leaves"));
             Assert.IsTrue(actual.Movies.Count() == 0);
-            Assert.IsTrue(actual.Albums.ToList().Exists(x => x.Id == 10 && x.Title == "The Man-Machine" && x.AlbumArtist == "Kraftwerk"));
+            Assert.IsTrue(actual.Albums.ToList().Exists(x => x.Id == 10 && x.Title == "The Man-Machine"));
             Assert.IsTrue(actual.Songs.Count() == 0);
         }
 
