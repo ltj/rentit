@@ -35,7 +35,7 @@ namespace RentIt
             try
             {
                 book = (from b in db.Books
-                        where b.media_id.Equals(id)
+                        where b.media_id.Equals(id) && b.Media.active
                         select b).First();
             }
 
@@ -91,7 +91,7 @@ namespace RentIt
             try
             {
                 movie = (from m in db.Movies
-                         where m.media_id.Equals(id)
+                         where m.media_id.Equals(id) && m.Media.active
                          select m).First();
             }
             catch (Exception)
@@ -143,7 +143,7 @@ namespace RentIt
             try
             {
                 album = (from a in db.Albums
-                         where a.media_id.Equals(id)
+                         where a.media_id.Equals(id) && a.Media.active
                          select a).First();
             }
             catch (Exception)
@@ -209,16 +209,24 @@ namespace RentIt
                 // Get medias based on the media type.
                 IQueryable<RentItDatabase.Media> medias;
 
+                // Determine if the MediaType-value is MediaType.Any
+                bool mediaTypeAny = true;
+                if (criteria.Type != null)
+                {
+                    mediaTypeAny = criteria.Type == MediaType.Any;
+                }
+
                 // If the value is specified to "any", all medias of the database is retrieved.
-                if (criteria.Type == MediaType.Any)
+                if (mediaTypeAny)
                 {
                     medias = from media in db.Medias
+                             where media.active
                              select media;
                 }
                 else
                 {
                     medias = from media in db.Medias
-                             where media.Media_type.name.Equals(Util.StringValueOfMediaType(criteria.Type))
+                             where media.Media_type.name.Equals(Util.StringValueOfMediaType(criteria.Type)) && media.active
                              select media;
                 }
 
@@ -226,17 +234,32 @@ namespace RentIt
                 IQueryable<Media> orderedMedias = Util.OrderMedia(medias, criteria);
 
                 // Filter the above medias after the genre if specified in the criteria.
-                if (!criteria.Genre.Equals(string.Empty))
+                if (!string.IsNullOrEmpty(criteria.Genre))
                 {
                     orderedMedias = from media in orderedMedias
-                                    where media.Genre.name.Contains(criteria.Genre)
+                                    where media.Genre.name.Equals(criteria.Genre)
                                     select media;
                 }
 
-                if (!criteria.SearchText.Equals(string.Empty))
+                if (!string.IsNullOrEmpty(criteria.SearchText))
                 {
+                    List<Media> list = new List<Media>();
+                    foreach (Media m in orderedMedias)
+                    {
+                        if (Util.ContainsIgnoreCase(Util.GetMediaMetadataAsString(m), criteria.SearchText))
+                        {
+                            list.Add(m);
+                        }
+                    }
+
+                    orderedMedias = list.AsQueryable();
+
+                    /*
+                    This was the original code, but it could not be translated to SQL statements by LINQ to SQL:
                     orderedMedias =
-                        orderedMedias.Where(media => Util.GetMediaMetadataAsString(media).Contains(criteria.SearchText));
+                        orderedMedias.Where(
+                        media => Util.ContainsIgnoreCase(Util.GetMediaMetadataAsString(media), criteria.SearchText));
+                    */
                 }
 
                 // Apply the offset and limit of the number of medias to return as specified.
@@ -252,7 +275,7 @@ namespace RentIt
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input."));
+                    new Exception("An internal error has occured. This is not related to the input: " + e.Message));
             }
 
             return mediaItems;
@@ -306,6 +329,12 @@ namespace RentIt
                     new ArgumentException("The credentials-parameter is a null reference."));
             }
 
+            if (string.IsNullOrEmpty(credentials.UserName) || string.IsNullOrEmpty(credentials.HashedPassword))
+            {
+                throw new FaultException<ArgumentException>(
+                    new ArgumentException("Invalid credentials."));
+            }
+
             DatabaseDataContext db;
             try
             {
@@ -330,7 +359,7 @@ namespace RentIt
             catch (Exception)
             {
                 throw new FaultException<InvalidCredentialsException>(
-                    new InvalidCredentialsException("The submitted credentials are invalid."));
+                    new InvalidCredentialsException(), "The submitted Credentials are invalid");
             }
 
             // The credentials has successfully been evaluated, return account details to caller.
@@ -503,8 +532,6 @@ namespace RentIt
 
             ValidateCredentials(credentials);
 
-            //TODO: only update fields which are non-empty!
-
             // The credentials was successfully validated.
             // Retrieve the corresponding account from the database.
             try
@@ -513,16 +540,29 @@ namespace RentIt
 
                 RentItDatabase.Account dbAccount =
                     (from acc in db.Accounts
-                     where acc.user_name.Equals(credentials.UserName)
+                     where acc.user_name.Equals(credentials.UserName) && acc.active
                      select acc).First();
 
                 // Update the database with the new submitted data.
-                dbAccount.full_name = account.FullName;
-                dbAccount.email = account.Email;
-                dbAccount.password = account.HashedPassword;
+                if (account.FullName.Length > 0)
+                    dbAccount.full_name = account.FullName;
+                string emailRegex = @"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?";
+                if (account.Email.Length > 0)
+                {
+                    if (Regex.IsMatch(account.Email, emailRegex))
+                        dbAccount.email = account.Email;
+                    else
+                        throw new ArgumentException("The e-mail address was not valid.");
+                }
+                if (account.HashedPassword.Length > 0)
+                    dbAccount.password = account.HashedPassword;
 
                 // Submit the changes to the database.
                 db.SubmitChanges();
+            }
+            catch (ArgumentException e)
+            {
+                throw new FaultException<ArgumentException>(e);
             }
             catch (Exception e)
             {
@@ -793,7 +833,9 @@ namespace RentIt
             try
             {
                 // find media based on id
-                IQueryable<Media> mediaResult = from m in db.Medias where m.id == newData.Id select m;
+                IQueryable<Media> mediaResult = from m in db.Medias
+                                                where m.id == newData.Id && m.active
+                                                select m;
                 if (mediaResult.Count() <= 0) // media was not found
                     return false;
                 Media media = mediaResult.First();
@@ -854,8 +896,6 @@ namespace RentIt
         {
             ValidateCredentials(credentials);
 
-            // todo: hvis der findes review og rentals, slettes de fra databasen, ellers sættes de inactive, og slet også file record
-
             DatabaseDataContext db;
             try
             {
@@ -867,18 +907,17 @@ namespace RentIt
                     new Exception("An internal error has occured. This is not related to the input."));
             }
 
-            // Is publisher authorized for this media?
-            if (!Util.IsPublisherAuthorized(mediaId, credentials, db, this))
-                throw new FaultException<InvalidCredentialsException>(
-                    new InvalidCredentialsException("This user is not authorized to delete this media."));
-
-
             try
             {
                 // find media based on id
                 Media media = (from m in db.Medias
-                               where m.id == mediaId
+                               where m.id == mediaId && m.active
                                select m).First();
+
+                // Is publisher authorized for this media?
+                if (!Util.IsPublisherAuthorized(mediaId, credentials, db, this))
+                    throw new FaultException<InvalidCredentialsException>(
+                        new InvalidCredentialsException("This user is not authorized to delete this media."));
 
                 // if refs to media in rentals/reviews only mark inactive
                 if (db.Reviews.Exists(r => r.media_id.Equals(mediaId)) || db.Rentals.Exists(r => r.media_id.Equals(mediaId)))
@@ -1077,11 +1116,6 @@ namespace RentIt
         */
 
         /// <author>Per Mortensen</author>
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="mediaType"></param>
-        /// <returns></returns>
         public List<string> GetAllGenres(MediaType mediaType)
         {
             DatabaseDataContext db;
@@ -1102,9 +1136,12 @@ namespace RentIt
             {
                 if (!typeString.Equals(Util.StringValueOfMediaType(MediaType.Any)))
                     // find genres for specific media type
-                    genreResult = from t in db.Genres where t.Media_type1.name.Equals(typeString) select t.name;
+                    genreResult = from t in db.Genres
+                                  where string.Compare(t.Media_type1.name, typeString, true) == 0
+                                  select t.name;
                 else // get all genres (any media type)
-                    genreResult = from t in db.Genres select t.name;
+                    genreResult = from t in db.Genres
+                                  select t.name;
             }
             catch (Exception e)
             {
