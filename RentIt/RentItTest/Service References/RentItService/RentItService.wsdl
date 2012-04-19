@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="RentItService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.ServiceModel" />
+      <xsd:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/RentIt" />
+      <xsd:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System" />
+      <xsd:import schemaLocation="http://rentit.itu.dk/RentIt01/RentItService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IRentIt_GetBookInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBookInfo" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetBookInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBookInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetBookInfo_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q1:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetBookInfo_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q2:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetMovieInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMovieInfo" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetMovieInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMovieInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetMovieInfo_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q3:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetMovieInfo_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q4:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAlbumInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlbumInfo" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAlbumInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlbumInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAlbumInfo_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q5:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAlbumInfo_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q6:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetMediaItems_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMediaItems" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetMediaItems_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMediaItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetMediaItems_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q7:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetMediaItems_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q8:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAlsoRentedItems_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlsoRentedItems" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAlsoRentedItems_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAlsoRentedItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAlsoRentedItems_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q9:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAlsoRentedItems_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q10:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_ValidateCredentials_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateCredentials" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_ValidateCredentials_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateCredentialsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_ValidateCredentials_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q11="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q11:FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_ValidateCredentials_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q12:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_ValidateCredentials_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q13="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q13:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_CreateNewUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateNewUser" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_CreateNewUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CreateNewUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_CreateNewUser_FaultExceptionOf_UserCreationExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q14="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q14:FaultExceptionOfUserCreationExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_CreateNewUser_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q15="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q15:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_CreateNewUser_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q16="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q16:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllCustomerData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCustomerData" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllCustomerData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllCustomerDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllCustomerData_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q17="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q17:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllCustomerData_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q18="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q18:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllCustomerData_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q19="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q19:FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllPublisherData_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPublisherData" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllPublisherData_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllPublisherDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllPublisherData_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q20="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q20:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllPublisherData_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q21="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q21:FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllPublisherData_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q22="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q22:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_UpdateAccountInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccountInfo" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_UpdateAccountInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccountInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_UpdateAccountInfo_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q23="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q23:FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_UpdateAccountInfo_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q24="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q24:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_UpdateAccountInfo_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q25="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q25:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_AddCredits_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddCredits" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_AddCredits_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddCreditsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_AddCredits_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q26="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q26:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_AddCredits_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q27="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q27:FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_AddCredits_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q28="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q28:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_RentMedia_InputMessage">
+    <wsdl:part name="parameters" element="tns:RentMedia" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_RentMedia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RentMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_RentMedia_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q29="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q29:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_RentMedia_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q30="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q30:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_RentMedia_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q31="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q31:FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_PublishMedia_InputMessage">
+    <wsdl:part name="parameters" element="tns:PublishMedia" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_PublishMedia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:PublishMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_PublishMedia_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q32="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q32:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_PublishMedia_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q33="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q33:FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_PublishMedia_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q34="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q34:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_DeleteAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAccount" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_DeleteAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_DeleteAccount_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q35="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q35:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_DeleteAccount_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q36="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q36:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_DeleteAccount_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q37="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q37:FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_UpdateMediaMetadata_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMediaMetadata" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_UpdateMediaMetadata_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateMediaMetadataResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_UpdateMediaMetadata_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q38="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q38:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_UpdateMediaMetadata_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q39="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q39:FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_UpdateMediaMetadata_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q40="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q40:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_DeleteMedia_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMedia" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_DeleteMedia_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteMediaResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_DeleteMedia_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q41="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q41:FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_DeleteMedia_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q42="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q42:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_DeleteMedia_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q43="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q43:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllGenres_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllGenres" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllGenres_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllGenresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_GetAllGenres_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q44="http://schemas.datacontract.org/2004/07/System" name="detail" element="q44:Exception" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_SubmitReview_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitReview" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_SubmitReview_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SubmitReviewResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_SubmitReview_FaultExceptionOf_ExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q45="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q45:FaultExceptionOfException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_SubmitReview_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q46="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q46:FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0" />
+  </wsdl:message>
+  <wsdl:message name="IRentIt_SubmitReview_FaultExceptionOf_ArgumentExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q47="http://schemas.datacontract.org/2004/07/System.ServiceModel" name="detail" element="q47:FaultExceptionOfArgumentException5F2dSckg" />
+  </wsdl:message>
+  <wsdl:portType name="IRentIt">
+    <wsdl:operation name="GetBookInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/GetBookInfo" message="tns:IRentIt_GetBookInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/GetBookInfoResponse" message="tns:IRentIt_GetBookInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetBookInfoFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_GetBookInfo_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetBookInfoFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_GetBookInfo_FaultExceptionOf_ExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMovieInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/GetMovieInfo" message="tns:IRentIt_GetMovieInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/GetMovieInfoResponse" message="tns:IRentIt_GetMovieInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetMovieInfoFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_GetMovieInfo_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetMovieInfoFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_GetMovieInfo_FaultExceptionOf_ExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlbumInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/GetAlbumInfo" message="tns:IRentIt_GetAlbumInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/GetAlbumInfoResponse" message="tns:IRentIt_GetAlbumInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetAlbumInfoFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_GetAlbumInfo_FaultExceptionOf_ExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetAlbumInfoFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_GetAlbumInfo_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMediaItems">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/GetMediaItems" message="tns:IRentIt_GetMediaItems_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/GetMediaItemsResponse" message="tns:IRentIt_GetMediaItems_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetMediaItemsFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_GetMediaItems_FaultExceptionOf_ExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetMediaItemsFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_GetMediaItems_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAlsoRentedItems">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/GetAlsoRentedItems" message="tns:IRentIt_GetAlsoRentedItems_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/GetAlsoRentedItemsResponse" message="tns:IRentIt_GetAlsoRentedItems_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetAlsoRentedItemsFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_GetAlsoRentedItems_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetAlsoRentedItemsFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_GetAlsoRentedItems_FaultExceptionOf_ExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateCredentials">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/ValidateCredentials" message="tns:IRentIt_ValidateCredentials_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/ValidateCredentialsResponse" message="tns:IRentIt_ValidateCredentials_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/ValidateCredentialsFaultExceptionOf_InvalidCredentialsExceptionFault" name="FaultExceptionOf_InvalidCredentialsExceptionFault" message="tns:IRentIt_ValidateCredentials_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/ValidateCredentialsFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_ValidateCredentials_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/ValidateCredentialsFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_ValidateCredentials_FaultExceptionOf_ExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/CreateNewUser" message="tns:IRentIt_CreateNewUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/CreateNewUserResponse" message="tns:IRentIt_CreateNewUser_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/CreateNewUserFaultExceptionOf_UserCreationExceptionFault" name="FaultExceptionOf_UserCreationExceptionFault" message="tns:IRentIt_CreateNewUser_FaultExceptionOf_UserCreationExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/CreateNewUserFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_CreateNewUser_FaultExceptionOf_ExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/CreateNewUserFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_CreateNewUser_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCustomerData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/GetAllCustomerData" message="tns:IRentIt_GetAllCustomerData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/GetAllCustomerDataResponse" message="tns:IRentIt_GetAllCustomerData_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetAllCustomerDataFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_GetAllCustomerData_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetAllCustomerDataFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_GetAllCustomerData_FaultExceptionOf_ExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetAllCustomerDataFaultExceptionOf_InvalidCredentialsExceptionFault" name="FaultExceptionOf_InvalidCredentialsExceptionFault" message="tns:IRentIt_GetAllCustomerData_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPublisherData">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/GetAllPublisherData" message="tns:IRentIt_GetAllPublisherData_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/GetAllPublisherDataResponse" message="tns:IRentIt_GetAllPublisherData_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetAllPublisherDataFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_GetAllPublisherData_FaultExceptionOf_ExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetAllPublisherDataFaultExceptionOf_InvalidCredentialsExceptionFault" name="FaultExceptionOf_InvalidCredentialsExceptionFault" message="tns:IRentIt_GetAllPublisherData_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetAllPublisherDataFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_GetAllPublisherData_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccountInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/UpdateAccountInfo" message="tns:IRentIt_UpdateAccountInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/UpdateAccountInfoResponse" message="tns:IRentIt_UpdateAccountInfo_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/UpdateAccountInfoFaultExceptionOf_InvalidCredentialsExceptionFault" name="FaultExceptionOf_InvalidCredentialsExceptionFault" message="tns:IRentIt_UpdateAccountInfo_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/UpdateAccountInfoFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_UpdateAccountInfo_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/UpdateAccountInfoFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_UpdateAccountInfo_FaultExceptionOf_ExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddCredits">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/AddCredits" message="tns:IRentIt_AddCredits_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/AddCreditsResponse" message="tns:IRentIt_AddCredits_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/AddCreditsFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_AddCredits_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/AddCreditsFaultExceptionOf_InvalidCredentialsExceptionFault" name="FaultExceptionOf_InvalidCredentialsExceptionFault" message="tns:IRentIt_AddCredits_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/AddCreditsFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_AddCredits_FaultExceptionOf_ExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RentMedia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/RentMedia" message="tns:IRentIt_RentMedia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/RentMediaResponse" message="tns:IRentIt_RentMedia_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/RentMediaFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_RentMedia_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/RentMediaFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_RentMedia_FaultExceptionOf_ExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/RentMediaFaultExceptionOf_InvalidCredentialsExceptionFault" name="FaultExceptionOf_InvalidCredentialsExceptionFault" message="tns:IRentIt_RentMedia_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="PublishMedia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/PublishMedia" message="tns:IRentIt_PublishMedia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/PublishMediaResponse" message="tns:IRentIt_PublishMedia_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/PublishMediaFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_PublishMedia_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/PublishMediaFaultExceptionOf_InvalidCredentialsExceptionFault" name="FaultExceptionOf_InvalidCredentialsExceptionFault" message="tns:IRentIt_PublishMedia_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/PublishMediaFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_PublishMedia_FaultExceptionOf_ExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/DeleteAccount" message="tns:IRentIt_DeleteAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/DeleteAccountResponse" message="tns:IRentIt_DeleteAccount_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/DeleteAccountFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_DeleteAccount_FaultExceptionOf_ExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/DeleteAccountFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_DeleteAccount_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/DeleteAccountFaultExceptionOf_InvalidCredentialsExceptionFault" name="FaultExceptionOf_InvalidCredentialsExceptionFault" message="tns:IRentIt_DeleteAccount_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMediaMetadata">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/UpdateMediaMetadata" message="tns:IRentIt_UpdateMediaMetadata_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/UpdateMediaMetadataResponse" message="tns:IRentIt_UpdateMediaMetadata_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/UpdateMediaMetadataFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_UpdateMediaMetadata_FaultExceptionOf_ExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/UpdateMediaMetadataFaultExceptionOf_InvalidCredentialsExceptionFault" name="FaultExceptionOf_InvalidCredentialsExceptionFault" message="tns:IRentIt_UpdateMediaMetadata_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/UpdateMediaMetadataFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_UpdateMediaMetadata_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMedia">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/DeleteMedia" message="tns:IRentIt_DeleteMedia_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/DeleteMediaResponse" message="tns:IRentIt_DeleteMedia_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/DeleteMediaFaultExceptionOf_InvalidCredentialsExceptionFault" name="FaultExceptionOf_InvalidCredentialsExceptionFault" message="tns:IRentIt_DeleteMedia_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/DeleteMediaFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_DeleteMedia_FaultExceptionOf_ExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/DeleteMediaFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_DeleteMedia_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllGenres">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/GetAllGenres" message="tns:IRentIt_GetAllGenres_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/GetAllGenresResponse" message="tns:IRentIt_GetAllGenres_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/GetAllGenresExceptionFault" name="ExceptionFault" message="tns:IRentIt_GetAllGenres_ExceptionFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SubmitReview">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRentIt/SubmitReview" message="tns:IRentIt_SubmitReview_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IRentIt/SubmitReviewResponse" message="tns:IRentIt_SubmitReview_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/SubmitReviewFaultExceptionOf_ExceptionFault" name="FaultExceptionOf_ExceptionFault" message="tns:IRentIt_SubmitReview_FaultExceptionOf_ExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/SubmitReviewFaultExceptionOf_InvalidCredentialsExceptionFault" name="FaultExceptionOf_InvalidCredentialsExceptionFault" message="tns:IRentIt_SubmitReview_FaultExceptionOf_InvalidCredentialsExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IRentIt/SubmitReviewFaultExceptionOf_ArgumentExceptionFault" name="FaultExceptionOf_ArgumentExceptionFault" message="tns:IRentIt_SubmitReview_FaultExceptionOf_ArgumentExceptionFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IRentIt" type="tns:IRentIt">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetBookInfo">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/GetBookInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetMovieInfo">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/GetMovieInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlbumInfo">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/GetAlbumInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetMediaItems">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/GetMediaItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAlsoRentedItems">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/GetAlsoRentedItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateCredentials">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/ValidateCredentials" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_InvalidCredentialsExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_InvalidCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CreateNewUser">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/CreateNewUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_UserCreationExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_UserCreationExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllCustomerData">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/GetAllCustomerData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_InvalidCredentialsExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_InvalidCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllPublisherData">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/GetAllPublisherData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_InvalidCredentialsExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_InvalidCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccountInfo">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/UpdateAccountInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_InvalidCredentialsExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_InvalidCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddCredits">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/AddCredits" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_InvalidCredentialsExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_InvalidCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="RentMedia">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/RentMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_InvalidCredentialsExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_InvalidCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="PublishMedia">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/PublishMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_InvalidCredentialsExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_InvalidCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteAccount">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/DeleteAccount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_InvalidCredentialsExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_InvalidCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateMediaMetadata">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/UpdateMediaMetadata" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_InvalidCredentialsExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_InvalidCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteMedia">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/DeleteMedia" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_InvalidCredentialsExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_InvalidCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllGenres">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/GetAllGenres" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="ExceptionFault">
+        <soap:fault use="literal" name="ExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SubmitReview">
+      <soap:operation soapAction="http://tempuri.org/IRentIt/SubmitReview" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultExceptionOf_ExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_InvalidCredentialsExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_InvalidCredentialsExceptionFault" namespace="" />
+      </wsdl:fault>
+      <wsdl:fault name="FaultExceptionOf_ArgumentExceptionFault">
+        <soap:fault use="literal" name="FaultExceptionOf_ArgumentExceptionFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RentItService">
+    <wsdl:port name="BasicHttpBinding_IRentIt" binding="tns:BasicHttpBinding_IRentIt">
+      <soap:address location="http://rentit.itu.dk/RentIt01/RentItService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
