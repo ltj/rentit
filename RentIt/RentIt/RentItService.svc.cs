@@ -199,7 +199,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input."));
+                    new Exception("An internal error has occured. This is not related to the input. " + e.Message));
             }
 
             // The MediaItems-instance to be compiled and returned to the client.
@@ -209,7 +209,7 @@ namespace RentIt
                 // Get medias based on the media type.
                 IQueryable<RentItDatabase.Media> medias;
 
-                // Determine if the MediaType-value is MediaType.Any
+                // Determine if the MediaType-value is MediaType.Any (null-value indicates MediaType.Any)
                 bool mediaTypeAny = true;
                 if (criteria.Type != null)
                 {
@@ -1171,10 +1171,10 @@ namespace RentIt
             {
                 db = new DatabaseDataContext();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input."));
+                    new Exception("1. An internal error has occured. This is not related to the input. " + e.Message));
             }
 
             // Get the media instance reviewed.
@@ -1230,10 +1230,10 @@ namespace RentIt
 
                 db.SubmitChanges();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("An internal error has occured. This is not related to the input."));
+                    new Exception("2 An internal error has occured. This is not related to the input. " + e.Message));
             }
 
             return true;
