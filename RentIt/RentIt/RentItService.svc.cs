@@ -672,7 +672,7 @@ namespace RentIt
             }
 
             genre = (from g in db.Genres
-                     where g.name.Equals(info.Genre) // && g.Media_type1.id.Equals(mtype.id)
+                     where g.name.Equals(info.Genre) && g.Media_type1.id.Equals(mtype.id)
                      select g).Single();
 
             // Check if the specified publisher exists.
