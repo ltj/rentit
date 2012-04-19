@@ -351,7 +351,7 @@ namespace RentIt
                 account = (from ac in db.Accounts
                            where
                                ac.user_name.Equals(credentials.UserName)
-                               && ac.password.Equals(credentials.HashedPassword) && ac.active
+                               && ac.password.Equals(credentials.HashedPassword.ToUpper()) && ac.active
                            select ac).Single();
             }
             catch (Exception)
