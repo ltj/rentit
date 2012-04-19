@@ -136,11 +136,13 @@ namespace RentIt
         /// <returns></returns>
         public static RentItDatabase.Rating GetMediaRating(int mediaId, DatabaseDataContext db)
         {
+            if(!db.Ratings.Exists(r => r.media_id.Equals(mediaId)))
+                return default(RentItDatabase.Rating);
+
             IQueryable<RentItDatabase.Rating> ratings = from r in db.Ratings
                                                         where r.media_id.Equals(mediaId)
                                                         select r;
-            if (ratings.Count() <= 0) return default(RentItDatabase.Rating);
-            return ratings.First();
+            return ratings.Single();
         }
 
         /// <author>Kenneth Søhrmann</author>
@@ -197,11 +199,8 @@ namespace RentIt
         {
             var db = new DatabaseDataContext();
 
-            IQueryable<Publisher_account> pubResult = from user in db.Publisher_accounts
-                                                      where user.user_name.Equals(acct.UserName)
-                                                      select user;
-
-            if (pubResult.Count() <= 0) return false;
+            if(!db.Publisher_accounts.Exists(p => p.user_name.Equals(acct.UserName) && p.Account.active))
+                return false;
             return true;
         }
 
@@ -236,24 +235,20 @@ namespace RentIt
                 return false;
             }
 
-            IQueryable<Media> mediaResult = from m in db.Medias
-                                            where m.id == mediaId && m.active
-                                            select m;
+            if(!db.Medias.Exists(m => m.id == mediaId && m.active))
+                return false; // if the media with the specified id was not found
 
-            if (mediaResult.Count() <= 0) // if the media with the specified id was not found
-                return false;
-
-            Media media = mediaResult.First();
+            Media media = (from m in db.Medias
+                           where m.id == mediaId && m.active
+                           select m).Single();
 
             // find out whether this publisher is authorized to delete this media
-            IQueryable<Publisher_account> p = from publisher in db.Publisher_accounts
-                                              where
-                                                  publisher.user_name.Equals(credentials.UserName)
-                                                  && publisher.publisher_id == media.publisher_id
-                                              select publisher;
+            if(db.Publisher_accounts.Exists(p => p.user_name.Equals(credentials.UserName)
+                                                  && p.publisher_id == media.publisher_id))
+                return true;
 
             // if this publisher does not have permission to update the media
-            return p.Count() > 0;
+            return false;
         }
 
         /// <auhtor>Kenneth Søhrmann</auhtor>
@@ -461,7 +456,7 @@ namespace RentIt
             // Get the song.
             RentItDatabase.Song song = (from m in db.Songs
                                         where m.media_id.Equals(id) && m.Media.active
-                                        select m).First();
+                                        select m).Single();
 
             RentItDatabase.Rating songRatings = GetMediaRating(song.media_id, db);
 
@@ -485,14 +480,13 @@ namespace RentIt
             // Get media type id
             int mediaTypeId = (from t in db.Media_types
                                where t.name.Equals(StringValueOfMediaType(mediaType))
-                               select t.id).First();
+                               select t).Single().id;
 
             // Check if genre already exists for the given media type
-            IQueryable<int> genreIds = from g in db.Genres
-                                       where g.media_type == mediaTypeId && g.name.Equals(genreName)
-                                       select g.id;
-            if (genreIds.Count() > 0)
-                return genreIds.First(); // Genre and media type combination already exists, return its genre id
+            if(db.Genres.Exists(g => g.media_type == mediaTypeId && g.name.ToLower().Equals(genreName.ToLower())))
+                return (from g in db.Genres
+                        where g.media_type == mediaTypeId && g.name.ToLower().Equals(genreName.ToLower())
+                        select g).Single().id; // Genre and media type combination already exists, return its genre id
 
             // add genre to database
             var newGenre = new RentItDatabase.Genre { media_type = mediaTypeId, name = genreName };
@@ -500,9 +494,7 @@ namespace RentIt
             db.SubmitChanges();
 
             // Return the newly added genre id
-            return (from g in db.Genres
-                    where g.media_type == mediaTypeId && g.name.Equals(genreName)
-                    select g.id).First();
+            return newGenre.id;
         }
     }
 }
