@@ -414,7 +414,7 @@ namespace RentIt
                     user_name = newAccount.UserName,
                     full_name = newAccount.FullName,
                     email = newAccount.Email,
-                    password = newAccount.HashedPassword,
+                    password = newAccount.HashedPassword.ToUpper(),
                     active = true
                 };
             var userAccount = new User_account { credit = 0, Account = baseAccount };
