@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
 using System.ServiceModel;
-using System.Text;
 using System.Text.RegularExpressions;
 using RentItDatabase;
 
@@ -36,7 +34,7 @@ namespace RentIt
             {
                 book = (from b in db.Books
                         where b.media_id.Equals(id) && b.Media.active
-                        select b).First();
+                        select b).Single();
             }
 
             // If no entity was found, the specified id does not excist.
@@ -92,7 +90,7 @@ namespace RentIt
             {
                 movie = (from m in db.Movies
                          where m.media_id.Equals(id) && m.Media.active
-                         select m).First();
+                         select m).Single();
             }
             catch (Exception)
             {
@@ -144,7 +142,7 @@ namespace RentIt
             {
                 album = (from a in db.Albums
                          where a.media_id.Equals(id) && a.Media.active
-                         select a).First();
+                         select a).Single();
             }
             catch (Exception)
             {
@@ -354,7 +352,7 @@ namespace RentIt
                            where
                                ac.user_name.Equals(credentials.UserName)
                                && ac.password.Equals(credentials.HashedPassword) && ac.active
-                           select ac).First();
+                           select ac).Single();
             }
             catch (Exception)
             {
@@ -454,7 +452,7 @@ namespace RentIt
                 var db = new DatabaseDataContext();
                 userAccount = (from user in db.User_accounts
                                where user.Account.user_name.Equals(account.UserName)
-                               select user).First();
+                               select user).Single();
             }
             catch (Exception e)
             {
@@ -500,7 +498,7 @@ namespace RentIt
                 db = new DatabaseDataContext();
                 publisherAccount = (from publisher in db.Publisher_accounts
                                     where publisher.Account.user_name.Equals(account.UserName)
-                                    select publisher).First();
+                                    select publisher).Single();
             }
             catch (Exception e)
             {
@@ -509,7 +507,7 @@ namespace RentIt
             }
             //Medias published by the given publisher account.
             IQueryable<RentItDatabase.Media> publishedMedias = from media in db.Medias
-                                                               where media.publisher_id.Equals(publisherAccount.publisher_id)
+                                                               where media.publisher_id.Equals(publisherAccount.publisher_id) && media.active
                                                                select media;
             //Object containing the four lists of published items. Passed in with the new PublisherAccount-object.
             var mediaItems = Util.CompileMedias(publishedMedias, this);
@@ -541,7 +539,7 @@ namespace RentIt
                 RentItDatabase.Account dbAccount =
                     (from acc in db.Accounts
                      where acc.user_name.Equals(credentials.UserName) && acc.active
-                     select acc).First();
+                     select acc).Single();
 
                 // Update the database with the new submitted data.
                 if (account.FullName.Length > 0)
@@ -586,7 +584,7 @@ namespace RentIt
                                                        where user.user_name.Equals(credentials.UserName)
                                                        select user;
 
-                userAccount.First().credit += (int)addAmount;
+                userAccount.Single().credit += (int)addAmount;
                 db.SubmitChanges();
             }
             catch (Exception e)
@@ -665,7 +663,7 @@ namespace RentIt
             }
             Media_type mtype = (from t in db.Media_types
                                 where t.name.Equals(info.Type)
-                                select t).First();
+                                select t).Single();
 
             // Check if the specfied genre exists.
             if (!db.Genres.Exists(g => g.name.Equals(info.Genre)))
@@ -675,7 +673,7 @@ namespace RentIt
 
             genre = (from g in db.Genres
                      where g.name.Equals(info.Genre) // && g.Media_type1.id.Equals(mtype.id)
-                     select g).First();
+                     select g).Single();
 
             // Check if the specified publisher exists.
             if (!db.Publishers.Exists(p => p.title.Equals(info.Publisher)))
@@ -686,7 +684,7 @@ namespace RentIt
 
             Publisher publisher = (from p in db.Publishers
                                    where p.title.Equals(info.Publisher)
-                                   select p).First();
+                                   select p).Single();
 
             try
             {
@@ -795,7 +793,7 @@ namespace RentIt
                 var db = new DatabaseDataContext();
                 RentItDatabase.Account acctResult = (from user in db.Accounts
                                                      where user.user_name.Equals(account.UserName)
-                                                     select user).First();
+                                                     select user).Single();
                 // set active flag
                 acctResult.active = false;
                 db.SubmitChanges();
@@ -838,7 +836,7 @@ namespace RentIt
                                                 select m;
                 if (mediaResult.Count() <= 0) // media was not found
                     return false;
-                Media media = mediaResult.First();
+                Media media = mediaResult.Single();
 
                 // add genre to database if it doesn't exist and get its genre id
                 int genreId = Util.AddGenre(newData.Genre, newData.Type);
@@ -912,7 +910,7 @@ namespace RentIt
                 // find media based on id
                 Media media = (from m in db.Medias
                                where m.id == mediaId && m.active
-                               select m).First();
+                               select m).Single();
 
                 // Is publisher authorized for this media?
                 if (!Util.IsPublisherAuthorized(mediaId, credentials, db, this))
@@ -936,19 +934,19 @@ namespace RentIt
                     case MediaType.Book:
                         Book book = (from m in db.Books
                                      where m.media_id == mediaId
-                                     select m).First();
+                                     select m).Single();
                         db.Books.DeleteOnSubmit(book);
                         break;
                     case MediaType.Movie:
                         Movie movie = (from m in db.Movies
                                        where m.media_id == mediaId
-                                       select m).First();
+                                       select m).Single();
                         db.Movies.DeleteOnSubmit(movie);
                         break;
                     case MediaType.Album:
                         Album album = (from m in db.Albums
                                        where m.media_id == mediaId
-                                       select m).First();
+                                       select m).Single();
 
                         // get album/song junctions
                         IQueryable<Album_song> albumSongs = from m in db.Album_songs
@@ -968,7 +966,7 @@ namespace RentIt
                     case MediaType.Song:
                         Song song = (from m in db.Songs
                                      where m.media_id == mediaId
-                                     select m).First();
+                                     select m).Single();
 
                         // get album/song junctions
                         IQueryable<Album_song> albumSongs2 = from m in db.Album_songs
@@ -996,7 +994,7 @@ namespace RentIt
                 db.Medias.DeleteOnSubmit(media);
                 db.SubmitChanges();
             }
-            catch (ArgumentNullException)
+            catch (InvalidOperationException)
             { // Media was not found
                 throw new FaultException<ArgumentException>(
                     new ArgumentException("The Media with id " + mediaId + " does not exist."));
@@ -1041,7 +1039,7 @@ namespace RentIt
 
             if (mfiles.Count() <= 0) throw new FaultException("File id not found in database");
 
-            MediaFile file = new MediaFile(mfiles.First().data.ToArray(), mfiles.First().name, mfiles.First().extension);
+            MediaFile file = new MediaFile(mfiles.Single().data.ToArray(), mfiles.Single().name, mfiles.Single().extension);
             // return byte array from Linq.Binary object
             return file;
         }
@@ -1083,7 +1081,7 @@ namespace RentIt
             if (fs.Count() > 0)
             {
                 // update media file
-                RentItDatabase.Media_file efile = fs.First();
+                RentItDatabase.Media_file efile = fs.Single();
                 efile.data = mfile.FileData;
                 efile.name = mfile.FileName;
                 efile.extension = mfile.Extension;
@@ -1182,7 +1180,7 @@ namespace RentIt
             {
                 media = (from m in db.Medias
                          where m.id.Equals(review.MediaId)
-                         select m).First();
+                         select m).Single();
             }
             catch (Exception)
             {
@@ -1196,7 +1194,7 @@ namespace RentIt
             {
                 userAccount = (from u in db.User_accounts
                                where u.user_name.Equals(review.UserName)
-                               select u).First();
+                               select u).Single();
             }
             catch (Exception)
             {
