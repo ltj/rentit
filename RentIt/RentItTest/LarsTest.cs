@@ -8,8 +8,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting.Web;
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace RentItTest
-{
+namespace RentItTest {
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
@@ -22,33 +21,30 @@ namespace RentItTest
     using System.ServiceModel;
 
     [TestClass]
-    public class LarsTest
-    {
+    public class LarsTest {
 
-        [TestInitialize]
-        public void init() {
-            RentItClient target = new RentItClient();
-            Account newAccount = new Account {
-                UserName = "xyztest3",
-                FullName = "Test Testesen",
-                Email = "test@test.com",
-                HashedPassword = "1234"
-            };
-            target.CreateNewUser(newAccount);
+        public void CleanupCreateUser() {
 
-            newAccount = new Account {
-                UserName = "xyztest2",
-                FullName = "Test Testesen",
-                Email = "test@test.com",
-                HashedPassword = "1234"
-            };
-            target.CreateNewUser(newAccount);
+            var db = new RentItTestDatabase.RentItDatabaseDataContext();
+
+            // delete user created by CreateNewUserTest()
+            RentItTestDatabase.Account acctResult = (from user in db.Accounts
+                                                     where user.user_name.Equals("unittest1")
+                                                     select user).First();
+
+            db.Accounts.DeleteOnSubmit(acctResult);
+            RentItTestDatabase.User_account userResult = (from ua in db.User_accounts
+                                                          where ua.Account.Equals(acctResult)
+                                                          select ua).First();
+            db.User_accounts.DeleteOnSubmit(userResult);
+
+
+            db.SubmitChanges();
         }
 
 
         [TestMethod]
-        public void TestMethod1()
-        {
+        public void TestMethod1() {
             RentItClient client = new RentItClient();
 
             Account acc = client.ValidateCredentials(new AccountCredentials() { UserName = "publishCorp", HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220" });
@@ -66,9 +62,9 @@ namespace RentItTest
         public void CreateNewUserTest() {
             RentItClient target = new RentItClient();
             Account newAccount = new Account {
-                UserName = "xyztest",
-                FullName = "Test Testesen",
-                Email = "test@test.com",
+                UserName = "unittest1",
+                FullName = "Unit Testesen1",
+                Email = "unit@test.com",
                 HashedPassword = "1234"
             };
             bool expected = true;
@@ -82,7 +78,7 @@ namespace RentItTest
         public void CreateNewUserTest2() {
             RentItClient target = new RentItClient();
             Account newAccount = new Account {
-                UserName = "xyztest2",
+                UserName = "unittest1",
                 FullName = "Test Testesen",
                 Email = "test@test.com",
                 HashedPassword = "1234"
@@ -100,7 +96,7 @@ namespace RentItTest
         public void DeleteAccountTest() {
             RentItClient target = new RentItClient();
             AccountCredentials credentials = new AccountCredentials {
-                UserName = "xyztest3",
+                UserName = "unittest1",
                 HashedPassword = "1234"
             };
             bool expected = true;
