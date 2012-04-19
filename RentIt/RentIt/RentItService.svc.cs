@@ -831,12 +831,11 @@ namespace RentIt
             try
             {
                 // find media based on id
-                IQueryable<Media> mediaResult = from m in db.Medias
-                                                where m.id == newData.Id && m.active
-                                                select m;
-                if (mediaResult.Count() <= 0) // media was not found
+                if(!db.Medias.Exists(m => m.id == newData.Id && m.active))
                     return false;
-                Media media = mediaResult.Single();
+                Media media = (from m in db.Medias
+                               where m.id == newData.Id && m.active
+                               select m).Single();
 
                 // add genre to database if it doesn't exist and get its genre id
                 int genreId = Util.AddGenre(newData.Genre, newData.Type);
