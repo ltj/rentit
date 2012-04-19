@@ -294,7 +294,6 @@ namespace RentIt
                     new ArgumentException("The id was less than zero."));
 
             //Returns rentals made by users who also rented the given media item.
-            //TODO: Return a maximum number of media items of each media type. Should the method only return media of the same type as the given media - discuss 27.03
             DatabaseDataContext db;
             try
             {
@@ -303,7 +302,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("Something unexpected went wrong (internally)."));
+                    new Exception("Internal error."));
             }
             //Finds the user accounts who rented the media.
             IQueryable<string> users = from rental in db.Rentals
@@ -311,7 +310,7 @@ namespace RentIt
                                        select rental.User_account.user_name;
             //Finds the rented medias made by all the users who rented the media.
             IQueryable<RentItDatabase.Media> rentals = (from rental in db.Rentals
-                                                        where users.Contains(rental.User_account.user_name)
+                                                        where users.Contains(rental.User_account.user_name) && rental.media_id != id && rental.Media.type_id != 4
                                                         select rental.Media).Distinct();
             //Returns a MediaItems object containing lists of all the medias rented by the users who also rented the media with the given id.
             return Util.CompileMedias(rentals, this);
@@ -460,7 +459,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("Something unexpected went wrong (internally)."));
+                    new Exception("Internal Error."));
             }
             //List of rentals made by the user. 
             var userRentals = new List<Rental>();
@@ -506,7 +505,7 @@ namespace RentIt
             catch (Exception e)
             {
                 throw new FaultException<Exception>(
-                    new Exception("Something unexpected went wrong (internally)."));
+                    new Exception("Internal Error."));
             }
             //Medias published by the given publisher account.
             IQueryable<RentItDatabase.Media> publishedMedias = from media in db.Medias
