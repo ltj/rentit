@@ -665,14 +665,11 @@ namespace RentIt
                                 where t.name.Equals(info.Type)
                                 select t).Single();
 
-            // Check if the specfied genre exists.
-            if (!db.Genres.Exists(g => g.name.Equals(info.Genre)))
-            {
-                Util.AddGenre(info.Genre, info.Type);
-            }
+            // Add the genre if it doesn't already exist.
+            int genreId = Util.AddGenre(info.Genre, info.Type);
 
             genre = (from g in db.Genres
-                     where g.name.Equals(info.Genre) && g.Media_type1.id.Equals(mtype.id)
+                     where g.id == genreId
                      select g).Single();
 
             // Check if the specified publisher exists.
@@ -1146,7 +1143,7 @@ namespace RentIt
                     new Exception("An internal error has occured. This is not related to the input."));
             }
 
-            return genreResult.ToList();
+            return genreResult.Distinct().ToList();
         }
 
         /// <author>Kenneth Søhrmann</author>
