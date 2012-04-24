@@ -27,16 +27,18 @@ namespace RentItTest {
 
             var db = new RentItTestDatabase.RentItDatabaseDataContext();
 
+            RentItTestDatabase.User_account userResult = (from ua in db.User_accounts
+                                                          where ua.user_name.Equals(name)
+                                                          select ua).First();
+            db.User_accounts.DeleteOnSubmit(userResult);
+
             // delete user created by CreateNewUserTest()
             RentItTestDatabase.Account acctResult = (from user in db.Accounts
                                                      where user.user_name.Equals(name)
                                                      select user).First();
 
             db.Accounts.DeleteOnSubmit(acctResult);
-            RentItTestDatabase.User_account userResult = (from ua in db.User_accounts
-                                                          where ua.Account.Equals(acctResult)
-                                                          select ua).First();
-            db.User_accounts.DeleteOnSubmit(userResult);
+            
 
 
             db.SubmitChanges();
@@ -62,13 +64,7 @@ namespace RentItTest {
         public void CreateNewUserTest() {
             RentItClient target = new RentItClient();
             Account newAccount = new Account {
-                UserName = "unittest1",
-                FullName = "Unit Testesen1",
-                Email = "unit@test.com",
-                HashedPassword = "1234"
-            };
-            Account delAccount = new Account {
-                UserName = "unittest2",
+                UserName = "unittest11",
                 FullName = "Unit Testesen1",
                 Email = "unit@test.com",
                 HashedPassword = "1234"
@@ -76,7 +72,6 @@ namespace RentItTest {
             bool expected = true;
             bool actual;
             actual = target.CreateNewUser(newAccount);
-            target.CreateNewUser(delAccount);
             Assert.AreEqual(expected, actual);
             CleanupCreateUser(newAccount.UserName);
         }
@@ -104,10 +99,18 @@ namespace RentItTest {
         public void DeleteAccountTest() {
 
             var db = new RentItTestDatabase.RentItDatabaseDataContext();
-
             RentItClient target = new RentItClient();
+
+            Account delAccount = new Account {
+                UserName = "unittest7",
+                FullName = "Unit Testesen1",
+                Email = "unit@test.com",
+                HashedPassword = "1234"
+            };
+            target.CreateNewUser(delAccount);
+            
             AccountCredentials credentials = new AccountCredentials {
-                UserName = "unittest2",
+                UserName = "unittest7",
                 HashedPassword = "1234"
             };
             bool expected = true;
