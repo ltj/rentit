@@ -15,7 +15,8 @@ namespace PropertyGridTest
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new UploadControl());
+            //Application.Run(new UploadControl());
+            Application.Run(new TestForm());
         }
     }
 }
