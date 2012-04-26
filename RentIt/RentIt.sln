@@ -21,8 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RentItTest", "RentItTest\RentItTest.csproj", "{F15E344A-779C-422A-9DE5-C2233D7E54B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientControlLibrary", "ClientControlLibrary\ClientControlLibrary.csproj", "{5EC6C031-838A-4588-93F1-1757C1B58FB8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "ClientApp\ClientApp.csproj", "{E2A0BF86-78B1-42F8-AAE1-6DD198329983}"
 EndProject
 Global
@@ -88,16 +86,6 @@ Global
 		{F15E344A-779C-422A-9DE5-C2233D7E54B5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F15E344A-779C-422A-9DE5-C2233D7E54B5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F15E344A-779C-422A-9DE5-C2233D7E54B5}.Release|x86.ActiveCfg = Release|Any CPU
-		{5EC6C031-838A-4588-93F1-1757C1B58FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5EC6C031-838A-4588-93F1-1757C1B58FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5EC6C031-838A-4588-93F1-1757C1B58FB8}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{5EC6C031-838A-4588-93F1-1757C1B58FB8}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{5EC6C031-838A-4588-93F1-1757C1B58FB8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{5EC6C031-838A-4588-93F1-1757C1B58FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5EC6C031-838A-4588-93F1-1757C1B58FB8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5EC6C031-838A-4588-93F1-1757C1B58FB8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{5EC6C031-838A-4588-93F1-1757C1B58FB8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{5EC6C031-838A-4588-93F1-1757C1B58FB8}.Release|x86.ActiveCfg = Release|Any CPU
 		{E2A0BF86-78B1-42F8-AAE1-6DD198329983}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{E2A0BF86-78B1-42F8-AAE1-6DD198329983}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
 		{E2A0BF86-78B1-42F8-AAE1-6DD198329983}.Debug|Mixed Platforms.Build.0 = Debug|x86
