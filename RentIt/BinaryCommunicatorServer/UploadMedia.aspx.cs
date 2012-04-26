@@ -58,7 +58,7 @@ namespace WebApplication1
                 Response.End();
             }
 
-            // Get the uploaded file and.
+            // Get the uploaded file.
             HttpPostedFile uploadedFile = Request.Files.Get(0);
             var memoryStream = new MemoryStream();
             byte[] binary;
@@ -76,20 +76,22 @@ namespace WebApplication1
                 return;
             }
 
+            RentItDatabase.Media mediaInfo = (from m in db.Medias
+                                              where m.id == mediaId
+                                              select m).Single();
+
             // Create a new Media_file entry in the database and upload the file to
             // the database.
-            RentItDatabase.Media_file mediaFile = new Media_file()
+            RentItDatabase.Media_file mediaFile = new Media_file
                 {
-                    name = mediaId.ToString(),
+                    name = mediaInfo.title,
                     extension = mediaExtension,
                     data = binary
                 };
             db.Media_files.InsertOnSubmit(mediaFile);
             db.SubmitChanges();
-
-            RentItDatabase.Media mediaInfo = (from m in db.Medias
-                                              where m.id == mediaId
-                                              select m).First();
+            
+            // Connect the Media_file tuple to the Media tuple.
             mediaInfo.Media_file = mediaFile;
             db.SubmitChanges();
         }

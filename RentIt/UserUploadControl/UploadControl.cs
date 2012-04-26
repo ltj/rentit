@@ -1,5 +1,4 @@
-﻿
-namespace PropertyGridTest
+﻿namespace PropertyGridTest
 {
     using System;
     using System.Collections.Generic;
@@ -69,11 +68,7 @@ namespace PropertyGridTest
             uploadLabel.Text = "Begun uploading...";
             uploadLabel.Refresh();
 
-            AccountCredentials credentials = new AccountCredentials()
-            {
-                UserName = "publishCorp",
-                HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
-            };
+            var credentials = new PublisherCredentials("publishCorp", "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220");
 
             if (comboBox1.SelectedItem.ToString().Equals("Movie"))
             {

@@ -61,14 +61,14 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the specified media id is does not exist.
         /// </exception>
-        public static Uri DownloadMediaURL(AccountCredentials credentials, int mediaId)
+        public static Uri DownloadMediaURL(PublisherCredentials credentials, int mediaId)
         {
             if (credentials == null)
             {
-                throw new ArgumentNullException("credentials parameter is null.");
+                throw new ArgumentNullException("credentials");
             }
 
-            StringBuilder uri = new StringBuilder();
+            var uri = new StringBuilder();
             uri.Append("http://rentit.itu.dk/rentit01/GetMediaData.aspx?");
             uri.Append("mediaId=" + mediaId);
             uri.Append("&userName=" + credentials.UserName);
@@ -130,20 +130,24 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadBook(AccountCredentials credentials, BookInfoUpload bookInfo)
+        public static void UploadBook(PublisherCredentials credentials, BookInfoUpload bookInfo)
         {
-            RentItClient serviceClient = new RentItClient();
+            var serviceClient = new RentItClient();
+            var accountCredentials = new AccountCredentials {
+                UserName = credentials.UserName,
+                HashedPassword = credentials.HashedPassword
+            };
 
             try
             {
-                serviceClient.ValidateCredentials(credentials);
+                serviceClient.ValidateCredentials(accountCredentials);
             }
             catch (Exception e)
             {
                 throw new ArgumentException("Invalid credentials submitted.");
             }
 
-            BookInfo bookMedia = new BookInfo()
+            var bookMedia = new BookInfo()
             {
                 Title = bookInfo.Title,
                 Type = MediaType.Book,
@@ -157,7 +161,7 @@ namespace BinaryCommunicator
                 Summary = bookInfo.Summary
             };
 
-            int bookMediaId = serviceClient.PublishMedia(bookMedia, credentials);
+            int bookMediaId = serviceClient.PublishMedia(bookMedia, accountCredentials);
 
             try
             {
@@ -168,7 +172,7 @@ namespace BinaryCommunicator
             {
                 // Upload failed, clean up database.
 
-                serviceClient.DeleteMedia(bookMediaId, credentials);
+                serviceClient.DeleteMedia(bookMediaId, accountCredentials);
                 throw new WebException("Upload failed, please try again: " + e.Message);
             }
         }
@@ -195,7 +199,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadAlbum(AccountCredentials credentials, List<SongInfoUpload> songs, AlbumInfoUpload albumInfo)
+        public static void UploadAlbum(PublisherCredentials credentials, List<SongInfoUpload> songs, AlbumInfoUpload albumInfo)
         {
             // Check specified song files
             foreach (SongInfoUpload song in songs)
@@ -210,18 +214,22 @@ namespace BinaryCommunicator
                 }
             }
 
-            RentItClient serviceClient = new RentItClient();
+            var serviceClient = new RentItClient();
+            var accountCredentials = new AccountCredentials {
+                UserName = credentials.UserName,
+                HashedPassword = credentials.HashedPassword
+            };
 
             try
             {
-                serviceClient.ValidateCredentials(credentials);
+                serviceClient.ValidateCredentials(accountCredentials);
             }
             catch (Exception e)
             {
                 throw new ArgumentException("Invalid credentials submitted.");
             }
 
-            AlbumInfo albumMedia = new AlbumInfo()
+            var albumMedia = new AlbumInfo()
                 {
                     Title = albumInfo.Title,
                     Type = MediaType.Album,
@@ -234,7 +242,7 @@ namespace BinaryCommunicator
                     Description = albumInfo.Description,
                 };
 
-            int albumMediaId = serviceClient.PublishMedia(albumMedia, credentials);
+            int albumMediaId = serviceClient.PublishMedia(albumMedia, accountCredentials);
 
             // Upload the thumbnail of the album.
             try
@@ -243,7 +251,7 @@ namespace BinaryCommunicator
             }
             catch (Exception e)
             {
-                serviceClient.DeleteMedia(albumMediaId, credentials);
+                serviceClient.DeleteMedia(albumMediaId, accountCredentials);
                 throw new WebException("Upload failed: " + e.Message);
             }
 
@@ -254,7 +262,7 @@ namespace BinaryCommunicator
             // server.
             foreach (SongInfoUpload songInfo in songs)
             {
-                SongInfo songMedia = new SongInfo()
+                var songMedia = new SongInfo()
                 {
                     Title = songInfo.Title,
                     Type = MediaType.Song,
@@ -269,7 +277,7 @@ namespace BinaryCommunicator
                 };
 
                 // publish the metadata of the song to the server.
-                int songMediaId = serviceClient.PublishMedia(songMedia, credentials);
+                int songMediaId = serviceClient.PublishMedia(songMedia, accountCredentials);
 
                 // For rollback if upload of binary data fails.
                 publishedSongs.Add(songMediaId);
@@ -288,10 +296,10 @@ namespace BinaryCommunicator
                     // Clean up server database upon upload failure.
                     foreach (int songId in publishedSongs)
                     {
-                        serviceClient.DeleteMedia(songId, credentials);
+                        serviceClient.DeleteMedia(songId, accountCredentials);
                     }
 
-                    serviceClient.DeleteMedia(albumMediaId, credentials);
+                    serviceClient.DeleteMedia(albumMediaId, accountCredentials);
                     throw new WebException("Upload failed: " + e.Message);
                 }
             }
@@ -315,7 +323,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadMovie(AccountCredentials credentials, MovieInfoUpload movieInfo)
+        public static void UploadMovie(PublisherCredentials credentials, MovieInfoUpload movieInfo)
         {
             if (!File.Exists(movieInfo.FilePath))
             {
@@ -327,9 +335,14 @@ namespace BinaryCommunicator
             }
 
             var serviceClient = new RentItClient();
+            var accountCredentials = new AccountCredentials {
+                UserName = credentials.UserName,
+                HashedPassword = credentials.HashedPassword
+            };
+
             try
             {
-                serviceClient.ValidateCredentials(credentials);
+                serviceClient.ValidateCredentials(accountCredentials);
             }
             catch (Exception e)
             {
@@ -353,7 +366,7 @@ namespace BinaryCommunicator
             int movieId;
             try
             {
-                movieId = serviceClient.PublishMedia(mInfo, credentials);
+                movieId = serviceClient.PublishMedia(mInfo, accountCredentials);
             }
             catch (Exception e)
             {
@@ -368,7 +381,7 @@ namespace BinaryCommunicator
             catch (Exception e)
             {
                 // Clean up server database if the upload failed.
-                serviceClient.DeleteMedia(movieId, credentials);
+                serviceClient.DeleteMedia(movieId, accountCredentials);
                 throw new WebException("Upload of media failed.");
             }
         }
@@ -387,10 +400,10 @@ namespace BinaryCommunicator
         /// The credentials of the publisher who is to upload the
         /// specified media.
         /// </param>
-        private static void UploadMediaFile(string filePath, int mediaId, AccountCredentials credentials)
+        private static void UploadMediaFile(string filePath, int mediaId, PublisherCredentials credentials)
         {
-            FileInfo fileInfo = new FileInfo(filePath);
-            using (WebClient client = new WebClient())
+            var fileInfo = new FileInfo(filePath);
+            using (var client = new WebClient())
             {
                 StringBuilder uri = new StringBuilder();
                 uri.Append("http://rentit.itu.dk/rentit01/UploadMedia.aspx?");
@@ -422,11 +435,11 @@ namespace BinaryCommunicator
         /// <param name="credentials">
         /// The credentials of the publisher who is to upload the thumbnail.
         /// </param>
-        private static void UploadThumbnail(int mediaId, MediaInfoUpload info, AccountCredentials credentials)
+        private static void UploadThumbnail(int mediaId, MediaInfoUpload info, PublisherCredentials credentials)
         {
-            using (WebClient client = new WebClient())
+            using (var client = new WebClient())
             {
-                StringBuilder uri = new StringBuilder();
+                var uri = new StringBuilder();
                 uri.Append("http://rentit.itu.dk/rentit01/UploadThumbnail.aspx?");
                 uri.Append("mediaId=" + mediaId);
                 uri.Append("&userName=" + credentials.UserName);
@@ -442,27 +455,24 @@ namespace BinaryCommunicator
         public static void Main()
         {
             // Set up the credentials of the publisher account.
-            var credentials = new AccountCredentials()
-                {
-                    UserName = "publishCorp",
-                    HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220" // The hashsed password.
-                };
+            var credentials = new PublisherCredentials("publishCorp", "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220");
 
             // Load the thumbnail to be uploaded into the memory.
             Image thumbnail = System.Drawing.Image.FromFile(@"C:\Users\Kenneth88\Desktop\gta\GtaThumb.jpg");
 
             // Construct the MovieInfo-object holding the metadata of the movie to be uploaded.
-            MovieInfoUpload movieInfo = new MovieInfoUpload();
-            movieInfo.FilePath = @"C:\Users\Kenneth88\Desktop\gta\GTA V - Debut Trailer.mp4";
-            movieInfo.Title = "GTA V - Debut Trailer";
-            movieInfo.Genre = "Trailer";
-            movieInfo.Price = 0;
-            movieInfo.ReleaseDate = DateTime.Now;
-            movieInfo.Publisher = "Publish Corp. International";
-            movieInfo.Thumbnail = thumbnail;
-            movieInfo.Director = "Rockstar";
-            movieInfo.Summary = "The very first trailer of the Grand Theft Auto V-game. Oh so sweet it is!";
-            movieInfo.Duration = TimeSpan.FromSeconds(41D);
+            var movieInfo = new MovieInfoUpload {
+                FilePath = @"C:\Users\Kenneth88\Desktop\gta\GTA V - Debut Trailer.mp4",
+                Title = "GTA V - Debut Trailer",
+                Genre = "Trailer",
+                Price = 0,
+                ReleaseDate = DateTime.Now,
+                Publisher = "Publish Corp. International",
+                Thumbnail = thumbnail,
+                Director = "Rockstar",
+                Summary = "The very first trailer of the Grand Theft Auto V-game. Oh so sweet it is!",
+                Duration = TimeSpan.FromSeconds(41D)
+            };
 
             // Upload the movie by calling the UploadMovie method.
             Console.WriteLine("Started upload");

@@ -1,5 +1,4 @@
-﻿
-namespace BinaryCommunicator
+﻿namespace BinaryCommunicator
 {
     using System;
     using System.ComponentModel;
@@ -20,6 +19,27 @@ namespace BinaryCommunicator
         Album = 3,
 
         Song = 4,
+    }
+
+    /// <summary>
+    /// Construct holding the credentials of either a publisher or customer account.
+    /// Holds both user name and the hashed password.
+    /// </summary>
+    public class PublisherCredentials {
+        /// <summary>
+        /// The user name of the credential
+        /// </summary>
+        public readonly string UserName;
+
+        /// <summary>
+        /// The hashed value of the password associated with the user name.
+        /// </summary>
+        public readonly string HashedPassword;
+
+        public PublisherCredentials(string userName, string hashedPassword) {
+            UserName = userName;
+            HashedPassword = hashedPassword;
+        }
     }
 
     #region Media metadata types for upload

@@ -21,7 +21,7 @@ namespace WebApplication1.RentItService {
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WebApplication1.RentItService.AlbumInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WebApplication1.RentItService.SongInfo))]
     [System.Runtime.Serialization.KnownTypeAttribute(typeof(WebApplication1.RentItService.BookInfo))]
-    public partial class MediaInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    internal partial class MediaInfo : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -64,7 +64,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Genre {
+        internal string Genre {
             get {
                 return this.GenreField;
             }
@@ -77,7 +77,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Id {
+        internal int Id {
             get {
                 return this.IdField;
             }
@@ -90,7 +90,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Price {
+        internal int Price {
             get {
                 return this.PriceField;
             }
@@ -103,7 +103,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Publisher {
+        internal string Publisher {
             get {
                 return this.PublisherField;
             }
@@ -116,7 +116,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public WebApplication1.RentItService.MediaRating Rating {
+        internal WebApplication1.RentItService.MediaRating Rating {
             get {
                 return this.RatingField;
             }
@@ -129,7 +129,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime ReleaseDate {
+        internal System.DateTime ReleaseDate {
             get {
                 return this.ReleaseDateField;
             }
@@ -142,7 +142,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.Data.Linq.Binary Thumbnail {
+        internal System.Data.Linq.Binary Thumbnail {
             get {
                 return this.ThumbnailField;
             }
@@ -155,7 +155,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Title {
+        internal string Title {
             get {
                 return this.TitleField;
             }
@@ -168,7 +168,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public WebApplication1.RentItService.MediaType Type {
+        internal WebApplication1.RentItService.MediaType Type {
             get {
                 return this.TypeField;
             }
@@ -194,7 +194,7 @@ namespace WebApplication1.RentItService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MediaRating", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
     [System.SerializableAttribute()]
-    public partial class MediaRating : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    internal partial class MediaRating : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -219,7 +219,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public float AverageRating {
+        internal float AverageRating {
             get {
                 return this.AverageRatingField;
             }
@@ -232,7 +232,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int RatingsCount {
+        internal int RatingsCount {
             get {
                 return this.RatingsCountField;
             }
@@ -245,7 +245,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public WebApplication1.RentItService.MediaReview[] Reviews {
+        internal WebApplication1.RentItService.MediaReview[] Reviews {
             get {
                 return this.ReviewsField;
             }
@@ -271,7 +271,7 @@ namespace WebApplication1.RentItService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MovieInfo", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
     [System.SerializableAttribute()]
-    public partial class MovieInfo : WebApplication1.RentItService.MediaInfo {
+    internal partial class MovieInfo : WebApplication1.RentItService.MediaInfo {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string DirectorField;
@@ -283,7 +283,7 @@ namespace WebApplication1.RentItService {
         private string SummaryField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Director {
+        internal string Director {
             get {
                 return this.DirectorField;
             }
@@ -296,7 +296,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.TimeSpan Duration {
+        internal System.TimeSpan Duration {
             get {
                 return this.DurationField;
             }
@@ -309,7 +309,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Summary {
+        internal string Summary {
             get {
                 return this.SummaryField;
             }
@@ -326,7 +326,7 @@ namespace WebApplication1.RentItService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="AlbumInfo", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
     [System.SerializableAttribute()]
-    public partial class AlbumInfo : WebApplication1.RentItService.MediaInfo {
+    internal partial class AlbumInfo : WebApplication1.RentItService.MediaInfo {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AlbumArtistField;
@@ -341,7 +341,7 @@ namespace WebApplication1.RentItService {
         private System.TimeSpan TotalDurationField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string AlbumArtist {
+        internal string AlbumArtist {
             get {
                 return this.AlbumArtistField;
             }
@@ -354,7 +354,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Description {
+        internal string Description {
             get {
                 return this.DescriptionField;
             }
@@ -367,7 +367,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public WebApplication1.RentItService.SongInfo[] Songs {
+        internal WebApplication1.RentItService.SongInfo[] Songs {
             get {
                 return this.SongsField;
             }
@@ -380,7 +380,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.TimeSpan TotalDuration {
+        internal System.TimeSpan TotalDuration {
             get {
                 return this.TotalDurationField;
             }
@@ -397,7 +397,7 @@ namespace WebApplication1.RentItService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="SongInfo", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
     [System.SerializableAttribute()]
-    public partial class SongInfo : WebApplication1.RentItService.MediaInfo {
+    internal partial class SongInfo : WebApplication1.RentItService.MediaInfo {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string ArtistField;
@@ -406,7 +406,7 @@ namespace WebApplication1.RentItService {
         private System.TimeSpan DurationField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Artist {
+        internal string Artist {
             get {
                 return this.ArtistField;
             }
@@ -419,7 +419,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.TimeSpan Duration {
+        internal System.TimeSpan Duration {
             get {
                 return this.DurationField;
             }
@@ -436,7 +436,7 @@ namespace WebApplication1.RentItService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="BookInfo", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
     [System.SerializableAttribute()]
-    public partial class BookInfo : WebApplication1.RentItService.MediaInfo {
+    internal partial class BookInfo : WebApplication1.RentItService.MediaInfo {
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string AuthorField;
@@ -448,7 +448,7 @@ namespace WebApplication1.RentItService {
         private string SummaryField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Author {
+        internal string Author {
             get {
                 return this.AuthorField;
             }
@@ -461,7 +461,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Pages {
+        internal int Pages {
             get {
                 return this.PagesField;
             }
@@ -474,7 +474,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string Summary {
+        internal string Summary {
             get {
                 return this.SummaryField;
             }
@@ -489,7 +489,7 @@ namespace WebApplication1.RentItService {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MediaType", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
-    public enum MediaType : int {
+    internal enum MediaType : int {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         Any = 0,
@@ -511,7 +511,7 @@ namespace WebApplication1.RentItService {
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="MediaReview", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
     [System.SerializableAttribute()]
-    public partial struct MediaReview : System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    internal partial struct MediaReview : System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -541,7 +541,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MediaId {
+        internal int MediaId {
             get {
                 return this.MediaIdField;
             }
@@ -554,7 +554,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public WebApplication1.RentItService.Rating Rating {
+        internal WebApplication1.RentItService.Rating Rating {
             get {
                 return this.RatingField;
             }
@@ -567,7 +567,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string ReviewText {
+        internal string ReviewText {
             get {
                 return this.ReviewTextField;
             }
@@ -580,7 +580,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime Timestamp {
+        internal System.DateTime Timestamp {
             get {
                 return this.TimestampField;
             }
@@ -593,7 +593,7 @@ namespace WebApplication1.RentItService {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string UserName {
+        internal string UserName {
             get {
                 return this.UserNameField;
             }
@@ -617,7 +617,7 @@ namespace WebApplication1.RentItService {
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Rating", Namespace="http://schemas.datacontract.org/2004/07/RentIt")]
-    public enum Rating : int {
+    internal enum Rating : int {
         
         [System.Runtime.Serialization.EnumMemberAttribute()]
         One = 1,
@@ -637,6 +637,6 @@ namespace WebApplication1.RentItService {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    public class FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0 {
+    internal class FaultExceptionOfInvalidCredentialsExceptionFe9b7uG0 {
     }
 }
