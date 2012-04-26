@@ -142,7 +142,7 @@ namespace BinaryCommunicator
             {
                 serviceClient.ValidateCredentials(accountCredentials);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new ArgumentException("Invalid credentials submitted.");
             }
@@ -224,7 +224,7 @@ namespace BinaryCommunicator
             {
                 serviceClient.ValidateCredentials(accountCredentials);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new ArgumentException("Invalid credentials submitted.");
             }
@@ -344,7 +344,7 @@ namespace BinaryCommunicator
             {
                 serviceClient.ValidateCredentials(accountCredentials);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new ArgumentException("Invalid credentials submitted.");
             }
@@ -378,7 +378,7 @@ namespace BinaryCommunicator
                 UploadMediaFile(movieInfo.FilePath, movieId, credentials);
                 UploadThumbnail(movieId, movieInfo, credentials);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // Clean up server database if the upload failed.
                 serviceClient.DeleteMedia(movieId, accountCredentials);

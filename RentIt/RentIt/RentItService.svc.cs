@@ -21,7 +21,7 @@ namespace RentIt
             {
                 db = new DatabaseDataContext();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
@@ -56,7 +56,7 @@ namespace RentIt
 
                 bookInfo = RentIt.BookInfo.ValueOf(book, mediaRating);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
@@ -78,7 +78,7 @@ namespace RentIt
             {
                 db = new DatabaseDataContext();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -107,7 +107,7 @@ namespace RentIt
                 MediaRating mediaRating = Util.CollectMediaReviews(movie.media_id, rating, db);
                 movieInfo = RentIt.MovieInfo.ValueOf(movie, mediaRating);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
@@ -129,7 +129,7 @@ namespace RentIt
             {
                 db = new DatabaseDataContext();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
@@ -165,7 +165,7 @@ namespace RentIt
                 List<RentIt.SongInfo> albumSongs = songs.Select(song => Util.GetSongInfo(song.song_id)).ToList();
                 albumInfo = RentIt.AlbumInfo.ValueOf(album, albumSongs, mediaRating);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 // Might be thrown if the service cannot communicate with the database properly.
                 throw new FaultException<Exception>(
@@ -209,10 +209,7 @@ namespace RentIt
 
                 // Determine if the MediaType-value is MediaType.Any (null-value indicates MediaType.Any)
                 bool mediaTypeAny = true;
-                if (criteria.Type != null)
-                {
-                    mediaTypeAny = criteria.Type == MediaType.Any;
-                }
+                mediaTypeAny = criteria.Type == MediaType.Any;
 
                 // If the value is specified to "any", all medias of the database is retrieved.
                 if (mediaTypeAny)
@@ -297,7 +294,7 @@ namespace RentIt
             {
                 db = new DatabaseDataContext();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("Internal error."));
@@ -338,7 +335,7 @@ namespace RentIt
             {
                 db = new DatabaseDataContext();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -394,7 +391,7 @@ namespace RentIt
             {
                 db = new DatabaseDataContext();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -424,7 +421,7 @@ namespace RentIt
                 db.User_accounts.InsertOnSubmit(userAccount);
                 db.SubmitChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -454,7 +451,7 @@ namespace RentIt
                                where user.Account.user_name.Equals(account.UserName)
                                select user).Single();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("Internal Error."));
@@ -500,7 +497,7 @@ namespace RentIt
                                     where publisher.Account.user_name.Equals(account.UserName)
                                     select publisher).Single();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("Internal Error."));
@@ -562,7 +559,7 @@ namespace RentIt
             {
                 throw new FaultException<ArgumentException>(e);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -587,7 +584,7 @@ namespace RentIt
                 userAccount.Single().credit += (int)addAmount;
                 db.SubmitChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -622,7 +619,7 @@ namespace RentIt
                 db.Rentals.InsertOnSubmit(r);
                 db.SubmitChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -795,7 +792,7 @@ namespace RentIt
                 acctResult.active = false;
                 db.SubmitChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -814,7 +811,7 @@ namespace RentIt
             {
                 db = new DatabaseDataContext();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -876,7 +873,7 @@ namespace RentIt
 
                 db.SubmitChanges();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -895,7 +892,7 @@ namespace RentIt
             {
                 db = new DatabaseDataContext();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -995,7 +992,7 @@ namespace RentIt
                 throw new FaultException<ArgumentException>(
                     new ArgumentException("The Media with id " + mediaId + " does not exist."));
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
@@ -1137,7 +1134,7 @@ namespace RentIt
                     genreResult = from t in db.Genres
                                   select t.name;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 throw new FaultException<Exception>(
                     new Exception("An internal error has occured. This is not related to the input."));
