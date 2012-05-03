@@ -54,6 +54,18 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="MediaGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MediaGrid.Designer.cs">
+      <DependentUpon>MediaGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaSideBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MediaSideBar.Designer.cs">
+      <DependentUpon>MediaSideBar.cs</DependentUpon>
+    </Compile>
     <Compile Include="MediaUploadControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -88,6 +100,12 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaGrid.resx">
+      <DependentUpon>MediaGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaSideBar.resx">
+      <DependentUpon>MediaSideBar.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MediaUploadControl.resx">
       <DependentUpon>MediaUploadControl.cs</DependentUpon>
