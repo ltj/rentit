@@ -43,8 +43,7 @@
             // Initialize selection.
             comboBox1.SelectedIndex = 0;
             mediaPropertyGrid.SelectedObject = bookInfo;
-
-            this.Size = new System.Drawing.Size(400, 570);
+            songsGroupBox.Enabled = false;
 
             // Add the event handlers
             songListView.SelectedIndexChanged += this.ListViewSelectionChanged;
@@ -226,13 +225,13 @@
             if (comboBox1.SelectedItem.ToString().Equals("Album"))
             {
                 mediaPropertyGrid.SelectedObject = albumInfo;
-                this.Size = new System.Drawing.Size(818, 570);
-                songsGroupBox.Visible = true;
+                // this.Size = new System.Drawing.Size(818, 570);
+                // songsGroupBox.Visible = true;
+                songsGroupBox.Enabled = true;
             }
             else
             {
-                this.Size = new System.Drawing.Size(400, 570);
-                songsGroupBox.Visible = false;
+                songsGroupBox.Enabled = false;
             }
             if (comboBox1.SelectedItem.ToString().Equals("Movie"))
             {

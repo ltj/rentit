@@ -119,7 +119,6 @@
             this.songsGroupBox.TabIndex = 8;
             this.songsGroupBox.TabStop = false;
             this.songsGroupBox.Text = "Album songs";
-            this.songsGroupBox.Visible = false;
             // 
             // deleteAllItemsButton
             // 

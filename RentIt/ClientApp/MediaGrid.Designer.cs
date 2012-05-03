@@ -28,50 +28,60 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
-            "Test0",
-            "Test1",
-            "Test2",
-            "Test3"}, -1);
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.ListViewGrid = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.titleValueLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // listView1
+            // ListViewGrid
             // 
-            this.listView1.Alignment = System.Windows.Forms.ListViewAlignment.Left;
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ListViewGrid.Alignment = System.Windows.Forms.ListViewAlignment.Left;
+            this.ListViewGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.ListViewGrid.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2,
             this.columnHeader3});
-            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
-            this.listView1.Location = new System.Drawing.Point(4, 4);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(455, 136);
-            this.listView1.TabIndex = 0;
-            this.listView1.TileSize = new System.Drawing.Size(168, 60);
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Tile;
+            this.ListViewGrid.Location = new System.Drawing.Point(3, 23);
+            this.ListViewGrid.Name = "ListViewGrid";
+            this.ListViewGrid.Size = new System.Drawing.Size(455, 93);
+            this.ListViewGrid.TabIndex = 0;
+            this.ListViewGrid.TileSize = new System.Drawing.Size(168, 80);
+            this.ListViewGrid.UseCompatibleStateImageBehavior = false;
+            this.ListViewGrid.View = System.Windows.Forms.View.Tile;
+            // 
+            // titleValueLabel
+            // 
+            this.titleValueLabel.AutoSize = true;
+            this.titleValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleValueLabel.Location = new System.Drawing.Point(4, 0);
+            this.titleValueLabel.Name = "titleValueLabel";
+            this.titleValueLabel.Size = new System.Drawing.Size(89, 20);
+            this.titleValueLabel.TabIndex = 1;
+            this.titleValueLabel.Text = "TitleValue";
             // 
             // MediaGrid
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.listView1);
+            this.Controls.Add(this.titleValueLabel);
+            this.Controls.Add(this.ListViewGrid);
             this.Name = "MediaGrid";
-            this.Size = new System.Drawing.Size(462, 146);
+            this.Size = new System.Drawing.Size(462, 119);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ListView ListViewGrid;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.Label titleValueLabel;
     }
 }
