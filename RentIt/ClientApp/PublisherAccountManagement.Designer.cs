@@ -39,6 +39,9 @@
             // 
             // TabControl
             // 
+            this.TabControl.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.TabControl.Controls.Add(this.AccountManagementTab);
             this.TabControl.Controls.Add(this.MediaManagementTab);
             this.TabControl.Controls.Add(this.MediaUploadTab);
@@ -63,7 +66,7 @@
             this.MediaManagementTab.Location = new System.Drawing.Point(4, 22);
             this.MediaManagementTab.Name = "MediaManagementTab";
             this.MediaManagementTab.Padding = new System.Windows.Forms.Padding(3);
-            this.MediaManagementTab.Size = new System.Drawing.Size(852, 468);
+            this.MediaManagementTab.Size = new System.Drawing.Size(852, 565);
             this.MediaManagementTab.TabIndex = 1;
             this.MediaManagementTab.Text = "Media Management";
             this.MediaManagementTab.UseVisualStyleBackColor = true;
@@ -74,16 +77,19 @@
             this.MediaUploadTab.Location = new System.Drawing.Point(4, 22);
             this.MediaUploadTab.Name = "MediaUploadTab";
             this.MediaUploadTab.Padding = new System.Windows.Forms.Padding(3);
-            this.MediaUploadTab.Size = new System.Drawing.Size(852, 468);
+            this.MediaUploadTab.Size = new System.Drawing.Size(852, 565);
             this.MediaUploadTab.TabIndex = 2;
             this.MediaUploadTab.Text = "Media Upload";
             this.MediaUploadTab.UseVisualStyleBackColor = true;
             // 
             // mediaUploadControl1
             // 
+            this.mediaUploadControl1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.mediaUploadControl1.Location = new System.Drawing.Point(-4, 0);
             this.mediaUploadControl1.Name = "mediaUploadControl1";
-            this.mediaUploadControl1.Size = new System.Drawing.Size(400, 570);
+            this.mediaUploadControl1.Size = new System.Drawing.Size(853, 570);
             this.mediaUploadControl1.TabIndex = 0;
             // 
             // PublisherAccountManagement

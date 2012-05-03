@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E2A0BF86-78B1-42F8-AAE1-6DD198329983}</ProjectGuid>
+    <ProjectGuid>{AEE43928-F800-4FBA-A3D6-93579BB52ECC}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ClientApp</RootNamespace>
-    <AssemblyName>ClientApp</AssemblyName>
+    <RootNamespace>RentItClientApplication</RootNamespace>
+    <AssemblyName>RentItClientApplication</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>Client</TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BinaryCommunicator">
+      <HintPath>..\BinaryCommunicator\bin\Debug\BinaryCommunicator.exe</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
@@ -54,20 +57,8 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MediaUploadControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MediaUploadControl.Designer.cs">
-      <DependentUpon>MediaUploadControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PublisherAccountManagement.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PublisherAccountManagement.Designer.cs">
-      <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
-    </Compile>
     <Compile Include="RentItProxy.cs" />
     <Compile Include="SearchResultsControl.cs">
       <SubType>UserControl</SubType>
@@ -80,17 +71,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="TopBarControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TopBarControl.Designer.cs">
-      <DependentUpon>TopBarControl.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MediaUploadControl.resx">
-      <DependentUpon>MediaUploadControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -101,14 +83,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="PublisherAccountManagement.resx">
-      <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SearchResultsControl.resx">
       <DependentUpon>SearchResultsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TopBarControl.resx">
-      <DependentUpon>TopBarControl.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
@@ -144,12 +120,6 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BinaryCommunicator\BinaryCommunicator.csproj">
-      <Project>{ACE790BF-DB92-4BC4-A940-E44B7C1D838B}</Project>
-      <Name>BinaryCommunicator</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadataStorage Include="Service References\RentItServiceReference\" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +136,12 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClientControlLibrary\ClientControlLibrary.csproj">
+      <Project>{5EC6C031-838A-4588-93F1-1757C1B58FB8}</Project>
+      <Name>ClientControlLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
