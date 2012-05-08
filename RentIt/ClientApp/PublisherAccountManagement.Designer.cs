@@ -1,4 +1,4 @@
-﻿namespace ClientApp
+namespace ClientApp
 {
     partial class PublisherAccountManagement
     {
@@ -28,20 +28,19 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Songs", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Albums", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Movies", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Books", System.Windows.Forms.HorizontalAlignment.Left);
             this.TabControl = new System.Windows.Forms.TabControl();
             this.AccountManagementTab = new System.Windows.Forms.TabPage();
             this.MediaManagementTab = new System.Windows.Forms.TabPage();
             this.changePriceButton = new System.Windows.Forms.Button();
             this.deleteMediaButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.publishedMediaList = new System.Windows.Forms.ListView();
-            this.titleColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.authorColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.genreColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.releaseDateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.priceColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.MediaUploadTab = new System.Windows.Forms.TabPage();
             this.mediaUploadControl1 = new ClientApp.MediaUploadControl();
+            this.publishedMediaList = new ClientApp.MediaList();
             this.TabControl.SuspendLayout();
             this.MediaManagementTab.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -104,6 +103,7 @@
             this.deleteMediaButton.TabIndex = 15;
             this.deleteMediaButton.Text = "Delete selected media";
             this.deleteMediaButton.UseVisualStyleBackColor = true;
+            this.deleteMediaButton.Click += new System.EventHandler(this.deleteMediaButton_Click);
             // 
             // panel1
             // 
@@ -116,51 +116,6 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(716, 519);
             this.panel1.TabIndex = 14;
-            // 
-            // publishedMediaList
-            // 
-            this.publishedMediaList.AutoArrange = false;
-            this.publishedMediaList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.titleColumn,
-            this.authorColumn,
-            this.genreColumn,
-            this.releaseDateColumn,
-            this.priceColumn});
-            this.publishedMediaList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.publishedMediaList.FullRowSelect = true;
-            this.publishedMediaList.GridLines = true;
-            this.publishedMediaList.Location = new System.Drawing.Point(0, 0);
-            this.publishedMediaList.MultiSelect = false;
-            this.publishedMediaList.Name = "publishedMediaList";
-            this.publishedMediaList.Size = new System.Drawing.Size(716, 519);
-            this.publishedMediaList.TabIndex = 9;
-            this.publishedMediaList.UseCompatibleStateImageBehavior = false;
-            this.publishedMediaList.View = System.Windows.Forms.View.Details;
-            // 
-            // titleColumn
-            // 
-            this.titleColumn.Text = "Title";
-            this.titleColumn.Width = 214;
-            // 
-            // authorColumn
-            // 
-            this.authorColumn.Text = "Author";
-            this.authorColumn.Width = 173;
-            // 
-            // genreColumn
-            // 
-            this.genreColumn.Text = "Genre";
-            this.genreColumn.Width = 156;
-            // 
-            // releaseDateColumn
-            // 
-            this.releaseDateColumn.Text = "Release Date";
-            this.releaseDateColumn.Width = 84;
-            // 
-            // priceColumn
-            // 
-            this.priceColumn.Text = "Price";
-            this.priceColumn.Width = 85;
             // 
             // MediaUploadTab
             // 
@@ -179,6 +134,33 @@
             this.mediaUploadControl1.Name = "mediaUploadControl1";
             this.mediaUploadControl1.Size = new System.Drawing.Size(812, 519);
             this.mediaUploadControl1.TabIndex = 0;
+            // 
+            // publishedMediaList
+            // 
+            this.publishedMediaList.AutoArrange = false;
+            this.publishedMediaList.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.publishedMediaList.FullRowSelect = true;
+            this.publishedMediaList.GridLines = true;
+            listViewGroup1.Header = "Songs";
+            listViewGroup1.Name = null;
+            listViewGroup2.Header = "Albums";
+            listViewGroup2.Name = null;
+            listViewGroup3.Header = "Movies";
+            listViewGroup3.Name = null;
+            listViewGroup4.Header = "Books";
+            listViewGroup4.Name = null;
+            this.publishedMediaList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
+            listViewGroup1,
+            listViewGroup2,
+            listViewGroup3,
+            listViewGroup4});
+            this.publishedMediaList.Location = new System.Drawing.Point(0, 0);
+            this.publishedMediaList.MultiSelect = false;
+            this.publishedMediaList.Name = "publishedMediaList";
+            this.publishedMediaList.Size = new System.Drawing.Size(716, 519);
+            this.publishedMediaList.TabIndex = 9;
+            this.publishedMediaList.UseCompatibleStateImageBehavior = false;
+            this.publishedMediaList.View = System.Windows.Forms.View.Details;
             // 
             // PublisherAccountManagement
             // 
@@ -202,14 +184,9 @@
         private System.Windows.Forms.TabPage MediaUploadTab;
         private MediaUploadControl mediaUploadControl1;
         private System.Windows.Forms.TabPage MediaManagementTab;
-        private System.Windows.Forms.ListView publishedMediaList;
-        private System.Windows.Forms.ColumnHeader titleColumn;
-        private System.Windows.Forms.ColumnHeader authorColumn;
-        private System.Windows.Forms.ColumnHeader genreColumn;
-        private System.Windows.Forms.ColumnHeader releaseDateColumn;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button changePriceButton;
         private System.Windows.Forms.Button deleteMediaButton;
-        private System.Windows.Forms.ColumnHeader priceColumn;
+        private MediaList publishedMediaList;
     }
 }
