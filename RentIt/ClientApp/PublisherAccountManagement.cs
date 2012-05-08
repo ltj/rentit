@@ -9,15 +9,10 @@
 
     public partial class PublisherAccountManagement : UserControl
     {
-        private PublisherAccount accountData;
+        private AccountCredentials accountCredentials;
+        private RentItClient serviceClient;
 
-        private Dictionary<ListViewItem, MediaInfo> map = new Dictionary<ListViewItem, MediaInfo>();
-
-
-        private ListViewGroup songListViewGroup;
-        private ListViewGroup albumListViewGroup;
-        private ListViewGroup movieListViewGroup;
-        private ListViewGroup bookListViewGroup;
+        private Dictionary<ListViewItem, MediaInfo> map;
 
         public PublisherAccountManagement()
         {
@@ -26,92 +21,38 @@
             deleteMediaButton.Enabled = false;
             changePriceButton.Enabled = false;
 
-            // Initialize the groups and add them to the list view.
-            this.songListViewGroup = new ListViewGroup("Songs", HorizontalAlignment.Left);
-            this.albumListViewGroup = new ListViewGroup("Albums", HorizontalAlignment.Left);
-            this.movieListViewGroup = new ListViewGroup("Movies", HorizontalAlignment.Left);
-            this.bookListViewGroup = new ListViewGroup("Books", HorizontalAlignment.Left);
-            this.publishedMediaList.Groups.AddRange(new ListViewGroup[] 
-            {
-                this.songListViewGroup,
-                this.albumListViewGroup,
-                this.movieListViewGroup,
-                this.bookListViewGroup
-            });
-
             publishedMediaList.SelectedIndexChanged += this.SelectedIndexChangedHandler;
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            RentItClient serviceClient = new RentItClient(binding, address);
-            accountData = serviceClient.GetAllPublisherData(new AccountCredentials()
+            this.serviceClient = new RentItClient(binding, address);
+
+            this.accountCredentials = this.accountCredentials = new AccountCredentials()
+            {
+                UserName = "publishCorp",
+                HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
+            };
+
+            PublisherAccount accountData = serviceClient.GetAllPublisherData(accountCredentials);
+            this.publishedMediaList.UpdateListContents(accountData.PublishedItems);
+        }
+
+        internal PublisherAccountManagement(AccountCredentials accountCredentials)
+            : this()
+        {
+            BasicHttpBinding binding = new BasicHttpBinding();
+            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
+            this.serviceClient = new RentItClient(binding, address);
+
+            this.accountCredentials = new AccountCredentials()
                 {
                     UserName = "publishCorp",
                     HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
-                });
-            this.PopulateList();
-        }
+                };
+            // accountCredentials;
 
-        internal PublisherAccountManagement(PublisherAccount accountData)
-            : this()
-        {
-            this.accountData = accountData;
-            this.PopulateList();
-        }
-
-        private void PopulateList()
-        {
-            foreach (var song in accountData.PublishedItems.Songs)
-            {
-                var listItem = new ListViewItem(song.Title);
-                listItem.SubItems.Add(song.Artist);
-                listItem.SubItems.Add(song.Genre);
-                listItem.SubItems.Add(song.ReleaseDate.ToShortDateString());
-                listItem.SubItems.Add(song.Price.ToString());
-                listItem.Group = this.songListViewGroup;
-                publishedMediaList.Items.Add(listItem);
-
-                map.Add(listItem, song);
-            }
-
-            foreach (var album in accountData.PublishedItems.Albums)
-            {
-                var listItem = new ListViewItem(album.Title);
-                listItem.SubItems.Add(album.AlbumArtist);
-                listItem.SubItems.Add(album.Genre);
-                listItem.SubItems.Add(album.ReleaseDate.ToShortDateString());
-                listItem.SubItems.Add(album.Price.ToString());
-                listItem.Group = this.albumListViewGroup;
-                publishedMediaList.Items.Add(listItem);
-
-                map.Add(listItem, album);
-            }
-
-            foreach (var book in accountData.PublishedItems.Books)
-            {
-                var listItem = new ListViewItem(book.Title);
-                listItem.SubItems.Add(book.Author);
-                listItem.SubItems.Add(book.Genre);
-                listItem.SubItems.Add(book.ReleaseDate.ToShortDateString());
-                listItem.SubItems.Add(book.Price.ToString());
-                listItem.Group = this.songListViewGroup;
-                publishedMediaList.Items.Add(listItem);
-
-                map.Add(listItem, book);
-            }
-
-            foreach (var movie in accountData.PublishedItems.Movies)
-            {
-                var listItem = new ListViewItem(movie.Title);
-                listItem.SubItems.Add(movie.Director);
-                listItem.SubItems.Add(movie.Genre);
-                listItem.SubItems.Add(movie.ReleaseDate.ToShortDateString());
-                listItem.SubItems.Add(movie.Price.ToString());
-                listItem.Group = this.movieListViewGroup;
-                publishedMediaList.Items.Add(listItem);
-
-                map.Add(listItem, movie);
-            }
+            PublisherAccount accountData = serviceClient.GetAllPublisherData(this.accountCredentials);
+            this.publishedMediaList.UpdateListContents(accountData.PublishedItems);
         }
 
         #region EventHandlers
@@ -129,12 +70,38 @@
             else
             {
                 changePriceButton.Enabled = true;
-                if (publishedMediaList.SelectedItems.Count == 0) return;
+                if (publishedMediaList.SelectedItems.Count == 0)
+                {
+                    deleteMediaButton.Enabled = false;
+                    return;
+                }
                 string groupName = publishedMediaList.SelectedItems[0].Group.Header;
                 deleteMediaButton.Enabled = !groupName.Equals("Songs");
             }
         }
 
+        #endregion
+
+        #region Controllers
+
+        private void deleteMediaButton_Click(object sender, EventArgs e)
+        {
+            // Retrieve the selected media item.
+            ListView.SelectedListViewItemCollection selectedItems = this.publishedMediaList.SelectedItems;
+            if (selectedItems.Count == 0) return;
+
+            ListViewItem selectedItem = this.publishedMediaList.SelectedItems[0];
+
+            // Get the corresponding MediaInfo object.
+            MediaInfo selectedMediaInfo = this.map[selectedItem];
+
+            // Delete the media from the service.
+            //this.serviceClient.DeleteMedia(selectedMediaInfo.Id, this.accountCredentials);
+
+            // Update the list to reflec the deletion changes.
+            PublisherAccount pubAcc = this.serviceClient.GetAllPublisherData(this.accountCredentials);
+            this.publishedMediaList.UpdateListContents(pubAcc.PublishedItems);
+        }
 
         #endregion
     }
