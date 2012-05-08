@@ -28,11 +28,12 @@
             this.MusicButton = new System.Windows.Forms.Button();
             this.BookButton = new System.Windows.Forms.Button();
             this.TitleLabel = new System.Windows.Forms.Label();
-            this.AccountButton = new System.Windows.Forms.Button();
+            this.LogInLogOutButton = new System.Windows.Forms.Button();
             this.SearchTextBox = new System.Windows.Forms.TextBox();
             this.SearchButton = new System.Windows.Forms.Button();
             this.SeparatorLine = new System.Windows.Forms.Label();
             this.TypeComboBox = new System.Windows.Forms.ComboBox();
+            this.UserNameLabel = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // HomeButton
@@ -85,16 +86,16 @@
             this.TitleLabel.TabIndex = 4;
             this.TitleLabel.Text = "Title";
             // 
-            // AccountButton
+            // LogInLogOutButton
             // 
-            this.AccountButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AccountButton.Location = new System.Drawing.Point(652, 4);
-            this.AccountButton.Name = "AccountButton";
-            this.AccountButton.Size = new System.Drawing.Size(75, 23);
-            this.AccountButton.TabIndex = 5;
-            this.AccountButton.Text = "Account";
-            this.AccountButton.UseVisualStyleBackColor = true;
-            this.AccountButton.Click += new System.EventHandler(this.AccountButtonClick);
+            this.LogInLogOutButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.LogInLogOutButton.Location = new System.Drawing.Point(652, 4);
+            this.LogInLogOutButton.Name = "LogInLogOutButton";
+            this.LogInLogOutButton.Size = new System.Drawing.Size(75, 23);
+            this.LogInLogOutButton.TabIndex = 5;
+            this.LogInLogOutButton.Text = "Log in";
+            this.LogInLogOutButton.UseVisualStyleBackColor = true;
+            this.LogInLogOutButton.Click += new System.EventHandler(this.LogInLogOutButtonClick);
             // 
             // SearchTextBox
             // 
@@ -140,15 +141,29 @@
             this.TypeComboBox.Size = new System.Drawing.Size(121, 21);
             this.TypeComboBox.TabIndex = 9;
             // 
+            // UserNameLabel
+            // 
+            this.UserNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.UserNameLabel.AutoSize = true;
+            this.UserNameLabel.Location = new System.Drawing.Point(671, 34);
+            this.UserNameLabel.Name = "UserNameLabel";
+            this.UserNameLabel.Size = new System.Drawing.Size(56, 13);
+            this.UserNameLabel.TabIndex = 10;
+            this.UserNameLabel.TabStop = true;
+            this.UserNameLabel.Text = "user name";
+            this.UserNameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.UserNameLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.UserNameLabelLinkClicked);
+            // 
             // TopBarControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.UserNameLabel);
             this.Controls.Add(this.TypeComboBox);
             this.Controls.Add(this.SeparatorLine);
             this.Controls.Add(this.SearchButton);
             this.Controls.Add(this.SearchTextBox);
-            this.Controls.Add(this.AccountButton);
+            this.Controls.Add(this.LogInLogOutButton);
             this.Controls.Add(this.TitleLabel);
             this.Controls.Add(this.BookButton);
             this.Controls.Add(this.MusicButton);
@@ -170,10 +185,11 @@
         private System.Windows.Forms.Button MusicButton;
         private System.Windows.Forms.Button BookButton;
         private System.Windows.Forms.Label TitleLabel;
-        private System.Windows.Forms.Button AccountButton;
+        private System.Windows.Forms.Button LogInLogOutButton;
         private System.Windows.Forms.TextBox SearchTextBox;
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.Label SeparatorLine;
         private System.Windows.Forms.ComboBox TypeComboBox;
+        private System.Windows.Forms.LinkLabel UserNameLabel;
     }
 }

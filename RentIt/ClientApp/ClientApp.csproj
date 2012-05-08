@@ -80,6 +80,7 @@
     <Compile Include="PublisherAccountManagement.Designer.cs">
       <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="RentItMessageBox.cs" />
     <Compile Include="RentItProxy.cs" />
     <Compile Include="SearchResultsControl.cs">
       <SubType>UserControl</SubType>
