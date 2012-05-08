@@ -48,6 +48,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AlsoRentedList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AlsoRentedList.Designer.cs">
+      <DependentUpon>AlsoRentedList.cs</DependentUpon>
+    </Compile>
     <Compile Include="DetailedMediaList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -56,6 +62,12 @@
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfMedia.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListOfMedia.Designer.cs">
+      <DependentUpon>ListOfMedia.cs</DependentUpon>
     </Compile>
     <Compile Include="MediaGrid.cs">
       <SubType>UserControl</SubType>
@@ -102,8 +114,14 @@
     <Compile Include="TopBarControl.Designer.cs">
       <DependentUpon>TopBarControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AlsoRentedList.resx">
+      <DependentUpon>AlsoRentedList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListOfMedia.resx">
+      <DependentUpon>ListOfMedia.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MediaGrid.resx">
       <DependentUpon>MediaGrid.cs</DependentUpon>
