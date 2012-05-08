@@ -6,25 +6,18 @@ namespace ClientApp {
     using RentIt;
 
     public partial class SearchResultsControl : UserControl {
-
         private readonly RentItClient rentIt;
         private readonly MediaCriteria criteria;
 
         public SearchResultsControl() {
             InitializeComponent();
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
+            var binding = new BasicHttpBinding();
+            var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
             rentIt = new RentItClient(binding, address);
+        }
 
-            criteria = new MediaCriteria {
-                SearchText = "",
-                Genre = "",
-                Type = MediaType.Any,
-                Limit = -1,
-                Offset = 0,
-                Order = MediaOrder.AlphabeticalAsc
-            };
-
+        internal SearchResultsControl(MediaCriteria criteria) : this() {
+            this.criteria = criteria;
             TypeFilter.SelectedIndex = 0;
         }
 
