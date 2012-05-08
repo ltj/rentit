@@ -48,7 +48,10 @@ namespace ClientApp
             this.mediaCriteria = mediaCriteria;
             this.titleValueLabel.Text = title;
 
-            RentItClient serviceClient = new RentItClient();
+            BasicHttpBinding binding = new BasicHttpBinding();
+            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
+            RentItClient serviceClient = new RentItClient(binding, address);
+
             MediaItems mediaItems = serviceClient.GetMediaItems(mediaCriteria);
             this.PopulateGrid(mediaItems);
         }
@@ -124,6 +127,12 @@ namespace ClientApp
                 image = Image.FromFile(@"C:\Users\Kenneth88\Desktop\gta\GtaThumb.jpg");
             }
             return image;
+        }
+
+
+        private void DoubleClickEventHandler(object obj, EventArgs e)
+        {
+
         }
     }
 }
