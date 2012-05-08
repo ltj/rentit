@@ -104,6 +104,7 @@ namespace ClientApp
             this.deleteMediaButton.TabIndex = 15;
             this.deleteMediaButton.Text = "Delete selected media";
             this.deleteMediaButton.UseVisualStyleBackColor = true;
+            this.deleteMediaButton.Click += new System.EventHandler(this.deleteMediaButton_Click);
             // 
             // panel1
             // 
