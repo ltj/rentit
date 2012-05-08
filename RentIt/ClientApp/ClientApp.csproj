@@ -127,6 +127,9 @@
     <Compile Include="TopBarControl.Designer.cs">
       <DependentUpon>TopBarControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AlbumDetails.resx">
+      <DependentUpon>AlbumDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AlsoRentedList.resx">
       <DependentUpon>AlsoRentedList.cs</DependentUpon>
     </EmbeddedResource>
