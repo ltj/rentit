@@ -49,6 +49,7 @@
             this.thumbnailBox.Location = new System.Drawing.Point(3, 3);
             this.thumbnailBox.Name = "thumbnailBox";
             this.thumbnailBox.Size = new System.Drawing.Size(204, 196);
+            this.thumbnailBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.thumbnailBox.TabIndex = 1;
             this.thumbnailBox.TabStop = false;
             // 
