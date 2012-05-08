@@ -1,4 +1,4 @@
-﻿namespace ClientApp {
+﻿namespace RentItClientApplication {
     partial class SearchResultsControl {
         /// <summary> 
         /// Required designer variable.
@@ -39,7 +39,6 @@
             // Results
             // 
             this.Results.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.Results.Alignment = System.Windows.Forms.ListViewAlignment.Left;
             this.Results.AllowColumnReorder = true;
             this.Results.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
@@ -56,9 +55,8 @@
             this.Results.Name = "Results";
             this.Results.Size = new System.Drawing.Size(596, 417);
             this.Results.TabIndex = 16;
-            this.Results.TileSize = new System.Drawing.Size(168, 60);
             this.Results.UseCompatibleStateImageBehavior = false;
-            this.Results.View = System.Windows.Forms.View.Tile;
+            this.Results.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader1
             // 

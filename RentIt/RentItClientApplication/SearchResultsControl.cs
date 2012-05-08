@@ -1,8 +1,7 @@
-﻿using System;
-using System.Windows.Forms;
-using System.ServiceModel;
+﻿namespace RentItClientApplication {
+    using System;
+    using System.Windows.Forms;
 
-namespace ClientApp {
     using RentIt;
 
     public partial class SearchResultsControl : UserControl {
@@ -11,13 +10,17 @@ namespace ClientApp {
 
         public SearchResultsControl() {
             InitializeComponent();
-            var binding = new BasicHttpBinding();
-            var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            rentIt = new RentItClient(binding, address);
-        }
+            rentIt = new RentItClient();
 
-        internal SearchResultsControl(MediaCriteria criteria) : this() {
-            this.criteria = criteria;
+            criteria = new MediaCriteria {
+                SearchText = "",
+                Genre = "",
+                Type = MediaType.Any,
+                Limit = -1,
+                Offset = 0,
+                Order = MediaOrder.AlphabeticalAsc
+            };
+
             TypeFilter.SelectedIndex = 0;
         }
 

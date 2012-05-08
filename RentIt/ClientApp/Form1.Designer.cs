@@ -1,4 +1,4 @@
-﻿namespace ClientApp
+namespace ClientApp
 {
     partial class Form1
     {
