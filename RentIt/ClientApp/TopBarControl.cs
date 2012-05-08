@@ -4,11 +4,14 @@
     using RentIt;
 
     public partial class TopBarControl : UserControl {
-        public TopBarControl(string title = "RentIt") {
+        public TopBarControl() {
             InitializeComponent();
-            Title = title;
+            Title = "RentIt";
             UserName = "";
             TypeComboBox.SelectedIndex = 0;
+        }
+        public TopBarControl(string title) : this() {
+            Title = title;
         }
 
         /// <summary>
@@ -61,11 +64,18 @@
             };
 
             // switch to search results, using criteria object
+            (ParentForm as MainForm).Content = new SearchResultsControl(criteria);
         }
 
         private void LogInLogOutButtonClick(object sender, EventArgs e) {
-            if(LoggedIn) {
-                
+            if(!LoggedIn) {
+                // go to log in screen
+                UserName = "skinkehyllebanke";
+            }
+            else {
+                // log the user out
+                UserName = "";
+
             }
         }
 
@@ -86,13 +96,12 @@
         }
 
         private void UserNameLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            LoggedIn = false;
-
             if(!LoggedIn) {
                 RentItMessageBox.NotLoggedIn();
             }
             else {
-
+                // go to account screen
+                (ParentForm as MainForm).Content = new PublisherAccountManagement();
             }
         }
     }

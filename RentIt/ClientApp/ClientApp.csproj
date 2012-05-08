@@ -76,6 +76,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ListOfMedia.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -107,6 +113,12 @@
     </Compile>
     <Compile Include="PublisherAccountManagement.Designer.cs">
       <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RatingList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RatingList.Designer.cs">
+      <DependentUpon>RatingList.cs</DependentUpon>
     </Compile>
     <Compile Include="RentItMessageBox.cs" />
     <Compile Include="RentItProxy.cs" />
@@ -145,6 +157,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ListOfMedia.resx">
       <DependentUpon>ListOfMedia.cs</DependentUpon>
     </EmbeddedResource>
@@ -168,6 +183,9 @@
     </Compile>
     <EmbeddedResource Include="PublisherAccountManagement.resx">
       <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RatingList.resx">
+      <DependentUpon>RatingList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SearchResultsControl.resx">
       <DependentUpon>SearchResultsControl.cs</DependentUpon>
