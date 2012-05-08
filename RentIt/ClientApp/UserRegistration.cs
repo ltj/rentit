@@ -228,5 +228,9 @@ namespace ClientApp {
             return true;
         }
 
+        private void UserRegistration_Load(object sender, EventArgs e) {
+            this.txtUserName.ReadOnly = true;
+        }
+
     }
 }

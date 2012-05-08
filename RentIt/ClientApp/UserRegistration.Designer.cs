@@ -39,6 +39,7 @@
             this.errPassword = new System.Windows.Forms.ErrorProvider(this.components);
             this.errFullName = new System.Windows.Forms.ErrorProvider(this.components);
             this.errEmail = new System.Windows.Forms.ErrorProvider(this.components);
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.errUserName)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errPassword)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.errFullName)).BeginInit();
@@ -179,11 +180,22 @@
             // 
             this.errEmail.ContainerControl = this;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.Location = new System.Drawing.Point(194, 138);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 10;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            // 
             // UserRegistration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.txtPasswordConfirm);
             this.Controls.Add(this.txtPassword);
             this.Controls.Add(this.btnRegister);
@@ -197,6 +209,7 @@
             this.Controls.Add(this.txtUserName);
             this.Name = "UserRegistration";
             this.Size = new System.Drawing.Size(355, 168);
+            this.Load += new System.EventHandler(this.UserRegistration_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errUserName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errPassword)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errFullName)).EndInit();
@@ -223,6 +236,7 @@
         private System.Windows.Forms.ErrorProvider errPassword;
         private System.Windows.Forms.ErrorProvider errFullName;
         private System.Windows.Forms.ErrorProvider errEmail;
+        private System.Windows.Forms.Button btnCancel;
 
     }
 }

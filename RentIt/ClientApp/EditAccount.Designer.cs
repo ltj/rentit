@@ -23,6 +23,7 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             this.txtPasswordConfirm = new System.Windows.Forms.TextBox();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
@@ -35,6 +36,12 @@
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.errPassword = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errFullName = new System.Windows.Forms.ErrorProvider(this.components);
+            this.errEmail = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errPassword)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errFullName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errEmail)).BeginInit();
             this.SuspendLayout();
             // 
             // txtPasswordConfirm
@@ -44,6 +51,8 @@
             this.txtPasswordConfirm.Size = new System.Drawing.Size(213, 20);
             this.txtPasswordConfirm.TabIndex = 12;
             this.txtPasswordConfirm.UseSystemPasswordChar = true;
+            this.txtPasswordConfirm.Validating += new System.ComponentModel.CancelEventHandler(this.txtPasswordConfirm_Validating);
+            this.txtPasswordConfirm.Validated += new System.EventHandler(this.txtPasswordConfirm_Validated);
             // 
             // txtPassword
             // 
@@ -119,6 +128,8 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(213, 20);
             this.txtEmail.TabIndex = 14;
+            this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmail_Validating);
+            this.txtEmail.Validated += new System.EventHandler(this.txtEmail_Validated);
             // 
             // txtFullName
             // 
@@ -126,11 +137,14 @@
             this.txtFullName.Name = "txtFullName";
             this.txtFullName.Size = new System.Drawing.Size(213, 20);
             this.txtFullName.TabIndex = 13;
+            this.txtFullName.Validating += new System.ComponentModel.CancelEventHandler(this.txtFullName_Validating);
+            this.txtFullName.Validated += new System.EventHandler(this.txtFullName_Validated);
             // 
             // txtUserName
             // 
             this.txtUserName.Location = new System.Drawing.Point(113, 3);
             this.txtUserName.Name = "txtUserName";
+            this.txtUserName.ReadOnly = true;
             this.txtUserName.Size = new System.Drawing.Size(213, 20);
             this.txtUserName.TabIndex = 10;
             // 
@@ -143,6 +157,7 @@
             this.btnSubmit.TabIndex = 20;
             this.btnSubmit.Text = "Submit";
             this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
             // btnCancel
             // 
@@ -153,6 +168,18 @@
             this.btnCancel.TabIndex = 21;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
+            // 
+            // errPassword
+            // 
+            this.errPassword.ContainerControl = this;
+            // 
+            // errFullName
+            // 
+            this.errFullName.ContainerControl = this;
+            // 
+            // errEmail
+            // 
+            this.errEmail.ContainerControl = this;
             // 
             // EditAccount
             // 
@@ -172,7 +199,11 @@
             this.Controls.Add(this.txtFullName);
             this.Controls.Add(this.txtUserName);
             this.Name = "EditAccount";
-            this.Size = new System.Drawing.Size(438, 266);
+            this.Size = new System.Drawing.Size(356, 173);
+            this.Load += new System.EventHandler(this.EditAccount_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errPassword)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errFullName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.errEmail)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -192,6 +223,9 @@
         private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.ErrorProvider errPassword;
+        private System.Windows.Forms.ErrorProvider errFullName;
+        private System.Windows.Forms.ErrorProvider errEmail;
 
     }
 }
