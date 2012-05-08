@@ -1,0 +1,194 @@
+﻿namespace ClientApp {
+    partial class RatingList {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing) {
+            if(disposing && (components != null)) {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Component Designer generated code
+
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent() {
+            this.ReviewList = new System.Windows.Forms.ListView();
+            this.ReviewText = new System.Windows.Forms.TextBox();
+            this.RatingSelector = new System.Windows.Forms.ComboBox();
+            this.SubmitReviewButton = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.AvgRating = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.User = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
+            this.Comment = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
+            this.Rating = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
+            this.Date = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // ReviewList
+            // 
+            this.ReviewList.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.ReviewList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.User,
+            this.Date,
+            this.Comment,
+            this.Rating});
+            this.ReviewList.Location = new System.Drawing.Point(3, 162);
+            this.ReviewList.MultiSelect = false;
+            this.ReviewList.Name = "ReviewList";
+            this.ReviewList.Size = new System.Drawing.Size(495, 179);
+            this.ReviewList.TabIndex = 0;
+            this.ReviewList.UseCompatibleStateImageBehavior = false;
+            this.ReviewList.View = System.Windows.Forms.View.Details;
+            // 
+            // ReviewText
+            // 
+            this.ReviewText.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.ReviewText.Location = new System.Drawing.Point(6, 19);
+            this.ReviewText.Multiline = true;
+            this.ReviewText.Name = "ReviewText";
+            this.ReviewText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.ReviewText.Size = new System.Drawing.Size(358, 75);
+            this.ReviewText.TabIndex = 1;
+            // 
+            // RatingSelector
+            // 
+            this.RatingSelector.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RatingSelector.FormattingEnabled = true;
+            this.RatingSelector.Items.AddRange(new object[] {
+            "1 (One) - Worst",
+            "2 (Two)",
+            "3 (Three)",
+            "4 (Four)",
+            "5 (Five) - Best"});
+            this.RatingSelector.Location = new System.Drawing.Point(370, 19);
+            this.RatingSelector.Name = "RatingSelector";
+            this.RatingSelector.Size = new System.Drawing.Size(119, 21);
+            this.RatingSelector.TabIndex = 2;
+            // 
+            // SubmitReviewButton
+            // 
+            this.SubmitReviewButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SubmitReviewButton.Location = new System.Drawing.Point(370, 46);
+            this.SubmitReviewButton.Name = "SubmitReviewButton";
+            this.SubmitReviewButton.Size = new System.Drawing.Size(119, 48);
+            this.SubmitReviewButton.TabIndex = 3;
+            this.SubmitReviewButton.Text = "Submit review";
+            this.SubmitReviewButton.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.label2.Location = new System.Drawing.Point(3, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 20);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Average rating:";
+            // 
+            // AvgRating
+            // 
+            this.AvgRating.AutoSize = true;
+            this.AvgRating.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.AvgRating.Location = new System.Drawing.Point(125, 4);
+            this.AvgRating.Name = "AvgRating";
+            this.AvgRating.Size = new System.Drawing.Size(118, 20);
+            this.AvgRating.TabIndex = 6;
+            this.AvgRating.Text = "no ratings yet";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.label1.Location = new System.Drawing.Point(3, 133);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(207, 20);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "What other users are saying";
+            // 
+            // User
+            // 
+            this.User.Text = "User";
+            this.User.Width = 90;
+            // 
+            // Comment
+            // 
+            this.Comment.Text = "Comment";
+            this.Comment.Width = 312;
+            // 
+            // Rating
+            // 
+            this.Rating.Text = "Rating";
+            this.Rating.Width = 74;
+            // 
+            // Date
+            // 
+            this.Date.Text = "Date";
+            this.Date.Width = 85;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.ReviewText);
+            this.groupBox1.Controls.Add(this.RatingSelector);
+            this.groupBox1.Controls.Add(this.SubmitReviewButton);
+            this.groupBox1.Location = new System.Drawing.Point(3, 27);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(495, 101);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Review this media";
+            // 
+            // RatingList
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.AvgRating);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.ReviewList);
+            this.Controls.Add(this.groupBox1);
+            this.MinimumSize = new System.Drawing.Size(300, 250);
+            this.Name = "RatingList";
+            this.Size = new System.Drawing.Size(501, 344);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        #endregion
+
+        private System.Windows.Forms.ListView ReviewList;
+        private System.Windows.Forms.TextBox ReviewText;
+        private System.Windows.Forms.ComboBox RatingSelector;
+        private System.Windows.Forms.Button SubmitReviewButton;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label AvgRating;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ColumnHeader User;
+        private System.Windows.Forms.ColumnHeader Date;
+        private System.Windows.Forms.ColumnHeader Comment;
+        private System.Windows.Forms.ColumnHeader Rating;
+        private System.Windows.Forms.GroupBox groupBox1;
+    }
+}

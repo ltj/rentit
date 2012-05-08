@@ -80,6 +80,12 @@
     <Compile Include="PublisherAccountManagement.Designer.cs">
       <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="RatingList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RatingList.Designer.cs">
+      <DependentUpon>RatingList.cs</DependentUpon>
+    </Compile>
     <Compile Include="RentItMessageBox.cs" />
     <Compile Include="RentItProxy.cs" />
     <Compile Include="SearchResultsControl.cs">
@@ -122,6 +128,9 @@
     </Compile>
     <EmbeddedResource Include="PublisherAccountManagement.resx">
       <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RatingList.resx">
+      <DependentUpon>RatingList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SearchResultsControl.resx">
       <DependentUpon>SearchResultsControl.cs</DependentUpon>

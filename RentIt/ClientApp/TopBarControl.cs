@@ -64,8 +64,14 @@
         }
 
         private void LogInLogOutButtonClick(object sender, EventArgs e) {
-            if(LoggedIn) {
-                
+            if(!LoggedIn) {
+                // go to log in screen
+                UserName = "skinkehyllebanke";
+            }
+            else {
+                // log the user out
+                UserName = "";
+
             }
         }
 
@@ -86,13 +92,11 @@
         }
 
         private void UserNameLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            LoggedIn = false;
-
             if(!LoggedIn) {
                 RentItMessageBox.NotLoggedIn();
             }
             else {
-
+                // go to account screen
             }
         }
     }
