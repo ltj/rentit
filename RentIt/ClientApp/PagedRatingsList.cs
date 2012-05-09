@@ -111,7 +111,7 @@ namespace ClientApp
             foreach (var review in rentals)
             {
                 var item = new ListViewItem(review.UserName);
-                item.SubItems.Add(review.Timestamp.Date.ToString());
+                item.SubItems.Add(review.Timestamp.Date.ToString("dd/MM/yyyy HH:mm"));
                 item.SubItems.Add(review.ReviewText);
                 item.SubItems.Add(review.Rating.ToString());
 

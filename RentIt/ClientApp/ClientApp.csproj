@@ -61,6 +61,12 @@
     <Compile Include="AlsoRentedList.Designer.cs">
       <DependentUpon>AlsoRentedList.cs</DependentUpon>
     </Compile>
+    <Compile Include="BookMovieDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BookMovieDetails.Designer.cs">
+      <DependentUpon>BookMovieDetails.cs</DependentUpon>
+    </Compile>
     <Compile Include="DetailedMediaList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -70,7 +76,7 @@
     <Compile Include="PagedRatingsListControl.Designer.cs">
       <DependentUpon>PagedRatingsListControl.cs</DependentUpon>
     </Compile>
-        <Compile Include="GenreList.cs">
+    <Compile Include="GenreList.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="GenreList.Designer.cs">
@@ -196,6 +202,9 @@
     <Compile Include="UserRegistration.Designer.cs">
       <DependentUpon>UserRegistration.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BookMovieDetails.resx">
+      <DependentUpon>BookMovieDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DetailedMediaListControl.resx">
       <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
     </EmbeddedResource>
@@ -217,7 +226,7 @@
     <EmbeddedResource Include="ListOfMedia.resx">
       <DependentUpon>ListOfMedia.cs</DependentUpon>
     </EmbeddedResource>
-     <EmbeddedResource Include="MediaFrontpage.resx">
+    <EmbeddedResource Include="MediaFrontpage.resx">
       <DependentUpon>MediaFrontpage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainScreen.resx">
