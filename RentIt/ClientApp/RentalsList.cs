@@ -7,6 +7,7 @@
 namespace ClientApp
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.ServiceModel;
     using System.Windows.Forms;
@@ -17,13 +18,12 @@ namespace ClientApp
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class MediaList : ListView
+    public class RentalsList : ListView
     {
         private ColumnHeader titleColumn;
-        private ColumnHeader authorColumn;
-        private ColumnHeader genreColumn;
-        private ColumnHeader releaseDateColumn;
-        private ColumnHeader priceColumn;
+        private ColumnHeader startDateColumn;
+        private ColumnHeader endDateColumn;
+        // private ColumnHeader priceColumn;
 
         private ListViewGroup songListViewGroup;
         private ListViewGroup albumListViewGroup;
@@ -46,30 +46,28 @@ namespace ClientApp
         /// <summary>
         /// Initializes a new instance of the 
         /// </summary>
-        public MediaList()
+        public RentalsList()
         {
             // Initialze columns
             this.titleColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.authorColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.genreColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.releaseDateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.priceColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.startDateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.endDateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            // this.priceColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 
             this.AutoArrange = false;
             this.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
                 this.titleColumn,
-                this.authorColumn,
-                this.genreColumn,
-                this.releaseDateColumn,
-                this.priceColumn
+                this.startDateColumn,
+                this.endDateColumn,
+                // this.priceColumn
             });
             // this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FullRowSelect = true;
             this.GridLines = true;
             this.Location = new System.Drawing.Point(0, 0);
             this.MultiSelect = false;
-            this.Name = "DetailedMediaList";
-            this.Size = new System.Drawing.Size(716, 519);
+            this.Name = "RentalsList";
+            this.Size = new System.Drawing.Size(500, 470);
             this.TabIndex = 9;
             this.UseCompatibleStateImageBehavior = false;
             this.View = System.Windows.Forms.View.Details;
@@ -77,27 +75,22 @@ namespace ClientApp
             // titleColumn
             // 
             this.titleColumn.Text = "Title";
-            this.titleColumn.Width = 214;
+            this.titleColumn.Width = 220;
             // 
-            // authorColumn
+            // startDateColumn
             // 
-            this.authorColumn.Text = "Author";
-            this.authorColumn.Width = 173;
+            this.startDateColumn.Text = "Rental start date";
+            this.startDateColumn.Width = 120;
             // 
-            // genreColumn
+            // endDateColumn
             // 
-            this.genreColumn.Text = "Genre";
-            this.genreColumn.Width = 156;
-            // 
-            // releaseDateColumn
-            // 
-            this.releaseDateColumn.Text = "Release Date";
-            this.releaseDateColumn.Width = 84;
+            this.endDateColumn.Text = "Rental end date";
+            this.endDateColumn.Width = 120;
             // 
             // priceColumn
             // 
-            this.priceColumn.Text = "Price";
-            this.priceColumn.Width = 85;
+            // this.priceColumn.Text = "Price";
+            // this.priceColumn.Width = 85;
 
             // Initialize and add list groups.
             this.songListViewGroup = new ListViewGroup("Songs", HorizontalAlignment.Left);
@@ -112,96 +105,61 @@ namespace ClientApp
             serviceClient = new RentItClient(binding, address);
         }
 
-        /*
-        internal MediaList(MediaItems mediaItems)
-            : this()
-        {
-
-            // this.songListViewGroup = new ListViewGroup("Songs", HorizontalAlignment.Left);
-            // this.albumListViewGroup = new ListViewGroup("Albums", HorizontalAlignment.Left);
-            // this.movieListViewGroup = new ListViewGroup("Movies", HorizontalAlignment.Left);
-            // this.bookListViewGroup = new ListViewGroup("Books", HorizontalAlignment.Left);
-            // this.Groups.AddRange(
-            //    new ListViewGroup[] { this.songListViewGroup, this.albumListViewGroup, this.movieListViewGroup, this.bookListViewGroup });
-
-            this.UpdateListContents(mediaItems);
-        }
-        
-
-        internal MediaItems MediaItems
-        {
-            set { this.UpdateListContents(value); }
-        }
-        * */
-
         /// <summary>
         /// Update the ListView with new data.
         /// When this method is called, all data previously added to the list 
         /// will be disregarded, and the contents of the ListView will match
         /// the media items passed in the parameter.
         /// </summary>
-        /// <param name="mediaItems"></param>
-        internal void UpdateListContents(MediaItems mediaItems)
+        /// <param name="rentals"></param>
+        internal void UpdateListContents(List<Rental> rentals)
         {
             this.BeginUpdate();
 
             this.map = new Dictionary<ListViewItem, MediaInfo>();
             this.currentItems = new List<ListViewItem>();
 
-            foreach (var song in mediaItems.Songs)
+            foreach (var rental in rentals)
             {
-                var listItem = new ListViewItem(song.Title);
-                listItem.SubItems.Add(song.Artist);
-                listItem.SubItems.Add(song.Genre);
-                listItem.SubItems.Add(song.ReleaseDate.ToShortDateString());
-                listItem.SubItems.Add(song.Price.ToString());
-                listItem.Group = this.songListViewGroup;
+                switch (rental.MediaType)
+                {
+                    case MediaType.Album:
+                        AlbumInfo album = this.serviceClient.GetAlbumInfo(rental.MediaId);
 
-                this.currentItems.Add(listItem); // this.Items.Add(listItem);
-                this.map.Add(listItem, song);
+                        var listItemA = new ListViewItem(album.Title);
+                        listItemA.SubItems.Add(rental.StartTime.ToShortDateString());
+                        listItemA.SubItems.Add(rental.EndTime.ToShortDateString());
+                        listItemA.Group = this.albumListViewGroup;
+
+                        this.currentItems.Add(listItemA); // this.Items.Add(listItem);
+                        this.map.Add(listItemA, album);
+                        break;
+                    case MediaType.Movie:
+                        MovieInfo movie = this.serviceClient.GetMovieInfo(rental.MediaId);
+
+                        var listItemM = new ListViewItem(movie.Title);
+                        listItemM.SubItems.Add(rental.StartTime.ToShortDateString());
+                        listItemM.SubItems.Add(rental.EndTime.ToShortDateString());
+                        listItemM.Group = this.movieListViewGroup;
+
+                        this.currentItems.Add(listItemM); // this.Items.Add(listItem);
+                        this.map.Add(listItemM, movie);
+                        break;
+                    case MediaType.Book:
+                        BookInfo book = this.serviceClient.GetBookInfo(rental.MediaId);
+
+                        var listItemB = new ListViewItem(book.Title);
+                        listItemB.SubItems.Add(rental.StartTime.ToShortDateString());
+                        listItemB.SubItems.Add(rental.EndTime.ToShortDateString());
+                        listItemB.Group = this.bookListViewGroup;
+
+                        this.currentItems.Add(listItemB); // this.Items.Add(listItem);
+                        this.map.Add(listItemB, book);
+                        break;
+                    default:
+                        break;
+                }
             }
-
-            foreach (var album in mediaItems.Albums)
-            {
-                var listItem = new ListViewItem(album.Title);
-                listItem.SubItems.Add(album.AlbumArtist);
-                listItem.SubItems.Add(album.Genre);
-                listItem.SubItems.Add(album.ReleaseDate.ToShortDateString());
-                listItem.SubItems.Add(album.Price.ToString());
-                listItem.Group = this.albumListViewGroup;
-
-                this.currentItems.Add(listItem); // this.Items.Add(listItem);
-                this.map.Add(listItem, album);
-            }
-
-            foreach (var movie in mediaItems.Movies)
-            {
-                var listItem = new ListViewItem(movie.Title);
-                listItem.SubItems.Add(movie.Director);
-                listItem.SubItems.Add(movie.Genre);
-                listItem.SubItems.Add(movie.ReleaseDate.ToShortDateString());
-                listItem.SubItems.Add(movie.Price.ToString());
-                listItem.Group = this.movieListViewGroup;
-
-                this.currentItems.Add(listItem); // this.Items.Add(listItem);
-                this.map.Add(listItem, movie);
-            }
-
-            foreach (var book in mediaItems.Books)
-            {
-                var listItem = new ListViewItem(book.Title);
-                listItem.SubItems.Add(book.Author);
-                listItem.SubItems.Add(book.Genre);
-                listItem.SubItems.Add(book.ReleaseDate.ToShortDateString());
-                listItem.SubItems.Add(book.Price.ToString());
-                listItem.Group = this.bookListViewGroup;
-
-                this.currentItems.Add(listItem); // this.Items.Add(listItem);
-                this.map.Add(listItem, book);
-            }
-
-            this.RePopulateList();
-            this.EndUpdate();
         }
 
         /// <summary>
