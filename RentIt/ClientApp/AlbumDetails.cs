@@ -16,7 +16,7 @@ namespace ClientApp
     public partial class AlbumDetails : UserControl
     {
 
-
+        private RentItClient serviceClient;
 
         public AlbumDetails()
         {
@@ -24,7 +24,7 @@ namespace ClientApp
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            RentItClient serviceClient = new RentItClient(binding, address);
+            serviceClient = new RentItClient(binding, address);
 
             AlbumInfo album = serviceClient.GetAlbumInfo(78);
 
@@ -37,25 +37,30 @@ namespace ClientApp
 
             this.albumDescriptionTextBox.Text = album.Description;
             this.PopulateSongList(album);
+
+            this.albumRatingList.Media = album;
         }
 
-        internal AlbumDetails(AlbumInfo album)
+        internal AlbumInfo AlbumInfo
         {
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            RentItClient serviceClient = new RentItClient(binding, address);
+            set
+            {
+                AlbumInfo album = value;
 
-            album = serviceClient.GetAlbumInfo(78);
+                album = serviceClient.GetAlbumInfo(78);
 
-            this.mediaSideBar = new MediaSideBar(album);
+                this.mediaSideBar = new MediaSideBar(album);
 
-            this.albumTitleLabel.Text = album.Title;
-            this.albumArtistLabel.Text = album.AlbumArtist;
+                this.albumTitleLabel.Text = album.Title;
+                this.albumArtistLabel.Text = album.AlbumArtist;
 
-            this.albumDurationValueLabel.Text = album.TotalDuration.ToString();
+                this.albumDurationValueLabel.Text = album.TotalDuration.ToString();
 
-            this.albumDescriptionTextBox.Text = album.Description;
-            this.PopulateSongList(album);
+                this.albumDescriptionTextBox.Text = album.Description;
+                this.PopulateSongList(album);
+
+                this.albumRatingList.Media = album;
+            }
         }
 
         private void PopulateSongList(AlbumInfo info)
