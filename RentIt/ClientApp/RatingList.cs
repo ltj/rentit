@@ -32,13 +32,7 @@
         }
 
         private void PopulateList() {
-            foreach(var review in media.Rating.Reviews) {
-                var item = new ListViewItem(review.UserName);
-                item.SubItems.Add(review.Timestamp.Date.ToString());
-                item.SubItems.Add(review.ReviewText);
-                item.SubItems.Add(review.Rating.ToString());
-                ReviewList.Items.Add(item);
-            }
+            reviewList.MediaItems = Media;
         }
 
         private void SubmitReviewButtonClick(object sender, EventArgs e) {
