@@ -64,6 +64,9 @@
     <Compile Include="DetailedMediaList.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PagedListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="RentalsList.cs">
       <SubType>Component</SubType>
     </Compile>

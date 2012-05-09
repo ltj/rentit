@@ -13,6 +13,10 @@ namespace ClientApp
 
     using RentIt;
 
+    /// <author>Kenneth Søhrmann</author>
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class RentalsListControl : UserControl
     {
         public RentalsListControl()

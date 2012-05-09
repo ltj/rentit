@@ -32,6 +32,10 @@
             System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Albums", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Movies", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Books", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("Songs", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("Albums", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup7 = new System.Windows.Forms.ListViewGroup("Movies", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup8 = new System.Windows.Forms.ListViewGroup("Books", System.Windows.Forms.HorizontalAlignment.Left);
             this.itemsPerPageComboBox = new System.Windows.Forms.ComboBox();
             this.itemsPerPageLabel = new System.Windows.Forms.Label();
             this.firstPageButton = new System.Windows.Forms.Button();
@@ -122,6 +126,9 @@
             // 
             // mediaList
             // 
+            this.mediaList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.mediaList.AutoArrange = false;
             this.mediaList.FullRowSelect = true;
             this.mediaList.GridLines = true;
@@ -133,11 +140,23 @@
             listViewGroup3.Name = null;
             listViewGroup4.Header = "Books";
             listViewGroup4.Name = null;
+            listViewGroup5.Header = "Songs";
+            listViewGroup5.Name = null;
+            listViewGroup6.Header = "Albums";
+            listViewGroup6.Name = null;
+            listViewGroup7.Header = "Movies";
+            listViewGroup7.Name = null;
+            listViewGroup8.Header = "Books";
+            listViewGroup8.Name = null;
             this.mediaList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1,
             listViewGroup2,
             listViewGroup3,
-            listViewGroup4});
+            listViewGroup4,
+            listViewGroup5,
+            listViewGroup6,
+            listViewGroup7,
+            listViewGroup8});
             this.mediaList.Location = new System.Drawing.Point(4, 35);
             this.mediaList.MultiSelect = false;
             this.mediaList.Name = "mediaList";
