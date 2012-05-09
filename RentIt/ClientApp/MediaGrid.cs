@@ -19,6 +19,8 @@ namespace ClientApp
     {
         private MediaCriteria mediaCriteria;
 
+        private RentItClient serviceClient;
+
         public MediaGrid()
         {
             InitializeComponent();
@@ -31,12 +33,13 @@ namespace ClientApp
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            RentItClient serviceClient = new RentItClient(binding, address);
+            serviceClient = new RentItClient(binding, address);
 
             MediaItems mediaItems = serviceClient.GetMediaItems(this.mediaCriteria);
             this.PopulateGrid(mediaItems);
         }
 
+        /*
         internal MediaGrid(string title, MediaCriteria mediaCriteria)
             : this()
         {
@@ -46,14 +49,41 @@ namespace ClientApp
             }
 
             this.mediaCriteria = mediaCriteria;
-            this.titleValueLabel.Text = title;
+            // this.titleValueLabel.Text = title;
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
             RentItClient serviceClient = new RentItClient(binding, address);
 
-            MediaItems mediaItems = serviceClient.GetMediaItems(mediaCriteria);
-            this.PopulateGrid(mediaItems);
+           // MediaItems mediaItems = serviceClient.GetMediaItems(mediaCriteria);
+           // this.PopulateGrid(mediaItems);
+        }
+         * */
+
+        internal string Title
+        {
+            get
+            {
+                return this.titleValueLabel.Text;
+            }
+            set
+            {
+                this.titleValueLabel.Text = value;
+            }
+        }
+
+        internal MediaCriteria MediaCriteria
+        {
+            get
+            {
+                return this.mediaCriteria;
+            }
+            set
+            {
+                this.mediaCriteria = value;
+                MediaItems mediaItems = this.serviceClient.GetMediaItems(this.mediaCriteria);
+                this.PopulateGrid(mediaItems);
+            }
         }
 
         private void PopulateGrid(MediaItems items)
@@ -117,14 +147,14 @@ namespace ClientApp
 
         private Image getImage(int id)
         {
-            Image image = Image.FromFile(@"C:\Users\Kenneth88\Desktop\gta\test.jpg");
+            Image image;
             try
             {
                 image = BinaryCommuncator.GetThumbnail(id);
             }
             catch (Exception)
             {
-                image = Image.FromFile(@"C:\Users\Kenneth88\Desktop\gta\GtaThumb.jpg");
+                image = new Bitmap(200, 200);
             }
             return image;
         }

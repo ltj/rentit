@@ -64,6 +64,12 @@
     <Compile Include="DetailedMediaList.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="DetailedMediaListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="DetailedMediaListControl.Designer.cs">
+      <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="EditAccount.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -145,6 +151,9 @@
     <Compile Include="TopBarControl.Designer.cs">
       <DependentUpon>TopBarControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AlbumDetails.resx">
+      <DependentUpon>AlbumDetails.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AlsoRentedList.resx">
       <DependentUpon>AlsoRentedList.cs</DependentUpon>
     </EmbeddedResource>
@@ -154,6 +163,9 @@
     <Compile Include="UserRegistration.Designer.cs">
       <DependentUpon>UserRegistration.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DetailedMediaListControl.resx">
+      <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="EditAccount.resx">
       <DependentUpon>EditAccount.cs</DependentUpon>
     </EmbeddedResource>
