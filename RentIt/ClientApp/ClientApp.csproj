@@ -151,6 +151,12 @@
     <EmbeddedResource Include="AlsoRentedList.resx">
       <DependentUpon>AlsoRentedList.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="UserAccountManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserAccountManagement.Designer.cs">
+      <DependentUpon>UserAccountManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserRegistration.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SearchResultsControl.resx">
       <DependentUpon>SearchResultsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserAccountManagement.resx">
+      <DependentUpon>UserAccountManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserRegistration.resx">
       <DependentUpon>UserRegistration.cs</DependentUpon>
