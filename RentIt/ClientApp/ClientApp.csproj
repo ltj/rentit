@@ -88,6 +88,12 @@
     <Compile Include="ListOfMedia.Designer.cs">
       <DependentUpon>ListOfMedia.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainScreen.Designer.cs">
+      <DependentUpon>MainScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="MediaGrid.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -159,6 +165,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ListOfMedia.resx">
       <DependentUpon>ListOfMedia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainScreen.resx">
+      <DependentUpon>MainScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MediaGrid.resx">
       <DependentUpon>MediaGrid.cs</DependentUpon>

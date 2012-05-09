@@ -23,41 +23,41 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.ContentPane = new System.Windows.Forms.Panel();
-            this.topBarControl1 = new ClientApp.TopBarControl();
+            this.contentPane = new System.Windows.Forms.Panel();
+            this.topBarControl = new ClientApp.TopBarControl();
             this.SuspendLayout();
             // 
-            // ContentPane
+            // contentPane
             // 
-            this.ContentPane.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.contentPane.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.ContentPane.Location = new System.Drawing.Point(1, 76);
-            this.ContentPane.Name = "ContentPane";
-            this.ContentPane.Size = new System.Drawing.Size(783, 328);
-            this.ContentPane.TabIndex = 0;
+            this.contentPane.Location = new System.Drawing.Point(1, 76);
+            this.contentPane.Name = "contentPane";
+            this.contentPane.Size = new System.Drawing.Size(615, 361);
+            this.contentPane.TabIndex = 0;
             // 
-            // topBarControl1
+            // topBarControl
             // 
-            this.topBarControl1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.topBarControl.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.topBarControl1.Location = new System.Drawing.Point(1, 1);
-            this.topBarControl1.MaximumSize = new System.Drawing.Size(99999, 76);
-            this.topBarControl1.MinimumSize = new System.Drawing.Size(730, 76);
-            this.topBarControl1.Name = "topBarControl1";
-            this.topBarControl1.Size = new System.Drawing.Size(783, 76);
-            this.topBarControl1.TabIndex = 1;
-            this.topBarControl1.Title = "RentIt";
-            this.topBarControl1.UserName = "";
+            this.topBarControl.Location = new System.Drawing.Point(1, 1);
+            this.topBarControl.MaximumSize = new System.Drawing.Size(99999, 76);
+            this.topBarControl.MinimumSize = new System.Drawing.Size(604, 76);
+            this.topBarControl.Name = "topBarControl";
+            this.topBarControl.Size = new System.Drawing.Size(615, 76);
+            this.topBarControl.TabIndex = 1;
+            this.topBarControl.Title = "RentIt";
+            this.topBarControl.UserName = "";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 405);
-            this.Controls.Add(this.topBarControl1);
-            this.Controls.Add(this.ContentPane);
-            this.MinimumSize = new System.Drawing.Size(747, 378);
+            this.ClientSize = new System.Drawing.Size(616, 438);
+            this.Controls.Add(this.topBarControl);
+            this.Controls.Add(this.contentPane);
+            this.MinimumSize = new System.Drawing.Size(632, 476);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.ResumeLayout(false);
@@ -66,7 +66,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel ContentPane;
-        private TopBarControl topBarControl1;
+        private System.Windows.Forms.Panel contentPane;
+        private TopBarControl topBarControl;
     }
 }

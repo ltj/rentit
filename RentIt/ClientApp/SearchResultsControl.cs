@@ -7,7 +7,7 @@ namespace ClientApp {
 
     public partial class SearchResultsControl : UserControl {
         private readonly RentItClient rentIt;
-        private readonly MediaCriteria criteria;
+        private MediaCriteria criteria;
 
         public SearchResultsControl() {
             InitializeComponent();
@@ -16,16 +16,19 @@ namespace ClientApp {
             rentIt = new RentItClient(binding, address);
         }
 
-        internal SearchResultsControl(MediaCriteria criteria) : this() {
-            this.criteria = criteria;
-            TypeFilter.SelectedIndex = 0;
+        internal MediaCriteria Criteria {
+            get { return criteria; }
+            set {
+                criteria = value;
+                TypeFilter.SelectedIndex = 0;
+            }
         }
 
         private void UpdateResults() {
             Results.BeginUpdate();
             Results.Items.Clear();
 
-            MediaItems mediaItems = rentIt.GetMediaItems(criteria);
+            MediaItems mediaItems = rentIt.GetMediaItems(Criteria);
 
             foreach(var movieInfo in mediaItems.Movies) {
                 var item = new ListViewItem(movieInfo.Type.ToString());
@@ -73,14 +76,14 @@ namespace ClientApp {
             else
                 newType = MediaType.Any;
 
-            criteria.Genre = "";
-            criteria.Type = newType;
+            Criteria.Genre = "";
+            Criteria.Type = newType;
             UpdateGenres(newType);
         }
 
         private void GenreFilterSelectedIndexChanged(object sender, EventArgs e) {
             string genre = GenreFilter.SelectedItem.Equals("All") ? "" : GenreFilter.SelectedItem.ToString();
-            criteria.Genre = genre;
+            Criteria.Genre = genre;
             UpdateResults();
         }
     }

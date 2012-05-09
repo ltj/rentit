@@ -6,16 +6,20 @@
 
         public MainForm() {
             InitializeComponent();
-            Content = new RatingList();
+            Content = new MainScreen();
+        }
+
+        public TopBarControl TopBar {
+            get { return topBarControl; }
         }
 
         public UserControl Content {
             get { return contentControl; }
             set {
                 contentControl = value;
-                ContentPane.Controls.Clear();
+                contentPane.Controls.Clear();
                 value.Dock = DockStyle.Fill;
-                ContentPane.Controls.Add(value);
+                contentPane.Controls.Add(value);
             }
         }
     }

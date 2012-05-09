@@ -17,7 +17,7 @@
             rentit = new RentItClient(binding, address);
         }
 
-        internal MediaInfo MediaInfo {
+        internal MediaInfo Media {
             get { return media; }
             set {
                 media = value;
