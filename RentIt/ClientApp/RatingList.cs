@@ -65,17 +65,32 @@
             }
 
             var review = new MediaReview {
-                                             MediaId = media.Id,
+                                             MediaId = Media.Id,
                                              Rating = rating,
                                              ReviewText = ReviewText.Text,
                                              Timestamp = DateTime.Now,
                                              UserName = credentials.UserName
                                          };
 
-            rentit.SubmitReview(review, credentials);
+            // submit review
+            try {
+                rentit.SubmitReview(review, credentials);
+            } catch(FaultException) {
+                // if review was already submitted by this user
+                RentItMessageBox.AlreadyReviewedItem();
+                return;
+            }
+            
+            // reload list
+            ReloadList();
+        }
 
-            // reload the media to list newly submitted review and update average rating
-            switch(media.Type) {
+        /// <summary>
+        /// Reload the media to list newly submitted review
+        /// and update average rating.
+        /// </summary>
+        private void ReloadList() {
+            switch(Media.Type) {
                 case MediaType.Book:
                     Media = rentit.GetBookInfo(media.Id);
                     break;
