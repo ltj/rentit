@@ -128,5 +128,12 @@
                 (ParentForm as MainForm).Content = new PublisherAccountManagement();
             }
         }
+
+        private void SearchTextBoxKeyPressed(object sender, KeyEventArgs keyEventArgs) {
+            if(keyEventArgs.KeyCode == Keys.Enter) {
+                keyEventArgs.Handled = true;
+                SearchButtonClick(sender, keyEventArgs);
+            }
+        }
     }
 }

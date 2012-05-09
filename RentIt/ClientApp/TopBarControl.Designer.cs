@@ -1,4 +1,6 @@
 ﻿namespace ClientApp {
+    using System.Windows.Forms;
+
     partial class TopBarControl {
         /// <summary> 
         /// Required designer variable.
@@ -105,6 +107,7 @@
             this.SearchTextBox.Name = "SearchTextBox";
             this.SearchTextBox.Size = new System.Drawing.Size(100, 20);
             this.SearchTextBox.TabIndex = 6;
+            this.SearchTextBox.KeyDown += new KeyEventHandler(this.SearchTextBoxKeyPressed);
             // 
             // SearchButton
             // 

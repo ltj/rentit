@@ -26,9 +26,9 @@
             this.moviesButton = new System.Windows.Forms.Button();
             this.booksButton = new System.Windows.Forms.Button();
             this.musicButton = new System.Windows.Forms.Button();
-            this.musicGrid = new ClientApp.MediaGrid();
-            this.booksGrid = new ClientApp.MediaGrid();
-            this.moviesGrid = new ClientApp.MediaGrid();
+            this.musicList = new ClientApp.ListOfMedia();
+            this.booksList = new ClientApp.ListOfMedia();
+            this.moviesList = new ClientApp.ListOfMedia();
             this.SuspendLayout();
             // 
             // moviesButton
@@ -56,46 +56,46 @@
             // 
             this.musicButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.musicButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.musicButton.Location = new System.Drawing.Point(452, 3);
+            this.musicButton.Location = new System.Drawing.Point(453, 3);
             this.musicButton.Name = "musicButton";
             this.musicButton.Size = new System.Drawing.Size(218, 82);
             this.musicButton.TabIndex = 2;
             this.musicButton.Text = "Music";
             this.musicButton.UseVisualStyleBackColor = true;
             // 
-            // musicGrid
+            // musicList
             // 
-            this.musicGrid.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.musicList.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.musicGrid.Location = new System.Drawing.Point(453, 92);
-            this.musicGrid.Name = "musicGrid";
-            this.musicGrid.Size = new System.Drawing.Size(217, 359);
-            this.musicGrid.TabIndex = 5;
+            this.musicList.Location = new System.Drawing.Point(453, 92);
+            this.musicList.Name = "musicList";
+            this.musicList.Size = new System.Drawing.Size(218, 361);
+            this.musicList.TabIndex = 5;
             // 
-            // booksGrid
+            // booksList
             // 
-            this.booksGrid.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.booksGrid.Location = new System.Drawing.Point(229, 92);
-            this.booksGrid.Name = "booksGrid";
-            this.booksGrid.Size = new System.Drawing.Size(217, 359);
-            this.booksGrid.TabIndex = 4;
+            this.booksList.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.booksList.Location = new System.Drawing.Point(228, 92);
+            this.booksList.Name = "booksList";
+            this.booksList.Size = new System.Drawing.Size(218, 361);
+            this.booksList.TabIndex = 4;
             // 
-            // moviesGrid
+            // moviesList
             // 
-            this.moviesGrid.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.moviesList.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
-            this.moviesGrid.Location = new System.Drawing.Point(4, 92);
-            this.moviesGrid.Name = "moviesGrid";
-            this.moviesGrid.Size = new System.Drawing.Size(217, 359);
-            this.moviesGrid.TabIndex = 3;
+            this.moviesList.Location = new System.Drawing.Point(4, 92);
+            this.moviesList.Name = "moviesList";
+            this.moviesList.Size = new System.Drawing.Size(217, 361);
+            this.moviesList.TabIndex = 3;
             // 
             // MainScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.musicGrid);
-            this.Controls.Add(this.booksGrid);
-            this.Controls.Add(this.moviesGrid);
+            this.Controls.Add(this.musicList);
+            this.Controls.Add(this.booksList);
+            this.Controls.Add(this.moviesList);
             this.Controls.Add(this.musicButton);
             this.Controls.Add(this.booksButton);
             this.Controls.Add(this.moviesButton);
@@ -111,8 +111,8 @@
         private System.Windows.Forms.Button moviesButton;
         private System.Windows.Forms.Button booksButton;
         private System.Windows.Forms.Button musicButton;
-        private MediaGrid moviesGrid;
-        private MediaGrid booksGrid;
-        private MediaGrid musicGrid;
+        private ListOfMedia moviesList;
+        private ListOfMedia booksList;
+        private ListOfMedia musicList;
     }
 }

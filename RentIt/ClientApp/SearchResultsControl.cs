@@ -25,36 +25,8 @@ namespace ClientApp {
         }
 
         private void UpdateResults() {
-            Results.BeginUpdate();
-            Results.Items.Clear();
-
             MediaItems mediaItems = rentIt.GetMediaItems(Criteria);
-
-            foreach(var movieInfo in mediaItems.Movies) {
-                var item = new ListViewItem(movieInfo.Type.ToString());
-                item.SubItems.Add(movieInfo.Title);
-                item.SubItems.Add(movieInfo.Price.ToString());
-                item.SubItems.Add(movieInfo.Genre);
-                Results.Items.Add(item);
-            }
-
-            foreach(var bookInfo in mediaItems.Books) {
-                var item = new ListViewItem(bookInfo.Type.ToString());
-                item.SubItems.Add(bookInfo.Title);
-                item.SubItems.Add(bookInfo.Price.ToString());
-                item.SubItems.Add(bookInfo.Genre);
-                Results.Items.Add(item);
-            }
-
-            foreach(var albumInfo in mediaItems.Albums) {
-                var item = new ListViewItem(albumInfo.Type.ToString());
-                item.SubItems.Add(albumInfo.Title);
-                item.SubItems.Add(albumInfo.Price.ToString());
-                item.SubItems.Add(albumInfo.Genre);
-                Results.Items.Add(item);
-            }
-
-            Results.EndUpdate();
+            results.MediaItems = mediaItems;
         }
 
         private void UpdateGenres(MediaType mediaType) {
