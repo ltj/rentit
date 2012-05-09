@@ -20,17 +20,36 @@ namespace ClientApp
     /// </summary>
     public abstract class PagedListView : ListView
     {
+        /// <summary>
+        /// For mapping from a ListViewItem to is corresponding MediaInfo object.
+        /// </summary>
         private Dictionary<ListViewItem, MediaInfo> map;
 
+        /// <summary>
+        /// All the ListViewItems currently contained in the list.
+        /// This does not resemble the items currently shown.
+        /// </summary>
         private List<ListViewItem> currentItems;
 
+        /// <summary>
+        /// Number of items to list at a single list page.
+        /// </summary>
         private int itemsPerPage = 25;
 
+        /// <summary>
+        /// The current page that is being displayed.
+        /// </summary>
         private int currentPageNumber = 1;
 
+        /// <summary>
+        /// The total number of pages of the list.
+        /// </summary>
         private int numberOfPages = 1;
 
-
+        /// <summary>
+        /// Gets of sets the mapping between ListViewItems and their
+        /// corresponding MediaInfo objects.
+        /// </summary>
         internal Dictionary<ListViewItem, MediaInfo> Map
         {
             get
@@ -43,6 +62,10 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// Gets or sets the current contents of ListViewItems contained
+        /// in the list.
+        /// </summary>
         internal List<ListViewItem> CurrentItems
         {
             get
@@ -199,6 +222,9 @@ namespace ClientApp
             return this.map[item];
         }
 
+        /// <summary>
+        /// Refresh the ListViewItems shown in the list.
+        /// </summary>
         protected void RePopulateList()
         {
             if (ReferenceEquals(this.currentItems, null)) return;

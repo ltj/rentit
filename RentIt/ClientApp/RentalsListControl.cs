@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
+﻿
 namespace ClientApp
 {
-    using System.ServiceModel;
+    using System;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
 
     using RentIt;
 
@@ -19,13 +13,12 @@ namespace ClientApp
     /// </summary>
     public partial class RentalsListControl : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the RentalsListControl class.
+        /// </summary>
         public RentalsListControl()
         {
             InitializeComponent();
-
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            RentItClient serviceClient = new RentItClient(binding, address);
 
             this.itemsPerPageComboBox.SelectedIndex = 0;
             this.mediaList.ItemsPerPage = int.Parse(this.itemsPerPageComboBox.SelectedItem.ToString());
@@ -34,6 +27,10 @@ namespace ClientApp
             this.itemsPerPageComboBox.SelectedIndexChanged += this.ComboBoxSelectedItemChangedEventHandler;
         }
 
+        /// <summary>
+        /// Sets the rating list to display the ratings contained 
+        /// in the submitted list.
+        /// </summary>
         internal List<Rental> MediaItems
         {
             set
@@ -92,6 +89,10 @@ namespace ClientApp
 
         #endregion
 
+        /// <summary>
+        /// Determines whether a navigation button should be activated.
+        /// This is done for all four navigation buttons.
+        /// </summary>
         private void DetermineButtons()
         {
             bool hasPreviousPage = this.mediaList.HasPreviousPage();
