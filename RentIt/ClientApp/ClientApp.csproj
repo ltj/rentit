@@ -61,6 +61,12 @@
     <Compile Include="AlsoRentedList.Designer.cs">
       <DependentUpon>AlsoRentedList.cs</DependentUpon>
     </Compile>
+    <Compile Include="CreditsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreditsControl.Designer.cs">
+      <DependentUpon>CreditsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="DetailedMediaList.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -172,6 +178,9 @@
     <Compile Include="UserRegistration.Designer.cs">
       <DependentUpon>UserRegistration.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="CreditsControl.resx">
+      <DependentUpon>CreditsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DetailedMediaListControl.resx">
       <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
     </EmbeddedResource>
