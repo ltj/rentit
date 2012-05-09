@@ -24,13 +24,14 @@
         /// </summary>
         private void InitializeComponent() {
             this.grpNewHot = new System.Windows.Forms.GroupBox();
-            this.grpPopular = new System.Windows.Forms.GroupBox();
-            this.picNewThumb = new System.Windows.Forms.PictureBox();
-            this.lblNewTitle = new System.Windows.Forms.Label();
-            this.lblNewRelease = new System.Windows.Forms.Label();
-            this.lblNewGenre = new System.Windows.Forms.Label();
-            this.lblNewPublisher = new System.Windows.Forms.Label();
             this.lblNewPrice = new System.Windows.Forms.Label();
+            this.lblNewPublisher = new System.Windows.Forms.Label();
+            this.lblNewGenre = new System.Windows.Forms.Label();
+            this.lblNewRelease = new System.Windows.Forms.Label();
+            this.lblNewTitle = new System.Windows.Forms.Label();
+            this.picNewThumb = new System.Windows.Forms.PictureBox();
+            this.mediaGrid1 = new ClientApp.MediaGrid();
+            this.genreList1 = new ClientApp.GenreList();
             this.grpNewHot.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picNewThumb)).BeginInit();
             this.SuspendLayout();
@@ -51,24 +52,41 @@
             this.grpNewHot.TabStop = false;
             this.grpNewHot.Text = "New and HOT";
             // 
-            // grpPopular
+            // lblNewPrice
             // 
-            this.grpPopular.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.grpPopular.Location = new System.Drawing.Point(3, 214);
-            this.grpPopular.Name = "grpPopular";
-            this.grpPopular.Size = new System.Drawing.Size(679, 315);
-            this.grpPopular.TabIndex = 1;
-            this.grpPopular.TabStop = false;
-            this.grpPopular.Text = "Most popular";
+            this.lblNewPrice.AutoSize = true;
+            this.lblNewPrice.Location = new System.Drawing.Point(148, 165);
+            this.lblNewPrice.Name = "lblNewPrice";
+            this.lblNewPrice.Size = new System.Drawing.Size(43, 20);
+            this.lblNewPrice.TabIndex = 5;
+            this.lblNewPrice.Text = "price";
             // 
-            // picNewThumb
+            // lblNewPublisher
             // 
-            this.picNewThumb.Location = new System.Drawing.Point(502, 25);
-            this.picNewThumb.Name = "picNewThumb";
-            this.picNewThumb.Size = new System.Drawing.Size(160, 160);
-            this.picNewThumb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.picNewThumb.TabIndex = 0;
-            this.picNewThumb.TabStop = false;
+            this.lblNewPublisher.AutoSize = true;
+            this.lblNewPublisher.Location = new System.Drawing.Point(148, 105);
+            this.lblNewPublisher.Name = "lblNewPublisher";
+            this.lblNewPublisher.Size = new System.Drawing.Size(73, 20);
+            this.lblNewPublisher.TabIndex = 4;
+            this.lblNewPublisher.Text = "publisher";
+            // 
+            // lblNewGenre
+            // 
+            this.lblNewGenre.AutoSize = true;
+            this.lblNewGenre.Location = new System.Drawing.Point(148, 45);
+            this.lblNewGenre.Name = "lblNewGenre";
+            this.lblNewGenre.Size = new System.Drawing.Size(50, 20);
+            this.lblNewGenre.TabIndex = 3;
+            this.lblNewGenre.Text = "genre";
+            // 
+            // lblNewRelease
+            // 
+            this.lblNewRelease.AutoSize = true;
+            this.lblNewRelease.Location = new System.Drawing.Point(148, 65);
+            this.lblNewRelease.Name = "lblNewRelease";
+            this.lblNewRelease.Size = new System.Drawing.Size(97, 20);
+            this.lblNewRelease.TabIndex = 2;
+            this.lblNewRelease.Text = "release date";
             // 
             // lblNewTitle
             // 
@@ -80,51 +98,40 @@
             this.lblNewTitle.TabIndex = 1;
             this.lblNewTitle.Text = "title";
             // 
-            // lblNewRelease
+            // picNewThumb
             // 
-            this.lblNewRelease.AutoSize = true;
-            this.lblNewRelease.Location = new System.Drawing.Point(148, 65);
-            this.lblNewRelease.Name = "lblNewRelease";
-            this.lblNewRelease.Size = new System.Drawing.Size(97, 20);
-            this.lblNewRelease.TabIndex = 2;
-            this.lblNewRelease.Text = "release date";
+            this.picNewThumb.Location = new System.Drawing.Point(502, 25);
+            this.picNewThumb.Name = "picNewThumb";
+            this.picNewThumb.Size = new System.Drawing.Size(160, 160);
+            this.picNewThumb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.picNewThumb.TabIndex = 0;
+            this.picNewThumb.TabStop = false;
             // 
-            // lblNewGenre
+            // mediaGrid1
             // 
-            this.lblNewGenre.AutoSize = true;
-            this.lblNewGenre.Location = new System.Drawing.Point(148, 45);
-            this.lblNewGenre.Name = "lblNewGenre";
-            this.lblNewGenre.Size = new System.Drawing.Size(50, 20);
-            this.lblNewGenre.TabIndex = 3;
-            this.lblNewGenre.Text = "genre";
+            this.mediaGrid1.Location = new System.Drawing.Point(0, 214);
+            this.mediaGrid1.Name = "mediaGrid1";
+            this.mediaGrid1.Size = new System.Drawing.Size(682, 232);
+            this.mediaGrid1.TabIndex = 0;
             // 
-            // lblNewPublisher
+            // genreList1
             // 
-            this.lblNewPublisher.AutoSize = true;
-            this.lblNewPublisher.Location = new System.Drawing.Point(148, 105);
-            this.lblNewPublisher.Name = "lblNewPublisher";
-            this.lblNewPublisher.Size = new System.Drawing.Size(73, 20);
-            this.lblNewPublisher.TabIndex = 4;
-            this.lblNewPublisher.Text = "publisher";
-            // 
-            // lblNewPrice
-            // 
-            this.lblNewPrice.AutoSize = true;
-            this.lblNewPrice.Location = new System.Drawing.Point(148, 165);
-            this.lblNewPrice.Name = "lblNewPrice";
-            this.lblNewPrice.Size = new System.Drawing.Size(43, 20);
-            this.lblNewPrice.TabIndex = 5;
-            this.lblNewPrice.Text = "price";
+            this.genreList1.BackColor = System.Drawing.SystemColors.Window;
+            this.genreList1.Location = new System.Drawing.Point(692, 14);
+            this.genreList1.Name = "genreList1";
+            this.genreList1.Size = new System.Drawing.Size(274, 245);
+            this.genreList1.TabIndex = 1;
             // 
             // MediaFrontpage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.Controls.Add(this.grpPopular);
+            this.Controls.Add(this.genreList1);
+            this.Controls.Add(this.mediaGrid1);
             this.Controls.Add(this.grpNewHot);
             this.Name = "MediaFrontpage";
-            this.Size = new System.Drawing.Size(701, 599);
+            this.Size = new System.Drawing.Size(976, 500);
             this.grpNewHot.ResumeLayout(false);
             this.grpNewHot.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picNewThumb)).EndInit();
@@ -135,12 +142,13 @@
         #endregion
 
         private System.Windows.Forms.GroupBox grpNewHot;
-        private System.Windows.Forms.GroupBox grpPopular;
         private System.Windows.Forms.Label lblNewRelease;
         private System.Windows.Forms.Label lblNewTitle;
         private System.Windows.Forms.PictureBox picNewThumb;
         private System.Windows.Forms.Label lblNewPrice;
         private System.Windows.Forms.Label lblNewPublisher;
         private System.Windows.Forms.Label lblNewGenre;
+        private MediaGrid mediaGrid1;
+        private GenreList genreList1;
     }
 }

@@ -22,12 +22,16 @@ namespace ClientApp {
             get { return mtype; }
             set { 
                 mtype = value;
+                genreList1.Mtype = value;
                 RefreshContents();
             }
         }
 
         internal RentItClient Proxy {
-            set { client = value; }
+            set { 
+                client = value;
+                genreList1.Proxy = value;
+            }
         }
 
         // Get newest media and publish to "new and hot" area
@@ -58,9 +62,9 @@ namespace ClientApp {
         }
 
         // Get ten most popular medias
-        private RentIt.MediaItems GetMostPopular() {
+        private void GetMostPopular() {
             // we need valid prerequisites to query the webservice
-            if (mtype == RentIt.MediaType.Any || client == null) return null;
+            if (mtype == RentIt.MediaType.Any || client == null) return;
 
             // build search criteria
             RentIt.MediaCriteria mc = new RentIt.MediaCriteria {
@@ -71,8 +75,7 @@ namespace ClientApp {
                 SearchText = ""
             };
 
-            RentIt.MediaItems result = client.GetMediaItems(mc);
-            return result;
+            mediaGrid1.MediaCriteria = mc;
         }
 
         // extrac correct type result from MediaItems return value
@@ -91,6 +94,8 @@ namespace ClientApp {
 
         private void RefreshContents() {
             GetNewest();
+            mediaGrid1.Title = "Popular " + mtype.ToString() + "s";
+            GetMostPopular();
         }
     }
 }
