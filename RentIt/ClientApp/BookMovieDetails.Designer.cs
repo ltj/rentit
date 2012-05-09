@@ -119,18 +119,18 @@
             // 
             this.mediaSideBar.Location = new System.Drawing.Point(0, 0);
             this.mediaSideBar.Name = "mediaSideBar";
-            this.mediaSideBar.Size = new System.Drawing.Size(211, 450);
-            this.mediaSideBar.TabIndex = 6;
+            this.mediaSideBar.Size = new System.Drawing.Size(211, 504);
+            this.mediaSideBar.TabIndex = 10;
             // 
             // BookMovieDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.Controls.Add(this.mediaSideBar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.authorLabel);
             this.Controls.Add(this.albumTitleLabel);
-            this.Controls.Add(this.mediaSideBar);
             this.Name = "BookMovieDetails";
             this.Size = new System.Drawing.Size(986, 531);
             this.panel1.ResumeLayout(false);
@@ -143,12 +143,12 @@
         #endregion
 
         private System.Windows.Forms.Label albumDescription;
-        private MediaSideBar mediaSideBar;
         private System.Windows.Forms.Label albumTitleLabel;
         private System.Windows.Forms.Label authorLabel;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox bookDescriptionTextBox;
         private System.Windows.Forms.Label userRatingsLabel;
         private RatingList bookRatingList;
+        private MediaSideBar mediaSideBar;
     }
 }
