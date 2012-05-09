@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E2A0BF86-78B1-42F8-AAE1-6DD198329983}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ClientApp</RootNamespace>
+    <AssemblyName>ClientApp</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlsoRentedList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AlsoRentedList.Designer.cs">
+      <DependentUpon>AlsoRentedList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DetailedMediaList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EditAccount.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="EditAccount.Designer.cs">
+      <DependentUpon>EditAccount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ListOfMedia.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ListOfMedia.Designer.cs">
+      <DependentUpon>ListOfMedia.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MediaGrid.Designer.cs">
+      <DependentUpon>MediaGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaSideBar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MediaSideBar.Designer.cs">
+      <DependentUpon>MediaSideBar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaUploadControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MediaUploadControl.Designer.cs">
+      <DependentUpon>MediaUploadControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PublisherAccountManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PublisherAccountManagement.Designer.cs">
+      <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RentItMessageBox.cs" />
+    <Compile Include="RentItProxy.cs" />
+    <Compile Include="SearchResultsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SearchResultsControl.Designer.cs">
+      <DependentUpon>SearchResultsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\RentItServiceReference\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="TopBarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="TopBarControl.Designer.cs">
+      <DependentUpon>TopBarControl.cs</DependentUpon>
+    </Compile>
+<<<<<<< HEAD
+    <Compile Include="UserRegistration.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserRegistration.Designer.cs">
+      <DependentUpon>UserRegistration.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="EditAccount.resx">
+      <DependentUpon>EditAccount.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="AlsoRentedList.resx">
+      <DependentUpon>AlsoRentedList.cs</DependentUpon>
+>>>>>>> 960b3077228a98e0b8c0ecd15dfbe5b3adffa45a
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ListOfMedia.resx">
+      <DependentUpon>ListOfMedia.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaGrid.resx">
+      <DependentUpon>MediaGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaSideBar.resx">
+      <DependentUpon>MediaSideBar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaUploadControl.resx">
+      <DependentUpon>MediaUploadControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="PublisherAccountManagement.resx">
+      <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SearchResultsControl.resx">
+      <DependentUpon>SearchResultsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserRegistration.resx">
+      <DependentUpon>UserRegistration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TopBarControl.resx">
+      <DependentUpon>TopBarControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="Service References\RentItServiceReference\RentItService.wsdl" />
+    <None Include="Service References\RentItServiceReference\RentItService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RentItServiceReference\RentItService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RentItServiceReference\RentItService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RentItServiceReference\RentItService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RentItServiceReference\RentItService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\RentItServiceReference\RentItService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BinaryCommunicator\BinaryCommunicator.csproj">
+      <Project>{ACE790BF-DB92-4BC4-A940-E44B7C1D838B}</Project>
+      <Name>BinaryCommunicator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\RentItServiceReference\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RentItServiceReference\RentItService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RentItServiceReference\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RentItServiceReference\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\RentItServiceReference\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
