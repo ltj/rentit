@@ -148,6 +148,9 @@ namespace ClientApp
                     default:
                         break;
                 }
+
+                this.RePopulateList();
+                this.EndUpdate();
             }
         }
     }
