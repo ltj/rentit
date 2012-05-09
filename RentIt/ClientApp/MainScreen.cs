@@ -10,10 +10,10 @@ namespace ClientApp {
             booksList.Title = "Featured books";
             musicList.Title = "Featured music";
 
-            updateLists();
+            UpdateLists();
         }
 
-        private void updateLists() {
+        private void UpdateLists() {
             var criteria = new MediaCriteria {
                                                  Genre = "",
                                                  Limit = 10,
@@ -29,7 +29,7 @@ namespace ClientApp {
             booksList.UpdateList(criteria);
 
             criteria.Type = MediaType.Album;
-            booksList.UpdateList(criteria);
+            musicList.UpdateList(criteria);
         }
     }
 }

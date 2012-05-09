@@ -79,6 +79,21 @@
                                          };
 
             rentit.SubmitReview(review, credentials);
+
+            // reload the media to list newly submitted review and update average rating
+            switch(media.Type) {
+                case MediaType.Book:
+                    Media = rentit.GetBookInfo(media.Id);
+                    break;
+                case MediaType.Movie:
+                    Media = rentit.GetMovieInfo(media.Id);
+                    break;
+                case MediaType.Album:
+                    Media = rentit.GetMovieInfo(media.Id);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
