@@ -202,17 +202,17 @@
             // 
             this.mediaSideBar.Location = new System.Drawing.Point(0, 0);
             this.mediaSideBar.Name = "mediaSideBar";
-            this.mediaSideBar.Size = new System.Drawing.Size(211, 529);
-            this.mediaSideBar.TabIndex = 0;
+            this.mediaSideBar.Size = new System.Drawing.Size(211, 504);
+            this.mediaSideBar.TabIndex = 10;
             // 
             // AlbumDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.mediaSideBar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.albumArtistLabel);
             this.Controls.Add(this.albumTitleLabel);
-            this.Controls.Add(this.mediaSideBar);
             this.Name = "AlbumDetails";
             this.Size = new System.Drawing.Size(980, 634);
             this.panel1.ResumeLayout(false);
@@ -224,7 +224,6 @@
 
         #endregion
 
-        private MediaSideBar mediaSideBar;
         private System.Windows.Forms.ListView songList;
         private System.Windows.Forms.ColumnHeader titleColumn;
         private System.Windows.Forms.ColumnHeader artistColumn;
@@ -241,5 +240,6 @@
         private System.Windows.Forms.Panel panel1;
         private RatingList albumRatingList;
         private System.Windows.Forms.Label userRatingsLabel;
+        private MediaSideBar mediaSideBar;
     }
 }

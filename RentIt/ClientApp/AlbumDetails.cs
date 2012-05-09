@@ -49,7 +49,7 @@ namespace ClientApp
 
                 album = serviceClient.GetAlbumInfo(78);
 
-                this.mediaSideBar = new MediaSideBar(album);
+                this.mediaSideBar.MediaInfoData = album;
 
                 this.albumTitleLabel.Text = album.Title;
                 this.albumArtistLabel.Text = album.AlbumArtist;

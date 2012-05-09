@@ -15,41 +15,45 @@ namespace ClientApp
 
 	public partial class AlsoRentedList : UserControl
 	{
+		private readonly RentItClient rentIt;
+		internal int MediaId { get; set; }
+		internal MediaType PrioritizedMediaType { get; set; }
+
 		public AlsoRentedList()
 		{
 			InitializeComponent();
-		}
-		internal AlsoRentedList(MediaType prioritizedMediaType, int mediaId)
-			: this()
-		{
 			BasicHttpBinding binding = new BasicHttpBinding();
 			EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-			var rentIt = new RentItClient(binding, address);
-			var medias = rentIt.GetAlsoRentedItems(mediaId);
+			rentIt = new RentItClient(binding, address);
+		}
+
+		public void UpdateList()
+		{
+			var medias = rentIt.GetAlsoRentedItems(MediaId);
 			MediaInfo mediaInf;
 
 			MediaInfo[] primaryList;
 			MediaInfo[] secondaryList;
 			MediaInfo[] tertiaryList;
-			switch (prioritizedMediaType)
+			switch (PrioritizedMediaType)
 			{
 				case MediaType.Album:
 					primaryList = medias.Albums;
 					secondaryList = medias.Movies;
 					tertiaryList = medias.Books;
-					mediaInf = rentIt.GetAlbumInfo(mediaId);
+					mediaInf = rentIt.GetAlbumInfo(MediaId);
 					break;
 				case MediaType.Book:
 					primaryList = medias.Books;
 					secondaryList = medias.Movies;
 					tertiaryList = medias.Albums;
-					mediaInf = rentIt.GetBookInfo(mediaId);
+					mediaInf = rentIt.GetBookInfo(MediaId);
 					break;
 				case MediaType.Movie:
 					primaryList = medias.Movies;
 					secondaryList = medias.Books;
 					tertiaryList = medias.Albums;
-					mediaInf = rentIt.GetMovieInfo(mediaId);
+					mediaInf = rentIt.GetMovieInfo(MediaId);
 					break;
 				default:
 					primaryList = new MediaInfo[0];
