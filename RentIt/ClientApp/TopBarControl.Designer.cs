@@ -144,10 +144,10 @@
             // UserNameLabel
             // 
             this.UserNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.UserNameLabel.AutoSize = true;
-            this.UserNameLabel.Location = new System.Drawing.Point(671, 34);
+            this.UserNameLabel.AutoEllipsis = true;
+            this.UserNameLabel.Location = new System.Drawing.Point(586, 34);
             this.UserNameLabel.Name = "UserNameLabel";
-            this.UserNameLabel.Size = new System.Drawing.Size(56, 13);
+            this.UserNameLabel.Size = new System.Drawing.Size(141, 18);
             this.UserNameLabel.TabIndex = 10;
             this.UserNameLabel.TabStop = true;
             this.UserNameLabel.Text = "user name";
