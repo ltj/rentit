@@ -106,6 +106,12 @@
     <Compile Include="ListOfMedia.Designer.cs">
       <DependentUpon>ListOfMedia.cs</DependentUpon>
     </Compile>
+    <Compile Include="MainScreen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MainScreen.Designer.cs">
+      <DependentUpon>MainScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="MediaFrontpage.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -199,8 +205,11 @@
     <EmbeddedResource Include="ListOfMedia.resx">
       <DependentUpon>ListOfMedia.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MediaFrontpage.resx">
+     <EmbeddedResource Include="MediaFrontpage.resx">
       <DependentUpon>MediaFrontpage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainScreen.resx">
+      <DependentUpon>MainScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MediaGrid.resx">
       <DependentUpon>MediaGrid.cs</DependentUpon>

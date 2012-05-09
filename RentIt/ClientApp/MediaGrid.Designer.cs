@@ -29,16 +29,16 @@
         private void InitializeComponent()
         {
             this.ListViewGrid = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
             this.titleValueLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // ListViewGrid
             // 
             this.ListViewGrid.Alignment = System.Windows.Forms.ListViewAlignment.Left;
-            this.ListViewGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.ListViewGrid.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.ListViewGrid.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -46,6 +46,7 @@
             this.columnHeader2,
             this.columnHeader3});
             this.ListViewGrid.Location = new System.Drawing.Point(3, 23);
+            this.ListViewGrid.MultiSelect = false;
             this.ListViewGrid.Name = "ListViewGrid";
             this.ListViewGrid.Size = new System.Drawing.Size(455, 93);
             this.ListViewGrid.TabIndex = 0;
@@ -56,7 +57,7 @@
             // titleValueLabel
             // 
             this.titleValueLabel.AutoSize = true;
-            this.titleValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.titleValueLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.titleValueLabel.Location = new System.Drawing.Point(4, 0);
             this.titleValueLabel.Name = "titleValueLabel";
             this.titleValueLabel.Size = new System.Drawing.Size(89, 20);

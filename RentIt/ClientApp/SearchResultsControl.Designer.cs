@@ -23,62 +23,14 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.Results = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
             this.GenreFilter = new System.Windows.Forms.ListBox();
             this.TypeFilter = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.results = new ClientApp.DetailedMediaListControl();
             this.SuspendLayout();
-            // 
-            // Results
-            // 
-            this.Results.Activation = System.Windows.Forms.ItemActivation.OneClick;
-            this.Results.Alignment = System.Windows.Forms.ListViewAlignment.Left;
-            this.Results.AllowColumnReorder = true;
-            this.Results.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.Results.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2,
-            this.columnHeader3,
-            this.columnHeader4});
-            this.Results.FullRowSelect = true;
-            this.Results.HotTracking = true;
-            this.Results.HoverSelection = true;
-            this.Results.Location = new System.Drawing.Point(141, 32);
-            this.Results.Name = "Results";
-            this.Results.Size = new System.Drawing.Size(596, 417);
-            this.Results.TabIndex = 16;
-            this.Results.TileSize = new System.Drawing.Size(168, 60);
-            this.Results.UseCompatibleStateImageBehavior = false;
-            this.Results.View = System.Windows.Forms.View.Tile;
-            // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Type";
-            this.columnHeader1.Width = 94;
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Text = "Title";
-            this.columnHeader2.Width = 267;
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Price";
-            this.columnHeader3.Width = 91;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Genre";
-            this.columnHeader4.Width = 120;
             // 
             // GenreFilter
             // 
@@ -140,20 +92,30 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.label1.Location = new System.Drawing.Point(4, 7);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(43, 16);
+            this.label1.Size = new System.Drawing.Size(51, 16);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Filter";
+            this.label1.Text = "Filters";
+            // 
+            // results
+            // 
+            this.results.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.results.Location = new System.Drawing.Point(131, 13);
+            this.results.Name = "results";
+            this.results.Size = new System.Drawing.Size(606, 436);
+            this.results.TabIndex = 16;
             // 
             // SearchResultsControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.Results);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.results);
             this.Controls.Add(this.GenreFilter);
             this.Controls.Add(this.TypeFilter);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Name = "SearchResultsControl";
             this.Size = new System.Drawing.Size(740, 452);
@@ -164,16 +126,12 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView Results;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
-        private System.Windows.Forms.ColumnHeader columnHeader3;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ListBox GenreFilter;
         private System.Windows.Forms.ListBox TypeFilter;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private DetailedMediaListControl results;
     }
 }

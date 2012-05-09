@@ -9,56 +9,52 @@ using System.Windows.Forms;
 
 namespace ClientApp
 {
-	using System.ServiceModel;
+    using System.ServiceModel;
 
-	using RentIt;
+    using RentIt;
 
-	public partial class ListOfMedia : UserControl
-	{
-		public ListOfMedia()
-		{
-			InitializeComponent();
-		}
-		internal ListOfMedia(MediaType type, string listTitle, MediaCriteria criteria, bool numbering)
-			: this()
-		{
-			BasicHttpBinding binding = new BasicHttpBinding();
-			EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-			var rentIt = new RentItClient(binding, address);
-			var medias = rentIt.GetMediaItems(criteria);
-			label1.Text = listTitle;
+    public partial class ListOfMedia : UserControl {
+        private readonly RentItClient rentIt;
 
-			MediaInfo[] list;
-			switch (type)
-			{
-				case MediaType.Album:
-					list = medias.Albums;
-					break;
-				case MediaType.Book:
-					list = medias.Books;
-					break;
-				case MediaType.Song:
-					list = medias.Songs;
-					break;
-				case MediaType.Movie:
-					list = medias.Movies;
-					break;
-				default:
-					list = new MediaInfo[0];
-					break;
-			}
-			if (list.Count() > 0 && !numbering)
-				for (int i = 0; i < list.Count() - 1; i++)
-					listBox1.Items.Add(list[i].Title);
+        public ListOfMedia()
+        {
+            InitializeComponent();
+            var binding = new BasicHttpBinding();
+            var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
+            rentIt = new RentItClient(binding, address);
+            Title = "";
+            Numbering = false;
+        }
 
-			if (list.Count() > 0 && numbering)
-				for (int i = 0; i < list.Count() - 1; i++)
-					listBox1.Items.Add((i + 1) + ". " + list[i].Title);
-		}
+        internal string Title {
+            get { return label1.Text; }
+            set { label1.Text = value; }
+        }
 
-		private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-		{
+        internal bool Numbering { get; set; }
 
-		}
-	}
+        internal void UpdateList(MediaCriteria criteria)
+        {
+            var medias = rentIt.GetMediaItems(criteria);
+
+            var list = new List<MediaInfo>();
+            list.AddRange(medias.Albums);
+            list.AddRange(medias.Books);
+            list.AddRange(medias.Movies);
+            
+            if (list.Count() > 0 && !Numbering)
+                for (int i = 0; i < list.Count() - 1; i++)
+                    listBox1.Items.Add(list[i].Title);
+
+            if (list.Count() > 0 && Numbering)
+                for (int i = 0; i < list.Count() - 1; i++)
+                    listBox1.Items.Add((i + 1) + ". " + list[i].Title);
+             
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
