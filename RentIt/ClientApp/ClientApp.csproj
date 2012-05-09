@@ -64,6 +64,12 @@
     <Compile Include="DetailedMediaList.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="PagedListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RentalsList.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="DetailedMediaListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -131,6 +137,12 @@
     </Compile>
     <Compile Include="RatingList.Designer.cs">
       <DependentUpon>RatingList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RentalsListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="RentalsListControl.Designer.cs">
+      <DependentUpon>RentalsListControl.cs</DependentUpon>
     </Compile>
     <Compile Include="RentItMessageBox.cs" />
     <Compile Include="RentItProxy.cs" />
@@ -204,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="RatingList.resx">
       <DependentUpon>RatingList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RentalsListControl.resx">
+      <DependentUpon>RentalsListControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SearchResultsControl.resx">
       <DependentUpon>SearchResultsControl.cs</DependentUpon>
