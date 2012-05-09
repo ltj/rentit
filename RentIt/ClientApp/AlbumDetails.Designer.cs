@@ -41,20 +41,26 @@
             this.albumArtistLabel = new System.Windows.Forms.Label();
             this.albumDurationLabel = new System.Windows.Forms.Label();
             this.albumDurationValueLabel = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.userRatingsLabel = new System.Windows.Forms.Label();
+            this.albumRatingList = new ClientApp.RatingList();
             this.mediaSideBar = new ClientApp.MediaSideBar();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // songList
             // 
+            this.songList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.songList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.titleColumn,
             this.artistColumn,
             this.genreColumn,
             this.priceColumn,
             this.trackLengthColumn});
-            this.songList.Location = new System.Drawing.Point(240, 322);
+            this.songList.Location = new System.Drawing.Point(3, 155);
             this.songList.Name = "songList";
-            this.songList.Size = new System.Drawing.Size(509, 170);
+            this.songList.Size = new System.Drawing.Size(554, 199);
             this.songList.TabIndex = 1;
             this.songList.UseCompatibleStateImageBehavior = false;
             this.songList.View = System.Windows.Forms.View.Details;
@@ -87,7 +93,7 @@
             // 
             this.songListLabel.AutoSize = true;
             this.songListLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.songListLabel.Location = new System.Drawing.Point(236, 299);
+            this.songListLabel.Location = new System.Drawing.Point(-1, 132);
             this.songListLabel.Name = "songListLabel";
             this.songListLabel.Size = new System.Drawing.Size(84, 20);
             this.songListLabel.TabIndex = 2;
@@ -95,18 +101,20 @@
             // 
             // albumDescriptionTextBox
             // 
+            this.albumDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.albumDescriptionTextBox.Enabled = false;
-            this.albumDescriptionTextBox.Location = new System.Drawing.Point(240, 187);
+            this.albumDescriptionTextBox.Location = new System.Drawing.Point(4, 23);
             this.albumDescriptionTextBox.Multiline = true;
             this.albumDescriptionTextBox.Name = "albumDescriptionTextBox";
-            this.albumDescriptionTextBox.Size = new System.Drawing.Size(509, 77);
+            this.albumDescriptionTextBox.Size = new System.Drawing.Size(553, 77);
             this.albumDescriptionTextBox.TabIndex = 3;
             // 
             // albumDescription
             // 
             this.albumDescription.AutoSize = true;
             this.albumDescription.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.albumDescription.Location = new System.Drawing.Point(236, 164);
+            this.albumDescription.Location = new System.Drawing.Point(0, 0);
             this.albumDescription.Name = "albumDescription";
             this.albumDescription.Size = new System.Drawing.Size(105, 20);
             this.albumDescription.TabIndex = 4;
@@ -116,7 +124,7 @@
             // 
             this.albumTitleLabel.AutoSize = true;
             this.albumTitleLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.albumTitleLabel.Location = new System.Drawing.Point(233, 34);
+            this.albumTitleLabel.Location = new System.Drawing.Point(233, 0);
             this.albumTitleLabel.Name = "albumTitleLabel";
             this.albumTitleLabel.Size = new System.Drawing.Size(118, 39);
             this.albumTitleLabel.TabIndex = 5;
@@ -126,7 +134,7 @@
             // 
             this.albumArtistLabel.AutoSize = true;
             this.albumArtistLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.albumArtistLabel.Location = new System.Drawing.Point(236, 73);
+            this.albumArtistLabel.Location = new System.Drawing.Point(236, 39);
             this.albumArtistLabel.Name = "albumArtistLabel";
             this.albumArtistLabel.Size = new System.Drawing.Size(83, 20);
             this.albumArtistLabel.TabIndex = 6;
@@ -136,7 +144,7 @@
             // 
             this.albumDurationLabel.AutoSize = true;
             this.albumDurationLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.albumDurationLabel.Location = new System.Drawing.Point(237, 495);
+            this.albumDurationLabel.Location = new System.Drawing.Point(0, 357);
             this.albumDurationLabel.Name = "albumDurationLabel";
             this.albumDurationLabel.Size = new System.Drawing.Size(90, 13);
             this.albumDurationLabel.TabIndex = 7;
@@ -145,15 +153,54 @@
             // albumDurationValueLabel
             // 
             this.albumDurationValueLabel.AutoSize = true;
-            this.albumDurationValueLabel.Location = new System.Drawing.Point(333, 495);
+            this.albumDurationValueLabel.Location = new System.Drawing.Point(96, 358);
             this.albumDurationValueLabel.Name = "albumDurationValueLabel";
             this.albumDurationValueLabel.Size = new System.Drawing.Size(49, 13);
             this.albumDurationValueLabel.TabIndex = 8;
             this.albumDurationValueLabel.Text = "00:00:00";
             // 
+            // panel1
+            // 
+            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.AutoScroll = true;
+            this.panel1.Controls.Add(this.userRatingsLabel);
+            this.panel1.Controls.Add(this.albumDescription);
+            this.panel1.Controls.Add(this.albumRatingList);
+            this.panel1.Controls.Add(this.albumDescriptionTextBox);
+            this.panel1.Controls.Add(this.albumDurationValueLabel);
+            this.panel1.Controls.Add(this.albumDurationLabel);
+            this.panel1.Controls.Add(this.songListLabel);
+            this.panel1.Controls.Add(this.songList);
+            this.panel1.Location = new System.Drawing.Point(240, 62);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(577, 569);
+            this.panel1.TabIndex = 9;
+            // 
+            // userRatingsLabel
+            // 
+            this.userRatingsLabel.AutoSize = true;
+            this.userRatingsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.userRatingsLabel.Location = new System.Drawing.Point(0, 413);
+            this.userRatingsLabel.Name = "userRatingsLabel";
+            this.userRatingsLabel.Size = new System.Drawing.Size(112, 20);
+            this.userRatingsLabel.TabIndex = 11;
+            this.userRatingsLabel.Text = "User ratings:";
+            // 
+            // albumRatingList
+            // 
+            this.albumRatingList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.albumRatingList.Location = new System.Drawing.Point(-3, 445);
+            this.albumRatingList.MinimumSize = new System.Drawing.Size(300, 250);
+            this.albumRatingList.Name = "albumRatingList";
+            this.albumRatingList.Size = new System.Drawing.Size(560, 374);
+            this.albumRatingList.TabIndex = 9;
+            // 
             // mediaSideBar
             // 
-            this.mediaSideBar.Location = new System.Drawing.Point(4, 4);
+            this.mediaSideBar.Location = new System.Drawing.Point(0, 0);
             this.mediaSideBar.Name = "mediaSideBar";
             this.mediaSideBar.Size = new System.Drawing.Size(211, 529);
             this.mediaSideBar.TabIndex = 0;
@@ -162,17 +209,14 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.albumDurationValueLabel);
-            this.Controls.Add(this.albumDurationLabel);
+            this.Controls.Add(this.panel1);
             this.Controls.Add(this.albumArtistLabel);
             this.Controls.Add(this.albumTitleLabel);
-            this.Controls.Add(this.albumDescription);
-            this.Controls.Add(this.albumDescriptionTextBox);
-            this.Controls.Add(this.songListLabel);
-            this.Controls.Add(this.songList);
             this.Controls.Add(this.mediaSideBar);
             this.Name = "AlbumDetails";
-            this.Size = new System.Drawing.Size(952, 536);
+            this.Size = new System.Drawing.Size(980, 634);
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -194,5 +238,8 @@
         private System.Windows.Forms.Label albumArtistLabel;
         private System.Windows.Forms.Label albumDurationLabel;
         private System.Windows.Forms.Label albumDurationValueLabel;
+        private System.Windows.Forms.Panel panel1;
+        private RatingList albumRatingList;
+        private System.Windows.Forms.Label userRatingsLabel;
     }
 }

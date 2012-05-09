@@ -38,7 +38,6 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
-    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -49,59 +48,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlbumDetails.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="AlbumDetails.Designer.cs">
-      <DependentUpon>AlbumDetails.cs</DependentUpon>
-    </Compile>
     <Compile Include="AlsoRentedList.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="AlsoRentedList.Designer.cs">
       <DependentUpon>AlsoRentedList.cs</DependentUpon>
     </Compile>
-    <Compile Include="BookMovieDetails.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BookMovieDetails.Designer.cs">
-      <DependentUpon>BookMovieDetails.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CreditsControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="CreditsControl.Designer.cs">
-      <DependentUpon>CreditsControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="DetailedMediaList.cs">
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PagedRatingsListControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="PagedRatingsListControl.Designer.cs">
-      <DependentUpon>PagedRatingsListControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GenreList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="GenreList.Designer.cs">
-      <DependentUpon>GenreList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PagedListView.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="PagedRatingsList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="RentalsList.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="DetailedMediaListControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="DetailedMediaListControl.Designer.cs">
-      <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
     </Compile>
     <Compile Include="EditAccount.cs">
       <SubType>UserControl</SubType>
@@ -115,29 +69,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="MainForm.Designer.cs">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="ListOfMedia.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ListOfMedia.Designer.cs">
       <DependentUpon>ListOfMedia.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainScreen.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MainScreen.Designer.cs">
-      <DependentUpon>MainScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MediaFrontpage.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="MediaFrontpage.Designer.cs">
-      <DependentUpon>MediaFrontpage.cs</DependentUpon>
     </Compile>
     <Compile Include="MediaGrid.cs">
       <SubType>UserControl</SubType>
@@ -165,18 +101,6 @@
     <Compile Include="PublisherAccountManagement.Designer.cs">
       <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
     </Compile>
-    <Compile Include="RatingList.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="RatingList.Designer.cs">
-      <DependentUpon>RatingList.cs</DependentUpon>
-    </Compile>
-    <Compile Include="RentalsListControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="RentalsListControl.Designer.cs">
-      <DependentUpon>RentalsListControl.cs</DependentUpon>
-    </Compile>
     <Compile Include="RentItMessageBox.cs" />
     <Compile Include="RentItProxy.cs" />
     <Compile Include="SearchResultsControl.cs">
@@ -196,56 +120,25 @@
     <Compile Include="TopBarControl.Designer.cs">
       <DependentUpon>TopBarControl.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AlbumDetails.resx">
-      <DependentUpon>AlbumDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AlsoRentedList.resx">
-      <DependentUpon>AlsoRentedList.cs</DependentUpon>
-    </EmbeddedResource>
-    <Compile Include="UserAccountManagement.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="UserAccountManagement.Designer.cs">
-      <DependentUpon>UserAccountManagement.cs</DependentUpon>
-    </Compile>
+<<<<<<< HEAD
     <Compile Include="UserRegistration.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserRegistration.Designer.cs">
       <DependentUpon>UserRegistration.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="BookMovieDetails.resx">
-      <DependentUpon>BookMovieDetails.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="CreditsControl.resx">
-      <DependentUpon>CreditsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DetailedMediaListControl.resx">
-      <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="PagedRatingsListControl.resx">
-      <DependentUpon>PagedRatingsListControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="EditAccount.resx">
       <DependentUpon>EditAccount.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="AlsoRentedList.resx">
+      <DependentUpon>AlsoRentedList.cs</DependentUpon>
+>>>>>>> 960b3077228a98e0b8c0ecd15dfbe5b3adffa45a
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="GenreList.resx">
-      <DependentUpon>GenreList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
-      <DependentUpon>MainForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="ListOfMedia.resx">
       <DependentUpon>ListOfMedia.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MediaFrontpage.resx">
-      <DependentUpon>MediaFrontpage.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="MainScreen.resx">
-      <DependentUpon>MainScreen.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MediaGrid.resx">
       <DependentUpon>MediaGrid.cs</DependentUpon>
@@ -268,17 +161,8 @@
     <EmbeddedResource Include="PublisherAccountManagement.resx">
       <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RatingList.resx">
-      <DependentUpon>RatingList.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="RentalsListControl.resx">
-      <DependentUpon>RentalsListControl.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="SearchResultsControl.resx">
       <DependentUpon>SearchResultsControl.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserAccountManagement.resx">
-      <DependentUpon>UserAccountManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserRegistration.resx">
       <DependentUpon>UserRegistration.cs</DependentUpon>

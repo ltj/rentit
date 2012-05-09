@@ -7,11 +7,7 @@
         public TopBarControl() {
             InitializeComponent();
             Title = "RentIt";
-            UserName = "";
             TypeComboBox.SelectedIndex = 0;
-        }
-        public TopBarControl(string title) : this() {
-            Title = title;
         }
 
         /// <summary>
@@ -31,15 +27,37 @@
             get { return UserNameLabel.Text; }
             set {
                 UserNameLabel.Text = value;
-                LogInLogOutButton.Text = value.Length > 0 ? "Log out" : "Log in";
-                LoggedIn = value.Length > 0;
+                
             }
         }
 
         /// <summary>
-        /// Sets whether the login button should display "log in" or "log out"
+        /// The credits displayed on the top bar.
+        /// Setter sets the amount of credits displayed.
+        /// If credits are less than or equal to0,
+        /// "no credits" will be displayed.
         /// </summary>
-        private bool LoggedIn { get; set; }
+        public int Credits {
+            set {
+                string credits = value > 0 ? value.ToString() : "no";
+                creditsLabel.Text = "(" + credits + " credits)";
+            }
+        }
+
+        /// <summary>
+        /// Sets whether the top bar should display user information
+        /// or not, as well as "log in" / "log out".
+        /// </summary>
+        public bool LoggedIn {
+            get { return loggedIn; }
+            set {
+                loggedIn = value;
+                UserNameLabel.Visible = value;
+                creditsLabel.Visible = value;
+                LogInLogOutButton.Text = value ? "Log out" : "Log in/register";
+            }
+        }
+        private bool loggedIn;
 
         private void SearchButtonClick(object sender, EventArgs e) {
             var comboBoxType = (string)TypeComboBox.SelectedItem;
@@ -64,23 +82,28 @@
             };
 
             // switch to search results, using criteria object
-            (ParentForm as MainForm).Content = new SearchResultsControl(criteria);
+            var search = new SearchResultsControl { Criteria = criteria };
+            (ParentForm as MainForm).Content = search;
         }
 
         private void LogInLogOutButtonClick(object sender, EventArgs e) {
             if(!LoggedIn) {
                 // go to log in screen
                 UserName = "skinkehyllebanke";
+                Credits = 650;
+                LoggedIn = true;
             }
             else {
                 // log the user out
                 UserName = "";
-
+                Credits = 0;
+                LoggedIn = false;
+                //TODO: if the user logs out while on a user page, reset to main screen
             }
         }
 
         private void HomeButtonClick(object sender, EventArgs e) {
-
+            (ParentForm as MainForm).Content = new MainScreen();
         }
 
         private void MovieButtonClick(object sender, EventArgs e) {
@@ -102,6 +125,13 @@
             else {
                 // go to account screen
                 (ParentForm as MainForm).Content = new PublisherAccountManagement();
+            }
+        }
+
+        private void SearchTextBoxKeyPressed(object sender, KeyEventArgs keyEventArgs) {
+            if(keyEventArgs.KeyCode == Keys.Enter) {
+                keyEventArgs.Handled = true;
+                SearchButtonClick(sender, keyEventArgs);
             }
         }
     }

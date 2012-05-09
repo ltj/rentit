@@ -1,7 +1,5 @@
-namespace ClientApp
-{
-    partial class Form1
-    {
+namespace ClientApp {
+    partial class Form1 {
         /// <summary>
         /// Required designer variable.
         /// </summary>
@@ -11,10 +9,8 @@ namespace ClientApp
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (components != null))
-            {
+        protected override void Dispose(bool disposing) {
+            if (disposing && (components != null)) {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -26,62 +22,61 @@ namespace ClientApp
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
-        {
-			this.creditsControl1 = new ClientApp.CreditsControl();
-			this.mediaGrid = new ClientApp.MediaGrid();
-			this.SuspendLayout();
-			// 
-			// creditsControl1
-			// 
-			this.creditsControl1.Location = new System.Drawing.Point(160, 73);
-			this.creditsControl1.Name = "creditsControl1";
-			this.creditsControl1.Size = new System.Drawing.Size(217, 232);
-			this.creditsControl1.TabIndex = 0;
-			// 
-			// mediaGrid
-			// 
-			this.mediaGrid.Location = new System.Drawing.Point(0, 0);
-			this.mediaGrid.Name = "mediaGrid";
-			this.mediaGrid.Size = new System.Drawing.Size(462, 119);
-			this.mediaGrid.TabIndex = 0;
-			// 
-			// Form1
-			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(911, 596);
-			this.Controls.Add(this.creditsControl1);
-			this.Name = "Form1";
-			this.Text = "Form1";
-			this.ResumeLayout(false);
+        private void InitializeComponent() {
+            this.button1 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.mediaFrontpage1 = new ClientApp.MediaFrontpage();
+            this.SuspendLayout();
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(25, 529);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(125, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Test Mothafucka";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Books",
+            "Movies",
+            "Music"});
+            this.comboBox1.Location = new System.Drawing.Point(223, 529);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(121, 21);
+            this.comboBox1.TabIndex = 2;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
+            // 
+            // mediaFrontpage1
+            // 
+            this.mediaFrontpage1.BackColor = System.Drawing.SystemColors.Window;
+            this.mediaFrontpage1.Location = new System.Drawing.Point(12, 12);
+            this.mediaFrontpage1.Name = "mediaFrontpage1";
+            this.mediaFrontpage1.Size = new System.Drawing.Size(701, 433);
+            this.mediaFrontpage1.TabIndex = 1;
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(964, 576);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.mediaFrontpage1);
+            this.Controls.Add(this.button1);
+            this.Name = "Form1";
+            this.Text = "Form1";
+            this.ResumeLayout(false);
 
         }
 
-        private MediaGrid mediaGrid;
-
         #endregion
-		private CreditsControl creditsControl1;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	}
+        private System.Windows.Forms.Button button1;
+        private MediaFrontpage mediaFrontpage1;
+        private System.Windows.Forms.ComboBox comboBox1;
+    }
 }
-

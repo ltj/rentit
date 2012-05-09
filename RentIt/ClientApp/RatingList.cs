@@ -17,7 +17,7 @@
             rentit = new RentItClient(binding, address);
         }
 
-        internal MediaInfo MediaInfo {
+        internal MediaInfo Media {
             get { return media; }
             set {
                 media = value;
@@ -32,13 +32,7 @@
         }
 
         private void PopulateList() {
-            foreach(var review in media.Rating.Reviews) {
-                var item = new ListViewItem(review.UserName);
-                item.SubItems.Add(review.Timestamp.Date.ToString());
-                item.SubItems.Add(review.ReviewText);
-                item.SubItems.Add(review.Rating.ToString());
-                ReviewList.Items.Add(item);
-            }
+            reviewList.MediaItems = Media;
         }
 
         private void SubmitReviewButtonClick(object sender, EventArgs e) {
@@ -79,6 +73,21 @@
                                          };
 
             rentit.SubmitReview(review, credentials);
+
+            // reload the media to list newly submitted review and update average rating
+            switch(media.Type) {
+                case MediaType.Book:
+                    Media = rentit.GetBookInfo(media.Id);
+                    break;
+                case MediaType.Movie:
+                    Media = rentit.GetMovieInfo(media.Id);
+                    break;
+                case MediaType.Album:
+                    Media = rentit.GetMovieInfo(media.Id);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
