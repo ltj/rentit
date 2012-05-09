@@ -37,26 +37,11 @@ namespace ClientApp
         {
             var medias = rentIt.GetMediaItems(criteria);
 
-            List<MediaInfo> list;
-            /*
-            switch (criteria.Type)
-            {
-                case MediaType.Album:
-                    list = medias.Albums;
-                    break;
-                case MediaType.Book:
-                    list = medias.Books;
-                    break;
-                case MediaType.Song:
-                    list = medias.Songs;
-                    break;
-                case MediaType.Movie:
-                    list = medias.Movies;
-                    break;
-                default:
-                    list = new MediaInfo[0];
-                    break;
-            }
+            var list = new List<MediaInfo>();
+            list.AddRange(medias.Albums);
+            list.AddRange(medias.Books);
+            list.AddRange(medias.Movies);
+            
             if (list.Count() > 0 && !Numbering)
                 for (int i = 0; i < list.Count() - 1; i++)
                     listBox1.Items.Add(list[i].Title);
@@ -64,7 +49,7 @@ namespace ClientApp
             if (list.Count() > 0 && Numbering)
                 for (int i = 0; i < list.Count() - 1; i++)
                     listBox1.Items.Add((i + 1) + ". " + list[i].Title);
-             */
+             
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
