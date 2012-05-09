@@ -28,19 +28,19 @@ namespace ClientApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.publisherAccountManagement1 = new ClientApp.PublisherAccountManagement();
+            this.albumDetails1 = new ClientApp.AlbumDetails();
             this.mediaGrid = new ClientApp.MediaGrid();
             this.SuspendLayout();
             // 
-            // publisherAccountManagement1
+            // albumDetails1
             // 
-            this.publisherAccountManagement1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.albumDetails1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.publisherAccountManagement1.Location = new System.Drawing.Point(12, 12);
-            this.publisherAccountManagement1.Name = "publisherAccountManagement1";
-            this.publisherAccountManagement1.Size = new System.Drawing.Size(856, 564);
-            this.publisherAccountManagement1.TabIndex = 0;
+            this.albumDetails1.Location = new System.Drawing.Point(9, 12);
+            this.albumDetails1.Name = "albumDetails1";
+            this.albumDetails1.Size = new System.Drawing.Size(935, 572);
+            this.albumDetails1.TabIndex = 0;
             // 
             // mediaGrid
             // 
@@ -53,8 +53,8 @@ namespace ClientApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(911, 596);
-            this.Controls.Add(this.publisherAccountManagement1);
+            this.ClientSize = new System.Drawing.Size(956, 596);
+            this.Controls.Add(this.albumDetails1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -64,7 +64,17 @@ namespace ClientApp
         private MediaGrid mediaGrid;
 
         #endregion
-        private PublisherAccountManagement publisherAccountManagement1;
+        private AlbumDetails albumDetails1;
+
+
+
+
+
+
+
+
+
+
 
 
 
