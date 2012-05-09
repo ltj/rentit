@@ -23,13 +23,13 @@ namespace ClientApp {
                                                  Type = MediaType.Movie
                                              };
 
-            moviesList.UpdateList(MediaType.Movie, criteria);
+            moviesList.UpdateList(criteria);
 
             criteria.Type = MediaType.Book;
-            booksList.UpdateList(MediaType.Book, criteria);
+            booksList.UpdateList(criteria);
 
             criteria.Type = MediaType.Album;
-            booksList.UpdateList(MediaType.Album, criteria);
+            booksList.UpdateList(criteria);
         }
     }
 }

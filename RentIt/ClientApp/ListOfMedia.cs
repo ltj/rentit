@@ -24,7 +24,6 @@ namespace ClientApp
             rentIt = new RentItClient(binding, address);
             Title = "";
             Numbering = false;
-            Type = MediaType.Any;
         }
 
         internal string Title {
@@ -39,6 +38,7 @@ namespace ClientApp
             var medias = rentIt.GetMediaItems(criteria);
 
             List<MediaInfo> list;
+            /*
             switch (criteria.Type)
             {
                 case MediaType.Album:
@@ -64,6 +64,7 @@ namespace ClientApp
             if (list.Count() > 0 && Numbering)
                 for (int i = 0; i < list.Count() - 1; i++)
                     listBox1.Items.Add((i + 1) + ". " + list[i].Title);
+             */
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
