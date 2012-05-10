@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace ClientApp
 {
+	/// <summary>
+	/// A user control containing user controls relevant to user account management. 
+	/// </summary>
 	public partial class UserAccountManagement : UserControl
 	{
 		public UserAccountManagement()
