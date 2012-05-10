@@ -56,7 +56,7 @@
             this.mediaFrontpage1.BackColor = System.Drawing.SystemColors.Window;
             this.mediaFrontpage1.Location = new System.Drawing.Point(12, 12);
             this.mediaFrontpage1.Name = "mediaFrontpage1";
-            this.mediaFrontpage1.Size = new System.Drawing.Size(701, 433);
+            this.mediaFrontpage1.Size = new System.Drawing.Size(940, 468);
             this.mediaFrontpage1.TabIndex = 1;
             // 
             // Form1
