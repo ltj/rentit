@@ -59,6 +59,19 @@ namespace ClientApp
             }
         }
 
+        internal void AddSelectedIndexChangedEventHandler(EventHandler handler)
+        {
+            this.mediaList.SelectedIndexChanged += handler;
+        }
+
+        internal ListView.SelectedListViewItemCollection SelectedItems
+        {
+            get
+            {
+                return this.mediaList.SelectedItems;
+            }
+        }
+
         #region Controllers
 
         private void firstPageButton_Click(object sender, EventArgs e)
