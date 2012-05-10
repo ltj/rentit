@@ -10,20 +10,20 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class BookMovieDetails : UserControl
+    public partial class BookMovieDetails : RentItUserControl
     {
-
-        private RentItClient serviceClient;
-
+        /// <summary>
+        /// Initializes a new instance of the BookMovieDetails class.
+        /// </summary>
         public BookMovieDetails()
         {
             InitializeComponent();
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            serviceClient = new RentItClient(binding, address);
+            this.RentItProxy = new RentItClient(binding, address);
 
-            this.BookInfo = this.serviceClient.GetBookInfo(75);
+            this.BookInfo = this.RentItProxy.GetBookInfo(75);
         }
 
         /// <summary>

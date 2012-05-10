@@ -17,7 +17,7 @@ namespace ClientApp
 	/// The user control used to display medias rented by users who also rented a given media item.
 	/// </summary>
 	/// <author>Jacob Rasmussen</author>
-	public partial class AlsoRentedList : UserControl
+	public partial class AlsoRentedList : RentItUserControl
 	{
 		private readonly RentItClient rentIt;
 

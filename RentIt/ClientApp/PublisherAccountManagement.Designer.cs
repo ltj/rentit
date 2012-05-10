@@ -28,10 +28,6 @@ namespace ClientApp
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Songs", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Albums", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Movies", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Books", System.Windows.Forms.HorizontalAlignment.Left);
             this.TabControl = new System.Windows.Forms.TabControl();
             this.AccountManagementTab = new System.Windows.Forms.TabPage();
             this.MediaManagementTab = new System.Windows.Forms.TabPage();
@@ -39,9 +35,11 @@ namespace ClientApp
             this.deleteMediaButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.MediaUploadTab = new System.Windows.Forms.TabPage();
+            this.editAccountControl = new ClientApp.EditAccount();
+            this.publishedMediaList = new ClientApp.DetailedMediaListControl();
             this.mediaUploadControl1 = new ClientApp.MediaUploadControl();
-            this.publishedMediaList = new ClientApp.MediaList();
             this.TabControl.SuspendLayout();
+            this.AccountManagementTab.SuspendLayout();
             this.MediaManagementTab.SuspendLayout();
             this.panel1.SuspendLayout();
             this.MediaUploadTab.SuspendLayout();
@@ -63,6 +61,7 @@ namespace ClientApp
             // 
             // AccountManagementTab
             // 
+            this.AccountManagementTab.Controls.Add(this.editAccountControl);
             this.AccountManagementTab.Location = new System.Drawing.Point(4, 22);
             this.AccountManagementTab.Name = "AccountManagementTab";
             this.AccountManagementTab.Padding = new System.Windows.Forms.Padding(3);
@@ -128,39 +127,33 @@ namespace ClientApp
             this.MediaUploadTab.Text = "Media Upload";
             this.MediaUploadTab.UseVisualStyleBackColor = true;
             // 
-            // mediaUploadControl1
+            // editAccountControl
             // 
-            this.mediaUploadControl1.Location = new System.Drawing.Point(7, 7);
-            this.mediaUploadControl1.Name = "mediaUploadControl1";
-            this.mediaUploadControl1.Size = new System.Drawing.Size(812, 519);
-            this.mediaUploadControl1.TabIndex = 0;
+            this.editAccountControl.BackColor = System.Drawing.SystemColors.Window;
+            this.editAccountControl.Location = new System.Drawing.Point(245, 179);
+            this.editAccountControl.Name = "editAccountControl";
+            this.editAccountControl.Size = new System.Drawing.Size(356, 173);
+            this.editAccountControl.TabIndex = 0;
             // 
             // publishedMediaList
             // 
-            this.publishedMediaList.AutoArrange = false;
-            this.publishedMediaList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.publishedMediaList.FullRowSelect = true;
-            this.publishedMediaList.GridLines = true;
-            listViewGroup1.Header = "Songs";
-            listViewGroup1.Name = null;
-            listViewGroup2.Header = "Albums";
-            listViewGroup2.Name = null;
-            listViewGroup3.Header = "Movies";
-            listViewGroup3.Name = null;
-            listViewGroup4.Header = "Books";
-            listViewGroup4.Name = null;
-            this.publishedMediaList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3,
-            listViewGroup4});
+            this.publishedMediaList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.publishedMediaList.Location = new System.Drawing.Point(0, 0);
-            this.publishedMediaList.MultiSelect = false;
             this.publishedMediaList.Name = "publishedMediaList";
             this.publishedMediaList.Size = new System.Drawing.Size(716, 519);
-            this.publishedMediaList.TabIndex = 9;
-            this.publishedMediaList.UseCompatibleStateImageBehavior = false;
-            this.publishedMediaList.View = System.Windows.Forms.View.Details;
+            this.publishedMediaList.TabIndex = 0;
+            // 
+            // mediaUploadControl1
+            // 
+            this.mediaUploadControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.mediaUploadControl1.Location = new System.Drawing.Point(7, 7);
+            this.mediaUploadControl1.Name = "mediaUploadControl1";
+            this.mediaUploadControl1.Size = new System.Drawing.Size(839, 519);
+            this.mediaUploadControl1.TabIndex = 0;
             // 
             // PublisherAccountManagement
             // 
@@ -170,6 +163,7 @@ namespace ClientApp
             this.Name = "PublisherAccountManagement";
             this.Size = new System.Drawing.Size(866, 564);
             this.TabControl.ResumeLayout(false);
+            this.AccountManagementTab.ResumeLayout(false);
             this.MediaManagementTab.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.MediaUploadTab.ResumeLayout(false);
@@ -187,6 +181,7 @@ namespace ClientApp
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button changePriceButton;
         private System.Windows.Forms.Button deleteMediaButton;
-        private MediaList publishedMediaList;
+        private DetailedMediaListControl publishedMediaList;
+        private EditAccount editAccountControl;
     }
 }

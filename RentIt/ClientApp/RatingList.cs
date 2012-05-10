@@ -5,7 +5,7 @@
 
     using RentIt;
 
-    public partial class RatingList : UserControl {
+    public partial class RatingList : RentItUserControl {
         private MediaInfo media;
         private readonly RentItClient rentit;
 

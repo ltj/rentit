@@ -13,7 +13,7 @@ namespace ClientApp
     /// User control showing a list media based on a given criteria. Media items can be optionally numbered.
     /// </summary>
     /// <author>Jacob Rasmussen</author>
-    public partial class ListOfMedia : UserControl {
+    public partial class ListOfMedia : RentItUserControl {
         private readonly RentItClient rentIt;
 
         public ListOfMedia()

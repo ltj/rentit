@@ -7,10 +7,8 @@
 
     using RentIt;
 
-    public partial class PublisherAccountManagement : UserControl
+    public partial class PublisherAccountManagement : RentItUserControl
     {
-        private AccountCredentials accountCredentials;
-        private RentItClient serviceClient;
 
         private Dictionary<ListViewItem, MediaInfo> map;
 
@@ -21,22 +19,28 @@
             deleteMediaButton.Enabled = false;
             changePriceButton.Enabled = false;
 
-            publishedMediaList.SelectedIndexChanged += this.SelectedIndexChangedHandler;
+            // Add eventhandlers:
+            publishedMediaList.AddSelectedIndexChangedEventHandler(this.SelectedIndexChangedHandler);
+            publishedMediaList.AddLostFocusEventHandler(this.LostFocusHandler);
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            this.serviceClient = new RentItClient(binding, address);
+            this.RentItProxy = new RentItClient(binding, address);
 
-            this.accountCredentials = this.accountCredentials = new AccountCredentials()
+            this.Credentials = new AccountCredentials()
             {
                 UserName = "publishCorp",
                 HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
             };
 
-            PublisherAccount accountData = serviceClient.GetAllPublisherData(accountCredentials);
-            this.publishedMediaList.UpdateListContents(accountData.PublishedItems);
+            this.editAccountControl.RentItProxy = this.RentItProxy;
+            this.editAccountControl.Credentials = this.Credentials;
+
+            PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(this.Credentials);
+            this.publishedMediaList.MediaItems = accountData.PublishedItems;
         }
 
+        /*
         internal PublisherAccountManagement(AccountCredentials accountCredentials)
             : this()
         {
@@ -52,7 +56,27 @@
             // accountCredentials;
 
             PublisherAccount accountData = serviceClient.GetAllPublisherData(this.accountCredentials);
-            this.publishedMediaList.UpdateListContents(accountData.PublishedItems);
+            this.publishedMediaList.MediaItems = accountData.PublishedItems;
+        }
+         * */
+
+
+        /// <summary>
+        /// Sets the account credentials to be used by the UserControl.
+        /// When the credentials is set, the UserControl is populated with data.
+        /// </summary>
+        internal override AccountCredentials Credentials
+        {
+            get
+            {
+                return base.Credentials;
+            }
+            set
+            {
+                base.Credentials = value;
+                PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(value);
+                this.publishedMediaList.MediaItems = accountData.PublishedItems;
+            }
         }
 
         #region EventHandlers
@@ -80,6 +104,12 @@
             }
         }
 
+        private void LostFocusHandler(object obj, EventArgs e)
+        {
+            deleteMediaButton.Enabled = false;
+            changePriceButton.Enabled = false;
+        }
+
         #endregion
 
         #region Controllers
@@ -99,8 +129,8 @@
             //this.serviceClient.DeleteMedia(selectedMediaInfo.Id, this.accountCredentials);
 
             // Update the list to reflec the deletion changes.
-            PublisherAccount pubAcc = this.serviceClient.GetAllPublisherData(this.accountCredentials);
-            this.publishedMediaList.UpdateListContents(pubAcc.PublishedItems);
+            PublisherAccount pubAcc = this.RentItProxy.GetAllPublisherData(this.Credentials);
+            this.publishedMediaList.MediaItems = pubAcc.PublishedItems;
         }
 
         #endregion

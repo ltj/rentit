@@ -11,7 +11,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class RentalsListControl : UserControl
+    public partial class RentalsListControl : RentItUserControl
     {
         /// <summary>
         /// Initializes a new instance of the RentalsListControl class.
@@ -22,6 +22,9 @@ namespace ClientApp
 
             this.itemsPerPageComboBox.SelectedIndex = 0;
             this.mediaList.ItemsPerPage = int.Parse(this.itemsPerPageComboBox.SelectedItem.ToString());
+
+            this.currentPageTextbox.Text =
+                this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
 
             // Add event handlers
             this.itemsPerPageComboBox.SelectedIndexChanged += this.ComboBoxSelectedItemChangedEventHandler;

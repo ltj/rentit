@@ -17,7 +17,7 @@ namespace ClientApp
 	/// The User Control used on the User account page in the Credits pane.
 	/// </summary>
 	/// <author>Jacob Rasmussen</author>
-	public partial class CreditsControl : UserControl {
+	public partial class CreditsControl : RentItUserControl {
 		internal int Credits { get; private set; }
 
 		// Option to choose from 3 different credit values to add to the user account.
@@ -85,6 +85,6 @@ namespace ClientApp
 
 			//Updates the displayed Credits value.
 			this.UpdateValue();
-		}
+		}		
 	}
 }

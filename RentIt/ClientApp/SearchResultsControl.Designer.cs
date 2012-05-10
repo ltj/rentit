@@ -27,8 +27,11 @@
             this.TypeFilter = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.resultsLabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.filterButton = new System.Windows.Forms.Button();
+            this.priceFilter = new System.Windows.Forms.ListBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.results = new ClientApp.DetailedMediaListControl();
             this.SuspendLayout();
             // 
@@ -38,9 +41,9 @@
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.GenreFilter.FormattingEnabled = true;
             this.GenreFilter.IntegralHeight = false;
-            this.GenreFilter.Location = new System.Drawing.Point(5, 140);
+            this.GenreFilter.Location = new System.Drawing.Point(5, 139);
             this.GenreFilter.Name = "GenreFilter";
-            this.GenreFilter.Size = new System.Drawing.Size(120, 309);
+            this.GenreFilter.Size = new System.Drawing.Size(120, 160);
             this.GenreFilter.TabIndex = 15;
             this.GenreFilter.SelectedIndexChanged += new System.EventHandler(this.GenreFilterSelectedIndexChanged);
             // 
@@ -70,21 +73,21 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 32);
+            this.label3.Location = new System.Drawing.Point(4, 31);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(31, 13);
             this.label3.TabIndex = 12;
             this.label3.Text = "Type";
             // 
-            // label2
+            // resultsLabel
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label2.Location = new System.Drawing.Point(138, 7);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 16);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Results";
+            this.resultsLabel.AutoSize = true;
+            this.resultsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.resultsLabel.Location = new System.Drawing.Point(138, 7);
+            this.resultsLabel.Name = "resultsLabel";
+            this.resultsLabel.Size = new System.Drawing.Size(60, 16);
+            this.resultsLabel.TabIndex = 11;
+            this.resultsLabel.Text = "Results";
             // 
             // label1
             // 
@@ -95,6 +98,44 @@
             this.label1.Size = new System.Drawing.Size(51, 16);
             this.label1.TabIndex = 10;
             this.label1.Text = "Filters";
+            // 
+            // filterButton
+            // 
+            this.filterButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.filterButton.Location = new System.Drawing.Point(4, 424);
+            this.filterButton.Name = "filterButton";
+            this.filterButton.Size = new System.Drawing.Size(121, 23);
+            this.filterButton.TabIndex = 17;
+            this.filterButton.Text = "Filter results";
+            this.filterButton.UseVisualStyleBackColor = true;
+            this.filterButton.Click += new System.EventHandler(this.FilterButtonClick);
+            // 
+            // priceFilter
+            // 
+            this.priceFilter.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.priceFilter.FormattingEnabled = true;
+            this.priceFilter.Items.AddRange(new object[] {
+            "Any",
+            "Under 50 credits",
+            "50 - 75 credits",
+            "76 - 100 credits",
+            "101 - 125 credits",
+            "125 - 150 credits",
+            "over 150 credits"});
+            this.priceFilter.Location = new System.Drawing.Point(5, 322);
+            this.priceFilter.Name = "priceFilter";
+            this.priceFilter.Size = new System.Drawing.Size(120, 95);
+            this.priceFilter.TabIndex = 18;
+            // 
+            // label2
+            // 
+            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 305);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(31, 13);
+            this.label2.TabIndex = 19;
+            this.label2.Text = "Price";
             // 
             // results
             // 
@@ -111,6 +152,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.priceFilter);
+            this.Controls.Add(this.filterButton);
+            this.Controls.Add(this.resultsLabel);
             this.Controls.Add(this.results);
             this.Controls.Add(this.GenreFilter);
             this.Controls.Add(this.TypeFilter);
@@ -130,8 +174,11 @@
         private System.Windows.Forms.ListBox TypeFilter;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label resultsLabel;
         private System.Windows.Forms.Label label1;
         private DetailedMediaListControl results;
+        private System.Windows.Forms.Button filterButton;
+        private System.Windows.Forms.ListBox priceFilter;
+        private System.Windows.Forms.Label label2;
     }
 }

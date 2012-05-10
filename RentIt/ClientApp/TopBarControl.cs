@@ -3,7 +3,7 @@
     using System.Windows.Forms;
     using RentIt;
 
-    public partial class TopBarControl : UserControl {
+    public partial class TopBarControl : RentItUserControl {
         public TopBarControl() {
             InitializeComponent();
             Title = "RentIt";
@@ -59,8 +59,8 @@
         }
         private bool loggedIn;
 
-        private void SearchButtonClick(object sender, EventArgs e) {
-            var comboBoxType = (string)TypeComboBox.SelectedItem;
+        private void Search() {
+            var comboBoxType = (string) TypeComboBox.SelectedItem;
 
             MediaType mediaType;
             if(comboBoxType.Equals("Movies"))
@@ -84,6 +84,10 @@
             // switch to search results, using criteria object
             var search = new SearchResultsControl { Criteria = criteria };
             (ParentForm as MainForm).Content = search;
+        }
+
+        private void SearchButtonClick(object sender, EventArgs e) {
+            Search();
         }
 
         private void LogInLogOutButtonClick(object sender, EventArgs e) {
@@ -131,7 +135,7 @@
         private void SearchTextBoxKeyPressed(object sender, KeyEventArgs keyEventArgs) {
             if(keyEventArgs.KeyCode == Keys.Enter) {
                 keyEventArgs.Handled = true;
-                SearchButtonClick(sender, keyEventArgs);
+                Search();
             }
         }
     }

@@ -3,7 +3,7 @@
 namespace ClientApp {
     using RentIt;
 
-    public partial class MainScreen : UserControl {
+    public partial class MainScreen : RentItUserControl {
         public MainScreen() {
             InitializeComponent();
             moviesList.Title = "Featured movies";
@@ -18,7 +18,7 @@ namespace ClientApp {
                                                  Genre = "",
                                                  Limit = 10,
                                                  Offset = 0,
-                                                 Order = MediaOrder.Default,
+                                                 Order = MediaOrder.PopularityDesc,
                                                  SearchText = "",
                                                  Type = MediaType.Movie
                                              };

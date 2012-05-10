@@ -208,6 +208,9 @@
     <Compile Include="UserAccountManagement.Designer.cs">
       <DependentUpon>UserAccountManagement.cs</DependentUpon>
     </Compile>
+    <Compile Include="RentItUserControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="UserRegistration.cs">
       <SubType>UserControl</SubType>
     </Compile>

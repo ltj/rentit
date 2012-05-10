@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace ClientApp {
-    public partial class GenreList : UserControl {
+    public partial class GenreList : RentItUserControl {
 
         private RentItClient client;
         private RentIt.MediaType mtype;
@@ -25,20 +25,27 @@ namespace ClientApp {
             }
         }
 
-        internal RentItClient Proxy {
+        internal override RentItClient RentItProxy {
             set { client = value; }
         }
 
         // get genres for set type
         private void getGenres() {
             if (mtype == RentIt.MediaType.Any || client == null) return;
-            string[] genres = client.GetAllGenres(mtype);
 
-            lstGenres.Clear();
+            lstGenres.Clear(); // clear current content
 
-            foreach (string s in genres) {
-                lstGenres.Items.Add(s);
+            // web service call might throw a fault exception
+            try {
+                string[] genres = client.GetAllGenres(mtype);
+                foreach (string s in genres) {
+                    lstGenres.Items.Add(s);
+                }
+            }
+            catch {
+                lstGenres.Items.Add("Unable to retrieve list");
             }
         }
+
     }
 }
