@@ -17,7 +17,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class DetailedMediaListControl : UserControl
+    public partial class DetailedMediaListControl : RentItUserControl
     {
         /// <summary>
         /// Initializes a new instance of the DetailedMediaListControl class.

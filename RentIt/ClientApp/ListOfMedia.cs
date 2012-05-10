@@ -9,7 +9,7 @@ namespace ClientApp
 
     using RentIt;
 
-    public partial class ListOfMedia : UserControl {
+    public partial class ListOfMedia : RentItUserControl {
         private readonly RentItClient rentIt;
 
         public ListOfMedia()

@@ -10,7 +10,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class BookMovieDetails : UserControl
+    public partial class BookMovieDetails : RentItUserControl
     {
 
         private RentItClient serviceClient;

@@ -3,9 +3,13 @@ using System.Windows.Forms;
 using System.ServiceModel;
 
 namespace ClientApp {
+    using System.Collections.Generic;
+
+    using System.Linq;
+
     using RentIt;
 
-    public partial class SearchResultsControl : UserControl {
+    public partial class SearchResultsControl : RentItUserControl {
         private readonly RentItClient rentIt;
         private MediaCriteria criteria;
 
@@ -30,8 +34,29 @@ namespace ClientApp {
         private void UpdateResults() {
             MediaItems mediaItems = rentIt.GetMediaItems(Criteria);
             results.MediaItems = mediaItems;
-            resultsLabel.Text = "Results for \"" + Criteria.SearchText +"\"";
+            resultsLabel.Text = "Results for \"" + Criteria.SearchText + "\"";
         }
+
+        /*private MediaItems FilterByPrice(MediaItems items) {
+            int minPrice = 0;
+            int maxPrice = 0;
+
+            int selectedIndex = 
+
+            var albums = new List<AlbumInfo>();
+            var movies = new List<MovieInfo>();
+            var books = new List<BookInfo>();
+            var songs = new List<SongInfo>();
+
+            albums = items.Albums.Where(m => m.Price);
+
+            return new MediaItems {
+                Albums = albums.ToArray(),
+                Movies = movies.ToArray(),
+                Books = books.ToArray(),
+                Songs = songs.ToArray()
+            };
+        }*/
 
         private void UpdateTypes() {
             MediaType type = Criteria.Type;

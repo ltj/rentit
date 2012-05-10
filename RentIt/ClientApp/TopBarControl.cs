@@ -3,7 +3,7 @@
     using System.Windows.Forms;
     using RentIt;
 
-    public partial class TopBarControl : UserControl {
+    public partial class TopBarControl : RentItUserControl {
         public TopBarControl() {
             InitializeComponent();
             Title = "RentIt";

@@ -3,7 +3,7 @@
 namespace ClientApp {
     using RentIt;
 
-    public partial class MainScreen : UserControl {
+    public partial class MainScreen : RentItUserControl {
         public MainScreen() {
             InitializeComponent();
             moviesList.Title = "Featured movies";

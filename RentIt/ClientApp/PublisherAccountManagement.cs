@@ -7,7 +7,7 @@
 
     using RentIt;
 
-    public partial class PublisherAccountManagement : UserControl
+    public partial class PublisherAccountManagement : RentItUserControl
     {
         private AccountCredentials accountCredentials;
         private RentItClient serviceClient;

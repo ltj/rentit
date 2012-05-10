@@ -10,7 +10,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class AlbumDetails : UserControl
+    public partial class AlbumDetails : RentItUserControl
     {
 
         private RentItClient serviceClient;
