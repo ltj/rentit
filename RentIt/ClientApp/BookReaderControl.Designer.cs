@@ -24,22 +24,22 @@
         /// </summary>
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookReaderControl));
-            this.axAcroPDF1 = new AxAcroPDFLib.AxAcroPDF();
+            this.pdfReader = new AxAcroPDFLib.AxAcroPDF();
             this.titleLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize) (this.axAcroPDF1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pdfReader)).BeginInit();
             this.SuspendLayout();
             // 
-            // axAcroPDF1
+            // pdfReader
             // 
-            this.axAcroPDF1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.pdfReader.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.axAcroPDF1.Enabled = true;
-            this.axAcroPDF1.Location = new System.Drawing.Point(3, 32);
-            this.axAcroPDF1.Name = "axAcroPDF1";
-            this.axAcroPDF1.OcxState = ((System.Windows.Forms.AxHost.State) (resources.GetObject("axAcroPDF1.OcxState")));
-            this.axAcroPDF1.Size = new System.Drawing.Size(651, 415);
-            this.axAcroPDF1.TabIndex = 0;
+            this.pdfReader.Enabled = true;
+            this.pdfReader.Location = new System.Drawing.Point(3, 32);
+            this.pdfReader.Name = "pdfReader";
+            this.pdfReader.OcxState = ((System.Windows.Forms.AxHost.State) (resources.GetObject("pdfReader.OcxState")));
+            this.pdfReader.Size = new System.Drawing.Size(651, 415);
+            this.pdfReader.TabIndex = 0;
             // 
             // titleLabel
             // 
@@ -56,10 +56,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.titleLabel);
-            this.Controls.Add(this.axAcroPDF1);
+            this.Controls.Add(this.pdfReader);
             this.Name = "BookReaderControl";
             this.Size = new System.Drawing.Size(657, 450);
-            ((System.ComponentModel.ISupportInitialize) (this.axAcroPDF1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.pdfReader)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -67,7 +67,7 @@
 
         #endregion
 
-        private AxAcroPDFLib.AxAcroPDF axAcroPDF1;
+        private AxAcroPDFLib.AxAcroPDF pdfReader;
         private System.Windows.Forms.Label titleLabel;
     }
 }

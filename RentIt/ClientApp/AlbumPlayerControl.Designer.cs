@@ -24,32 +24,32 @@
         /// </summary>
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlbumPlayerControl));
-            this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
-            this.detailedMediaListControl1 = new ClientApp.DetailedMediaListControl();
+            this.mediaPlayer = new AxWMPLib.AxWindowsMediaPlayer();
+            this.songList = new ClientApp.DetailedMediaListControl();
             this.titleLabel = new System.Windows.Forms.Label();
-            ((System.ComponentModel.ISupportInitialize) (this.axWindowsMediaPlayer1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.mediaPlayer)).BeginInit();
             this.SuspendLayout();
             // 
-            // axWindowsMediaPlayer1
+            // mediaPlayer
             // 
-            this.axWindowsMediaPlayer1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+            this.mediaPlayer.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.axWindowsMediaPlayer1.Enabled = true;
-            this.axWindowsMediaPlayer1.Location = new System.Drawing.Point(3, 363);
-            this.axWindowsMediaPlayer1.Name = "axWindowsMediaPlayer1";
-            this.axWindowsMediaPlayer1.OcxState = ((System.Windows.Forms.AxHost.State) (resources.GetObject("axWindowsMediaPlayer1.OcxState")));
-            this.axWindowsMediaPlayer1.Size = new System.Drawing.Size(726, 45);
-            this.axWindowsMediaPlayer1.TabIndex = 0;
+            this.mediaPlayer.Enabled = true;
+            this.mediaPlayer.Location = new System.Drawing.Point(3, 363);
+            this.mediaPlayer.Name = "mediaPlayer";
+            this.mediaPlayer.OcxState = ((System.Windows.Forms.AxHost.State) (resources.GetObject("mediaPlayer.OcxState")));
+            this.mediaPlayer.Size = new System.Drawing.Size(726, 45);
+            this.mediaPlayer.TabIndex = 0;
             // 
-            // detailedMediaListControl1
+            // songList
             // 
-            this.detailedMediaListControl1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.songList.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.detailedMediaListControl1.Location = new System.Drawing.Point(4, 4);
-            this.detailedMediaListControl1.Name = "detailedMediaListControl1";
-            this.detailedMediaListControl1.Size = new System.Drawing.Size(725, 353);
-            this.detailedMediaListControl1.TabIndex = 1;
+            this.songList.Location = new System.Drawing.Point(4, 4);
+            this.songList.Name = "songList";
+            this.songList.Size = new System.Drawing.Size(725, 353);
+            this.songList.TabIndex = 1;
             // 
             // titleLabel
             // 
@@ -66,11 +66,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.titleLabel);
-            this.Controls.Add(this.detailedMediaListControl1);
-            this.Controls.Add(this.axWindowsMediaPlayer1);
+            this.Controls.Add(this.songList);
+            this.Controls.Add(this.mediaPlayer);
             this.Name = "AlbumPlayerControl";
             this.Size = new System.Drawing.Size(732, 411);
-            ((System.ComponentModel.ISupportInitialize) (this.axWindowsMediaPlayer1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.mediaPlayer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -78,8 +78,8 @@
 
         #endregion
 
-        private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
-        private DetailedMediaListControl detailedMediaListControl1;
+        private AxWMPLib.AxWindowsMediaPlayer mediaPlayer;
+        private DetailedMediaListControl songList;
         private System.Windows.Forms.Label titleLabel;
     }
 }
