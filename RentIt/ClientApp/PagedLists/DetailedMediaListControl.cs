@@ -78,6 +78,11 @@ namespace ClientApp
             this.mediaList.LostFocus += handler;
         }
 
+        internal void AddDoubleClickEventHandler(EventHandler handler)
+        {
+            this.mediaList.DoubleClick += handler;
+        }
+
         /// <summary>
         /// Gets the SelectedListViewItemCollection object containing all the
         /// ListViewItems that is currently selected in the paged list.
