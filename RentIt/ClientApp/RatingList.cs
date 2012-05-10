@@ -32,13 +32,7 @@
         }
 
         private void PopulateList() {
-            foreach(var review in media.Rating.Reviews) {
-                var item = new ListViewItem(review.UserName);
-                item.SubItems.Add(review.Timestamp.Date.ToString());
-                item.SubItems.Add(review.ReviewText);
-                item.SubItems.Add(review.Rating.ToString());
-                ReviewList.Items.Add(item);
-            }
+            reviewList.MediaItems = Media;
         }
 
         private void SubmitReviewButtonClick(object sender, EventArgs e) {
@@ -71,14 +65,44 @@
             }
 
             var review = new MediaReview {
-                                             MediaId = media.Id,
+                                             MediaId = Media.Id,
                                              Rating = rating,
                                              ReviewText = ReviewText.Text,
                                              Timestamp = DateTime.Now,
                                              UserName = credentials.UserName
                                          };
 
-            rentit.SubmitReview(review, credentials);
+            // submit review
+            try {
+                rentit.SubmitReview(review, credentials);
+            } catch(FaultException) {
+                // if review was already submitted by this user
+                RentItMessageBox.AlreadyReviewedItem();
+                return;
+            }
+            
+            // reload list
+            ReloadList();
+        }
+
+        /// <summary>
+        /// Reload the media to list newly submitted review
+        /// and update average rating.
+        /// </summary>
+        private void ReloadList() {
+            switch(Media.Type) {
+                case MediaType.Book:
+                    Media = rentit.GetBookInfo(media.Id);
+                    break;
+                case MediaType.Movie:
+                    Media = rentit.GetMovieInfo(media.Id);
+                    break;
+                case MediaType.Album:
+                    Media = rentit.GetMovieInfo(media.Id);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

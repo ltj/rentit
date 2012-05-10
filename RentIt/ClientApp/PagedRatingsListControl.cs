@@ -2,7 +2,6 @@
 namespace ClientApp
 {
     using System;
-    using System.Collections.Generic;
     using System.Windows.Forms;
 
     using RentIt;
@@ -11,31 +10,35 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class RentalsListControl : UserControl
+    public partial class PagedRatingsListControl : UserControl
     {
+
         /// <summary>
-        /// Initializes a new instance of the RentalsListControl class.
+        /// Initializes a new instance of the PagedRatingsListControl class.
         /// </summary>
-        public RentalsListControl()
+        public PagedRatingsListControl()
         {
             InitializeComponent();
 
             this.itemsPerPageComboBox.SelectedIndex = 0;
-            this.mediaList.ItemsPerPage = int.Parse(this.itemsPerPageComboBox.SelectedItem.ToString());
+            this.ratingsList.ItemsPerPage = int.Parse(this.itemsPerPageComboBox.SelectedItem.ToString());
+
+            this.currentPageTextbox.Text =
+                this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
 
             // Add event handlers
             this.itemsPerPageComboBox.SelectedIndexChanged += this.ComboBoxSelectedItemChangedEventHandler;
         }
 
         /// <summary>
-        /// Sets the rating list to display the ratings contained 
-        /// in the submitted list.
+        /// Sets the contents of the rating list based on the MediaInfo
+        /// object submitted.
         /// </summary>
-        internal List<Rental> MediaItems
+        internal MediaInfo MediaItems
         {
             set
             {
-                this.mediaList.UpdateListContents(value);
+                this.ratingsList.UpdateListContents(value.Rating.Reviews);
                 this.DetermineButtons();
             }
         }
@@ -44,34 +47,34 @@ namespace ClientApp
 
         private void firstPageButton_Click(object sender, EventArgs e)
         {
-            this.mediaList.GoToFirstPage();
+            this.ratingsList.GoToFirstPage();
             this.DetermineButtons();
             this.currentPageTextbox.Text =
-                this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
+                this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
         }
 
         private void previousPageButton_Click(object sender, EventArgs e)
         {
-            this.mediaList.PreviousPage();
+            this.ratingsList.PreviousPage();
             this.DetermineButtons();
             this.currentPageTextbox.Text =
-                this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
+                this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
         }
 
         private void nextPageButton_Click(object sender, EventArgs e)
         {
-            this.mediaList.NextPage();
+            this.ratingsList.NextPage();
             this.DetermineButtons();
             this.currentPageTextbox.Text =
-                this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
+                this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
         }
 
         private void lastPageButton_Click(object sender, EventArgs e)
         {
-            this.mediaList.GoToLastPage();
+            this.ratingsList.GoToLastPage();
             this.DetermineButtons();
             this.currentPageTextbox.Text =
-                this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
+                this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
         }
 
         #endregion
@@ -80,10 +83,10 @@ namespace ClientApp
 
         private void ComboBoxSelectedItemChangedEventHandler(object obj, EventArgs e)
         {
-            this.mediaList.ItemsPerPage = int.Parse(
+            this.ratingsList.ItemsPerPage = int.Parse(
                 this.itemsPerPageComboBox.SelectedItem.ToString());
             this.currentPageTextbox.Text =
-                this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
+                this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
             this.DetermineButtons();
         }
 
@@ -95,11 +98,11 @@ namespace ClientApp
         /// </summary>
         private void DetermineButtons()
         {
-            bool hasPreviousPage = this.mediaList.HasPreviousPage();
+            bool hasPreviousPage = this.ratingsList.HasPreviousPage();
             this.firstPageButton.Enabled = hasPreviousPage;
             this.previousPageButton.Enabled = hasPreviousPage;
 
-            bool hasNextPage = this.mediaList.HasNextPage();
+            bool hasNextPage = this.ratingsList.HasNextPage();
             this.nextPageButton.Enabled = hasNextPage;
             this.lastPageButton.Enabled = hasNextPage;
         }

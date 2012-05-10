@@ -6,8 +6,6 @@
 
 namespace ClientApp
 {
-    using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.ServiceModel;
     using System.Windows.Forms;
@@ -23,7 +21,6 @@ namespace ClientApp
         private ColumnHeader titleColumn;
         private ColumnHeader startDateColumn;
         private ColumnHeader endDateColumn;
-        // private ColumnHeader priceColumn;
 
         private ListViewGroup songListViewGroup;
         private ListViewGroup albumListViewGroup;
@@ -38,19 +35,17 @@ namespace ClientApp
         public RentalsList()
         {
             // Initialze columns
-            this.titleColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.startDateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.endDateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            // this.priceColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.titleColumn = new ColumnHeader();
+            this.startDateColumn = new ColumnHeader();
+            this.endDateColumn = new ColumnHeader();
 
             this.AutoArrange = false;
             this.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
                 this.titleColumn,
                 this.startDateColumn,
                 this.endDateColumn,
-                // this.priceColumn
             });
-            // this.Dock = System.Windows.Forms.DockStyle.Fill;
+
             this.FullRowSelect = true;
             this.GridLines = true;
             this.Location = new System.Drawing.Point(0, 0);
@@ -59,7 +54,7 @@ namespace ClientApp
             this.Size = new System.Drawing.Size(500, 470);
             this.TabIndex = 9;
             this.UseCompatibleStateImageBehavior = false;
-            this.View = System.Windows.Forms.View.Details;
+            this.View = View.Details;
             // 
             // titleColumn
             // 
@@ -89,6 +84,7 @@ namespace ClientApp
             this.Groups.AddRange(
                 new ListViewGroup[] { this.songListViewGroup, this.albumListViewGroup, this.movieListViewGroup, this.bookListViewGroup });
 
+            // Initialize the service proxy client.
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
             serviceClient = new RentItClient(binding, address);
@@ -148,6 +144,9 @@ namespace ClientApp
                     default:
                         break;
                 }
+
+                this.RePopulateList();
+                this.EndUpdate();
             }
         }
     }

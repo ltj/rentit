@@ -23,11 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.ReviewList = new System.Windows.Forms.ListView();
-            this.User = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
-            this.Date = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
-            this.Comment = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
-            this.Rating = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
             this.ReviewText = new System.Windows.Forms.TextBox();
             this.RatingSelector = new System.Windows.Forms.ComboBox();
             this.SubmitReviewButton = new System.Windows.Forms.Button();
@@ -38,46 +33,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.AvgRatingCount = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.reviewList = new ClientApp.PagedRatingsListControl();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // ReviewList
-            // 
-            this.ReviewList.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.ReviewList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.User,
-            this.Date,
-            this.Comment,
-            this.Rating});
-            this.ReviewList.Location = new System.Drawing.Point(3, 162);
-            this.ReviewList.MultiSelect = false;
-            this.ReviewList.Name = "ReviewList";
-            this.ReviewList.Size = new System.Drawing.Size(495, 179);
-            this.ReviewList.TabIndex = 0;
-            this.ReviewList.UseCompatibleStateImageBehavior = false;
-            this.ReviewList.View = System.Windows.Forms.View.Details;
-            // 
-            // User
-            // 
-            this.User.Text = "User";
-            this.User.Width = 90;
-            // 
-            // Date
-            // 
-            this.Date.Text = "Date";
-            this.Date.Width = 85;
-            // 
-            // Comment
-            // 
-            this.Comment.Text = "Comment";
-            this.Comment.Width = 239;
-            // 
-            // Rating
-            // 
-            this.Rating.Text = "Rating";
-            this.Rating.Width = 74;
             // 
             // ReviewText
             // 
@@ -88,7 +46,7 @@
             this.ReviewText.Multiline = true;
             this.ReviewText.Name = "ReviewText";
             this.ReviewText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ReviewText.Size = new System.Drawing.Size(358, 75);
+            this.ReviewText.Size = new System.Drawing.Size(418, 75);
             this.ReviewText.TabIndex = 1;
             // 
             // RatingSelector
@@ -102,7 +60,7 @@
             "3 (Three)",
             "4 (Four)",
             "5 (Five) - Best"});
-            this.RatingSelector.Location = new System.Drawing.Point(370, 19);
+            this.RatingSelector.Location = new System.Drawing.Point(430, 19);
             this.RatingSelector.Name = "RatingSelector";
             this.RatingSelector.Size = new System.Drawing.Size(119, 21);
             this.RatingSelector.TabIndex = 2;
@@ -110,7 +68,7 @@
             // SubmitReviewButton
             // 
             this.SubmitReviewButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SubmitReviewButton.Location = new System.Drawing.Point(370, 46);
+            this.SubmitReviewButton.Location = new System.Drawing.Point(430, 46);
             this.SubmitReviewButton.Name = "SubmitReviewButton";
             this.SubmitReviewButton.Size = new System.Drawing.Size(119, 48);
             this.SubmitReviewButton.TabIndex = 3;
@@ -157,7 +115,7 @@
             this.groupBox1.Controls.Add(this.SubmitReviewButton);
             this.groupBox1.Location = new System.Drawing.Point(3, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(495, 101);
+            this.groupBox1.Size = new System.Drawing.Size(555, 101);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Review this media";
@@ -192,21 +150,31 @@
             this.label4.TabIndex = 11;
             this.label4.Text = "ratings";
             // 
+            // reviewList
+            // 
+            this.reviewList.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.reviewList.Location = new System.Drawing.Point(4, 157);
+            this.reviewList.Name = "reviewList";
+            this.reviewList.Size = new System.Drawing.Size(554, 225);
+            this.reviewList.TabIndex = 12;
+            // 
             // RatingList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.reviewList);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.AvgRatingCount);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.AvgRating);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.ReviewList);
             this.Controls.Add(this.groupBox1);
             this.MinimumSize = new System.Drawing.Size(300, 250);
             this.Name = "RatingList";
-            this.Size = new System.Drawing.Size(501, 344);
+            this.Size = new System.Drawing.Size(561, 385);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -216,20 +184,16 @@
 
         #endregion
 
-        private System.Windows.Forms.ListView ReviewList;
         private System.Windows.Forms.TextBox ReviewText;
         private System.Windows.Forms.ComboBox RatingSelector;
         private System.Windows.Forms.Button SubmitReviewButton;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label AvgRating;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ColumnHeader User;
-        private System.Windows.Forms.ColumnHeader Date;
-        private System.Windows.Forms.ColumnHeader Comment;
-        private System.Windows.Forms.ColumnHeader Rating;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label AvgRatingCount;
         private System.Windows.Forms.Label label4;
+        private PagedRatingsListControl reviewList;
     }
 }

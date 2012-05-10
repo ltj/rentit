@@ -82,8 +82,7 @@
             };
 
             // switch to search results, using criteria object
-            var search = new SearchResultsControl();
-            search.Criteria = criteria;
+            var search = new SearchResultsControl { Criteria = criteria };
             (ParentForm as MainForm).Content = search;
         }
 
@@ -104,7 +103,7 @@
         }
 
         private void HomeButtonClick(object sender, EventArgs e) {
-
+            (ParentForm as MainForm).Content = new MainScreen();
         }
 
         private void MovieButtonClick(object sender, EventArgs e) {

@@ -40,6 +40,8 @@
             this.originValueLabel = new System.Windows.Forms.Label();
             this.publisherValueLabel = new System.Windows.Forms.Label();
             this.mediaDetailsGroupBox = new System.Windows.Forms.GroupBox();
+            this.lengthLabel = new System.Windows.Forms.Label();
+            this.lengthValueLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.thumbnailBox)).BeginInit();
             this.mediaDetailsGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -149,6 +151,8 @@
             // 
             // mediaDetailsGroupBox
             // 
+            this.mediaDetailsGroupBox.Controls.Add(this.lengthValueLabel);
+            this.mediaDetailsGroupBox.Controls.Add(this.lengthLabel);
             this.mediaDetailsGroupBox.Controls.Add(this.genreLabel);
             this.mediaDetailsGroupBox.Controls.Add(this.publisherValueLabel);
             this.mediaDetailsGroupBox.Controls.Add(this.releaseDateLabel);
@@ -157,12 +161,31 @@
             this.mediaDetailsGroupBox.Controls.Add(this.originLabel);
             this.mediaDetailsGroupBox.Controls.Add(this.genreValueLabel);
             this.mediaDetailsGroupBox.Controls.Add(this.releaseDateValueLabel);
-            this.mediaDetailsGroupBox.Location = new System.Drawing.Point(3, 257);
+            this.mediaDetailsGroupBox.Location = new System.Drawing.Point(3, 263);
             this.mediaDetailsGroupBox.Name = "mediaDetailsGroupBox";
-            this.mediaDetailsGroupBox.Size = new System.Drawing.Size(204, 191);
+            this.mediaDetailsGroupBox.Size = new System.Drawing.Size(204, 238);
             this.mediaDetailsGroupBox.TabIndex = 13;
             this.mediaDetailsGroupBox.TabStop = false;
             this.mediaDetailsGroupBox.Text = "Media Details";
+            // 
+            // lengthLabel
+            // 
+            this.lengthLabel.AutoSize = true;
+            this.lengthLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lengthLabel.Location = new System.Drawing.Point(15, 196);
+            this.lengthLabel.Name = "lengthLabel";
+            this.lengthLabel.Size = new System.Drawing.Size(73, 13);
+            this.lengthLabel.TabIndex = 13;
+            this.lengthLabel.Text = "lengthLabel";
+            // 
+            // lengthValueLabel
+            // 
+            this.lengthValueLabel.AutoSize = true;
+            this.lengthValueLabel.Location = new System.Drawing.Point(15, 209);
+            this.lengthValueLabel.Name = "lengthValueLabel";
+            this.lengthValueLabel.Size = new System.Drawing.Size(89, 13);
+            this.lengthValueLabel.TabIndex = 14;
+            this.lengthValueLabel.Text = "lengthValueLabel";
             // 
             // MediaSideBar
             // 
@@ -173,8 +196,7 @@
             this.Controls.Add(this.rentButton);
             this.Controls.Add(this.thumbnailBox);
             this.Name = "MediaSideBar";
-            this.Size = new System.Drawing.Size(211, 450);
-            this.Load += new System.EventHandler(this.MediaSideBar_Load);
+            this.Size = new System.Drawing.Size(211, 504);
             ((System.ComponentModel.ISupportInitialize)(this.thumbnailBox)).EndInit();
             this.mediaDetailsGroupBox.ResumeLayout(false);
             this.mediaDetailsGroupBox.PerformLayout();
@@ -197,5 +219,7 @@
         private System.Windows.Forms.Label originValueLabel;
         private System.Windows.Forms.Label publisherValueLabel;
         private System.Windows.Forms.GroupBox mediaDetailsGroupBox;
+        private System.Windows.Forms.Label lengthValueLabel;
+        private System.Windows.Forms.Label lengthLabel;
     }
 }

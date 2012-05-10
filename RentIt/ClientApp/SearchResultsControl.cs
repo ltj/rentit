@@ -20,7 +20,7 @@ namespace ClientApp {
             get { return criteria; }
             set {
                 criteria = value;
-                TypeFilter.SelectedIndex = 0;
+                //TypeFilter.SelectedIndex = 0;
             }
         }
 
@@ -33,7 +33,7 @@ namespace ClientApp {
             GenreFilter.Items.Clear();
             GenreFilter.Items.Add("All");
             GenreFilter.Items.AddRange(rentIt.GetAllGenres(mediaType));
-            GenreFilter.SelectedIndex = 0;
+            //GenreFilter.SelectedIndex = 0;
         }
 
         private void TypeFilterSelectedIndexChanged(object sender, EventArgs e) {

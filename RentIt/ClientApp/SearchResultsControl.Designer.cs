@@ -49,8 +49,8 @@
             this.TypeFilter.FormattingEnabled = true;
             this.TypeFilter.Items.AddRange(new object[] {
             "All",
-            "Music",
             "Movies",
+            "Music",
             "Books"});
             this.TypeFilter.Location = new System.Drawing.Point(4, 48);
             this.TypeFilter.Name = "TypeFilter";

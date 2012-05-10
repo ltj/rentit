@@ -6,9 +6,7 @@
 
 namespace ClientApp
 {
-    using System;
     using System.Collections.Generic;
-    using System.ServiceModel;
     using System.Windows.Forms;
 
     using RentIt;
@@ -30,28 +28,27 @@ namespace ClientApp
         private ListViewGroup movieListViewGroup;
         private ListViewGroup bookListViewGroup;
 
-        private RentItClient serviceClient;
-
         /// <summary>
-        /// Initializes a new instance of the 
+        /// Initializes a new instance of the MediaList class.
         /// </summary>
         public MediaList()
         {
             // Initialze columns
-            this.titleColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.authorColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.genreColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.releaseDateColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.priceColumn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.titleColumn = new ColumnHeader();
+            this.authorColumn = new ColumnHeader();
+            this.genreColumn = new ColumnHeader();
+            this.releaseDateColumn = new ColumnHeader();
+            this.priceColumn = new ColumnHeader();
 
             this.AutoArrange = false;
-            this.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.Columns.AddRange(new ColumnHeader[] {
                 this.titleColumn,
                 this.authorColumn,
                 this.genreColumn,
                 this.releaseDateColumn,
                 this.priceColumn
             });
+
             // this.Dock = System.Windows.Forms.DockStyle.Fill;
             this.FullRowSelect = true;
             this.GridLines = true;
@@ -95,14 +92,10 @@ namespace ClientApp
             this.bookListViewGroup = new ListViewGroup("Books", HorizontalAlignment.Left);
             this.Groups.AddRange(
                 new ListViewGroup[] { this.songListViewGroup, this.albumListViewGroup, this.movieListViewGroup, this.bookListViewGroup });
-
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            serviceClient = new RentItClient(binding, address);
         }
 
         /// <summary>
-        /// Update the ListView with new data.
+        /// Updates the ListView with the submitted data.
         /// When this method is called, all data previously added to the list 
         /// will be disregarded, and the contents of the ListView will match
         /// the media items passed in the parameter.

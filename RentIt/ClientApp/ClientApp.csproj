@@ -61,8 +61,26 @@
     <Compile Include="AlsoRentedList.Designer.cs">
       <DependentUpon>AlsoRentedList.cs</DependentUpon>
     </Compile>
+    <Compile Include="BookMovieDetails.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BookMovieDetails.Designer.cs">
+      <DependentUpon>BookMovieDetails.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CreditsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CreditsControl.Designer.cs">
+      <DependentUpon>CreditsControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="DetailedMediaList.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PagedRatingsListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PagedRatingsListControl.Designer.cs">
+      <DependentUpon>PagedRatingsListControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GenreList.cs">
       <SubType>UserControl</SubType>
@@ -71,6 +89,9 @@
       <DependentUpon>GenreList.cs</DependentUpon>
     </Compile>
     <Compile Include="PagedListView.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PagedRatingsList.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="RentalsList.cs">
@@ -181,14 +202,29 @@
     <EmbeddedResource Include="AlsoRentedList.resx">
       <DependentUpon>AlsoRentedList.cs</DependentUpon>
     </EmbeddedResource>
+    <Compile Include="UserAccountManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserAccountManagement.Designer.cs">
+      <DependentUpon>UserAccountManagement.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserRegistration.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="UserRegistration.Designer.cs">
       <DependentUpon>UserRegistration.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="BookMovieDetails.resx">
+      <DependentUpon>BookMovieDetails.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CreditsControl.resx">
+      <DependentUpon>CreditsControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="DetailedMediaListControl.resx">
       <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PagedRatingsListControl.resx">
+      <DependentUpon>PagedRatingsListControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditAccount.resx">
       <DependentUpon>EditAccount.cs</DependentUpon>
@@ -205,7 +241,7 @@
     <EmbeddedResource Include="ListOfMedia.resx">
       <DependentUpon>ListOfMedia.cs</DependentUpon>
     </EmbeddedResource>
-     <EmbeddedResource Include="MediaFrontpage.resx">
+    <EmbeddedResource Include="MediaFrontpage.resx">
       <DependentUpon>MediaFrontpage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainScreen.resx">
@@ -240,6 +276,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="SearchResultsControl.resx">
       <DependentUpon>SearchResultsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserAccountManagement.resx">
+      <DependentUpon>UserAccountManagement.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserRegistration.resx">
       <DependentUpon>UserRegistration.cs</DependentUpon>
