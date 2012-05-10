@@ -12,9 +12,6 @@ namespace ClientApp
     /// </summary>
     public partial class AlbumDetails : RentItUserControl
     {
-
-        private RentItClient serviceClient;
-
         /// <summary>
         /// Initializes a new instance of the AlbumDetails class.
         /// To load the control with data, use the AlbumInfo property.
@@ -25,10 +22,10 @@ namespace ClientApp
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            serviceClient = new RentItClient(binding, address);
+            RentItProxy = new RentItClient(binding, address);
 
             // rest of contructor has to be deleted.
-            AlbumInfo album = serviceClient.GetAlbumInfo(78);
+            AlbumInfo album = RentItProxy.GetAlbumInfo(78);
 
             this.mediaSideBar.MediaInfoData = album;
 
@@ -53,7 +50,7 @@ namespace ClientApp
             {
                 AlbumInfo album = value;
 
-                album = serviceClient.GetAlbumInfo(78); // Just for debugging, has to be deleted.
+                album = RentItProxy.GetAlbumInfo(78); // Just for debugging, has to be deleted.
 
                 this.mediaSideBar.MediaInfoData = album;
 

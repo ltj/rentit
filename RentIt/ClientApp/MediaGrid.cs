@@ -22,8 +22,6 @@ namespace ClientApp
         /// </summary>
         private MediaCriteria mediaCriteria;
 
-        private RentItClient serviceClient;
-
         public MediaGrid()
         {
             InitializeComponent();
@@ -36,9 +34,9 @@ namespace ClientApp
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            serviceClient = new RentItClient(binding, address);
+            this.RentItProxy = new RentItClient(binding, address);
 
-            MediaItems mediaItems = serviceClient.GetMediaItems(this.mediaCriteria);
+            MediaItems mediaItems = this.RentItProxy.GetMediaItems(this.mediaCriteria);
             this.PopulateGrid(mediaItems);
         }
 
@@ -63,7 +61,7 @@ namespace ClientApp
             set
             {
                 this.mediaCriteria = value;
-                MediaItems mediaItems = this.serviceClient.GetMediaItems(this.mediaCriteria);
+                MediaItems mediaItems = this.RentItProxy.GetMediaItems(this.mediaCriteria);
                 this.PopulateGrid(mediaItems);
             }
         }

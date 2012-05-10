@@ -36,6 +36,8 @@
         /// </summary>
         private Dictionary<ListViewItem, SongInfoUpload> dic2 = new Dictionary<ListViewItem, SongInfoUpload>();
 
+        private PublisherCredentials publisherCredentials;
+
         public MediaUploadControl()
         {
             InitializeComponent();
@@ -51,6 +53,22 @@
             comboBox1.SelectedValueChanged += this.ComboBox1_SelectedValueChanged;
 
             BinaryCommuncator.FileUploadedEvent += this.UploadLabel_FileUploaded;
+
+            this.publisherCredentials = new PublisherCredentials("publishCorp", "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220");
+        }
+
+        internal override AccountCredentials Credentials
+        {
+            get
+            {
+                return base.Credentials;
+            }
+            set
+            {
+                base.Credentials = value;
+                this.publisherCredentials =
+                    new PublisherCredentials(this.Credentials.UserName, this.Credentials.HashedPassword);
+            }
         }
 
         #region Controllers
@@ -67,21 +85,19 @@
             uploadLabel.Text = "Begun uploading...";
             uploadLabel.Refresh();
 
-            var credentials = new PublisherCredentials("publishCorp", "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220");
-
             if (comboBox1.SelectedItem.ToString().Equals("Movie"))
             {
-                BinaryCommuncator.UploadMovie(credentials, this.movieInfo);
+                BinaryCommuncator.UploadMovie(this.publisherCredentials, this.movieInfo);
                 uploadLabel.Text = "Upload of movie done!";
             }
             else if (comboBox1.SelectedItem.ToString().Equals("Album"))
             {
-                BinaryCommuncator.UploadAlbum(credentials, this.dic.Keys.ToList(), this.albumInfo);
+                BinaryCommuncator.UploadAlbum(this.publisherCredentials, this.dic.Keys.ToList(), this.albumInfo);
                 uploadLabel.Text = "Upload of album done!";
             }
             else if (comboBox1.SelectedItem.ToString().Equals("Book"))
             {
-                BinaryCommuncator.UploadBook(credentials, this.bookInfo);
+                BinaryCommuncator.UploadBook(this.publisherCredentials, this.bookInfo);
                 uploadLabel.Text = "Upload of book done!";
             }
         }
@@ -245,10 +261,5 @@
         }
 
         #endregion EventHandlers
-
-
-
-
-
     }
 }

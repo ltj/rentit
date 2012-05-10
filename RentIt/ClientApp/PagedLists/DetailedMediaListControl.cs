@@ -28,12 +28,12 @@ namespace ClientApp
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            RentItClient serviceClient = new RentItClient(binding, address);
+            RentItProxy = new RentItClient(binding, address);
 
             this.itemsPerPageComboBox.SelectedIndex = 0;
             this.mediaList.ItemsPerPage = int.Parse(this.itemsPerPageComboBox.SelectedItem.ToString());
 
-            this.mediaList.UpdateListContents(serviceClient.GetAllPublisherData(new AccountCredentials()
+            this.mediaList.UpdateListContents(RentItProxy.GetAllPublisherData(new AccountCredentials()
                 {
                     UserName = "publishCorp",
                     HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
@@ -45,6 +45,7 @@ namespace ClientApp
             // Add event handlers
             this.itemsPerPageComboBox.SelectedIndexChanged += this.ComboBoxSelectedItemChangedEventHandler;
         }
+
 
         /// <summary>
         /// Sets the contents of the list and updates the list
@@ -59,11 +60,28 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// Add an EventHandler to the SelectedIndexChanged event on the paged list.
+        /// </summary>
+        /// <param name="handler"></param>
         internal void AddSelectedIndexChangedEventHandler(EventHandler handler)
         {
             this.mediaList.SelectedIndexChanged += handler;
         }
 
+        /// <summary>
+        /// Adds an Eventhandler to the LostFocus event on the paged list.
+        /// </summary>
+        /// <param name="handler"></param>
+        internal void AddLostFocusEventHandler(EventHandler handler)
+        {
+            this.mediaList.LostFocus += handler;
+        }
+
+        /// <summary>
+        /// Gets the SelectedListViewItemCollection object containing all the
+        /// ListViewItems that is currently selected in the paged list.
+        /// </summary>
         internal ListView.SelectedListViewItemCollection SelectedItems
         {
             get
