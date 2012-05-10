@@ -78,6 +78,10 @@ namespace ClientApp
             this.mediaList.LostFocus += handler;
         }
 
+        /// <summary>
+        /// Adds an EventHandler to the Double Click event on the paged list.
+        /// </summary>
+        /// <param name="handler"></param>
         internal void AddDoubleClickEventHandler(EventHandler handler)
         {
             this.mediaList.DoubleClick += handler;

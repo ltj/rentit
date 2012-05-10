@@ -79,6 +79,23 @@
             }
         }
 
+        /// <summary>
+        /// Selects the tab with the specified index.
+        /// If the index is out of range that first tab
+        /// of the control is selected.
+        /// </summary>
+        /// <param name="index"></param>
+        public void SelectTab(int index)
+        {
+            if (index < 0 || index > this.TabControl.TabCount - 1)
+            {
+                index = 0;
+            }
+
+            this.TabControl.SelectTab(index);
+        }
+
+
         #region EventHandlers
 
         private void SelectedIndexChangedHandler(object obj, EventArgs e)
