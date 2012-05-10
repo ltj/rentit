@@ -226,7 +226,7 @@ namespace RentIt
                 }
 
                 // Sort the above medias as requested in the criterias.
-                IQueryable<Media> orderedMedias = Util.OrderMedia(medias, criteria);
+                IQueryable<Media> orderedMedias = Util.OrderMedia(db, medias, criteria);
 
                 // Filter the above medias after the genre if specified in the criteria.
                 if (!string.IsNullOrEmpty(criteria.Genre))
@@ -825,7 +825,7 @@ namespace RentIt
             try
             {
                 // find media based on id
-                if(!db.Medias.Exists(m => m.id == newData.Id && m.active))
+                if (!db.Medias.Exists(m => m.id == newData.Id && m.active))
                     return false;
                 Media media = (from m in db.Medias
                                where m.id == newData.Id && m.active

@@ -23,50 +23,25 @@ namespace ClientApp {
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            this.button1 = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.mediaFrontpage1 = new ClientApp.MediaFrontpage();
+            this.bookMovieDetails1 = new ClientApp.BookMovieDetails();
             this.SuspendLayout();
             // 
-            // button1
+            // bookMovieDetails1
             // 
-            this.button1.Location = new System.Drawing.Point(25, 529);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Test Mothafucka";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Books",
-            "Movies",
-            "Music"});
-            this.comboBox1.Location = new System.Drawing.Point(223, 529);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 2;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // mediaFrontpage1
-            // 
-            this.mediaFrontpage1.BackColor = System.Drawing.SystemColors.Window;
-            this.mediaFrontpage1.Location = new System.Drawing.Point(12, 12);
-            this.mediaFrontpage1.Name = "mediaFrontpage1";
-            this.mediaFrontpage1.Size = new System.Drawing.Size(701, 433);
-            this.mediaFrontpage1.TabIndex = 1;
+            this.bookMovieDetails1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.bookMovieDetails1.Location = new System.Drawing.Point(12, 12);
+            this.bookMovieDetails1.Name = "bookMovieDetails1";
+            this.bookMovieDetails1.Size = new System.Drawing.Size(940, 552);
+            this.bookMovieDetails1.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(964, 576);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.mediaFrontpage1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.bookMovieDetails1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -75,8 +50,7 @@ namespace ClientApp {
 
         #endregion
 
-        private System.Windows.Forms.Button button1;
         private MediaFrontpage mediaFrontpage1;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private BookMovieDetails bookMovieDetails1;
     }
 }
