@@ -22,7 +22,7 @@ namespace ClientApp
 
 
 
-
+            /*
             RentItClient client;
             AccountCredentials credentials;
 
@@ -36,21 +36,21 @@ namespace ClientApp
                 HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
             };
 
-            MovieInfo movie = client.GetMovieInfo(72);
+            BookInfo movie = client.GetBookInfo(75);
 
-
-            Application.Run(new Form1());
 
             var mediaDisplay = new MediaDisplayForm();
 
-            var moviePlayer = new MoviePlayerControl();
+            var moviePlayer = new BookReaderControl();
             moviePlayer.Credentials = credentials;
-            moviePlayer.Movie = movie;
+            moviePlayer.Book = movie;
             moviePlayer.Start();
             mediaDisplay.Content = moviePlayer;
 
-            mediaDisplay.Show();
+            Application.Run(mediaDisplay);
+            */
 
+            Application.Run(new Form1());
         }
     }
 }
