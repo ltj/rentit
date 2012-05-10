@@ -43,6 +43,28 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// Adds an EventHandler to the Double Click event on the paged list.
+        /// </summary>
+        /// <param name="handler"></param>
+        internal void AddDoubleClickEventHandler(EventHandler handler)
+        {
+            this.mediaList.DoubleClick += handler;
+        }
+
+        /// <summary>
+        /// Gets the SelectedListViewItemCollection object containing all the
+        /// ListViewItems that is currently selected in the paged list.
+        /// </summary>
+        internal MediaInfo SelectedItem
+        {
+            get
+            {
+                ListViewItem selectedItem = this.mediaList.SelectedItems[0];
+                return this.mediaList.GetMediaInfoValueOf(selectedItem);
+            }
+        }
+
         #region Controllers
 
         private void firstPageButton_Click(object sender, EventArgs e)

@@ -32,7 +32,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.editAccount1 = new ClientApp.EditAccount();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.rentalsListControl1 = new ClientApp.RentalsListControl();
+            this.rentalsListControl = new ClientApp.RentalsListControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.creditsControl1 = new ClientApp.CreditsControl();
             this.tabControl.SuspendLayout();
@@ -73,7 +73,7 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.rentalsListControl1);
+            this.tabPage2.Controls.Add(this.rentalsListControl);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -82,12 +82,12 @@
             this.tabPage2.Text = "Active Rentals";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // rentalsListControl1
+            // rentalsListControl
             // 
-            this.rentalsListControl1.Location = new System.Drawing.Point(6, 6);
-            this.rentalsListControl1.Name = "rentalsListControl1";
-            this.rentalsListControl1.Size = new System.Drawing.Size(517, 443);
-            this.rentalsListControl1.TabIndex = 0;
+            this.rentalsListControl.Location = new System.Drawing.Point(6, 6);
+            this.rentalsListControl.Name = "rentalsListControl";
+            this.rentalsListControl.Size = new System.Drawing.Size(517, 443);
+            this.rentalsListControl.TabIndex = 0;
             // 
             // tabPage3
             // 
@@ -129,7 +129,7 @@
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.TabPage tabPage3;
 		private EditAccount editAccount1;
-		private RentalsListControl rentalsListControl1;
+		private RentalsListControl rentalsListControl;
 		private CreditsControl creditsControl1;
 	}
 }

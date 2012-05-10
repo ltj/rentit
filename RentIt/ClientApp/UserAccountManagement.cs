@@ -9,6 +9,8 @@ using System.Windows.Forms;
 
 namespace ClientApp
 {
+    using RentIt;
+
     /// <summary>
     /// A user control containing user controls relevant to user account management. 
     /// </summary>
@@ -17,6 +19,8 @@ namespace ClientApp
         public UserAccountManagement()
         {
             InitializeComponent();
+
+            this.rentalsListControl.AddDoubleClickEventHandler(this.DoubleClickEventHandler);
         }
 
         /// <summary>
@@ -35,6 +39,50 @@ namespace ClientApp
             this.tabControl.SelectTab(index);
         }
 
+        #region EventHandlers
 
+        /// <summary>
+        /// EventHandler of the DoubleClick event when it is fired from the 
+        /// list containing the rentals.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
+        private void DoubleClickEventHandler(object obj, EventArgs e)
+        {
+            MediaInfo mediaInfo = this.rentalsListControl.SelectedItem;
+            var mediaDisplay = new MediaDisplayForm();
+
+            switch (mediaInfo.Type)
+            {
+                case MediaType.Book:
+                    var bookReader = new BookReaderControl();
+                    bookReader.Credentials = this.Credentials;
+                    bookReader.Book = (BookInfo)mediaInfo;
+                    bookReader.Start();
+                    mediaDisplay.Content = bookReader;
+                    break;
+                case MediaType.Movie:
+                    var moviePlayer = new MoviePlayerControl();
+                    moviePlayer.Credentials = this.Credentials;
+                    moviePlayer.Movie = (MovieInfo)mediaInfo;
+                    moviePlayer.Start();
+                    mediaDisplay.Content = moviePlayer;
+                    break;
+                case MediaType.Album:
+                    var albumPlayer = new AlbumPlayerControl();
+                    albumPlayer.Credentials = this.Credentials;
+                    albumPlayer.Album = (AlbumInfo)mediaInfo;
+                    albumPlayer.Start();
+                    mediaDisplay.Content = albumPlayer;
+                    break;
+                default:
+                    mediaDisplay.Dispose();
+                    return;
+            }
+
+            mediaDisplay.Show();
+        }
+
+        #endregion
     }
 }
