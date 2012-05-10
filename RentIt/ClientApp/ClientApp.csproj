@@ -73,13 +73,13 @@
     <Compile Include="CreditsControl.Designer.cs">
       <DependentUpon>CreditsControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="DetailedMediaList.cs">
+    <Compile Include="PagedLists\DetailedMediaList.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PagedRatingsListControl.cs">
+    <Compile Include="PagedLists\PagedRatingsListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PagedRatingsListControl.Designer.cs">
+    <Compile Include="PagedLists\PagedRatingsListControl.Designer.cs">
       <DependentUpon>PagedRatingsListControl.cs</DependentUpon>
     </Compile>
     <Compile Include="GenreList.cs">
@@ -88,19 +88,19 @@
     <Compile Include="GenreList.Designer.cs">
       <DependentUpon>GenreList.cs</DependentUpon>
     </Compile>
-    <Compile Include="PagedListView.cs">
+    <Compile Include="PagedLists\PagedListView.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PagedRatingsList.cs">
+    <Compile Include="PagedLists\PagedRatingsList.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="RentalsList.cs">
+    <Compile Include="PagedLists\RentalsList.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="DetailedMediaListControl.cs">
+    <Compile Include="PagedLists\DetailedMediaListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DetailedMediaListControl.Designer.cs">
+    <Compile Include="PagedLists\DetailedMediaListControl.Designer.cs">
       <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
     </Compile>
     <Compile Include="EditAccount.cs">
@@ -171,10 +171,10 @@
     <Compile Include="RatingList.Designer.cs">
       <DependentUpon>RatingList.cs</DependentUpon>
     </Compile>
-    <Compile Include="RentalsListControl.cs">
+    <Compile Include="PagedLists\RentalsListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RentalsListControl.Designer.cs">
+    <Compile Include="PagedLists\RentalsListControl.Designer.cs">
       <DependentUpon>RentalsListControl.cs</DependentUpon>
     </Compile>
     <Compile Include="RentItMessageBox.cs" />
@@ -220,10 +220,10 @@
     <EmbeddedResource Include="CreditsControl.resx">
       <DependentUpon>CreditsControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DetailedMediaListControl.resx">
+    <EmbeddedResource Include="PagedLists\DetailedMediaListControl.resx">
       <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PagedRatingsListControl.resx">
+    <EmbeddedResource Include="PagedLists\PagedRatingsListControl.resx">
       <DependentUpon>PagedRatingsListControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EditAccount.resx">
@@ -271,7 +271,7 @@
     <EmbeddedResource Include="RatingList.resx">
       <DependentUpon>RatingList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RentalsListControl.resx">
+    <EmbeddedResource Include="PagedLists\RentalsListControl.resx">
       <DependentUpon>RentalsListControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SearchResultsControl.resx">
@@ -343,6 +343,7 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
