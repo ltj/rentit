@@ -15,7 +15,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class MediaGrid : UserControl
+    public partial class MediaGrid : RentItUserControl
     {
         /// <summary>
         /// The mediaCriteria behind the current contents of the MediaGrid.

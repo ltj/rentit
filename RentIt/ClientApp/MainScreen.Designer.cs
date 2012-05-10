@@ -43,7 +43,8 @@
             // 
             // booksButton
             // 
-            this.booksButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.booksButton.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.booksButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.booksButton.Location = new System.Drawing.Point(228, 3);
             this.booksButton.Name = "booksButton";
@@ -74,7 +75,9 @@
             // 
             // booksList
             // 
-            this.booksList.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.booksList.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.booksList.Location = new System.Drawing.Point(228, 92);
             this.booksList.Name = "booksList";
             this.booksList.Size = new System.Drawing.Size(218, 361);

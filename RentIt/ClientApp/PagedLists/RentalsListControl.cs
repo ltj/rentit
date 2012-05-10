@@ -11,7 +11,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class RentalsListControl : UserControl
+    public partial class RentalsListControl : RentItUserControl
     {
         /// <summary>
         /// Initializes a new instance of the RentalsListControl class.

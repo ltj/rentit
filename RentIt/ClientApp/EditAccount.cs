@@ -11,7 +11,7 @@ using System.ServiceModel;
 using System.Security.Cryptography;
 
 namespace ClientApp {
-    public partial class EditAccount : UserControl {
+    public partial class EditAccount : RentItUserControl {
 
         private RentItClient rentIt;
         private RentIt.Account account;

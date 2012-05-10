@@ -9,7 +9,7 @@
 
     using RentIt;
 
-    public partial class MediaUploadControl : UserControl
+    public partial class MediaUploadControl : RentItUserControl
     {
         /// <summary>
         /// The current book instance to upload.

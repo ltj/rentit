@@ -11,7 +11,7 @@ using System.ServiceModel;
 using System.Security.Cryptography;
 
 namespace ClientApp {
-    public partial class UserRegistration : UserControl {
+    public partial class UserRegistration : RentItUserControl {
         public UserRegistration() {
             InitializeComponent();
         }

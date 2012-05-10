@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace ClientApp
 {
-	public partial class CreditsControl : UserControl {
+	public partial class CreditsControl : RentItUserControl {
 		internal int Credits { get; private set; }
 
 		internal int Radio1 = 50;

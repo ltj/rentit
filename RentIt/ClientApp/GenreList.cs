@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 
 namespace ClientApp {
-    public partial class GenreList : UserControl {
+    public partial class GenreList : RentItUserControl {
 
         private RentItClient client;
         private RentIt.MediaType mtype;
