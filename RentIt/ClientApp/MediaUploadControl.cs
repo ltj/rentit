@@ -36,7 +36,7 @@
         /// </summary>
         private Dictionary<ListViewItem, SongInfoUpload> dic2 = new Dictionary<ListViewItem, SongInfoUpload>();
 
-        private PublisherCredentials publisherCredentials;
+        private Credentials publisherCredentials;
 
         public MediaUploadControl()
         {
@@ -54,7 +54,7 @@
 
             BinaryCommuncator.FileUploadedEvent += this.UploadLabel_FileUploaded;
 
-            this.publisherCredentials = new PublisherCredentials("publishCorp", "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220");
+            this.publisherCredentials = new Credentials("publishCorp", "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220");
         }
 
         internal override AccountCredentials Credentials
@@ -67,7 +67,7 @@
             {
                 base.Credentials = value;
                 this.publisherCredentials =
-                    new PublisherCredentials(this.Credentials.UserName, this.Credentials.HashedPassword);
+                    new Credentials(this.Credentials.UserName, this.Credentials.HashedPassword);
             }
         }
 
