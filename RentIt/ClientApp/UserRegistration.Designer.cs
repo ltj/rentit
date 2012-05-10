@@ -209,7 +209,6 @@
             this.Controls.Add(this.txtUserName);
             this.Name = "UserRegistration";
             this.Size = new System.Drawing.Size(355, 168);
-            this.Load += new System.EventHandler(this.UserRegistration_Load);
             ((System.ComponentModel.ISupportInitialize)(this.errUserName)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errPassword)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.errFullName)).EndInit();

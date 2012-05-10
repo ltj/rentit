@@ -48,16 +48,21 @@ namespace ClientApp {
                 SearchText = ""
             };
 
-            RentIt.MediaItems result = client.GetMediaItems(mc);
-            RentIt.MediaInfo[] subresult = ExtractTypeList(result);
+            try {
+                RentIt.MediaItems result = client.GetMediaItems(mc);
+                RentIt.MediaInfo[] subresult = ExtractTypeList(result);
 
-            lblNewTitle.Text = subresult[0].Title;
-            lblNewGenre.Text = subresult[0].Genre;
-            lblNewRelease.Text = subresult[0].ReleaseDate.ToShortDateString();
-            lblNewPublisher.Text = subresult[0].Publisher;
-            lblNewPrice.Text = subresult[0].Price.ToString();
+                lblNewTitle.Text = subresult[0].Title;
+                lblNewGenre.Text = subresult[0].Genre;
+                lblNewRelease.Text = subresult[0].ReleaseDate.ToShortDateString();
+                lblNewPublisher.Text = subresult[0].Publisher;
+                lblNewPrice.Text = subresult[0].Price.ToString();
 
-            picNewThumb.Image = BinaryCommuncator.GetThumbnail(subresult[0].Id);
+                picNewThumb.Image = BinaryCommuncator.GetThumbnail(subresult[0].Id);
+            }
+            catch {
+                lblNewTitle.Text = "Oh snap! Something went wrong :(";
+            }
 
         }
 

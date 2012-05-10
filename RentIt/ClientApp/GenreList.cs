@@ -32,13 +32,20 @@ namespace ClientApp {
         // get genres for set type
         private void getGenres() {
             if (mtype == RentIt.MediaType.Any || client == null) return;
-            string[] genres = client.GetAllGenres(mtype);
 
-            lstGenres.Clear();
+            lstGenres.Clear(); // clear current content
 
-            foreach (string s in genres) {
-                lstGenres.Items.Add(s);
+            // web service call might throw a fault exception
+            try {
+                string[] genres = client.GetAllGenres(mtype);
+                foreach (string s in genres) {
+                    lstGenres.Items.Add(s);
+                }
+            }
+            catch {
+                lstGenres.Items.Add("Unable to retrieve list");
             }
         }
+
     }
 }
