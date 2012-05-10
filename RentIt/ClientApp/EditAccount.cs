@@ -18,10 +18,18 @@ namespace ClientApp {
         private RentIt.AccountCredentials credentials;
 
         public EditAccount() {
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            this.rentIt = new RentItClient(binding, address);
             InitializeComponent();
+        }
+
+        internal override RentItClient RentItProxy {
+            set { this.rentIt = value; }
+        }
+
+        internal override RentIt.AccountCredentials Credentials {
+            set { 
+                this.credentials = value;
+                setFields();
+            }
         }
 
         private void txtPasswordConfirm_Validating(object sender, CancelEventArgs e) {
@@ -99,14 +107,18 @@ namespace ClientApp {
             this.txtUserName.ReadOnly = true;
         }
 
-        internal void setFields(RentIt.AccountCredentials creds) {
-            // get account
-            this.credentials = creds;
-            RentIt.Account acct = rentIt.ValidateCredentials(creds);
-            this.account = acct;
-            txtUserName.Text = acct.UserName;
-            txtFullName.Text = acct.FullName;
-            txtEmail.Text = acct.Email;
+        private void setFields() {
+            try {
+                // get account
+                RentIt.Account acct = rentIt.ValidateCredentials(credentials);
+                this.account = acct;
+                txtUserName.Text = acct.UserName;
+                txtFullName.Text = acct.FullName;
+                txtEmail.Text = acct.Email;
+            }
+            catch {
+                txtUserName.Text = "Unable to retrieve account";
+            }
         }
 
         private void btnSubmit_Click(object sender, EventArgs e) {
@@ -118,8 +130,13 @@ namespace ClientApp {
                 }
                 account.FullName = txtFullName.Text;
                 account.Email = txtEmail.Text;
-                rentIt.UpdateAccountInfo(credentials, account);
-                setFields(credentials);
+                try {
+                    rentIt.UpdateAccountInfo(credentials, account);
+                }
+                catch {
+                    MessageBox.Show("Something went wrong :( Try again.");
+                }
+                setFields();
             }
         }
 

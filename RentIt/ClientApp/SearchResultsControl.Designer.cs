@@ -114,14 +114,6 @@
             // 
             this.priceFilter.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.priceFilter.FormattingEnabled = true;
-            this.priceFilter.Items.AddRange(new object[] {
-            "Any",
-            "Under 50 credits",
-            "50 - 75 credits",
-            "76 - 100 credits",
-            "101 - 125 credits",
-            "125 - 150 credits",
-            "over 150 credits"});
             this.priceFilter.Location = new System.Drawing.Point(5, 322);
             this.priceFilter.Name = "priceFilter";
             this.priceFilter.Size = new System.Drawing.Size(120, 95);

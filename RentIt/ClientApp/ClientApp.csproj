@@ -67,11 +67,35 @@
     <Compile Include="BookMovieDetails.Designer.cs">
       <DependentUpon>BookMovieDetails.cs</DependentUpon>
     </Compile>
+    <Compile Include="BookReaderControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BookReaderControl.Designer.cs">
+      <DependentUpon>BookReaderControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="CreditsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="CreditsControl.Designer.cs">
       <DependentUpon>CreditsControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AlbumPlayerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AlbumPlayerControl.Designer.cs">
+      <DependentUpon>AlbumPlayerControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MediaDisplayForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MediaDisplayForm.Designer.cs">
+      <DependentUpon>MediaDisplayForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MoviePlayerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MoviePlayerControl.Designer.cs">
+      <DependentUpon>MoviePlayerControl.cs</DependentUpon>
     </Compile>
     <Compile Include="PagedLists\DetailedMediaList.cs">
       <SubType>Component</SubType>
@@ -220,8 +244,20 @@
     <EmbeddedResource Include="BookMovieDetails.resx">
       <DependentUpon>BookMovieDetails.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="BookReaderControl.resx">
+      <DependentUpon>BookReaderControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="CreditsControl.resx">
       <DependentUpon>CreditsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AlbumPlayerControl.resx">
+      <DependentUpon>AlbumPlayerControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MediaDisplayForm.resx">
+      <DependentUpon>MediaDisplayForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MoviePlayerControl.resx">
+      <DependentUpon>MoviePlayerControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PagedLists\DetailedMediaListControl.resx">
       <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
@@ -346,7 +382,42 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="AcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="AxAcroPDFLib">
+      <Guid>{05BFD3F1-6319-4F30-B752-C7A22889BCC4}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="AxWMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>aximp</WrapperTool>
+      <Isolated>False</Isolated>
+    </COMReference>
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

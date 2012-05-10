@@ -37,6 +37,7 @@
             this.TypeComboBox = new System.Windows.Forms.ComboBox();
             this.UserNameLabel = new System.Windows.Forms.LinkLabel();
             this.creditsLabel = new System.Windows.Forms.Label();
+            this.yourMediaButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // HomeButton
@@ -92,7 +93,7 @@
             // LogInLogOutButton
             // 
             this.LogInLogOutButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.LogInLogOutButton.Location = new System.Drawing.Point(574, 4);
+            this.LogInLogOutButton.Location = new System.Drawing.Point(647, 4);
             this.LogInLogOutButton.Name = "LogInLogOutButton";
             this.LogInLogOutButton.Size = new System.Drawing.Size(91, 23);
             this.LogInLogOutButton.TabIndex = 5;
@@ -103,16 +104,16 @@
             // SearchTextBox
             // 
             this.SearchTextBox.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchTextBox.Location = new System.Drawing.Point(392, 6);
+            this.SearchTextBox.Location = new System.Drawing.Point(476, 6);
             this.SearchTextBox.Name = "SearchTextBox";
             this.SearchTextBox.Size = new System.Drawing.Size(100, 20);
             this.SearchTextBox.TabIndex = 6;
-            this.SearchTextBox.KeyDown += new KeyEventHandler(this.SearchTextBoxKeyPressed);
+            this.SearchTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.SearchTextBoxKeyPressed);
             // 
             // SearchButton
             // 
             this.SearchButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.SearchButton.Location = new System.Drawing.Point(498, 4);
+            this.SearchButton.Location = new System.Drawing.Point(582, 4);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(44, 23);
             this.SearchButton.TabIndex = 7;
@@ -127,7 +128,7 @@
             this.SeparatorLine.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.SeparatorLine.Location = new System.Drawing.Point(4, 68);
             this.SeparatorLine.Name = "SeparatorLine";
-            this.SeparatorLine.Size = new System.Drawing.Size(656, 1);
+            this.SeparatorLine.Size = new System.Drawing.Size(813, 1);
             this.SeparatorLine.TabIndex = 8;
             // 
             // TypeComboBox
@@ -140,7 +141,7 @@
             "Movies",
             "Music",
             "Books"});
-            this.TypeComboBox.Location = new System.Drawing.Point(321, 5);
+            this.TypeComboBox.Location = new System.Drawing.Point(405, 5);
             this.TypeComboBox.Name = "TypeComboBox";
             this.TypeComboBox.Size = new System.Drawing.Size(65, 21);
             this.TypeComboBox.TabIndex = 9;
@@ -150,7 +151,7 @@
             this.UserNameLabel.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.UserNameLabel.AutoEllipsis = true;
             this.UserNameLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.UserNameLabel.Location = new System.Drawing.Point(501, 28);
+            this.UserNameLabel.Location = new System.Drawing.Point(658, 28);
             this.UserNameLabel.Name = "UserNameLabel";
             this.UserNameLabel.Size = new System.Drawing.Size(164, 18);
             this.UserNameLabel.TabIndex = 10;
@@ -164,7 +165,7 @@
             // 
             this.creditsLabel.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.creditsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.creditsLabel.Location = new System.Drawing.Point(498, 47);
+            this.creditsLabel.Location = new System.Drawing.Point(655, 47);
             this.creditsLabel.Name = "creditsLabel";
             this.creditsLabel.Size = new System.Drawing.Size(167, 18);
             this.creditsLabel.TabIndex = 12;
@@ -172,10 +173,23 @@
             this.creditsLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.creditsLabel.Visible = false;
             // 
+            // yourMediaButton
+            // 
+            this.yourMediaButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.yourMediaButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.yourMediaButton.Location = new System.Drawing.Point(744, 4);
+            this.yourMediaButton.Name = "yourMediaButton";
+            this.yourMediaButton.Size = new System.Drawing.Size(78, 23);
+            this.yourMediaButton.TabIndex = 13;
+            this.yourMediaButton.Text = "Your media";
+            this.yourMediaButton.UseVisualStyleBackColor = true;
+            this.yourMediaButton.Click += new System.EventHandler(this.YourMediaButtonClick);
+            // 
             // TopBarControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.yourMediaButton);
             this.Controls.Add(this.creditsLabel);
             this.Controls.Add(this.UserNameLabel);
             this.Controls.Add(this.TypeComboBox);
@@ -191,7 +205,7 @@
             this.MaximumSize = new System.Drawing.Size(99999, 76);
             this.MinimumSize = new System.Drawing.Size(604, 76);
             this.Name = "TopBarControl";
-            this.Size = new System.Drawing.Size(668, 76);
+            this.Size = new System.Drawing.Size(825, 76);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -211,5 +225,6 @@
         private System.Windows.Forms.ComboBox TypeComboBox;
         private System.Windows.Forms.LinkLabel UserNameLabel;
         private System.Windows.Forms.Label creditsLabel;
+        private Button yourMediaButton;
     }
 }

@@ -138,5 +138,10 @@
                 Search();
             }
         }
+
+        private void YourMediaButtonClick(object sender, EventArgs e) {
+            // go to active rentals list if user
+            // go to published media list if publisher
+        }
     }
 }

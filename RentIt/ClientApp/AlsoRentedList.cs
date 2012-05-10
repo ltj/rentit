@@ -13,28 +13,45 @@ namespace ClientApp
 
 	using RentIt;
 
+	/// <summary>
+	/// The user control used to display medias rented by users who also rented a given media item.
+	/// </summary>
+	/// <author>Jacob Rasmussen</author>
 	public partial class AlsoRentedList : RentItUserControl
 	{
 		private readonly RentItClient rentIt;
+
+		//The id of a given media item.
 		internal int MediaId { get; set; }
+
+		//The user control will list media of books, movies and albums. This property affects the order in which the medias are listed.
 		internal MediaType PrioritizedMediaType { get; set; }
 
 		public AlsoRentedList()
 		{
 			InitializeComponent();
-			BasicHttpBinding binding = new BasicHttpBinding();
-			EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
+			var binding = new BasicHttpBinding();
+			var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
 			rentIt = new RentItClient(binding, address);
 		}
 
+		/// <summary>
+		/// Updates the list with the given media id and prioritized media type property. 
+		/// </summary>
 		public void UpdateList()
 		{
+			//Gets all relevant medias from the database.
 			var medias = rentIt.GetAlsoRentedItems(MediaId);
+
+			//Used to retrieve the title from the given media.
 			MediaInfo mediaInf;
 
+			//The lists containing media of varying relevance. The elements in the primaryList will be displayed at the top.
 			MediaInfo[] primaryList;
 			MediaInfo[] secondaryList;
 			MediaInfo[] tertiaryList;
+
+			//Each media type is assigned a list depending on the relevance of the media type compared to the prioritized media type.
 			switch (PrioritizedMediaType)
 			{
 				case MediaType.Album:
@@ -63,6 +80,8 @@ namespace ClientApp
 					break;
 			}
 			label1.Text = @"Customers who rented" + Environment.NewLine + mediaInf.Title + @" also rented:";
+
+			//Adds each media item to the list in correct order.
 			foreach (var mediaInfo in primaryList)
 				listBox1.Items.Add(mediaInfo.Title);
 			foreach (var mediaInfo in secondaryList)

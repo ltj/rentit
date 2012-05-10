@@ -18,6 +18,14 @@ namespace ClientApp {
             var binding = new BasicHttpBinding();
             var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
             rentIt = new RentItClient(binding, address);
+
+            priceFilter.Items.Add(new PriceRange { Description = "Any", MinimumPrice = int.MinValue, MaximumPrice = int.MaxValue });
+            priceFilter.Items.Add(new PriceRange { Description = "Under 50 credits", MinimumPrice = int.MinValue, MaximumPrice = 49 });
+            priceFilter.Items.Add(new PriceRange { Description = "50 - 75 credits", MinimumPrice = 50, MaximumPrice = 75 });
+            priceFilter.Items.Add(new PriceRange { Description = "76 - 100 credits", MinimumPrice = 76, MaximumPrice = 100 });
+            priceFilter.Items.Add(new PriceRange { Description = "101 - 125 credits", MinimumPrice = 101, MaximumPrice = 125 });
+            priceFilter.Items.Add(new PriceRange { Description = "126 - 150 credits", MinimumPrice = 126, MaximumPrice = 150 });
+            priceFilter.Items.Add(new PriceRange { Description = "over 150 credits", MinimumPrice = 151, MaximumPrice = Int16.MaxValue });
             priceFilter.SelectedIndex = 0;
         }
 
@@ -33,30 +41,28 @@ namespace ClientApp {
 
         private void UpdateResults() {
             MediaItems mediaItems = rentIt.GetMediaItems(Criteria);
-            results.MediaItems = mediaItems;
+            results.MediaItems = FilterByPrice(mediaItems);
             resultsLabel.Text = "Results for \"" + Criteria.SearchText + "\"";
         }
 
-        /*private MediaItems FilterByPrice(MediaItems items) {
-            int minPrice = 0;
-            int maxPrice = 0;
+        private MediaItems FilterByPrice(MediaItems items) {
+            var p = (PriceRange)priceFilter.SelectedItem;
 
-            int selectedIndex = 
+            if(p.MinimumPrice == int.MinValue && p.MaximumPrice == int.MaxValue)
+                return items; // no price filtering
 
-            var albums = new List<AlbumInfo>();
-            var movies = new List<MovieInfo>();
-            var books = new List<BookInfo>();
-            var songs = new List<SongInfo>();
-
-            albums = items.Albums.Where(m => m.Price);
-
+            IEnumerable<AlbumInfo> albums = items.Albums.Where(m => m.Price >= p.MinimumPrice && m.Price <= p.MaximumPrice);
+            IEnumerable<MovieInfo> movies = items.Movies.Where(m => m.Price >= p.MinimumPrice && m.Price <= p.MaximumPrice);
+            IEnumerable<BookInfo> books = items.Books.Where(m => m.Price >= p.MinimumPrice && m.Price <= p.MaximumPrice);
+            IEnumerable<SongInfo> songs = items.Songs.Where(m => m.Price >= p.MinimumPrice && m.Price <= p.MaximumPrice);
+            
             return new MediaItems {
-                Albums = albums.ToArray(),
-                Movies = movies.ToArray(),
-                Books = books.ToArray(),
-                Songs = songs.ToArray()
-            };
-        }*/
+                                      Albums = albums.ToArray(),
+                                      Movies = movies.ToArray(),
+                                      Books = books.ToArray(),
+                                      Songs = songs.ToArray()
+                                  };
+        }
 
         private void UpdateTypes() {
             MediaType type = Criteria.Type;
@@ -90,14 +96,10 @@ namespace ClientApp {
         private void TypeFilterSelectedIndexChanged(object sender, EventArgs e) {
             MediaType newType;
 
-            if(TypeFilter.SelectedItem.Equals("Movies"))
-                newType = MediaType.Movie;
-            else if(TypeFilter.SelectedItem.Equals("Music"))
-                newType = MediaType.Album;
-            else if(TypeFilter.SelectedItem.Equals("Books"))
-                newType = MediaType.Book;
-            else
-                newType = MediaType.Any;
+            if(TypeFilter.SelectedItem.Equals("Movies")) newType = MediaType.Movie;
+            else if(TypeFilter.SelectedItem.Equals("Music")) newType = MediaType.Album;
+            else if(TypeFilter.SelectedItem.Equals("Books")) newType = MediaType.Book;
+            else newType = MediaType.Any;
 
             Criteria.Genre = "";
             Criteria.Type = newType;
@@ -111,6 +113,16 @@ namespace ClientApp {
 
         private void FilterButtonClick(object sender, EventArgs e) {
             UpdateResults();
+        }
+
+        private struct PriceRange {
+            public int MinimumPrice;
+            public int MaximumPrice;
+            public string Description;
+
+            public override string ToString() {
+                return Description;
+            }
         }
     }
 }

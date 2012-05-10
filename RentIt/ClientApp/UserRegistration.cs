@@ -12,8 +12,15 @@ using System.Security.Cryptography;
 
 namespace ClientApp {
     public partial class UserRegistration : RentItUserControl {
+
+        private RentItClient client;
+
         public UserRegistration() {
             InitializeComponent();
+        }
+
+        internal override RentItClient RentItProxy {
+            set { this.client = value; }
         }
 
         // user name validating event handler
@@ -142,9 +149,6 @@ namespace ClientApp {
 
         private void btnRegister_Click(object sender, EventArgs e) {
             if (ValidateAll()) {
-                BasicHttpBinding binding = new BasicHttpBinding();
-                EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-                RentItClient rentIt = new RentItClient(binding, address);
 
                 SHA1 sha1 = SHA1.Create();
                 string hash = GetSHA1Hash(sha1, txtPassword.Text);
@@ -156,7 +160,12 @@ namespace ClientApp {
                     HashedPassword = hash
                 };
 
-                rentIt.CreateNewUser(acct);
+                try {
+                    client.CreateNewUser(acct);
+                }
+                catch {
+                    MessageBox.Show("Something went wrong :( Please try again.");
+                }
             }
 
         }
@@ -226,10 +235,6 @@ namespace ClientApp {
             }
 
             return true;
-        }
-
-        private void UserRegistration_Load(object sender, EventArgs e) {
-            this.txtUserName.ReadOnly = true;
         }
 
     }
