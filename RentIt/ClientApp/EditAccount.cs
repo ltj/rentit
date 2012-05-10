@@ -21,11 +21,11 @@ namespace ClientApp {
             InitializeComponent();
         }
 
-        internal RentItClient Proxy {
+        internal override RentItClient RentItProxy {
             set { this.rentIt = value; }
         }
 
-        internal RentIt.AccountCredentials Credentials {
+        internal override RentIt.AccountCredentials Credentials {
             set { 
                 this.credentials = value;
                 setFields();

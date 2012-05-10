@@ -19,7 +19,7 @@ namespace ClientApp {
             InitializeComponent();
         }
 
-        internal RentItClient Proxy {
+        internal override RentItClient RentItProxy {
             set { this.client = value; }
         }
 

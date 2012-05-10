@@ -25,7 +25,7 @@ namespace ClientApp {
             }
         }
 
-        internal RentItClient Proxy {
+        internal override RentItClient RentItProxy {
             set { client = value; }
         }
 
