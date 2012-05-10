@@ -61,7 +61,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the specified media id is does not exist.
         /// </exception>
-        public static Uri DownloadMediaURL(PublisherCredentials credentials, int mediaId)
+        public static Uri DownloadMediaURL(Credentials credentials, int mediaId)
         {
             if (credentials == null)
             {
@@ -130,7 +130,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadBook(PublisherCredentials credentials, BookInfoUpload bookInfo)
+        public static void UploadBook(Credentials credentials, BookInfoUpload bookInfo)
         {
             var serviceClient = new RentItClient();
             var accountCredentials = new AccountCredentials {
@@ -199,7 +199,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadAlbum(PublisherCredentials credentials, List<SongInfoUpload> songs, AlbumInfoUpload albumInfo)
+        public static void UploadAlbum(Credentials credentials, List<SongInfoUpload> songs, AlbumInfoUpload albumInfo)
         {
             // Check specified song files
             foreach (SongInfoUpload song in songs)
@@ -323,7 +323,7 @@ namespace BinaryCommunicator
         /// <exception cref="ArgumentException">
         /// Is thrown if the credentials are not authorized.
         /// </exception>
-        public static void UploadMovie(PublisherCredentials credentials, MovieInfoUpload movieInfo)
+        public static void UploadMovie(Credentials credentials, MovieInfoUpload movieInfo)
         {
             if (!File.Exists(movieInfo.FilePath))
             {
@@ -400,7 +400,7 @@ namespace BinaryCommunicator
         /// The credentials of the publisher who is to upload the
         /// specified media.
         /// </param>
-        private static void UploadMediaFile(string filePath, int mediaId, PublisherCredentials credentials)
+        private static void UploadMediaFile(string filePath, int mediaId, Credentials credentials)
         {
             var fileInfo = new FileInfo(filePath);
             using (var client = new WebClient())
@@ -435,7 +435,7 @@ namespace BinaryCommunicator
         /// <param name="credentials">
         /// The credentials of the publisher who is to upload the thumbnail.
         /// </param>
-        private static void UploadThumbnail(int mediaId, MediaInfoUpload info, PublisherCredentials credentials)
+        private static void UploadThumbnail(int mediaId, MediaInfoUpload info, Credentials credentials)
         {
             using (var client = new WebClient())
             {
@@ -455,7 +455,7 @@ namespace BinaryCommunicator
         public static void Main()
         {
             // Set up the credentials of the publisher account.
-            var credentials = new PublisherCredentials("publishCorp", "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220");
+            var credentials = new Credentials("publishCorp", "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220");
 
             // Load the thumbnail to be uploaded into the memory.
             Image thumbnail = System.Drawing.Image.FromFile(@"C:\Users\Kenneth88\Desktop\gta\GtaThumb.jpg");
