@@ -17,7 +17,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class DetailedMediaListControl : UserControl
+    public partial class DetailedMediaListControl : RentItUserControl
     {
         /// <summary>
         /// Initializes a new instance of the DetailedMediaListControl class.
@@ -56,6 +56,19 @@ namespace ClientApp
             {
                 this.mediaList.UpdateListContents(value);
                 this.DetermineButtons();
+            }
+        }
+
+        internal void AddSelectedIndexChangedEventHandler(EventHandler handler)
+        {
+            this.mediaList.SelectedIndexChanged += handler;
+        }
+
+        internal ListView.SelectedListViewItemCollection SelectedItems
+        {
+            get
+            {
+                return this.mediaList.SelectedItems;
             }
         }
 

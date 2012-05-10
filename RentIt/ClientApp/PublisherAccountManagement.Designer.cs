@@ -28,10 +28,6 @@ namespace ClientApp
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Songs", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("Albums", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Movies", System.Windows.Forms.HorizontalAlignment.Left);
-            System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Books", System.Windows.Forms.HorizontalAlignment.Left);
             this.TabControl = new System.Windows.Forms.TabControl();
             this.AccountManagementTab = new System.Windows.Forms.TabPage();
             this.MediaManagementTab = new System.Windows.Forms.TabPage();
@@ -40,7 +36,7 @@ namespace ClientApp
             this.panel1 = new System.Windows.Forms.Panel();
             this.MediaUploadTab = new System.Windows.Forms.TabPage();
             this.mediaUploadControl1 = new ClientApp.MediaUploadControl();
-            this.publishedMediaList = new ClientApp.MediaList();
+            this.publishedMediaList = new ClientApp.DetailedMediaListControl();
             this.TabControl.SuspendLayout();
             this.MediaManagementTab.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -137,30 +133,11 @@ namespace ClientApp
             // 
             // publishedMediaList
             // 
-            this.publishedMediaList.AutoArrange = false;
             this.publishedMediaList.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.publishedMediaList.FullRowSelect = true;
-            this.publishedMediaList.GridLines = true;
-            listViewGroup1.Header = "Songs";
-            listViewGroup1.Name = null;
-            listViewGroup2.Header = "Albums";
-            listViewGroup2.Name = null;
-            listViewGroup3.Header = "Movies";
-            listViewGroup3.Name = null;
-            listViewGroup4.Header = "Books";
-            listViewGroup4.Name = null;
-            this.publishedMediaList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3,
-            listViewGroup4});
             this.publishedMediaList.Location = new System.Drawing.Point(0, 0);
-            this.publishedMediaList.MultiSelect = false;
             this.publishedMediaList.Name = "publishedMediaList";
             this.publishedMediaList.Size = new System.Drawing.Size(716, 519);
-            this.publishedMediaList.TabIndex = 9;
-            this.publishedMediaList.UseCompatibleStateImageBehavior = false;
-            this.publishedMediaList.View = System.Windows.Forms.View.Details;
+            this.publishedMediaList.TabIndex = 0;
             // 
             // PublisherAccountManagement
             // 
@@ -187,6 +164,6 @@ namespace ClientApp
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button changePriceButton;
         private System.Windows.Forms.Button deleteMediaButton;
-        private MediaList publishedMediaList;
+        private DetailedMediaListControl publishedMediaList;
     }
 }

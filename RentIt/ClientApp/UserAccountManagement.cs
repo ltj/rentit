@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace ClientApp
 {
-	public partial class UserAccountManagement : UserControl
+	public partial class UserAccountManagement : RentItUserControl
 	{
 		public UserAccountManagement()
 		{

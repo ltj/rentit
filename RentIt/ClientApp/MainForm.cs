@@ -2,21 +2,17 @@
     using System.Windows.Forms;
 
     public partial class MainForm : Form {
-        private UserControl contentControl;
-
         public MainForm() {
             InitializeComponent();
             Content = new MainScreen();
         }
 
-        public TopBarControl TopBar {
+        internal TopBarControl TopBar {
             get { return topBarControl; }
         }
 
-        public UserControl Content {
-            get { return contentControl; }
+        internal RentItUserControl Content {
             set {
-                contentControl = value;
                 contentPane.Controls.Clear();
                 value.Dock = DockStyle.Fill;
                 contentPane.Controls.Add(value);

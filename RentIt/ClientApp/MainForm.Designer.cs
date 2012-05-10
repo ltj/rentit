@@ -34,7 +34,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.contentPane.Location = new System.Drawing.Point(1, 76);
             this.contentPane.Name = "contentPane";
-            this.contentPane.Size = new System.Drawing.Size(718, 385);
+            this.contentPane.Size = new System.Drawing.Size(769, 443);
             this.contentPane.TabIndex = 0;
             // 
             // topBarControl
@@ -46,7 +46,7 @@
             this.topBarControl.MaximumSize = new System.Drawing.Size(99999, 76);
             this.topBarControl.MinimumSize = new System.Drawing.Size(604, 76);
             this.topBarControl.Name = "topBarControl";
-            this.topBarControl.Size = new System.Drawing.Size(718, 76);
+            this.topBarControl.Size = new System.Drawing.Size(769, 76);
             this.topBarControl.TabIndex = 1;
             this.topBarControl.Title = "RentIt";
             this.topBarControl.UserName = "";
@@ -55,10 +55,10 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(719, 462);
+            this.ClientSize = new System.Drawing.Size(770, 520);
             this.Controls.Add(this.topBarControl);
             this.Controls.Add(this.contentPane);
-            this.MinimumSize = new System.Drawing.Size(735, 500);
+            this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "MainForm";
             this.Text = "MainForm";
             this.ResumeLayout(false);

@@ -7,9 +7,10 @@
 
     using RentIt;
 
-    public partial class PublisherAccountManagement : UserControl
+    public partial class PublisherAccountManagement : RentItUserControl
     {
         private AccountCredentials accountCredentials;
+
         private RentItClient serviceClient;
 
         private Dictionary<ListViewItem, MediaInfo> map;
@@ -21,7 +22,7 @@
             deleteMediaButton.Enabled = false;
             changePriceButton.Enabled = false;
 
-            publishedMediaList.SelectedIndexChanged += this.SelectedIndexChangedHandler;
+            publishedMediaList.AddSelectedIndexChangedEventHandler(this.SelectedIndexChangedHandler);
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
@@ -34,9 +35,10 @@
             };
 
             PublisherAccount accountData = serviceClient.GetAllPublisherData(accountCredentials);
-            this.publishedMediaList.UpdateListContents(accountData.PublishedItems);
+            this.publishedMediaList.MediaItems = accountData.PublishedItems;
         }
 
+        /*
         internal PublisherAccountManagement(AccountCredentials accountCredentials)
             : this()
         {
@@ -52,7 +54,25 @@
             // accountCredentials;
 
             PublisherAccount accountData = serviceClient.GetAllPublisherData(this.accountCredentials);
-            this.publishedMediaList.UpdateListContents(accountData.PublishedItems);
+            this.publishedMediaList.MediaItems = accountData.PublishedItems;
+        }
+         * */
+
+        internal RentItClient ServiceClient
+        {
+            set
+            {
+                this.serviceClient = value;
+            }
+        }
+
+        internal AccountCredentials PublisherAccount
+        {
+            set
+            {
+                PublisherAccount accountData = serviceClient.GetAllPublisherData(value);
+                this.publishedMediaList.MediaItems = accountData.PublishedItems;
+            }
         }
 
         #region EventHandlers
@@ -100,7 +120,7 @@
 
             // Update the list to reflec the deletion changes.
             PublisherAccount pubAcc = this.serviceClient.GetAllPublisherData(this.accountCredentials);
-            this.publishedMediaList.UpdateListContents(pubAcc.PublishedItems);
+            this.publishedMediaList.MediaItems = pubAcc.PublishedItems;
         }
 
         #endregion

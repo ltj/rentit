@@ -9,7 +9,7 @@ using System.Windows.Forms;
 using BinaryCommunicator;
 
 namespace ClientApp {
-    public partial class MediaFrontpage : UserControl {
+    public partial class MediaFrontpage : RentItUserControl {
 
         private RentIt.MediaType mtype;
         private RentItClient client;

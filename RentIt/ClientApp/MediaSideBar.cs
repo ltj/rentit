@@ -11,7 +11,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class MediaSideBar : UserControl
+    public partial class MediaSideBar : RentItUserControl
     {
         /// <summary>
         /// The MediaInfo instance which metadata is being displayed

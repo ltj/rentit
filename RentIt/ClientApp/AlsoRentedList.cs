@@ -13,7 +13,7 @@ namespace ClientApp
 
 	using RentIt;
 
-	public partial class AlsoRentedList : UserControl
+	public partial class AlsoRentedList : RentItUserControl
 	{
 		private readonly RentItClient rentIt;
 		internal int MediaId { get; set; }
