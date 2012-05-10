@@ -75,6 +75,7 @@ namespace ClientApp
         /// <param name="items"></param>
         private void PopulateGrid(MediaItems items)
         {
+            ListViewGrid.Items.Clear();
             var listItemCollection = new List<ListViewItem>();
 
             var imageList = new ImageList();
