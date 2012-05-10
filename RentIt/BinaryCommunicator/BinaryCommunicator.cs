@@ -69,7 +69,7 @@ namespace BinaryCommunicator
             }
 
             var uri = new StringBuilder();
-            uri.Append("http://rentit.itu.dk/rentit01/GetMediaData.aspx?");
+            uri.Append("http://rentit.itu.dk/rentit01/GetMedia.aspx?");
             uri.Append("mediaId=" + mediaId);
             uri.Append("&userName=" + credentials.UserName);
             uri.Append("&password=" + credentials.HashedPassword);

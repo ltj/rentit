@@ -20,10 +20,10 @@ namespace ClientApp
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            Application.Run(new Form1());
 
-
-
-            RentItClient client;
+            
+            /*RentItClient client;
             AccountCredentials credentials;
 
             BasicHttpBinding binding = new BasicHttpBinding();
@@ -36,21 +36,19 @@ namespace ClientApp
                 HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
             };
 
-            MovieInfo movie = client.GetMovieInfo(72);
-
-
-            Application.Run(new Form1());
+            BookInfo movie = client.GetBookInfo(75);
 
             var mediaDisplay = new MediaDisplayForm();
 
-            var moviePlayer = new MoviePlayerControl();
+            var moviePlayer = new BookReaderControl();
             moviePlayer.Credentials = credentials;
-            moviePlayer.Movie = movie;
+            moviePlayer.Book = movie;
             moviePlayer.Start();
             mediaDisplay.Content = moviePlayer;
 
-            mediaDisplay.Show();
+            //mediaDisplay.Show();
 
+            Application.Run(mediaDisplay);*/
         }
     }
 }
