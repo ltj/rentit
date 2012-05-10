@@ -74,7 +74,9 @@
             // 
             // booksList
             // 
-            this.booksList.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.booksList.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.booksList.Location = new System.Drawing.Point(228, 92);
             this.booksList.Name = "booksList";
             this.booksList.Size = new System.Drawing.Size(218, 361);

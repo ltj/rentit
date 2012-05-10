@@ -14,26 +14,52 @@ namespace ClientApp {
             var binding = new BasicHttpBinding();
             var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
             rentIt = new RentItClient(binding, address);
+            priceFilter.SelectedIndex = 0;
         }
 
         internal MediaCriteria Criteria {
             get { return criteria; }
             set {
                 criteria = value;
-                //TypeFilter.SelectedIndex = 0;
+                UpdateTypes();
+                UpdateGenres(criteria.Type);
+                UpdateResults();
             }
         }
 
         private void UpdateResults() {
             MediaItems mediaItems = rentIt.GetMediaItems(Criteria);
             results.MediaItems = mediaItems;
+            resultsLabel.Text = "Results for \"" + Criteria.SearchText +"\"";
+        }
+
+        private void UpdateTypes() {
+            MediaType type = Criteria.Type;
+            int index;
+
+            switch(type) {
+                case MediaType.Movie:
+                    index = 1;
+                    break;
+                case MediaType.Album:
+                    index = 2;
+                    break;
+                case MediaType.Book:
+                    index = 3;
+                    break;
+                default:
+                    index = 0;
+                    break;
+            }
+
+            TypeFilter.SelectedIndex = index;
         }
 
         private void UpdateGenres(MediaType mediaType) {
             GenreFilter.Items.Clear();
             GenreFilter.Items.Add("All");
             GenreFilter.Items.AddRange(rentIt.GetAllGenres(mediaType));
-            //GenreFilter.SelectedIndex = 0;
+            GenreFilter.SelectedIndex = 0;
         }
 
         private void TypeFilterSelectedIndexChanged(object sender, EventArgs e) {
@@ -56,6 +82,9 @@ namespace ClientApp {
         private void GenreFilterSelectedIndexChanged(object sender, EventArgs e) {
             string genre = GenreFilter.SelectedItem.Equals("All") ? "" : GenreFilter.SelectedItem.ToString();
             Criteria.Genre = genre;
+        }
+
+        private void FilterButtonClick(object sender, EventArgs e) {
             UpdateResults();
         }
     }

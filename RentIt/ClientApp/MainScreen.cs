@@ -18,7 +18,7 @@ namespace ClientApp {
                                                  Genre = "",
                                                  Limit = 10,
                                                  Offset = 0,
-                                                 Order = MediaOrder.Default,
+                                                 Order = MediaOrder.PopularityDesc,
                                                  SearchText = "",
                                                  Type = MediaType.Movie
                                              };
