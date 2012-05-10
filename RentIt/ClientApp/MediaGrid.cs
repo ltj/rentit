@@ -1,22 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
+﻿
 namespace ClientApp
 {
+    using System;
     using System.ServiceModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+    using System.Collections.Generic;
 
     using BinaryCommunicator;
 
     using RentIt;
 
+    /// <author>Kenneth Søhrmann</author>
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class MediaGrid : UserControl
     {
+        /// <summary>
+        /// The mediaCriteria behind the current contents of the MediaGrid.
+        /// </summary>
         private MediaCriteria mediaCriteria;
 
         private RentItClient serviceClient;
@@ -39,45 +42,24 @@ namespace ClientApp
             this.PopulateGrid(mediaItems);
         }
 
-        /*
-        internal MediaGrid(string title, MediaCriteria mediaCriteria)
-            : this()
-        {
-            if (mediaCriteria.Type == MediaType.Any)
-            {
-                throw new ArgumentException();
-            }
-
-            this.mediaCriteria = mediaCriteria;
-            // this.titleValueLabel.Text = title;
-
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            RentItClient serviceClient = new RentItClient(binding, address);
-
-           // MediaItems mediaItems = serviceClient.GetMediaItems(mediaCriteria);
-           // this.PopulateGrid(mediaItems);
-        }
-         * */
-
+        /// <summary>
+        /// Sets the title of the media grid.
+        /// </summary>
         internal string Title
         {
-            get
-            {
-                return this.titleValueLabel.Text;
-            }
             set
             {
                 this.titleValueLabel.Text = value;
             }
         }
 
+        /// <summary>
+        /// Sets the MediaCriteria and updates the contents
+        /// of the MediaGrid with the media items identifyed and returned
+        /// by the service using the GetMediaItems web service.
+        /// </summary>
         internal MediaCriteria MediaCriteria
         {
-            get
-            {
-                return this.mediaCriteria;
-            }
             set
             {
                 this.mediaCriteria = value;
@@ -86,8 +68,14 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// Helper method for populating the contents of the MediaGrid
+        /// with the items given in the parameter.
+        /// </summary>
+        /// <param name="items"></param>
         private void PopulateGrid(MediaItems items)
         {
+            ListViewGrid.Items.Clear();
             var listItemCollection = new List<ListViewItem>();
 
             var imageList = new ImageList();
@@ -142,6 +130,7 @@ namespace ClientApp
                     }
                     break;
             }
+
             ListViewGrid.Items.AddRange(listItemCollection.ToArray());
         }
 

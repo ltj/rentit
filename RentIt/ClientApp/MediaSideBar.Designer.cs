@@ -197,7 +197,6 @@
             this.Controls.Add(this.thumbnailBox);
             this.Name = "MediaSideBar";
             this.Size = new System.Drawing.Size(211, 504);
-            this.Load += new System.EventHandler(this.MediaSideBar_Load);
             ((System.ComponentModel.ISupportInitialize)(this.thumbnailBox)).EndInit();
             this.mediaDetailsGroupBox.ResumeLayout(false);
             this.mediaDetailsGroupBox.PerformLayout();

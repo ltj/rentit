@@ -136,7 +136,7 @@ namespace RentIt
         /// <returns></returns>
         public static RentItDatabase.Rating GetMediaRating(int mediaId, DatabaseDataContext db)
         {
-            if(!db.Ratings.Exists(r => r.media_id.Equals(mediaId)))
+            if (!db.Ratings.Exists(r => r.media_id.Equals(mediaId)))
                 return default(RentItDatabase.Rating);
 
             IQueryable<RentItDatabase.Rating> ratings = from r in db.Ratings
@@ -199,7 +199,7 @@ namespace RentIt
         {
             var db = new DatabaseDataContext();
 
-            if(!db.Publisher_accounts.Exists(p => p.user_name.Equals(acct.UserName) && p.Account.active))
+            if (!db.Publisher_accounts.Exists(p => p.user_name.Equals(acct.UserName) && p.Account.active))
                 return false;
             return true;
         }
@@ -235,7 +235,7 @@ namespace RentIt
                 return false;
             }
 
-            if(!db.Medias.Exists(m => m.id == mediaId && m.active))
+            if (!db.Medias.Exists(m => m.id == mediaId && m.active))
                 return false; // if the media with the specified id was not found
 
             Media media = (from m in db.Medias
@@ -243,7 +243,7 @@ namespace RentIt
                            select m).Single();
 
             // find out whether this publisher is authorized to delete this media
-            if(db.Publisher_accounts.Exists(p => p.user_name.Equals(credentials.UserName)
+            if (db.Publisher_accounts.Exists(p => p.user_name.Equals(credentials.UserName)
                                                   && p.publisher_id == media.publisher_id))
                 return true;
 
@@ -282,49 +282,26 @@ namespace RentIt
         /// <param name="criteria"></param>
         /// <returns></returns>
         public static IQueryable<RentItDatabase.Media> OrderMedia(
-            IQueryable<RentItDatabase.Media> mediaItems, MediaCriteria criteria)
+            DatabaseDataContext db, IQueryable<RentItDatabase.Media> mediaItems, MediaCriteria criteria)
         {
-            var db = new DatabaseDataContext();
-
             switch (criteria.Order)
             {
                 case MediaOrder.AlphabeticalAsc:
                     return from media in mediaItems orderby media.title select media;
+
                 case MediaOrder.AlphabeticalDesc:
                     return from media in mediaItems orderby media.title descending select media;
-                case MediaOrder.PopularityAsc:
-                    // Collect structures with media id an the number of rentals for the media id.
-                    var ac = from m in mediaItems
-                             select
-                                 new
-                                 {
-                                     m.id,
-                                     RentalCount = (from mr in db.Rentals where mr.media_id == m.id select mr).Count()
-                                 };
 
-                    // Order the media items after rentals, ascending order.
+                case MediaOrder.PopularityAsc:
                     return from media in mediaItems
-                           from me in ac
-                           where media.id == me.id
-                           orderby me.RentalCount
+                           join rental in db.Rentals on media.id equals rental.media_id into mediaRentals
+                           orderby mediaRentals.Count()
                            select media;
 
                 case MediaOrder.PopularityDesc:
-                    // Collect structures with media id an the number of rentals for the media id.
-                    var ac2 = from m in mediaItems
-                              select
-                                  new
-                                  {
-                                      m.id,
-                                      RentalCount =
-                              (from mr in db.Rentals where mr.media_id == m.id select mr).Count()
-                                  };
-
-                    // Order the media items after rentals, descending order.
                     return from media in mediaItems
-                           from me in ac2
-                           where media.id == me.id
-                           orderby me.RentalCount descending
+                           join rental in db.Rentals on media.id equals rental.media_id into mediaRentals
+                           orderby mediaRentals.Count() descending
                            select media;
 
                 case MediaOrder.RatingAsc:
@@ -483,7 +460,7 @@ namespace RentIt
                                select t).Single().id;
 
             // Check if genre already exists for the given media type
-            if(db.Genres.Exists(g => g.media_type == mediaTypeId && g.name.ToLower().Equals(genreName.ToLower())))
+            if (db.Genres.Exists(g => g.media_type == mediaTypeId && g.name.ToLower().Equals(genreName.ToLower())))
                 return (from g in db.Genres
                         where g.media_type == mediaTypeId && g.name.ToLower().Equals(genreName.ToLower())
                         select g).Single().id; // Genre and media type combination already exists, return its genre id

@@ -13,8 +13,15 @@ namespace ClientApp
 
     using RentIt;
 
+    /// <author>Kenneth Søhrmann</author>
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class DetailedMediaListControl : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the DetailedMediaListControl class.
+        /// </summary>
         public DetailedMediaListControl()
         {
             InitializeComponent();
@@ -32,10 +39,17 @@ namespace ClientApp
                     HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
                 }).PublishedItems);
 
+            this.currentPageTextbox.Text =
+                this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
+
             // Add event handlers
             this.itemsPerPageComboBox.SelectedIndexChanged += this.ComboBoxSelectedItemChangedEventHandler;
         }
 
+        /// <summary>
+        /// Sets the contents of the list and updates the list
+        /// to display the media items.
+        /// </summary>
         internal MediaItems MediaItems
         {
             set
@@ -94,6 +108,10 @@ namespace ClientApp
 
         #endregion
 
+        /// <summary>
+        /// Determines whether a navigation button should be activated.
+        /// This is done for all four navigation buttons.
+        /// </summary>
         private void DetermineButtons()
         {
             bool hasPreviousPage = this.mediaList.HasPreviousPage();

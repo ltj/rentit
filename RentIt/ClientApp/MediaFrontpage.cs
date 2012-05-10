@@ -70,7 +70,7 @@ namespace ClientApp {
             RentIt.MediaCriteria mc = new RentIt.MediaCriteria {
                 Type = mtype,
                 Limit = 10, // only ten most pouplar
-                Order = RentIt.MediaOrder.Default,
+                Order = RentIt.MediaOrder.PopularityDesc,
                 Genre = "",
                 SearchText = ""
             };

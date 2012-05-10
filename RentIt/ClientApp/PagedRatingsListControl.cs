@@ -1,41 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
+﻿
 namespace ClientApp
 {
-    using System.ServiceModel;
+    using System;
+    using System.Windows.Forms;
 
     using RentIt;
 
+    /// <author>Kenneth Søhrmann</author>
+    /// <summary>
+    /// 
+    /// </summary>
     public partial class PagedRatingsListControl : UserControl
     {
+
+        /// <summary>
+        /// Initializes a new instance of the PagedRatingsListControl class.
+        /// </summary>
         public PagedRatingsListControl()
         {
             InitializeComponent();
 
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            RentItClient serviceClient = new RentItClient(binding, address);
-
             this.itemsPerPageComboBox.SelectedIndex = 0;
             this.ratingsList.ItemsPerPage = int.Parse(this.itemsPerPageComboBox.SelectedItem.ToString());
 
-            //this.mediaList.UpdateListContents(serviceClient.GetAllPublisherData(new AccountCredentials()
-            //    {
-            //        UserName = "publishCorp",
-            //        HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
-            //    }).PublishedItems);
+            this.currentPageTextbox.Text =
+                this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
 
             // Add event handlers
             this.itemsPerPageComboBox.SelectedIndexChanged += this.ComboBoxSelectedItemChangedEventHandler;
         }
 
+        /// <summary>
+        /// Sets the contents of the rating list based on the MediaInfo
+        /// object submitted.
+        /// </summary>
         internal MediaInfo MediaItems
         {
             set
@@ -94,6 +92,10 @@ namespace ClientApp
 
         #endregion
 
+        /// <summary>
+        /// Determines whether a navigation button should be activated.
+        /// This is done for all four navigation buttons.
+        /// </summary>
         private void DetermineButtons()
         {
             bool hasPreviousPage = this.ratingsList.HasPreviousPage();
