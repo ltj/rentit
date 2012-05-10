@@ -25,7 +25,8 @@
     /// Construct holding the credentials of either a publisher or customer account.
     /// Holds both user name and the hashed password.
     /// </summary>
-    public class PublisherCredentials {
+    public class Credentials
+    {
         /// <summary>
         /// The user name of the credential
         /// </summary>
@@ -36,7 +37,8 @@
         /// </summary>
         public readonly string HashedPassword;
 
-        public PublisherCredentials(string userName, string hashedPassword) {
+        public Credentials(string userName, string hashedPassword)
+        {
             UserName = userName;
             HashedPassword = hashedPassword;
         }
