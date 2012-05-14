@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
+﻿
 namespace ClientApp
 {
-    using System.ServiceModel;
+    using System;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
 
     using RentIt;
 
@@ -17,27 +11,17 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class DetailedMediaListControl : RentItUserControl
+    public partial class PagedRentalsListControl : RentItUserControl
     {
         /// <summary>
-        /// Initializes a new instance of the DetailedMediaListControl class.
+        /// Initializes a new instance of the RentalsListControl class.
         /// </summary>
-        public DetailedMediaListControl()
+        public PagedRentalsListControl()
         {
             InitializeComponent();
 
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            RentItProxy = new RentItClient(binding, address);
-
             this.itemsPerPageComboBox.SelectedIndex = 0;
             this.mediaList.ItemsPerPage = int.Parse(this.itemsPerPageComboBox.SelectedItem.ToString());
-
-            this.mediaList.UpdateListContents(RentItProxy.GetAllPublisherData(new AccountCredentials()
-                {
-                    UserName = "publishCorp",
-                    HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
-                }).PublishedItems);
 
             this.currentPageTextbox.Text =
                 this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
@@ -46,36 +30,17 @@ namespace ClientApp
             this.itemsPerPageComboBox.SelectedIndexChanged += this.ComboBoxSelectedItemChangedEventHandler;
         }
 
-
         /// <summary>
-        /// Sets the contents of the list and updates the list
-        /// to display the media items.
+        /// Sets the rating list to display the ratings contained 
+        /// in the submitted list.
         /// </summary>
-        internal MediaItems MediaItems
+        internal List<Rental> MediaItems
         {
             set
             {
                 this.mediaList.UpdateListContents(value);
                 this.DetermineButtons();
             }
-        }
-
-        /// <summary>
-        /// Add an EventHandler to the SelectedIndexChanged event on the paged list.
-        /// </summary>
-        /// <param name="handler"></param>
-        internal void AddSelectedIndexChangedEventHandler(EventHandler handler)
-        {
-            this.mediaList.SelectedIndexChanged += handler;
-        }
-
-        /// <summary>
-        /// Adds an Eventhandler to the LostFocus event on the paged list.
-        /// </summary>
-        /// <param name="handler"></param>
-        internal void AddLostFocusEventHandler(EventHandler handler)
-        {
-            this.mediaList.LostFocus += handler;
         }
 
         /// <summary>
@@ -91,11 +56,12 @@ namespace ClientApp
         /// Gets the SelectedListViewItemCollection object containing all the
         /// ListViewItems that is currently selected in the paged list.
         /// </summary>
-        internal ListView.SelectedListViewItemCollection SelectedItems
+        internal MediaInfo SelectedItem
         {
             get
             {
-                return this.mediaList.SelectedItems;
+                ListViewItem selectedItem = this.mediaList.SelectedItems[0];
+                return this.mediaList.GetMediaInfoValueOf(selectedItem);
             }
         }
 

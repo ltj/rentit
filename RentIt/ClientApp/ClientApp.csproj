@@ -100,7 +100,7 @@
     <Compile Include="MoviePlayerControl.Designer.cs">
       <DependentUpon>MoviePlayerControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="PagedLists\DetailedMediaList.cs">
+    <Compile Include="PagedLists\PagedDetailedMediaList.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="PagedLists\PagedRatingsListControl.cs">
@@ -121,14 +121,14 @@
     <Compile Include="PagedLists\PagedRatingsList.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PagedLists\RentalsList.cs">
+    <Compile Include="PagedLists\PagedRentalsList.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="PagedLists\DetailedMediaListControl.cs">
+    <Compile Include="PagedLists\PagedDetailedMediaListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PagedLists\DetailedMediaListControl.Designer.cs">
-      <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
+    <Compile Include="PagedLists\PagedDetailedMediaListControl.Designer.cs">
+      <DependentUpon>PagedDetailedMediaListControl.cs</DependentUpon>
     </Compile>
     <Compile Include="EditAccount.cs">
       <SubType>UserControl</SubType>
@@ -198,11 +198,11 @@
     <Compile Include="RatingList.Designer.cs">
       <DependentUpon>RatingList.cs</DependentUpon>
     </Compile>
-    <Compile Include="PagedLists\RentalsListControl.cs">
+    <Compile Include="PagedLists\PagedRentalsListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="PagedLists\RentalsListControl.Designer.cs">
-      <DependentUpon>RentalsListControl.cs</DependentUpon>
+    <Compile Include="PagedLists\PagedRentalsListControl.Designer.cs">
+      <DependentUpon>PagedRentalsListControl.cs</DependentUpon>
     </Compile>
     <Compile Include="RentItMessageBox.cs" />
     <Compile Include="RentItProxy.cs" />
@@ -262,8 +262,8 @@
     <EmbeddedResource Include="MoviePlayerControl.resx">
       <DependentUpon>MoviePlayerControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PagedLists\DetailedMediaListControl.resx">
-      <DependentUpon>DetailedMediaListControl.cs</DependentUpon>
+    <EmbeddedResource Include="PagedLists\PagedDetailedMediaListControl.resx">
+      <DependentUpon>PagedDetailedMediaListControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PagedLists\PagedRatingsListControl.resx">
       <DependentUpon>PagedRatingsListControl.cs</DependentUpon>
@@ -314,8 +314,8 @@
     <EmbeddedResource Include="RatingList.resx">
       <DependentUpon>RatingList.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PagedLists\RentalsListControl.resx">
-      <DependentUpon>RentalsListControl.cs</DependentUpon>
+    <EmbeddedResource Include="PagedLists\PagedRentalsListControl.resx">
+      <DependentUpon>PagedRentalsListControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SearchResultsControl.resx">
       <DependentUpon>SearchResultsControl.cs</DependentUpon>

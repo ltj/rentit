@@ -25,7 +25,7 @@
         private void InitializeComponent() {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AlbumPlayerControl));
             this.mediaPlayer = new AxWMPLib.AxWindowsMediaPlayer();
-            this.songList = new ClientApp.DetailedMediaListControl();
+            this.songList = new ClientApp.PagedDetailedMediaListControl();
             this.titleLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize) (this.mediaPlayer)).BeginInit();
             this.SuspendLayout();
@@ -79,7 +79,7 @@
         #endregion
 
         private AxWMPLib.AxWindowsMediaPlayer mediaPlayer;
-        private DetailedMediaListControl songList;
+        private PagedDetailedMediaListControl songList;
         private System.Windows.Forms.Label titleLabel;
     }
 }

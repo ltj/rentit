@@ -40,8 +40,8 @@
             this.originValueLabel = new System.Windows.Forms.Label();
             this.publisherValueLabel = new System.Windows.Forms.Label();
             this.mediaDetailsGroupBox = new System.Windows.Forms.GroupBox();
-            this.lengthLabel = new System.Windows.Forms.Label();
             this.lengthValueLabel = new System.Windows.Forms.Label();
+            this.lengthLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.thumbnailBox)).BeginInit();
             this.mediaDetailsGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -63,6 +63,7 @@
             this.rentButton.TabIndex = 2;
             this.rentButton.Text = "Rent Media";
             this.rentButton.UseVisualStyleBackColor = true;
+            this.rentButton.Click += new System.EventHandler(this.rentButton_Click);
             // 
             // priceLabel
             // 
@@ -168,6 +169,15 @@
             this.mediaDetailsGroupBox.TabStop = false;
             this.mediaDetailsGroupBox.Text = "Media Details";
             // 
+            // lengthValueLabel
+            // 
+            this.lengthValueLabel.AutoSize = true;
+            this.lengthValueLabel.Location = new System.Drawing.Point(15, 209);
+            this.lengthValueLabel.Name = "lengthValueLabel";
+            this.lengthValueLabel.Size = new System.Drawing.Size(89, 13);
+            this.lengthValueLabel.TabIndex = 14;
+            this.lengthValueLabel.Text = "lengthValueLabel";
+            // 
             // lengthLabel
             // 
             this.lengthLabel.AutoSize = true;
@@ -177,15 +187,6 @@
             this.lengthLabel.Size = new System.Drawing.Size(73, 13);
             this.lengthLabel.TabIndex = 13;
             this.lengthLabel.Text = "lengthLabel";
-            // 
-            // lengthValueLabel
-            // 
-            this.lengthValueLabel.AutoSize = true;
-            this.lengthValueLabel.Location = new System.Drawing.Point(15, 209);
-            this.lengthValueLabel.Name = "lengthValueLabel";
-            this.lengthValueLabel.Size = new System.Drawing.Size(89, 13);
-            this.lengthValueLabel.TabIndex = 14;
-            this.lengthValueLabel.Text = "lengthValueLabel";
             // 
             // MediaSideBar
             // 

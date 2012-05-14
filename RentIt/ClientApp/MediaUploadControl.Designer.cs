@@ -36,7 +36,7 @@
             this.songsGroupBox = new System.Windows.Forms.GroupBox();
             this.deleteAllItemsButton = new System.Windows.Forms.Button();
             this.songListView = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader) (new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.songPropertyGrid = new System.Windows.Forms.PropertyGrid();
             this.deleteSelectedButton = new System.Windows.Forms.Button();
             this.newButton = new System.Windows.Forms.Button();
@@ -49,7 +49,7 @@
             // 
             // mainGroupBox
             // 
-            this.mainGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.mainGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.mainGroupBox.Controls.Add(this.uploadButton);
@@ -69,7 +69,7 @@
             // 
             // uploadButton
             // 
-            this.uploadButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.uploadButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.uploadButton.Location = new System.Drawing.Point(744, 24);
             this.uploadButton.Name = "uploadButton";
             this.uploadButton.Size = new System.Drawing.Size(56, 48);
@@ -89,7 +89,7 @@
             // 
             // discardButton
             // 
-            this.discardButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.discardButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.discardButton.Location = new System.Drawing.Point(675, 24);
             this.discardButton.Name = "discardButton";
             this.discardButton.Size = new System.Drawing.Size(63, 48);
@@ -100,7 +100,7 @@
             // 
             // mediaPropertyGrid
             // 
-            this.mediaPropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.mediaPropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.mediaPropertyGrid.Location = new System.Drawing.Point(6, 125);
             this.mediaPropertyGrid.Name = "mediaPropertyGrid";
@@ -110,7 +110,7 @@
             // 
             // songsGroupBox
             // 
-            this.songsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.songsGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.songsGroupBox.Controls.Add(this.deleteAllItemsButton);
@@ -127,7 +127,7 @@
             // 
             // deleteAllItemsButton
             // 
-            this.deleteAllItemsButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.deleteAllItemsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteAllItemsButton.Location = new System.Drawing.Point(325, 296);
             this.deleteAllItemsButton.Name = "deleteAllItemsButton";
             this.deleteAllItemsButton.Size = new System.Drawing.Size(75, 50);
@@ -139,7 +139,7 @@
             // songListView
             // 
             this.songListView.Activation = System.Windows.Forms.ItemActivation.TwoClick;
-            this.songListView.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.songListView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.songListView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
@@ -160,7 +160,7 @@
             // 
             // songPropertyGrid
             // 
-            this.songPropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.songPropertyGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.songPropertyGrid.Location = new System.Drawing.Point(214, 19);
@@ -171,7 +171,7 @@
             // 
             // deleteSelectedButton
             // 
-            this.deleteSelectedButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.deleteSelectedButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.deleteSelectedButton.Location = new System.Drawing.Point(406, 296);
             this.deleteSelectedButton.Name = "deleteSelectedButton";
             this.deleteSelectedButton.Size = new System.Drawing.Size(75, 50);
@@ -182,7 +182,7 @@
             // 
             // newButton
             // 
-            this.newButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.newButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.newButton.Location = new System.Drawing.Point(487, 296);
             this.newButton.Name = "newButton";
             this.newButton.Size = new System.Drawing.Size(75, 50);
@@ -219,13 +219,13 @@
             // 
             // uploadLabel
             // 
-            this.uploadLabel.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.uploadLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.uploadLabel.AutoSize = true;
             this.uploadLabel.Location = new System.Drawing.Point(3, 502);
             this.uploadLabel.Name = "uploadLabel";
-            this.uploadLabel.Size = new System.Drawing.Size(62, 13);
+            this.uploadLabel.Size = new System.Drawing.Size(37, 13);
             this.uploadLabel.TabIndex = 14;
-            this.uploadLabel.Text = "Status label";
+            this.uploadLabel.Text = "Status";
             // 
             // MediaUploadControl
             // 

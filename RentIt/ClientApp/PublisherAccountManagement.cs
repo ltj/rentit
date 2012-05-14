@@ -1,16 +1,12 @@
 ﻿namespace ClientApp
 {
     using System;
-    using System.Collections.Generic;
     using System.ServiceModel;
-    using System.Windows.Forms;
 
     using RentIt;
 
     public partial class PublisherAccountManagement : RentItUserControl
     {
-
-        private Dictionary<ListViewItem, MediaInfo> map;
 
         public PublisherAccountManagement()
         {
@@ -22,6 +18,7 @@
             // Add eventhandlers:
             publishedMediaList.AddSelectedIndexChangedEventHandler(this.SelectedIndexChangedHandler);
             publishedMediaList.AddLostFocusEventHandler(this.LostFocusHandler);
+            publishedMediaList.AddDoubleClickEventHandler(this.DoubleClickEventHandler);
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
@@ -36,30 +33,11 @@
             this.editAccountControl.RentItProxy = this.RentItProxy;
             this.editAccountControl.Credentials = this.Credentials;
 
+            this.mediaUploadControl.RentItProxy = this.RentItProxy;
+
             PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(this.Credentials);
             this.publishedMediaList.MediaItems = accountData.PublishedItems;
         }
-
-        /*
-        internal PublisherAccountManagement(AccountCredentials accountCredentials)
-            : this()
-        {
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            this.serviceClient = new RentItClient(binding, address);
-
-            this.accountCredentials = new AccountCredentials()
-                {
-                    UserName = "publishCorp",
-                    HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
-                };
-            // accountCredentials;
-
-            PublisherAccount accountData = serviceClient.GetAllPublisherData(this.accountCredentials);
-            this.publishedMediaList.MediaItems = accountData.PublishedItems;
-        }
-         * */
-
 
         /// <summary>
         /// Sets the account credentials to be used by the UserControl.
@@ -75,6 +53,8 @@
             {
                 base.Credentials = value;
                 PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(value);
+                this.mediaUploadControl.Credentials = this.Credentials;
+                this.mediaUploadControl.PublisherAccount = accountData;
                 this.publishedMediaList.MediaItems = accountData.PublishedItems;
             }
         }
@@ -101,23 +81,24 @@
         private void SelectedIndexChangedHandler(object obj, EventArgs e)
         {
             // Both buttons are enabled when only one item in the list is selected.
-            if (publishedMediaList.SelectedItems.Count != 1)
+            if (publishedMediaList.SelectedMedia.Count != 1)
             {
                 deleteMediaButton.Enabled = false;
                 changePriceButton.Enabled = false;
             }
+
             // If the single selected item is contained in the Songs group, it is
             // not possible to delete the media item; the delete button is disabled.
             else
             {
                 changePriceButton.Enabled = true;
-                if (publishedMediaList.SelectedItems.Count == 0)
+                if (publishedMediaList.SelectedMedia.Count == 0)
                 {
                     deleteMediaButton.Enabled = false;
                     return;
                 }
-                string groupName = publishedMediaList.SelectedItems[0].Group.Header;
-                deleteMediaButton.Enabled = !groupName.Equals("Songs");
+                MediaType groupName = publishedMediaList.SelectedMedia[0].Type;
+                deleteMediaButton.Enabled = groupName != MediaType.Song;
             }
         }
 
@@ -127,6 +108,40 @@
             changePriceButton.Enabled = false;
         }
 
+        private void DoubleClickEventHandler(object obj, EventArgs e)
+        {
+            MediaInfo mediaInfo = this.publishedMediaList.GetSingleMedia();
+
+            if (mediaInfo == null)
+            {
+                return;
+            }
+
+            RentItUserControl mediaDetail = null;
+
+            if (mediaInfo.Type == MediaType.Album)
+            {
+                var albumDetails = new AlbumDetails();
+                albumDetails.AlbumInfo = (AlbumInfo)mediaInfo;
+            }
+            else if (mediaInfo.Type == MediaType.Movie)
+            {
+                var movieDetails = new BookMovieDetails();
+                movieDetails.MovieInfo = (MovieInfo)mediaInfo;
+            }
+            else if (mediaInfo.Type == MediaType.Book)
+            {
+                var bookDetails = new BookMovieDetails();
+                bookDetails.BookInfo = (BookInfo)mediaInfo;
+            }
+
+            mediaDetail.RentItProxy = this.RentItProxy;
+            mediaDetail.Credentials = this.Credentials;
+
+            this.FireContentChangeEvent(mediaDetail, mediaInfo.Title);
+
+        }
+
         #endregion
 
         #region Controllers
@@ -134,13 +149,12 @@
         private void deleteMediaButton_Click(object sender, EventArgs e)
         {
             // Retrieve the selected media item.
-            ListView.SelectedListViewItemCollection selectedItems = this.publishedMediaList.SelectedItems;
-            if (selectedItems.Count == 0) return;
+            MediaInfo mediaInfo = this.publishedMediaList.GetSingleMedia();
 
-            ListViewItem selectedItem = this.publishedMediaList.SelectedItems[0];
-
-            // Get the corresponding MediaInfo object.
-            MediaInfo selectedMediaInfo = this.map[selectedItem];
+            if (mediaInfo == null)
+            {
+                return;
+            }
 
             // Delete the media from the service.
             //this.serviceClient.DeleteMedia(selectedMediaInfo.Id, this.accountCredentials);

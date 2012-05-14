@@ -15,7 +15,7 @@ namespace ClientApp
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class MediaList : PagedListView
+    public class PagedDetailedMediaList : PagedListView
     {
         private ColumnHeader titleColumn;
         private ColumnHeader authorColumn;
@@ -31,7 +31,7 @@ namespace ClientApp
         /// <summary>
         /// Initializes a new instance of the MediaList class.
         /// </summary>
-        public MediaList()
+        public PagedDetailedMediaList()
         {
             // Initialze columns
             this.titleColumn = new ColumnHeader();

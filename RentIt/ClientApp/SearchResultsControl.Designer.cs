@@ -32,7 +32,7 @@
             this.filterButton = new System.Windows.Forms.Button();
             this.priceFilter = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.results = new ClientApp.DetailedMediaListControl();
+            this.results = new ClientApp.PagedDetailedMediaListControl();
             this.SuspendLayout();
             // 
             // GenreFilter
@@ -168,7 +168,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label resultsLabel;
         private System.Windows.Forms.Label label1;
-        private DetailedMediaListControl results;
+        private PagedDetailedMediaListControl results;
         private System.Windows.Forms.Button filterButton;
         private System.Windows.Forms.ListBox priceFilter;
         private System.Windows.Forms.Label label2;

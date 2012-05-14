@@ -27,6 +27,23 @@ namespace ClientApp
         }
 
         /// <summary>
+        /// Overridden so that is sets the Credentials property of the 
+        /// MediaSideBar instance as well.
+        /// </summary>
+        internal override AccountCredentials Credentials
+        {
+            get
+            {
+                return base.Credentials;
+            }
+            set
+            {
+                base.Credentials = value;
+                this.mediaSideBar.Credentials = value;
+            }
+        }
+
+        /// <summary>
         /// Sets the BookInfo instance whoose metadata and
         /// ratings are to be displayed on the UserControl.
         /// </summary>

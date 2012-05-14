@@ -16,7 +16,7 @@ namespace ClientApp
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class RentalsList : PagedListView
+    public class PagedRentalsList : PagedListView
     {
         private ColumnHeader titleColumn;
         private ColumnHeader startDateColumn;
@@ -32,7 +32,7 @@ namespace ClientApp
         /// <summary>
         /// Initializes a new instance of the 
         /// </summary>
-        public RentalsList()
+        public PagedRentalsList()
         {
             // Initialze columns
             this.titleColumn = new ColumnHeader();

@@ -1,6 +1,6 @@
 ﻿namespace ClientApp
 {
-    partial class RentalsListControl
+    partial class PagedDetailedMediaListControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -36,6 +36,10 @@
             System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("Albums", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup7 = new System.Windows.Forms.ListViewGroup("Movies", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup8 = new System.Windows.Forms.ListViewGroup("Books", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup9 = new System.Windows.Forms.ListViewGroup("Songs", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup10 = new System.Windows.Forms.ListViewGroup("Albums", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup11 = new System.Windows.Forms.ListViewGroup("Movies", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup12 = new System.Windows.Forms.ListViewGroup("Books", System.Windows.Forms.HorizontalAlignment.Left);
             this.itemsPerPageComboBox = new System.Windows.Forms.ComboBox();
             this.itemsPerPageLabel = new System.Windows.Forms.Label();
             this.firstPageButton = new System.Windows.Forms.Button();
@@ -43,7 +47,7 @@
             this.nextPageButton = new System.Windows.Forms.Button();
             this.lastPageButton = new System.Windows.Forms.Button();
             this.currentPageTextbox = new System.Windows.Forms.TextBox();
-            this.mediaList = new ClientApp.RentalsList();
+            this.mediaList = new ClientApp.PagedDetailedMediaList();
             this.SuspendLayout();
             // 
             // itemsPerPageComboBox
@@ -55,7 +59,7 @@
             "25",
             "50",
             "100"});
-            this.itemsPerPageComboBox.Location = new System.Drawing.Point(411, 8);
+            this.itemsPerPageComboBox.Location = new System.Drawing.Point(626, 8);
             this.itemsPerPageComboBox.Name = "itemsPerPageComboBox";
             this.itemsPerPageComboBox.Size = new System.Drawing.Size(103, 21);
             this.itemsPerPageComboBox.TabIndex = 10;
@@ -64,7 +68,7 @@
             // 
             this.itemsPerPageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.itemsPerPageLabel.AutoSize = true;
-            this.itemsPerPageLabel.Location = new System.Drawing.Point(325, 11);
+            this.itemsPerPageLabel.Location = new System.Drawing.Point(540, 11);
             this.itemsPerPageLabel.Name = "itemsPerPageLabel";
             this.itemsPerPageLabel.Size = new System.Drawing.Size(80, 13);
             this.itemsPerPageLabel.TabIndex = 11;
@@ -73,7 +77,7 @@
             // firstPageButton
             // 
             this.firstPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.firstPageButton.Location = new System.Drawing.Point(67, 419);
+            this.firstPageButton.Location = new System.Drawing.Point(176, 403);
             this.firstPageButton.Name = "firstPageButton";
             this.firstPageButton.Size = new System.Drawing.Size(75, 23);
             this.firstPageButton.TabIndex = 12;
@@ -84,7 +88,7 @@
             // previousPageButton
             // 
             this.previousPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.previousPageButton.Location = new System.Drawing.Point(148, 419);
+            this.previousPageButton.Location = new System.Drawing.Point(257, 403);
             this.previousPageButton.Name = "previousPageButton";
             this.previousPageButton.Size = new System.Drawing.Size(75, 23);
             this.previousPageButton.TabIndex = 13;
@@ -95,7 +99,7 @@
             // nextPageButton
             // 
             this.nextPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.nextPageButton.Location = new System.Drawing.Point(315, 419);
+            this.nextPageButton.Location = new System.Drawing.Point(424, 403);
             this.nextPageButton.Name = "nextPageButton";
             this.nextPageButton.Size = new System.Drawing.Size(75, 23);
             this.nextPageButton.TabIndex = 14;
@@ -106,7 +110,7 @@
             // lastPageButton
             // 
             this.lastPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.lastPageButton.Location = new System.Drawing.Point(396, 419);
+            this.lastPageButton.Location = new System.Drawing.Point(505, 403);
             this.lastPageButton.Name = "lastPageButton";
             this.lastPageButton.Size = new System.Drawing.Size(75, 23);
             this.lastPageButton.TabIndex = 15;
@@ -117,7 +121,7 @@
             // currentPageTextbox
             // 
             this.currentPageTextbox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.currentPageTextbox.Location = new System.Drawing.Point(241, 419);
+            this.currentPageTextbox.Location = new System.Drawing.Point(350, 403);
             this.currentPageTextbox.Name = "currentPageTextbox";
             this.currentPageTextbox.ReadOnly = true;
             this.currentPageTextbox.Size = new System.Drawing.Size(55, 20);
@@ -148,6 +152,14 @@
             listViewGroup7.Name = null;
             listViewGroup8.Header = "Books";
             listViewGroup8.Name = null;
+            listViewGroup9.Header = "Songs";
+            listViewGroup9.Name = null;
+            listViewGroup10.Header = "Albums";
+            listViewGroup10.Name = null;
+            listViewGroup11.Header = "Movies";
+            listViewGroup11.Name = null;
+            listViewGroup12.Header = "Books";
+            listViewGroup12.Name = null;
             this.mediaList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1,
             listViewGroup2,
@@ -156,20 +168,23 @@
             listViewGroup5,
             listViewGroup6,
             listViewGroup7,
-            listViewGroup8});
+            listViewGroup8,
+            listViewGroup9,
+            listViewGroup10,
+            listViewGroup11,
+            listViewGroup12});
             this.mediaList.Location = new System.Drawing.Point(4, 35);
             this.mediaList.MultiSelect = false;
             this.mediaList.Name = "mediaList";
-            this.mediaList.Size = new System.Drawing.Size(510, 378);
+            this.mediaList.Size = new System.Drawing.Size(727, 359);
             this.mediaList.TabIndex = 9;
             this.mediaList.UseCompatibleStateImageBehavior = false;
             this.mediaList.View = System.Windows.Forms.View.Details;
             // 
-            // RentalsListControl
+            // DetailedMediaListControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.mediaList);
             this.Controls.Add(this.currentPageTextbox);
             this.Controls.Add(this.lastPageButton);
             this.Controls.Add(this.nextPageButton);
@@ -177,8 +192,9 @@
             this.Controls.Add(this.firstPageButton);
             this.Controls.Add(this.itemsPerPageLabel);
             this.Controls.Add(this.itemsPerPageComboBox);
-            this.Name = "RentalsListControl";
-            this.Size = new System.Drawing.Size(517, 442);
+            this.Controls.Add(this.mediaList);
+            this.Name = "DetailedMediaListControl";
+            this.Size = new System.Drawing.Size(734, 426);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,6 +202,7 @@
 
         #endregion
 
+        private PagedDetailedMediaList mediaList;
         private System.Windows.Forms.ComboBox itemsPerPageComboBox;
         private System.Windows.Forms.Label itemsPerPageLabel;
         private System.Windows.Forms.Button firstPageButton;
@@ -193,6 +210,5 @@
         private System.Windows.Forms.Button nextPageButton;
         private System.Windows.Forms.Button lastPageButton;
         private System.Windows.Forms.TextBox currentPageTextbox;
-        private RentalsList mediaList;
     }
 }

@@ -1,6 +1,7 @@
 ﻿
 namespace ClientApp
 {
+    using System;
     using System.Windows.Forms;
 
     using BinaryCommunicator;
@@ -90,5 +91,33 @@ namespace ClientApp
                 this.thumbnailBox.Image = BinaryCommuncator.GetThumbnail(mediaInfo.Id);
             }
         }
+
+        #region Controllers
+
+        /// <summary>
+        /// Controller for the Rent-button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void rentButton_Click(object sender, System.EventArgs e)
+        {
+            if (this.Credentials == null)
+            {
+                RentItMessageBox.NotLoggedIn();
+            }
+            else
+            {
+                try
+                {
+                    this.RentItProxy.RentMedia(this.mediaInfo.Id, this.Credentials);
+                }
+                catch (Exception)
+                {
+                    RentItMessageBox.ServerCommunicationFailure();
+                }
+            }
+        }
+
+        #endregion
     }
 }

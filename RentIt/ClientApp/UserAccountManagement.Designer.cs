@@ -32,7 +32,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.editAccount1 = new ClientApp.EditAccount();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.rentalsListControl = new ClientApp.RentalsListControl();
+            this.rentalsListControl = new ClientApp.PagedRentalsListControl();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.creditsControl1 = new ClientApp.CreditsControl();
             this.tabControl.SuspendLayout();
@@ -129,7 +129,7 @@
 		private System.Windows.Forms.TabPage tabPage2;
 		private System.Windows.Forms.TabPage tabPage3;
 		private EditAccount editAccount1;
-		private RentalsListControl rentalsListControl;
+		private PagedRentalsListControl rentalsListControl;
 		private CreditsControl creditsControl1;
 	}
 }

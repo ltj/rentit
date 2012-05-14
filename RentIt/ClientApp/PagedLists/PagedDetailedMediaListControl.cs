@@ -3,6 +3,7 @@ namespace ClientApp
 {
     using System;
     using System.Collections.Generic;
+    using System.ServiceModel;
     using System.Windows.Forms;
 
     using RentIt;
@@ -11,17 +12,27 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class RentalsListControl : RentItUserControl
+    public partial class PagedDetailedMediaListControl : RentItUserControl
     {
         /// <summary>
-        /// Initializes a new instance of the RentalsListControl class.
+        /// Initializes a new instance of the DetailedMediaListControl class.
         /// </summary>
-        public RentalsListControl()
+        public PagedDetailedMediaListControl()
         {
             InitializeComponent();
 
+            BasicHttpBinding binding = new BasicHttpBinding();
+            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
+            RentItProxy = new RentItClient(binding, address);
+
             this.itemsPerPageComboBox.SelectedIndex = 0;
             this.mediaList.ItemsPerPage = int.Parse(this.itemsPerPageComboBox.SelectedItem.ToString());
+
+            this.mediaList.UpdateListContents(RentItProxy.GetAllPublisherData(new AccountCredentials()
+                {
+                    UserName = "publishCorp",
+                    HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
+                }).PublishedItems);
 
             this.currentPageTextbox.Text =
                 this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
@@ -30,17 +41,36 @@ namespace ClientApp
             this.itemsPerPageComboBox.SelectedIndexChanged += this.ComboBoxSelectedItemChangedEventHandler;
         }
 
+
         /// <summary>
-        /// Sets the rating list to display the ratings contained 
-        /// in the submitted list.
+        /// Sets the contents of the list and updates the list
+        /// to display the media items.
         /// </summary>
-        internal List<Rental> MediaItems
+        internal MediaItems MediaItems
         {
             set
             {
                 this.mediaList.UpdateListContents(value);
                 this.DetermineButtons();
             }
+        }
+
+        /// <summary>
+        /// Add an EventHandler to the SelectedIndexChanged event on the paged list.
+        /// </summary>
+        /// <param name="handler"></param>
+        internal void AddSelectedIndexChangedEventHandler(EventHandler handler)
+        {
+            this.mediaList.SelectedIndexChanged += handler;
+        }
+
+        /// <summary>
+        /// Adds an Eventhandler to the LostFocus event on the paged list.
+        /// </summary>
+        /// <param name="handler"></param>
+        internal void AddLostFocusEventHandler(EventHandler handler)
+        {
+            this.mediaList.LostFocus += handler;
         }
 
         /// <summary>
@@ -56,13 +86,34 @@ namespace ClientApp
         /// Gets the SelectedListViewItemCollection object containing all the
         /// ListViewItems that is currently selected in the paged list.
         /// </summary>
-        internal MediaInfo SelectedItem
+        internal List<MediaInfo> SelectedMedia
         {
             get
             {
-                ListViewItem selectedItem = this.mediaList.SelectedItems[0];
-                return this.mediaList.GetMediaInfoValueOf(selectedItem);
+                var mediaList = new List<MediaInfo>();
+                foreach (ListViewItem item in this.mediaList.SelectedItems)
+                {
+                    mediaList.Add(this.mediaList.GetMediaInfoValueOf(item));
+                }
+
+                return mediaList;
             }
+        }
+
+        /// <summary>
+        /// Returns the single selected item of the list. If the number of selected
+        /// items is different from one, the method returns null.
+        /// </summary>
+        /// <returns></returns>
+        internal MediaInfo GetSingleMedia()
+        {
+            if (this.mediaList.SelectedItems.Count != 1)
+            {
+                return null;
+            }
+
+            ListViewItem selectedItem = this.mediaList.SelectedItems[0];
+            return this.mediaList.GetMediaInfoValueOf(selectedItem);
         }
 
         #region Controllers

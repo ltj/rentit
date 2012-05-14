@@ -22,9 +22,16 @@ namespace ClientApp
         /// </summary>
         private MediaCriteria mediaCriteria;
 
+        private Dictionary<ListViewItem, MediaInfo> map;
+
         public MediaGrid()
         {
             InitializeComponent();
+
+            this.map = new Dictionary<ListViewItem, MediaInfo>();
+
+            // Add EventHandlers.
+            this.ListViewGrid.DoubleClick += this.DoubleClickEventHandler;
 
             mediaCriteria = new MediaCriteria()
                 {
@@ -75,6 +82,7 @@ namespace ClientApp
         {
             ListViewGrid.Items.Clear();
             var listItemCollection = new List<ListViewItem>();
+            this.map = new Dictionary<ListViewItem, MediaInfo>();
 
             var imageList = new ImageList();
             var imageSize = new Size(70, 70);
@@ -92,6 +100,8 @@ namespace ClientApp
                         item.SubItems.Add(album.AlbumArtist);
                         item.SubItems.Add(album.Price.ToString());
                         listItemCollection.Add(item);
+
+                        this.map.Add(item, album);
                     }
                     break;
                 case MediaType.Book:
@@ -103,6 +113,8 @@ namespace ClientApp
                         item.SubItems.Add(book.Author);
                         item.SubItems.Add(book.Price.ToString());
                         listItemCollection.Add(item);
+
+                        this.map.Add(item, book);
                     }
                     break;
                 case MediaType.Song:
@@ -114,6 +126,8 @@ namespace ClientApp
                         item.SubItems.Add(song.Artist);
                         item.SubItems.Add(song.Price.ToString());
                         listItemCollection.Add(item);
+
+                        this.map.Add(item, song);
                     }
                     break;
                 case MediaType.Movie:
@@ -125,6 +139,8 @@ namespace ClientApp
                         item.SubItems.Add(movie.Director);
                         item.SubItems.Add(movie.Price.ToString());
                         listItemCollection.Add(item);
+
+                        this.map.Add(item, movie);
                     }
                     break;
             }
@@ -146,10 +162,47 @@ namespace ClientApp
             return image;
         }
 
+        #region EventHandlers
 
+        /// <summary>
+        /// EventHandler for handling double clicks on the MediaGrid.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
         private void DoubleClickEventHandler(object obj, EventArgs e)
         {
+            if (this.ListViewGrid.SelectedItems.Count != 1)
+            {
+                return;
+            }
 
+            ListViewItem selectedItem = this.ListViewGrid.SelectedItems[0];
+            MediaInfo mediaInfo = this.map[selectedItem];
+
+            RentItUserControl mediaDetail = null;
+
+            if (this.mediaCriteria.Type == MediaType.Album)
+            {
+                var albumDetails = new AlbumDetails();
+                albumDetails.AlbumInfo = (AlbumInfo)mediaInfo;
+            }
+            else if (this.mediaCriteria.Type == MediaType.Movie)
+            {
+                var movieDetails = new BookMovieDetails();
+                movieDetails.MovieInfo = (MovieInfo)mediaInfo;
+            }
+            else if (this.mediaCriteria.Type == MediaType.Book)
+            {
+                var bookDetails = new BookMovieDetails();
+                bookDetails.BookInfo = (BookInfo)mediaInfo;
+            }
+
+            mediaDetail.RentItProxy = this.RentItProxy;
+            mediaDetail.Credentials = this.Credentials;
+
+            this.FireContentChangeEvent(mediaDetail, mediaInfo.Title);
         }
+
+        #endregion
     }
 }

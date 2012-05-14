@@ -30,14 +30,14 @@ namespace ClientApp
         {
             this.TabControl = new System.Windows.Forms.TabControl();
             this.AccountManagementTab = new System.Windows.Forms.TabPage();
+            this.editAccountControl = new ClientApp.EditAccount();
             this.MediaManagementTab = new System.Windows.Forms.TabPage();
             this.changePriceButton = new System.Windows.Forms.Button();
             this.deleteMediaButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.publishedMediaList = new ClientApp.PagedDetailedMediaListControl();
             this.MediaUploadTab = new System.Windows.Forms.TabPage();
-            this.editAccountControl = new ClientApp.EditAccount();
-            this.publishedMediaList = new ClientApp.DetailedMediaListControl();
-            this.mediaUploadControl1 = new ClientApp.MediaUploadControl();
+            this.mediaUploadControl = new ClientApp.MediaUploadControl();
             this.TabControl.SuspendLayout();
             this.AccountManagementTab.SuspendLayout();
             this.MediaManagementTab.SuspendLayout();
@@ -69,6 +69,14 @@ namespace ClientApp
             this.AccountManagementTab.TabIndex = 0;
             this.AccountManagementTab.Text = "Account Management";
             this.AccountManagementTab.UseVisualStyleBackColor = true;
+            // 
+            // editAccountControl
+            // 
+            this.editAccountControl.BackColor = System.Drawing.SystemColors.Window;
+            this.editAccountControl.Location = new System.Drawing.Point(245, 179);
+            this.editAccountControl.Name = "editAccountControl";
+            this.editAccountControl.Size = new System.Drawing.Size(356, 173);
+            this.editAccountControl.TabIndex = 0;
             // 
             // MediaManagementTab
             // 
@@ -116,25 +124,6 @@ namespace ClientApp
             this.panel1.Size = new System.Drawing.Size(716, 519);
             this.panel1.TabIndex = 14;
             // 
-            // MediaUploadTab
-            // 
-            this.MediaUploadTab.Controls.Add(this.mediaUploadControl1);
-            this.MediaUploadTab.Location = new System.Drawing.Point(4, 22);
-            this.MediaUploadTab.Name = "MediaUploadTab";
-            this.MediaUploadTab.Padding = new System.Windows.Forms.Padding(3);
-            this.MediaUploadTab.Size = new System.Drawing.Size(852, 531);
-            this.MediaUploadTab.TabIndex = 2;
-            this.MediaUploadTab.Text = "Media Upload";
-            this.MediaUploadTab.UseVisualStyleBackColor = true;
-            // 
-            // editAccountControl
-            // 
-            this.editAccountControl.BackColor = System.Drawing.SystemColors.Window;
-            this.editAccountControl.Location = new System.Drawing.Point(245, 179);
-            this.editAccountControl.Name = "editAccountControl";
-            this.editAccountControl.Size = new System.Drawing.Size(356, 173);
-            this.editAccountControl.TabIndex = 0;
-            // 
             // publishedMediaList
             // 
             this.publishedMediaList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -145,15 +134,26 @@ namespace ClientApp
             this.publishedMediaList.Size = new System.Drawing.Size(716, 519);
             this.publishedMediaList.TabIndex = 0;
             // 
-            // mediaUploadControl1
+            // MediaUploadTab
             // 
-            this.mediaUploadControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.MediaUploadTab.Controls.Add(this.mediaUploadControl);
+            this.MediaUploadTab.Location = new System.Drawing.Point(4, 22);
+            this.MediaUploadTab.Name = "MediaUploadTab";
+            this.MediaUploadTab.Padding = new System.Windows.Forms.Padding(3);
+            this.MediaUploadTab.Size = new System.Drawing.Size(852, 531);
+            this.MediaUploadTab.TabIndex = 2;
+            this.MediaUploadTab.Text = "Media Upload";
+            this.MediaUploadTab.UseVisualStyleBackColor = true;
+            // 
+            // mediaUploadControl
+            // 
+            this.mediaUploadControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.mediaUploadControl1.Location = new System.Drawing.Point(7, 7);
-            this.mediaUploadControl1.Name = "mediaUploadControl1";
-            this.mediaUploadControl1.Size = new System.Drawing.Size(839, 519);
-            this.mediaUploadControl1.TabIndex = 0;
+            this.mediaUploadControl.Location = new System.Drawing.Point(7, 7);
+            this.mediaUploadControl.Name = "mediaUploadControl";
+            this.mediaUploadControl.Size = new System.Drawing.Size(839, 519);
+            this.mediaUploadControl.TabIndex = 0;
             // 
             // PublisherAccountManagement
             // 
@@ -176,12 +176,12 @@ namespace ClientApp
         private System.Windows.Forms.TabControl TabControl;
         private System.Windows.Forms.TabPage AccountManagementTab;
         private System.Windows.Forms.TabPage MediaUploadTab;
-        private MediaUploadControl mediaUploadControl1;
+        private MediaUploadControl mediaUploadControl;
         private System.Windows.Forms.TabPage MediaManagementTab;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button changePriceButton;
         private System.Windows.Forms.Button deleteMediaButton;
-        private DetailedMediaListControl publishedMediaList;
+        private PagedDetailedMediaListControl publishedMediaList;
         private EditAccount editAccountControl;
     }
 }

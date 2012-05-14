@@ -11,20 +11,22 @@
 
     public partial class MediaUploadControl : RentItUserControl
     {
+        private PublisherAccount publisherAccount;
+
         /// <summary>
         /// The current book instance to upload.
         /// </summary>
-        private BookInfoUpload bookInfo = new BookInfoUpload();
+        private BookInfoUpload bookInfo;
 
         /// <summary>
         /// The current movie instance to upload.
         /// </summary>
-        private MovieInfoUpload movieInfo = new MovieInfoUpload();
+        private MovieInfoUpload movieInfo;
 
         /// <summary>
         /// The current album instance to upload.
         /// </summary>
-        private AlbumInfoUpload albumInfo = new AlbumInfoUpload();
+        private AlbumInfoUpload albumInfo;
 
         /// <summary>
         /// Used for mapping from SongInfoUpload to ListViesItem.
@@ -41,6 +43,11 @@
         public MediaUploadControl()
         {
             InitializeComponent();
+
+            // Initialize upload media
+            this.bookInfo = new BookInfoUpload();
+            this.movieInfo = new MovieInfoUpload();
+            this.albumInfo = new AlbumInfoUpload();
 
             // Initialize selection.
             comboBox1.SelectedIndex = 0;
@@ -68,6 +75,25 @@
                 base.Credentials = value;
                 this.publisherCredentials =
                     new Credentials(this.Credentials.UserName, this.Credentials.HashedPassword);
+            }
+        }
+
+
+        /// <summary>
+        /// Auto property for getting and setting the PublisherAccount.
+        /// </summary>
+        internal PublisherAccount PublisherAccount
+        {
+            get
+            {
+                return this.publisherAccount;
+            }
+            set
+            {
+                this.publisherAccount = value;
+                this.bookInfo.Publisher = this.PublisherAccount.PublisherName;
+                this.movieInfo.Publisher = this.PublisherAccount.PublisherName;
+                this.albumInfo.Publisher = this.PublisherAccount.PublisherName;
             }
         }
 
@@ -112,6 +138,8 @@
         private void newSongButton_Click(object sender, EventArgs e)
         {
             SongInfoUpload cu = new SongInfoUpload();
+            cu.Publisher = this.PublisherAccount.PublisherName;
+
             songPropertyGrid.SelectedObject = cu;
 
             ListViewItem item = new ListViewItem("<name>");
@@ -162,6 +190,7 @@
             if (comboBox1.SelectedItem.ToString().Equals("Album"))
             {
                 this.albumInfo = new AlbumInfoUpload();
+                this.albumInfo.Publisher = this.PublisherAccount.PublisherName;
 
                 mediaPropertyGrid.SelectedObject = albumInfo;
 
@@ -171,11 +200,13 @@
             if (comboBox1.SelectedItem.ToString().Equals("Book"))
             {
                 this.bookInfo = new BookInfoUpload();
+                this.bookInfo.Publisher = this.PublisherAccount.PublisherName;
                 mediaPropertyGrid.SelectedObject = bookInfo;
             }
             if (comboBox1.SelectedItem.ToString().Equals("Movie"))
             {
                 this.movieInfo = new MovieInfoUpload();
+                this.movieInfo.Publisher = this.PublisherAccount.PublisherName;
                 mediaPropertyGrid.SelectedObject = movieInfo;
             }
         }

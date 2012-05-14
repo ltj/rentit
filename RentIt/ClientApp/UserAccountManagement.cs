@@ -59,6 +59,10 @@ namespace ClientApp
                     bookReader.Credentials = this.Credentials;
                     bookReader.Book = (BookInfo)mediaInfo;
                     bookReader.Start();
+
+                    // Propagate the ContentChangeEventHandler of the MainForm to the BookReader.
+                    bookReader.ContentChangeEvent += this.ContentChangeEventPropagated;
+
                     mediaDisplay.Content = bookReader;
                     break;
                 case MediaType.Movie:
@@ -66,6 +70,10 @@ namespace ClientApp
                     moviePlayer.Credentials = this.Credentials;
                     moviePlayer.Movie = (MovieInfo)mediaInfo;
                     moviePlayer.Start();
+
+                    // Propagate the ContentChangeEventHandler of the MainForm to the MoviePlayer.
+                    moviePlayer.ContentChangeEvent += this.ContentChangeEventPropagated;
+
                     mediaDisplay.Content = moviePlayer;
                     break;
                 case MediaType.Album:
@@ -73,6 +81,10 @@ namespace ClientApp
                     albumPlayer.Credentials = this.Credentials;
                     albumPlayer.Album = (AlbumInfo)mediaInfo;
                     albumPlayer.Start();
+
+                    // Propagate the ContentChangeEventHandler of the MainForm to the AlbumPlayer.
+                    albumPlayer.ContentChangeEvent += this.ContentChangeEventPropagated;
+
                     mediaDisplay.Content = albumPlayer;
                     break;
                 default:
@@ -84,5 +96,16 @@ namespace ClientApp
         }
 
         #endregion
+
+        /// <summary>
+        /// For propagating the MainForms subscription to the ContentChangeEvent
+        /// to the media players.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
+        private void ContentChangeEventPropagated(object obj, ContentChangeArgs e)
+        {
+            this.FireContentChangeEvent(e.NewControl, e.NewTitle);
+        }
     }
 }

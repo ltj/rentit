@@ -41,6 +41,23 @@ namespace ClientApp
         }
 
         /// <summary>
+        /// Overridden so that is sets the Credentials property of the 
+        /// MediaSideBar instance as well.
+        /// </summary>
+        internal override AccountCredentials Credentials
+        {
+            get
+            {
+                return base.Credentials;
+            }
+            set
+            {
+                base.Credentials = value;
+                this.mediaSideBar.Credentials = value;
+            }
+        }
+
+        /// <summary>
         /// Sets the AlbumInfo instance whose metadata is to be
         /// displayed in the AlbumDetails control.
         /// </summary>
