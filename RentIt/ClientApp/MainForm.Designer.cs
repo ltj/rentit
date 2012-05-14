@@ -23,13 +23,14 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.contentPane = new System.Windows.Forms.Panel();
             this.topBarControl = new ClientApp.TopBarControl();
             this.SuspendLayout();
             // 
             // contentPane
             // 
-            this.contentPane.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.contentPane.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.contentPane.Location = new System.Drawing.Point(1, 76);
@@ -39,7 +40,7 @@
             // 
             // topBarControl
             // 
-            this.topBarControl.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.topBarControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.topBarControl.Location = new System.Drawing.Point(1, 1);
             this.topBarControl.LoggedIn = false;
@@ -58,9 +59,10 @@
             this.ClientSize = new System.Drawing.Size(770, 520);
             this.Controls.Add(this.topBarControl);
             this.Controls.Add(this.contentPane);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(700, 500);
             this.Name = "MainForm";
-            this.Text = "MainForm";
+            this.Text = "RentIt";
             this.ResumeLayout(false);
 
         }

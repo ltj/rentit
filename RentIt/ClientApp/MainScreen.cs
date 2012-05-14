@@ -1,6 +1,4 @@
-﻿using System.Windows.Forms;
-
-namespace ClientApp {
+﻿namespace ClientApp {
     using RentIt;
 
     public partial class MainScreen : RentItUserControl {
@@ -30,6 +28,18 @@ namespace ClientApp {
 
             criteria.Type = MediaType.Album;
             musicList.UpdateList(criteria);
+        }
+
+        private void MoviesButtonClick(object sender, System.EventArgs e) {
+            FireContentChangeEvent(new MediaFrontpage(), "Movies");
+        }
+
+        private void BooksButtonClick(object sender, System.EventArgs e) {
+            FireContentChangeEvent(new MediaFrontpage(), "Books");
+        }
+
+        private void MusicButtonClick(object sender, System.EventArgs e) {
+            FireContentChangeEvent(new MediaFrontpage(), "Music");
         }
     }
 }

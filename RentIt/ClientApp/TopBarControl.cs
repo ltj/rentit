@@ -83,7 +83,8 @@
 
             // switch to search results, using criteria object
             var search = new SearchResultsControl { Criteria = criteria };
-            (ParentForm as MainForm).Content = search;
+            //(ParentForm as MainForm).Content = search;
+            FireContentChangeEvent(search, "Search results");
         }
 
         private void SearchButtonClick(object sender, EventArgs e) {
@@ -93,6 +94,9 @@
         private void LogInLogOutButtonClick(object sender, EventArgs e) {
             if(!LoggedIn) {
                 // go to log in screen
+                FireContentChangeEvent(new UserRegistration(), "Register user account");
+
+                //only update the following when logged in
                 UserName = "skinkehyllebanke";
                 Credits = 650;
                 LoggedIn = true;
@@ -107,29 +111,29 @@
         }
 
         private void HomeButtonClick(object sender, EventArgs e) {
-            (ParentForm as MainForm).Content = new MainScreen();
+            FireContentChangeEvent(new MainScreen(), "RentIt");
         }
 
         private void MovieButtonClick(object sender, EventArgs e) {
-
+            FireContentChangeEvent(new MediaFrontpage(), "Movies");
         }
 
         private void MusicButtonClick(object sender, EventArgs e) {
-
+            FireContentChangeEvent(new MediaFrontpage(), "Music");
         }
 
         private void BookButtonClick(object sender, EventArgs e) {
-
+            FireContentChangeEvent(new MediaFrontpage(), "Books");
         }
 
         private void UserNameLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
             if(!LoggedIn) {
                 RentItMessageBox.NotLoggedIn();
+                return;
             }
-            else {
-                // go to account screen
-                (ParentForm as MainForm).Content = new PublisherAccountManagement();
-            }
+
+            // go to account screen (check whether publisher or user)
+            FireContentChangeEvent(new PublisherAccountManagement(), "Publisher management");
         }
 
         private void SearchTextBoxKeyPressed(object sender, KeyEventArgs keyEventArgs) {
@@ -142,6 +146,9 @@
         private void YourMediaButtonClick(object sender, EventArgs e) {
             // go to active rentals list if user
             // go to published media list if publisher
+            var pubMan = new PublisherAccountManagement();
+            pubMan.SelectTab(1);
+            FireContentChangeEvent(pubMan, "Publisher management");
         }
     }
 }

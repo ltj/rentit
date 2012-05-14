@@ -33,40 +33,49 @@
             // 
             // moviesButton
             // 
-            this.moviesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.moviesButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.moviesButton.Image = global::ClientApp.Properties.Resources.movie;
             this.moviesButton.Location = new System.Drawing.Point(3, 3);
             this.moviesButton.Name = "moviesButton";
             this.moviesButton.Size = new System.Drawing.Size(218, 82);
             this.moviesButton.TabIndex = 0;
             this.moviesButton.Text = "Movies";
+            this.moviesButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.moviesButton.UseVisualStyleBackColor = true;
+            this.moviesButton.Click += new System.EventHandler(this.MoviesButtonClick);
             // 
             // booksButton
             // 
-            this.booksButton.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.booksButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.booksButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.booksButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.booksButton.Image = global::ClientApp.Properties.Resources.book;
             this.booksButton.Location = new System.Drawing.Point(228, 3);
             this.booksButton.Name = "booksButton";
             this.booksButton.Size = new System.Drawing.Size(218, 82);
             this.booksButton.TabIndex = 1;
             this.booksButton.Text = "Books";
+            this.booksButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.booksButton.UseVisualStyleBackColor = true;
+            this.booksButton.Click += new System.EventHandler(this.BooksButtonClick);
             // 
             // musicButton
             // 
-            this.musicButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.musicButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.musicButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.musicButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.musicButton.Image = global::ClientApp.Properties.Resources.music;
             this.musicButton.Location = new System.Drawing.Point(453, 3);
             this.musicButton.Name = "musicButton";
             this.musicButton.Size = new System.Drawing.Size(218, 82);
             this.musicButton.TabIndex = 2;
             this.musicButton.Text = "Music";
+            this.musicButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextAboveImage;
             this.musicButton.UseVisualStyleBackColor = true;
+            this.musicButton.Click += new System.EventHandler(this.MusicButtonClick);
             // 
             // musicList
             // 
-            this.musicList.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.musicList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.musicList.Location = new System.Drawing.Point(453, 92);
             this.musicList.Name = "musicList";
@@ -75,7 +84,7 @@
             // 
             // booksList
             // 
-            this.booksList.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.booksList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.booksList.Location = new System.Drawing.Point(228, 92);
@@ -85,7 +94,7 @@
             // 
             // moviesList
             // 
-            this.moviesList.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.moviesList.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
             this.moviesList.Location = new System.Drawing.Point(4, 92);
             this.moviesList.Name = "moviesList";
