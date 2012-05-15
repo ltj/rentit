@@ -4,7 +4,7 @@
 
     using RentIt;
 
-    public partial class MoviePlayerControl : RentItUserControl
+    internal partial class MoviePlayerControl : RentItUserControl
     {
         private MovieInfo movie;
 

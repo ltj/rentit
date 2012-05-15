@@ -16,7 +16,7 @@ namespace ClientApp
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class PagedDetailedMediaList : PagedListView
+    internal class PagedDetailedMediaList : PagedListView
     {
         private ColumnHeader titleColumn;
         private ColumnHeader authorColumn;

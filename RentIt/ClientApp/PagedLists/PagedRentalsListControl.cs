@@ -11,7 +11,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class PagedRentalsListControl : RentItUserControl
+    internal partial class PagedRentalsListControl : RentItUserControl
     {
         /// <summary>
         /// Initializes a new instance of the RentalsListControl class.

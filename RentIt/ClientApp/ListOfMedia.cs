@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-
-namespace ClientApp
+﻿namespace ClientApp
 {
-    using System.ServiceModel;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     using RentIt;
 
@@ -13,7 +10,7 @@ namespace ClientApp
     /// User control showing a list media based on a given criteria. Media items can be optionally numbered.
     /// </summary>
     /// <author>Jacob Rasmussen</author>
-    public partial class ListOfMedia : RentItUserControl {
+    internal partial class ListOfMedia : RentItUserControl {
         private List<MediaInfo> mediaList;
 
         public ListOfMedia()
@@ -29,7 +26,8 @@ namespace ClientApp
         /// <summary>
         /// The title of the list eg. "Movie Chart".
         /// </summary>
-        internal string Title {
+        internal string Title
+        {
             get { return label1.Text; }
             set { label1.Text = value; }
         }
@@ -53,7 +51,7 @@ namespace ClientApp
             mediaList.AddRange(medias.Albums);
             mediaList.AddRange(medias.Books);
             mediaList.AddRange(medias.Movies);
-            
+
             //Adds the items to the list in the user control.
             if (mediaList.Count() > 0 && !Numbering)
                 for (int i = 0; i < mediaList.Count() - 1; i++)
@@ -63,7 +61,7 @@ namespace ClientApp
             if (mediaList.Count() > 0 && Numbering)
                 for (int i = 0; i < mediaList.Count() - 1; i++)
                     listBox1.Items.Add((i + 1) + ". " + mediaList[i].Title);
-             
+
         }
 
         private void ListBox1SelectedIndexChanged(object sender, EventArgs e)

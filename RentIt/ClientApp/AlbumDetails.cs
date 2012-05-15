@@ -10,7 +10,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class AlbumDetails : RentItUserControl
+    internal partial class AlbumDetails : RentItUserControl
     {
         /// <summary>
         /// Initializes a new instance of the AlbumDetails class.
@@ -20,24 +20,24 @@ namespace ClientApp
         {
             InitializeComponent();
 
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            RentItProxy = new RentItClient(binding, address);
+            //BasicHttpBinding binding = new BasicHttpBinding();
+            //EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
+            //RentItProxy = new RentItClient(binding, address);
 
             // rest of contructor has to be deleted.
-            AlbumInfo album = RentItProxy.GetAlbumInfo(78);
+            //AlbumInfo album = RentItProxy.GetAlbumInfo(78);
 
-            this.mediaSideBar.MediaInfoData = album;
+            //this.mediaSideBar.MediaInfoData = album;
 
-            this.albumTitleLabel.Text = album.Title;
-            this.albumArtistLabel.Text = album.AlbumArtist;
+            //this.albumTitleLabel.Text = album.Title;
+            //this.albumArtistLabel.Text = album.AlbumArtist;
 
-            this.albumDurationValueLabel.Text = album.TotalDuration.ToString();
+            //this.albumDurationValueLabel.Text = album.TotalDuration.ToString();
 
-            this.albumDescriptionTextBox.Text = album.Description;
-            this.PopulateSongList(album);
+            //this.albumDescriptionTextBox.Text = album.Description;
+            //this.PopulateSongList(album);
 
-            this.albumRatingList.Media = album;
+            //this.albumRatingList.Media = album;
         }
 
         /// <summary>

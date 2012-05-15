@@ -12,7 +12,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class PagedDetailedMediaListControl : RentItUserControl
+    internal partial class PagedDetailedMediaListControl : RentItUserControl
     {
         /// <summary>
         /// Initializes a new instance of the DetailedMediaListControl class.

@@ -3,33 +3,44 @@
 
     using RentIt;
 
-    public partial class MainScreen : RentItUserControl {
-        public MainScreen() {
+    internal partial class MainScreen : RentItUserControl
+    {
+        public MainScreen()
+        {
             InitializeComponent();
             moviesList.Title = "Featured movies";
             booksList.Title = "Featured books";
             musicList.Title = "Featured music";
 
-            moviesList.RentItProxy = RentItProxy;
-            booksList.RentItProxy = RentItProxy;
-            musicList.RentItProxy = RentItProxy;
-
             moviesList.AddDoubleClickEventHandler(MovieListDoubleClick);
             booksList.AddDoubleClickEventHandler(BookListDoubleClick);
             musicList.AddDoubleClickEventHandler(MusicListDoubleClick);
-
-            UpdateLists();
         }
 
-        private void UpdateLists() {
-            var criteria = new MediaCriteria {
-                                                 Genre = "",
-                                                 Limit = 10,
-                                                 Offset = 0,
-                                                 Order = MediaOrder.PopularityDesc,
-                                                 SearchText = "",
-                                                 Type = MediaType.Movie
-                                             };
+        internal override RentItClient RentItProxy {
+            get {
+                return base.RentItProxy;
+            }
+            set {
+                base.RentItProxy = value;
+                moviesList.RentItProxy = value;
+                booksList.RentItProxy = value;
+                musicList.RentItProxy = value;
+                UpdateLists();
+            }
+        }
+
+        private void UpdateLists()
+        {
+            var criteria = new MediaCriteria
+            {
+                Genre = "",
+                Limit = 10,
+                Offset = 0,
+                Order = MediaOrder.PopularityDesc,
+                SearchText = "",
+                Type = MediaType.Movie
+            };
 
             moviesList.UpdateList(criteria);
 

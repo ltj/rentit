@@ -5,7 +5,7 @@
 
     using RentIt;
 
-    public partial class PublisherAccountManagement : RentItUserControl
+    internal partial class PublisherAccountManagement : RentItUserControl
     {
 
         public PublisherAccountManagement()
