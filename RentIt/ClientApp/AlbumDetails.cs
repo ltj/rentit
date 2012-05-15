@@ -10,7 +10,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class AlbumDetails : RentItUserControl
+    internal partial class AlbumDetails : RentItUserControl
     {
         /// <summary>
         /// Initializes a new instance of the AlbumDetails class.

@@ -1,10 +1,13 @@
-﻿namespace ClientApp {
+﻿namespace ClientApp
+{
     using System;
     using System.Windows.Forms;
     using RentIt;
 
-    public partial class TopBarControl : RentItUserControl {
-        public TopBarControl() {
+    internal partial class TopBarControl : RentItUserControl
+    {
+        public TopBarControl()
+        {
             InitializeComponent();
             Title = "RentIt";
             TypeComboBox.SelectedIndex = 0;
@@ -13,7 +16,8 @@
         /// <summary>
         /// The title of the top bar.
         /// </summary>
-        public string Title {
+        public string Title
+        {
             get { return TitleLabel.Text; }
             set { TitleLabel.Text = value; }
         }
@@ -23,11 +27,13 @@
         /// Setter sets the displayed name and changes the log in/log out button text.
         /// An empty string ("") will be considered as "user not logged in".
         /// </summary>
-        public string UserName {
+        public string UserName
+        {
             get { return UserNameLabel.Text; }
-            set {
+            set
+            {
                 UserNameLabel.Text = value;
-                
+
             }
         }
 
@@ -37,8 +43,10 @@
         /// If credits are less than or equal to0,
         /// "no credits" will be displayed.
         /// </summary>
-        public int Credits {
-            set {
+        public int Credits
+        {
+            set
+            {
                 string credits = value > 0 ? value.ToString() : "no";
                 creditsLabel.Text = "(" + credits + " credits)";
             }
@@ -48,9 +56,11 @@
         /// Sets whether the top bar should display user information
         /// or not, as well as "log in" / "log out".
         /// </summary>
-        public bool LoggedIn {
+        public bool LoggedIn
+        {
             get { return loggedIn; }
-            set {
+            set
+            {
                 loggedIn = value;
                 UserNameLabel.Visible = value;
                 creditsLabel.Visible = value;
@@ -59,20 +69,22 @@
         }
         private bool loggedIn;
 
-        private void Search() {
-            var comboBoxType = (string) TypeComboBox.SelectedItem;
+        private void Search()
+        {
+            var comboBoxType = (string)TypeComboBox.SelectedItem;
 
             MediaType mediaType;
-            if(comboBoxType.Equals("Movies"))
+            if (comboBoxType.Equals("Movies"))
                 mediaType = MediaType.Movie;
-            else if(comboBoxType.Equals("Music"))
+            else if (comboBoxType.Equals("Music"))
                 mediaType = MediaType.Album;
-            else if(comboBoxType.Equals("Books"))
+            else if (comboBoxType.Equals("Books"))
                 mediaType = MediaType.Book;
             else
                 mediaType = MediaType.Any;
 
-            var criteria = new MediaCriteria {
+            var criteria = new MediaCriteria
+            {
                 SearchText = SearchTextBox.Text,
                 Genre = "",
                 Type = mediaType,
@@ -87,12 +99,15 @@
             FireContentChangeEvent(search, "Search results");
         }
 
-        private void SearchButtonClick(object sender, EventArgs e) {
+        private void SearchButtonClick(object sender, EventArgs e)
+        {
             Search();
         }
 
-        private void LogInLogOutButtonClick(object sender, EventArgs e) {
-            if(!LoggedIn) {
+        private void LogInLogOutButtonClick(object sender, EventArgs e)
+        {
+            if (!LoggedIn)
+            {
                 // go to log in screen
                 FireContentChangeEvent(new UserRegistration(), "Register user account");
 
@@ -101,7 +116,8 @@
                 Credits = 650;
                 LoggedIn = true;
             }
-            else {
+            else
+            {
                 // log the user out
                 UserName = "";
                 Credits = 0;
@@ -110,24 +126,30 @@
             }
         }
 
-        private void HomeButtonClick(object sender, EventArgs e) {
+        private void HomeButtonClick(object sender, EventArgs e)
+        {
             FireContentChangeEvent(new MainScreen(), "RentIt");
         }
 
-        private void MovieButtonClick(object sender, EventArgs e) {
+        private void MovieButtonClick(object sender, EventArgs e)
+        {
             FireContentChangeEvent(new MediaFrontpage(), "Movies");
         }
 
-        private void MusicButtonClick(object sender, EventArgs e) {
+        private void MusicButtonClick(object sender, EventArgs e)
+        {
             FireContentChangeEvent(new MediaFrontpage(), "Music");
         }
 
-        private void BookButtonClick(object sender, EventArgs e) {
+        private void BookButtonClick(object sender, EventArgs e)
+        {
             FireContentChangeEvent(new MediaFrontpage(), "Books");
         }
 
-        private void UserNameLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e) {
-            if(!LoggedIn) {
+        private void UserNameLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            if (!LoggedIn)
+            {
                 RentItMessageBox.NotLoggedIn();
                 return;
             }
@@ -136,14 +158,17 @@
             FireContentChangeEvent(new PublisherAccountManagement(), "Publisher management");
         }
 
-        private void SearchTextBoxKeyPressed(object sender, KeyEventArgs keyEventArgs) {
-            if(keyEventArgs.KeyCode == Keys.Enter) {
+        private void SearchTextBoxKeyPressed(object sender, KeyEventArgs keyEventArgs)
+        {
+            if (keyEventArgs.KeyCode == Keys.Enter)
+            {
                 keyEventArgs.Handled = true;
                 Search();
             }
         }
 
-        private void YourMediaButtonClick(object sender, EventArgs e) {
+        private void YourMediaButtonClick(object sender, EventArgs e)
+        {
             // go to active rentals list if user
             // go to published media list if publisher
             var pubMan = new PublisherAccountManagement();

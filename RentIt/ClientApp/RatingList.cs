@@ -1,15 +1,17 @@
-﻿namespace ClientApp {
+﻿namespace ClientApp
+{
     using System;
     using System.ServiceModel;
-    using System.Windows.Forms;
 
     using RentIt;
 
-    public partial class RatingList : RentItUserControl {
+    internal partial class RatingList : RentItUserControl
+    {
         private MediaInfo media;
         private readonly RentItClient rentit;
 
-        public RatingList() {
+        public RatingList()
+        {
             InitializeComponent();
             RatingSelector.SelectedIndex = 2;
             var binding = new BasicHttpBinding();
@@ -17,33 +19,40 @@
             rentit = new RentItClient(binding, address);
         }
 
-        internal MediaInfo Media {
+        internal MediaInfo Media
+        {
             get { return media; }
-            set {
+            set
+            {
                 media = value;
                 UpdateAvgRating();
                 PopulateList();
             }
         }
 
-        private void UpdateAvgRating() {
+        private void UpdateAvgRating()
+        {
             AvgRating.Text = media.Rating.AverageRating.ToString();
             AvgRatingCount.Text = media.Rating.RatingsCount.ToString();
         }
 
-        private void PopulateList() {
+        private void PopulateList()
+        {
             reviewList.MediaItems = Media;
         }
 
-        private void SubmitReviewButtonClick(object sender, EventArgs e) {
+        private void SubmitReviewButtonClick(object sender, EventArgs e)
+        {
             //TODO: get correct credentials from somewhere
-            var credentials = new AccountCredentials {
+            var credentials = new AccountCredentials
+            {
                 UserName = "per",
                 HashedPassword = "7110eda4d09e062aa5e4a390b0a572ac0d2c0220"
             };
 
             Rating rating;
-            switch(RatingSelector.SelectedIndex) {
+            switch (RatingSelector.SelectedIndex)
+            {
                 case 0:
                     rating = RentIt.Rating.One;
                     break;
@@ -64,23 +73,27 @@
                     break;
             }
 
-            var review = new MediaReview {
-                                             MediaId = Media.Id,
-                                             Rating = rating,
-                                             ReviewText = ReviewText.Text,
-                                             Timestamp = DateTime.Now,
-                                             UserName = credentials.UserName
-                                         };
+            var review = new MediaReview
+            {
+                MediaId = Media.Id,
+                Rating = rating,
+                ReviewText = ReviewText.Text,
+                Timestamp = DateTime.Now,
+                UserName = credentials.UserName
+            };
 
             // submit review
-            try {
+            try
+            {
                 rentit.SubmitReview(review, credentials);
-            } catch(FaultException) {
+            }
+            catch (FaultException)
+            {
                 // if review was already submitted by this user
                 RentItMessageBox.AlreadyReviewedItem();
                 return;
             }
-            
+
             // reload list
             ReloadList();
         }
@@ -89,8 +102,10 @@
         /// Reload the media to list newly submitted review
         /// and update average rating.
         /// </summary>
-        private void ReloadList() {
-            switch(Media.Type) {
+        private void ReloadList()
+        {
+            switch (Media.Type)
+            {
                 case MediaType.Book:
                     Media = rentit.GetBookInfo(media.Id);
                     break;

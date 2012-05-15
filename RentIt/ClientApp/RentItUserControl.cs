@@ -5,7 +5,7 @@
 
     using RentIt;
 
-    public class RentItUserControl : UserControl
+    internal class RentItUserControl : UserControl
     {
         internal virtual RentItClient RentItProxy { get; set; }
         internal virtual AccountCredentials Credentials { get; set; }
@@ -33,7 +33,7 @@
         /// stored account credentials in the main form.
         /// </summary>
         /// <param name="credentials"></param>
-        internal void FireCredentialsChangeEvent(AccountCredentials credentials)
+        protected void FireCredentialsChangeEvent(AccountCredentials credentials)
         {
             if (CredentialsChangeEvent != null)
                 CredentialsChangeEvent(this, new CredentialsChangeArgs(credentials));
@@ -56,12 +56,12 @@
     }
 
 
-    public delegate void ContentChangeEventHandler(object sender, ContentChangeArgs args);
+    internal delegate void ContentChangeEventHandler(object sender, ContentChangeArgs args);
 
     /// <summary>
     /// A subtype of EventArgs that provides a RentItUserControl.
     /// </summary>
-    public class ContentChangeArgs : EventArgs
+    internal class ContentChangeArgs : EventArgs
     {
         public readonly RentItUserControl NewControl;
         public readonly string NewTitle;

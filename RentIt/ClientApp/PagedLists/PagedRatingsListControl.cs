@@ -10,7 +10,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class PagedRatingsListControl : RentItUserControl
+    internal partial class PagedRatingsListControl : RentItUserControl
     {
 
         /// <summary>

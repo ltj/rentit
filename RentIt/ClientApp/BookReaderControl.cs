@@ -4,7 +4,7 @@
 
     using RentIt;
 
-    public partial class BookReaderControl : RentItUserControl
+    internal partial class BookReaderControl : RentItUserControl
     {
         private BookInfo book;
 

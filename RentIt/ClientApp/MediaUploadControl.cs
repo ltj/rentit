@@ -9,7 +9,7 @@
 
     using RentIt;
 
-    public partial class MediaUploadControl : RentItUserControl
+    internal partial class MediaUploadControl : RentItUserControl
     {
         private PublisherAccount publisherAccount;
 

@@ -10,7 +10,7 @@ namespace ClientApp
     /// <summary>
     /// 
     /// </summary>
-    public partial class BookMovieDetails : RentItUserControl
+    internal partial class BookMovieDetails : RentItUserControl
     {
         /// <summary>
         /// Initializes a new instance of the BookMovieDetails class.

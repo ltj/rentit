@@ -15,7 +15,7 @@ namespace ClientApp
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public class PagedRatingsList : PagedListView
+    internal class PagedRatingsList : PagedListView
     {
         private ColumnHeader userColumn;
         private ColumnHeader dateColumn;

@@ -4,7 +4,7 @@
 
     using RentIt;
 
-    public partial class AlbumPlayerControl : RentItUserControl
+    internal partial class AlbumPlayerControl : RentItUserControl
     {
         private AlbumInfo album;
 

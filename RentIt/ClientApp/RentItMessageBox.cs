@@ -2,7 +2,7 @@
 {
     using System.Windows.Forms;
 
-    class RentItMessageBox
+    internal class RentItMessageBox
     {
         private static string ERROR_TITLE = "Error";
         private static string NOT_LOGGED_IN_MESSAGE = "You are not logged in.";

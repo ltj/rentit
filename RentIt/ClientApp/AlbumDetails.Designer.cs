@@ -1,6 +1,6 @@
 ﻿namespace ClientApp
 {
-    partial class AlbumDetails
+    internal partial class AlbumDetails
     {
         /// <summary> 
         /// Required designer variable.

@@ -8,8 +8,6 @@ namespace ClientApp
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
     using System.Windows.Forms;
 
     using RentIt;
@@ -18,7 +16,7 @@ namespace ClientApp
     /// <summary>
     /// TODO: Update summary.
     /// </summary>
-    public abstract class PagedListView : ListView
+    internal abstract class PagedListView : ListView
     {
         /// <summary>
         /// For mapping from a ListViewItem to is corresponding MediaInfo object.
