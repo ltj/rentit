@@ -47,7 +47,7 @@
     /// </summary>
     internal class CredentialsChangeArgs : EventArgs
     {
-        AccountCredentials credentials;
+        public readonly AccountCredentials credentials;
 
         public CredentialsChangeArgs(AccountCredentials credentials)
         {

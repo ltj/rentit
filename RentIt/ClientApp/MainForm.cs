@@ -41,20 +41,38 @@
             set
             {
                 contentPane.Controls.Clear();
-                if(value.RentItProxy == null)
+                if (value.RentItProxy == null)
                     value.RentItProxy = rentItProxy;
-                if(value.Credentials == null)
+                if (value.Credentials == null)
                     value.Credentials = credentials;
+
+                // Add EventHandlers.
                 value.ContentChangeEvent += ChangeContent;
+                value.CredentialsChangeEvent += ChangeCredentials;
+
                 value.Dock = DockStyle.Fill;
                 contentPane.Controls.Add(value);
             }
         }
+
+        #region EventHandlers
 
         private void ChangeContent(object sender, ContentChangeArgs args)
         {
             Content = args.NewControl;
             TopBar.Title = args.NewTitle;
         }
+
+        private void ChangeCredentials(object sender, CredentialsChangeArgs args)
+        {
+            this.credentials = args.credentials;
+
+            RentItUserControl nextScreen = new MainScreen();
+            nextScreen.RentItProxy = this.rentItProxy;
+            nextScreen.Credentials = this.credentials;
+            this.Content = nextScreen;
+        }
+
+        #endregion
     }
 }

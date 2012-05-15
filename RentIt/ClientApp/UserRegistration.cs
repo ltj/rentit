@@ -9,22 +9,20 @@ namespace ClientApp
     using System.Text.RegularExpressions;
     using System.Security.Cryptography;
 
+    using RentIt;
+
     internal partial class UserRegistration : RentItUserControl
     {
-
-        private RentItClient client;
-
         public UserRegistration()
         {
             InitializeComponent();
         }
 
-        internal override RentItClient RentItProxy
-        {
-            set { this.client = value; }
-        }
-
-        // user name validating event handler
+        /// <summary>
+        /// User name validating event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtUserName_Validating(object sender, CancelEventArgs e)
         {
             string errMessage;
@@ -37,7 +35,11 @@ namespace ClientApp
             }
         }
 
-        // user name validated event handler
+        /// <summary>
+        /// user name validated event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtUserName_Validated(object sender, EventArgs e)
         {
             errUserName.SetError(txtUserName, "");
@@ -190,7 +192,7 @@ namespace ClientApp
 
                 try
                 {
-                    client.CreateNewUser(acct);
+                    this.RentItProxy.CreateNewUser(acct);
                 }
                 catch
                 {
@@ -277,8 +279,27 @@ namespace ClientApp
 
         private void button1_Click(object sender, EventArgs e)
         {
+            var credentials = new AccountCredentials()
+                {
+                    UserName = this.loginUserNameTextBox.Text,
+                    HashedPassword = GetSHA1Hash(
+                        new SHA1CryptoServiceProvider(),
+                        this.loginPasswordTextBox.Text
+                    )
+                };
 
+            try
+            {
+                this.RentItProxy.ValidateCredentials(credentials);
+            }
+            catch (Exception)
+            {
+                // RentItMessageBox.
+            }
         }
+
+
+
 
     }
 }
