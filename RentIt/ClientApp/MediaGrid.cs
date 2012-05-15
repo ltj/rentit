@@ -95,7 +95,8 @@ namespace ClientApp
                     int iAlbum = 0;
                     foreach (AlbumInfo album in items.Albums)
                     {
-                        ListViewGrid.LargeImageList.Images.Add(this.getImage(album.Id));
+                        ListViewGrid.LargeImageList.Images.Add(
+                            BinaryCommuncator.GetThumbnail(album.Id));
                         var item = new ListViewItem(album.Title, iAlbum++);
                         item.SubItems.Add(album.AlbumArtist);
                         item.SubItems.Add(album.Price.ToString());
@@ -108,7 +109,8 @@ namespace ClientApp
                     int iBook = 0;
                     foreach (BookInfo book in items.Books)
                     {
-                        ListViewGrid.LargeImageList.Images.Add(this.getImage(book.Id));
+                        ListViewGrid.LargeImageList.Images.Add(
+                            BinaryCommuncator.GetThumbnail(book.Id));
                         var item = new ListViewItem(book.Title, iBook++);
                         item.SubItems.Add(book.Author);
                         item.SubItems.Add(book.Price.ToString());
@@ -121,7 +123,8 @@ namespace ClientApp
                     int iSong = 0;
                     foreach (SongInfo song in items.Songs)
                     {
-                        ListViewGrid.LargeImageList.Images.Add(this.getImage(song.Id));
+                        ListViewGrid.LargeImageList.Images.Add(
+                            BinaryCommuncator.GetThumbnail(song.Id));
                         var item = new ListViewItem(song.Title, iSong++);
                         item.SubItems.Add(song.Artist);
                         item.SubItems.Add(song.Price.ToString());
@@ -134,7 +137,8 @@ namespace ClientApp
                     int iMovie = 0;
                     foreach (MovieInfo movie in items.Movies)
                     {
-                        ListViewGrid.LargeImageList.Images.Add(this.getImage(movie.Id));
+                        ListViewGrid.LargeImageList.Images.Add(
+                            BinaryCommuncator.GetThumbnail(movie.Id));
                         var item = new ListViewItem(movie.Title, iMovie++);
                         item.SubItems.Add(movie.Director);
                         item.SubItems.Add(movie.Price.ToString());
@@ -148,6 +152,7 @@ namespace ClientApp
             ListViewGrid.Items.AddRange(listItemCollection.ToArray());
         }
 
+        /*
         private Image getImage(int id)
         {
             Image image;
@@ -161,6 +166,7 @@ namespace ClientApp
             }
             return image;
         }
+         * */
 
         #region EventHandlers
 

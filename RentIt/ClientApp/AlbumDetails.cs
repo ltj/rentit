@@ -41,6 +41,23 @@ namespace ClientApp
         }
 
         /// <summary>
+        /// Overridden so that it sets the RentItProxy instance of the
+        /// MediaSideBar instance as well.
+        /// </summary>
+        internal override RentItClient RentItProxy
+        {
+            get
+            {
+                return base.RentItProxy;
+            }
+            set
+            {
+                base.RentItProxy = value;
+                this.mediaSideBar.RentItProxy = this.RentItProxy;
+            }
+        }
+
+        /// <summary>
         /// Overridden so that is sets the Credentials property of the 
         /// MediaSideBar instance as well.
         /// </summary>
