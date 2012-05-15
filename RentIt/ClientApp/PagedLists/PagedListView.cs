@@ -23,7 +23,7 @@ namespace ClientApp
         /// <summary>
         /// For mapping from a ListViewItem to is corresponding MediaInfo object.
         /// </summary>
-        private Dictionary<ListViewItem, MediaInfo> map;
+        // private Dictionary<ListViewItem, MediaInfo> map;
 
         /// <summary>
         /// All the ListViewItems currently contained in the list.
@@ -50,7 +50,8 @@ namespace ClientApp
         /// Gets of sets the mapping between ListViewItems and their
         /// corresponding MediaInfo objects.
         /// </summary>
-        internal Dictionary<ListViewItem, MediaInfo> Map
+
+        /*internal Dictionary<ListViewItem, MediaInfo> Map
         {
             get
             {
@@ -61,6 +62,7 @@ namespace ClientApp
                 map = value;
             }
         }
+         * */
 
         /// <summary>
         /// Gets or sets the current contents of ListViewItems contained
@@ -219,13 +221,13 @@ namespace ClientApp
         /// <returns></returns>
         internal MediaInfo GetMediaInfoValueOf(ListViewItem item)
         {
-            return this.map[item];
+            return (MediaInfo)item.Tag;
         }
 
         /// <summary>
         /// Refresh the ListViewItems shown in the list.
         /// </summary>
-        protected void RePopulateList()
+        protected virtual void RePopulateList()
         {
             if (ReferenceEquals(this.currentItems, null)) return;
 

@@ -26,6 +26,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BookReaderControl));
             this.titleLabel = new System.Windows.Forms.Label();
             this.pdfReader = new AxAcroPDFLib.AxAcroPDF();
+            this.viewBookDetails = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pdfReader)).BeginInit();
             this.SuspendLayout();
             // 
@@ -45,16 +46,26 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.pdfReader.Enabled = true;
-            this.pdfReader.Location = new System.Drawing.Point(0, 37);
+            this.pdfReader.Location = new System.Drawing.Point(0, 61);
             this.pdfReader.Name = "pdfReader";
             this.pdfReader.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("pdfReader.OcxState")));
-            this.pdfReader.Size = new System.Drawing.Size(657, 413);
+            this.pdfReader.Size = new System.Drawing.Size(657, 389);
             this.pdfReader.TabIndex = 3;
+            // 
+            // viewBookDetails
+            // 
+            this.viewBookDetails.Location = new System.Drawing.Point(9, 32);
+            this.viewBookDetails.Name = "viewBookDetails";
+            this.viewBookDetails.Size = new System.Drawing.Size(75, 23);
+            this.viewBookDetails.TabIndex = 4;
+            this.viewBookDetails.Text = "Book details";
+            this.viewBookDetails.UseVisualStyleBackColor = true;
             // 
             // BookReaderControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.viewBookDetails);
             this.Controls.Add(this.pdfReader);
             this.Controls.Add(this.titleLabel);
             this.Name = "BookReaderControl";
@@ -69,5 +80,6 @@
 
         private System.Windows.Forms.Label titleLabel;
         private AxAcroPDFLib.AxAcroPDF pdfReader;
+        private System.Windows.Forms.Button viewBookDetails;
     }
 }

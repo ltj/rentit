@@ -6,6 +6,7 @@
 
 namespace ClientApp
 {
+    using System;
     using System.Collections.Generic;
     using System.Windows.Forms;
 
@@ -105,7 +106,6 @@ namespace ClientApp
         {
             this.BeginUpdate();
 
-            this.Map = new Dictionary<ListViewItem, MediaInfo>();
             this.CurrentItems = new List<ListViewItem>();
 
             foreach (var song in mediaItems.Songs)
@@ -116,9 +116,9 @@ namespace ClientApp
                 listItem.SubItems.Add(song.ReleaseDate.ToShortDateString());
                 listItem.SubItems.Add(song.Price.ToString());
                 listItem.Group = this.songListViewGroup;
+                listItem.Tag = song;
 
                 this.CurrentItems.Add(listItem); // this.Items.Add(listItem);
-                this.Map.Add(listItem, song);
             }
 
             foreach (var album in mediaItems.Albums)
@@ -129,9 +129,9 @@ namespace ClientApp
                 listItem.SubItems.Add(album.ReleaseDate.ToShortDateString());
                 listItem.SubItems.Add(album.Price.ToString());
                 listItem.Group = this.albumListViewGroup;
+                listItem.Tag = album;
 
                 this.CurrentItems.Add(listItem); // this.Items.Add(listItem);
-                this.Map.Add(listItem, album);
             }
 
             foreach (var movie in mediaItems.Movies)
@@ -142,9 +142,9 @@ namespace ClientApp
                 listItem.SubItems.Add(movie.ReleaseDate.ToShortDateString());
                 listItem.SubItems.Add(movie.Price.ToString());
                 listItem.Group = this.movieListViewGroup;
+                listItem.Tag = movie;
 
                 this.CurrentItems.Add(listItem); // this.Items.Add(listItem);
-                this.Map.Add(listItem, movie);
             }
 
             foreach (var book in mediaItems.Books)
@@ -155,9 +155,9 @@ namespace ClientApp
                 listItem.SubItems.Add(book.ReleaseDate.ToShortDateString());
                 listItem.SubItems.Add(book.Price.ToString());
                 listItem.Group = this.bookListViewGroup;
+                listItem.Tag = book;
 
                 this.CurrentItems.Add(listItem); // this.Items.Add(listItem);
-                this.Map.Add(listItem, book);
             }
 
             this.RePopulateList();

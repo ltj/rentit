@@ -101,7 +101,6 @@ namespace ClientApp
         {
             this.BeginUpdate();
 
-            this.Map = new Dictionary<ListViewItem, MediaInfo>();
             this.CurrentItems = new List<ListViewItem>();
 
             foreach (var rental in rentals)
@@ -115,9 +114,9 @@ namespace ClientApp
                         listItemA.SubItems.Add(rental.StartTime.ToShortDateString());
                         listItemA.SubItems.Add(rental.EndTime.ToShortDateString());
                         listItemA.Group = this.albumListViewGroup;
+                        listItemA.Tag = album;
 
                         this.CurrentItems.Add(listItemA); // this.Items.Add(listItem);
-                        this.Map.Add(listItemA, album);
                         break;
                     case MediaType.Movie:
                         MovieInfo movie = this.serviceClient.GetMovieInfo(rental.MediaId);
@@ -126,9 +125,9 @@ namespace ClientApp
                         listItemM.SubItems.Add(rental.StartTime.ToShortDateString());
                         listItemM.SubItems.Add(rental.EndTime.ToShortDateString());
                         listItemM.Group = this.movieListViewGroup;
+                        listItemM.Tag = movie;
 
                         this.CurrentItems.Add(listItemM); // this.Items.Add(listItem);
-                        this.Map.Add(listItemM, movie);
                         break;
                     case MediaType.Book:
                         BookInfo book = this.serviceClient.GetBookInfo(rental.MediaId);
@@ -137,9 +136,9 @@ namespace ClientApp
                         listItemB.SubItems.Add(rental.StartTime.ToShortDateString());
                         listItemB.SubItems.Add(rental.EndTime.ToShortDateString());
                         listItemB.Group = this.bookListViewGroup;
+                        listItemB.Tag = book;
 
                         this.CurrentItems.Add(listItemB); // this.Items.Add(listItem);
-                        this.Map.Add(listItemB, book);
                         break;
                     default:
                         break;

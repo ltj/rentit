@@ -85,21 +85,14 @@
             {
                 deleteMediaButton.Enabled = false;
                 changePriceButton.Enabled = false;
+                return;
             }
 
             // If the single selected item is contained in the Songs group, it is
             // not possible to delete the media item; the delete button is disabled.
-            else
-            {
-                changePriceButton.Enabled = true;
-                if (publishedMediaList.SelectedMedia.Count == 0)
-                {
-                    deleteMediaButton.Enabled = false;
-                    return;
-                }
-                MediaType groupName = publishedMediaList.SelectedMedia[0].Type;
-                deleteMediaButton.Enabled = groupName != MediaType.Song;
-            }
+            changePriceButton.Enabled = true;
+            MediaType groupName = publishedMediaList.GetSingleMedia().Type;
+            deleteMediaButton.Enabled = groupName != MediaType.Song;
         }
 
         private void LostFocusHandler(object obj, EventArgs e)
@@ -139,7 +132,6 @@
             mediaDetail.Credentials = this.Credentials;
 
             this.FireContentChangeEvent(mediaDetail, mediaInfo.Title);
-
         }
 
         #endregion

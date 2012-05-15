@@ -90,13 +90,13 @@ namespace ClientApp
         {
             get
             {
-                var mediaList = new List<MediaInfo>();
+                var tmpMediaList = new List<MediaInfo>();
                 foreach (ListViewItem item in this.mediaList.SelectedItems)
                 {
-                    mediaList.Add(this.mediaList.GetMediaInfoValueOf(item));
+                    tmpMediaList.Add(this.mediaList.GetMediaInfoValueOf(item));
                 }
 
-                return mediaList;
+                return tmpMediaList;
             }
         }
 
