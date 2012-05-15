@@ -1,5 +1,6 @@
-﻿namespace ClientApp
-{
+﻿namespace ClientApp {
+    using System;
+
     using RentIt;
 
     internal partial class MainScreen : RentItUserControl
@@ -11,7 +12,22 @@
             booksList.Title = "Featured books";
             musicList.Title = "Featured music";
 
-            UpdateLists();
+            moviesList.AddDoubleClickEventHandler(MovieListDoubleClick);
+            booksList.AddDoubleClickEventHandler(BookListDoubleClick);
+            musicList.AddDoubleClickEventHandler(MusicListDoubleClick);
+        }
+
+        internal override RentItClient RentItProxy {
+            get {
+                return base.RentItProxy;
+            }
+            set {
+                base.RentItProxy = value;
+                moviesList.RentItProxy = value;
+                booksList.RentItProxy = value;
+                musicList.RentItProxy = value;
+                UpdateLists();
+            }
         }
 
         private void UpdateLists()
@@ -35,19 +51,57 @@
             musicList.UpdateList(criteria);
         }
 
-        private void MoviesButtonClick(object sender, System.EventArgs e)
-        {
-            FireContentChangeEvent(new MediaFrontpage(), "Movies");
+        private void MoviesButtonClick(object sender, EventArgs e) {
+            var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Movie };
+            FireContentChangeEvent(mediaFront, "Movies");
         }
 
-        private void BooksButtonClick(object sender, System.EventArgs e)
-        {
-            FireContentChangeEvent(new MediaFrontpage(), "Books");
+        private void BooksButtonClick(object sender, EventArgs e) {
+            var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Book };
+            FireContentChangeEvent(mediaFront, "Books");
         }
 
-        private void MusicButtonClick(object sender, System.EventArgs e)
-        {
-            FireContentChangeEvent(new MediaFrontpage(), "Music");
+        private void MusicButtonClick(object sender, EventArgs e) {
+            var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Album };
+            FireContentChangeEvent(mediaFront, "Music");
+        }
+
+        private void MovieListDoubleClick(object sender, EventArgs e) {
+            MediaInfo media = moviesList.GetSingleMedia();
+            DisplayMediaItem(media);
+        }
+
+        private void BookListDoubleClick(object sender, EventArgs e) {
+            MediaInfo media = booksList.GetSingleMedia();
+            DisplayMediaItem(media);
+        }
+
+        private void MusicListDoubleClick(object sender, EventArgs e) {
+            MediaInfo media = musicList.GetSingleMedia();
+            DisplayMediaItem(media);
+        }
+
+        private void DisplayMediaItem(MediaInfo media) {
+            RentItUserControl mediaDetails;
+            string title;
+            switch(media.Type) {
+                case MediaType.Album:
+                    mediaDetails = new AlbumDetails { RentItProxy = RentItProxy, AlbumInfo = (AlbumInfo) media };
+                    title = "Album details";
+                    break;
+                case MediaType.Book:
+                    mediaDetails = new BookMovieDetails { RentItProxy = RentItProxy, BookInfo = (BookInfo) media };
+                    title = "Book details";
+                    break;
+                case MediaType.Movie:
+                    mediaDetails = new BookMovieDetails { RentItProxy = RentItProxy, MovieInfo = (MovieInfo) media };
+                    title = "Movie details";
+                    break;
+                default:
+                    return;
+            }
+
+            FireContentChangeEvent(mediaDetails, title);
         }
     }
 }

@@ -9,6 +9,8 @@ namespace BinaryCommunicator
     using System.IO;
     using System.Net;
 
+    using BinaryCommunicator.Properties;
+
     using RentIt;
 
     /// <summary>
@@ -107,7 +109,8 @@ namespace BinaryCommunicator
             }
             catch (Exception e)
             {
-                throw new WebException("Retrieval of the thumbnail failed: " + e.Message);
+                tmpImage = Resources.missingThumb;
+                //throw new WebException("Retrieval of the thumbnail failed: " + e.Message);
             }
 
             return tmpImage;
@@ -132,8 +135,21 @@ namespace BinaryCommunicator
         /// </exception>
         public static void UploadBook(Credentials credentials, BookInfoUpload bookInfo)
         {
+            if (!string.IsNullOrEmpty(bookInfo.FilePath))
+            {
+                if (!File.Exists(bookInfo.FilePath))
+                {
+                    throw new ArgumentException("The specified file does not exist.");
+                }
+                if (!new FileInfo(bookInfo.FilePath).Extension.Equals(".mp4"))
+                {
+                    throw new ArgumentException("The specified file does not have the supported extension, pdf.");
+                }
+            }
+
             var serviceClient = new RentItClient();
-            var accountCredentials = new AccountCredentials {
+            var accountCredentials = new AccountCredentials
+            {
                 UserName = credentials.UserName,
                 HashedPassword = credentials.HashedPassword
             };
@@ -165,7 +181,11 @@ namespace BinaryCommunicator
 
             try
             {
-                UploadMediaFile(bookInfo.FilePath, bookMediaId, credentials);
+                if (!string.IsNullOrEmpty(bookInfo.FilePath))
+                {
+                    UploadMediaFile(bookInfo.FilePath, bookMediaId, credentials);
+                }
+
                 UploadThumbnail(bookMediaId, bookInfo, credentials);
             }
             catch (Exception e)
@@ -204,6 +224,12 @@ namespace BinaryCommunicator
             // Check specified song files
             foreach (SongInfoUpload song in songs)
             {
+                // If the filepath has not been stated, it is okay.
+                if (string.IsNullOrEmpty(song.FilePath))
+                {
+                    continue;
+                }
+
                 if (!File.Exists(song.FilePath))
                 {
                     throw new ArgumentException("The file, " + song.FilePath + ", does not exist.");
@@ -215,7 +241,8 @@ namespace BinaryCommunicator
             }
 
             var serviceClient = new RentItClient();
-            var accountCredentials = new AccountCredentials {
+            var accountCredentials = new AccountCredentials
+            {
                 UserName = credentials.UserName,
                 HashedPassword = credentials.HashedPassword
             };
@@ -284,7 +311,10 @@ namespace BinaryCommunicator
 
                 try
                 {
-                    UploadMediaFile(songInfo.FilePath, songMediaId, credentials);
+                    if (!string.IsNullOrEmpty(songInfo.FilePath))
+                    {
+                        UploadMediaFile(songInfo.FilePath, songMediaId, credentials);
+                    }
 
                     if (songInfo.Thumbnail != null)
                     {
@@ -325,17 +355,21 @@ namespace BinaryCommunicator
         /// </exception>
         public static void UploadMovie(Credentials credentials, MovieInfoUpload movieInfo)
         {
-            if (!File.Exists(movieInfo.FilePath))
+            if (!string.IsNullOrEmpty(movieInfo.FilePath))
             {
-                throw new ArgumentException("The specified file does not exist.");
-            }
-            if (!new FileInfo(movieInfo.FilePath).Extension.Equals(".mp4"))
-            {
-                throw new ArgumentException("The specified file does not have the supported extension, mp4.");
+                if (!File.Exists(movieInfo.FilePath))
+                {
+                    throw new ArgumentException("The specified file does not exist.");
+                }
+                if (!new FileInfo(movieInfo.FilePath).Extension.Equals(".mp4"))
+                {
+                    throw new ArgumentException("The specified file does not have the supported extension, mp4.");
+                }
             }
 
             var serviceClient = new RentItClient();
-            var accountCredentials = new AccountCredentials {
+            var accountCredentials = new AccountCredentials
+            {
                 UserName = credentials.UserName,
                 HashedPassword = credentials.HashedPassword
             };
@@ -375,7 +409,11 @@ namespace BinaryCommunicator
 
             try
             {
-                UploadMediaFile(movieInfo.FilePath, movieId, credentials);
+                if (!string.IsNullOrEmpty(movieInfo.FilePath))
+                {
+                    UploadMediaFile(movieInfo.FilePath, movieId, credentials);
+                }
+
                 UploadThumbnail(movieId, movieInfo, credentials);
             }
             catch (Exception)
@@ -461,7 +499,8 @@ namespace BinaryCommunicator
             Image thumbnail = System.Drawing.Image.FromFile(@"C:\Users\Kenneth88\Desktop\gta\GtaThumb.jpg");
 
             // Construct the MovieInfo-object holding the metadata of the movie to be uploaded.
-            var movieInfo = new MovieInfoUpload {
+            var movieInfo = new MovieInfoUpload
+            {
                 FilePath = @"C:\Users\Kenneth88\Desktop\gta\GTA V - Debut Trailer.mp4",
                 Title = "GTA V - Debut Trailer",
                 Genre = "Trailer",

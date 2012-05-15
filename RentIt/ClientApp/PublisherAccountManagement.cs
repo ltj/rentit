@@ -40,8 +40,26 @@
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        internal override RentItClient RentItProxy
+        {
+            get
+            {
+                return base.RentItProxy;
+            }
+            set
+            {
+                base.RentItProxy = value;
+                this.editAccountControl.RentItProxy = this.RentItProxy;
+                this.mediaUploadControl.RentItProxy = this.RentItProxy;
+            }
+        }
+
+        /// <summary>
         /// Sets the account credentials to be used by the UserControl.
         /// When the credentials is set, the UserControl is populated with data.
+        /// The RentItProxy property must be set before this property is set.
         /// </summary>
         internal override AccountCredentials Credentials
         {
@@ -52,8 +70,10 @@
             set
             {
                 base.Credentials = value;
-                PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(value);
+                this.editAccountControl.Credentials = this.Credentials;
                 this.mediaUploadControl.Credentials = this.Credentials;
+
+                PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(value);
                 this.mediaUploadControl.PublisherAccount = accountData;
                 this.publishedMediaList.MediaItems = accountData.PublishedItems;
             }

@@ -94,7 +94,7 @@
             };
 
             // switch to search results, using criteria object
-            var search = new SearchResultsControl { Criteria = criteria };
+            var search = new SearchResultsControl { RentItProxy = RentItProxy, Criteria = criteria };
             //(ParentForm as MainForm).Content = search;
             FireContentChangeEvent(search, "Search results");
         }
@@ -126,24 +126,20 @@
             }
         }
 
-        private void HomeButtonClick(object sender, EventArgs e)
-        {
-            FireContentChangeEvent(new MainScreen(), "RentIt");
+        private void HomeButtonClick(object sender, EventArgs e) {
+            FireContentChangeEvent(new MainScreen { RentItProxy = RentItProxy }, "RentIt");
         }
 
-        private void MovieButtonClick(object sender, EventArgs e)
-        {
-            FireContentChangeEvent(new MediaFrontpage(), "Movies");
+        private void MovieButtonClick(object sender, EventArgs e) {
+            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Movie}, "Movies");
         }
 
-        private void MusicButtonClick(object sender, EventArgs e)
-        {
-            FireContentChangeEvent(new MediaFrontpage(), "Music");
+        private void MusicButtonClick(object sender, EventArgs e) {
+            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Album }, "Music");
         }
 
-        private void BookButtonClick(object sender, EventArgs e)
-        {
-            FireContentChangeEvent(new MediaFrontpage(), "Books");
+        private void BookButtonClick(object sender, EventArgs e) {
+            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Book }, "Books");
         }
 
         private void UserNameLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
