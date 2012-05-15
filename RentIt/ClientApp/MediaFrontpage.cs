@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using BinaryCommunicator;
+﻿using BinaryCommunicator;
 
 namespace ClientApp {
     public partial class MediaFrontpage : RentItUserControl {
-
         private RentIt.MediaType mtype;
         private RentItClient client;
         
@@ -40,7 +31,7 @@ namespace ClientApp {
             if(mtype == RentIt.MediaType.Any || client == null) return;
 
             // build search criteria
-            RentIt.MediaCriteria mc = new RentIt.MediaCriteria {
+            var mc = new RentIt.MediaCriteria {
                 Type = mtype,
                 Limit = 1, // only one result
                 Order = RentIt.MediaOrder.ReleaseDateDesc,
@@ -72,7 +63,7 @@ namespace ClientApp {
             if (mtype == RentIt.MediaType.Any || client == null) return;
 
             // build search criteria
-            RentIt.MediaCriteria mc = new RentIt.MediaCriteria {
+            var mc = new RentIt.MediaCriteria {
                 Type = mtype,
                 Limit = 10, // only ten most pouplar
                 Order = RentIt.MediaOrder.PopularityDesc,

@@ -67,7 +67,7 @@ namespace ClientApp
             {
                 AlbumInfo album = value;
 
-                album = RentItProxy.GetAlbumInfo(78); // Just for debugging, has to be deleted.
+                //album = RentItProxy.GetAlbumInfo(78); // Just for debugging, has to be deleted.
 
                 this.mediaSideBar.MediaInfoData = album;
 

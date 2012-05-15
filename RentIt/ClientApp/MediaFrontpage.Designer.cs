@@ -33,18 +33,20 @@
             this.mediaGrid1 = new ClientApp.MediaGrid();
             this.genreList1 = new ClientApp.GenreList();
             this.grpNewHot.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picNewThumb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.picNewThumb)).BeginInit();
             this.SuspendLayout();
             // 
             // grpNewHot
             // 
+            this.grpNewHot.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.grpNewHot.Controls.Add(this.lblNewPrice);
             this.grpNewHot.Controls.Add(this.lblNewPublisher);
             this.grpNewHot.Controls.Add(this.lblNewGenre);
             this.grpNewHot.Controls.Add(this.lblNewRelease);
             this.grpNewHot.Controls.Add(this.lblNewTitle);
             this.grpNewHot.Controls.Add(this.picNewThumb);
-            this.grpNewHot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.grpNewHot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.grpNewHot.Location = new System.Drawing.Point(3, 3);
             this.grpNewHot.Name = "grpNewHot";
             this.grpNewHot.Size = new System.Drawing.Size(679, 205);
@@ -91,7 +93,7 @@
             // lblNewTitle
             // 
             this.lblNewTitle.AutoSize = true;
-            this.lblNewTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNewTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.lblNewTitle.Location = new System.Drawing.Point(148, 25);
             this.lblNewTitle.Name = "lblNewTitle";
             this.lblNewTitle.Size = new System.Drawing.Size(39, 20);
@@ -100,6 +102,7 @@
             // 
             // picNewThumb
             // 
+            this.picNewThumb.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.picNewThumb.Location = new System.Drawing.Point(502, 25);
             this.picNewThumb.Name = "picNewThumb";
             this.picNewThumb.Size = new System.Drawing.Size(160, 160);
@@ -109,17 +112,22 @@
             // 
             // mediaGrid1
             // 
+            this.mediaGrid1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.mediaGrid1.Location = new System.Drawing.Point(0, 214);
             this.mediaGrid1.Name = "mediaGrid1";
-            this.mediaGrid1.Size = new System.Drawing.Size(682, 232);
+            this.mediaGrid1.Size = new System.Drawing.Size(682, 279);
             this.mediaGrid1.TabIndex = 0;
             // 
             // genreList1
             // 
+            this.genreList1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.genreList1.BackColor = System.Drawing.SystemColors.Window;
             this.genreList1.Location = new System.Drawing.Point(692, 14);
             this.genreList1.Name = "genreList1";
-            this.genreList1.Size = new System.Drawing.Size(274, 245);
+            this.genreList1.Size = new System.Drawing.Size(161, 476);
             this.genreList1.TabIndex = 1;
             // 
             // MediaFrontpage
@@ -131,10 +139,10 @@
             this.Controls.Add(this.mediaGrid1);
             this.Controls.Add(this.grpNewHot);
             this.Name = "MediaFrontpage";
-            this.Size = new System.Drawing.Size(976, 500);
+            this.Size = new System.Drawing.Size(853, 493);
             this.grpNewHot.ResumeLayout(false);
             this.grpNewHot.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picNewThumb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.picNewThumb)).EndInit();
             this.ResumeLayout(false);
 
         }

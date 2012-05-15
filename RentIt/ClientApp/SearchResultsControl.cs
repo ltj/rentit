@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.ServiceModel;
 
 namespace ClientApp {
     using System.Collections.Generic;
@@ -10,14 +8,12 @@ namespace ClientApp {
     using RentIt;
 
     public partial class SearchResultsControl : RentItUserControl {
-        private readonly RentItClient rentIt;
         private MediaCriteria criteria;
 
         public SearchResultsControl() {
             InitializeComponent();
-            var binding = new BasicHttpBinding();
-            var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            rentIt = new RentItClient(binding, address);
+
+            results.AddDoubleClickEventHandler(MediaItemDoubleClick);
 
             priceFilter.Items.Add(new PriceRange { Description = "Any", MinimumPrice = int.MinValue, MaximumPrice = int.MaxValue });
             priceFilter.Items.Add(new PriceRange { Description = "Under 50 credits", MinimumPrice = int.MinValue, MaximumPrice = 49 });
@@ -40,7 +36,7 @@ namespace ClientApp {
         }
 
         private void UpdateResults() {
-            MediaItems mediaItems = rentIt.GetMediaItems(Criteria);
+            MediaItems mediaItems = RentItProxy.GetMediaItems(Criteria);
             results.MediaItems = FilterByPrice(mediaItems);
             resultsLabel.Text = "Results for \"" + Criteria.SearchText + "\"";
         }
@@ -89,7 +85,7 @@ namespace ClientApp {
         private void UpdateGenres(MediaType mediaType) {
             GenreFilter.Items.Clear();
             GenreFilter.Items.Add("All");
-            GenreFilter.Items.AddRange(rentIt.GetAllGenres(mediaType));
+            GenreFilter.Items.AddRange(RentItProxy.GetAllGenres(mediaType));
             GenreFilter.SelectedIndex = 0;
         }
 
@@ -113,6 +109,38 @@ namespace ClientApp {
 
         private void FilterButtonClick(object sender, EventArgs e) {
             UpdateResults();
+        }
+
+        private void MediaItemDoubleClick(object sender, EventArgs e) {
+            MediaInfo media = results.GetSingleMedia();
+            DisplayMediaItem(media);
+        }
+
+        private void DisplayMediaItem(MediaInfo media) {
+            RentItUserControl mediaDetails;
+            string title;
+            switch(media.Type) {
+                case MediaType.Album:
+                    mediaDetails = new AlbumDetails { RentItProxy = RentItProxy, AlbumInfo = (AlbumInfo) media };
+                    title = "Album details";
+                    break;
+                case MediaType.Book:
+                    mediaDetails = new BookMovieDetails { RentItProxy = RentItProxy, BookInfo = (BookInfo) media };
+                    title = "Book details";
+                    break;
+                case MediaType.Movie:
+                    mediaDetails = new BookMovieDetails { RentItProxy = RentItProxy, MovieInfo = (MovieInfo) media };
+                    title = "Movie details";
+                    break;
+                case MediaType.Song:
+                    mediaDetails = new AlbumDetails { RentItProxy = RentItProxy, AlbumInfo = RentItProxy.GetAlbumInfo(((SongInfo) media).AlbumId) };
+                    title = "Album details";
+                    break;
+                default:
+                    return;
+            }
+
+            FireContentChangeEvent(mediaDetails, title);
         }
 
         private struct PriceRange {
