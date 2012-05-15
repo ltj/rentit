@@ -39,12 +39,12 @@ namespace ClientApp
                     Limit = -1
                 };
 
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            this.RentItProxy = new RentItClient(binding, address);
+            //BasicHttpBinding binding = new BasicHttpBinding();
+            //EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
+            //this.RentItProxy = new RentItClient(binding, address);
 
-            MediaItems mediaItems = this.RentItProxy.GetMediaItems(this.mediaCriteria);
-            this.PopulateGrid(mediaItems);
+            //MediaItems mediaItems = this.RentItProxy.GetMediaItems(this.mediaCriteria);
+            //this.PopulateGrid(mediaItems);
         }
 
         /// <summary>
@@ -191,16 +191,23 @@ namespace ClientApp
             {
                 var albumDetails = new AlbumDetails();
                 albumDetails.AlbumInfo = (AlbumInfo)mediaInfo;
+                mediaDetail = albumDetails;
             }
             else if (this.mediaCriteria.Type == MediaType.Movie)
             {
                 var movieDetails = new BookMovieDetails();
                 movieDetails.MovieInfo = (MovieInfo)mediaInfo;
+                mediaDetail = movieDetails;
             }
             else if (this.mediaCriteria.Type == MediaType.Book)
             {
                 var bookDetails = new BookMovieDetails();
                 bookDetails.BookInfo = (BookInfo)mediaInfo;
+                mediaDetail = bookDetails;
+            }
+            else
+            {
+                return;
             }
 
             mediaDetail.RentItProxy = this.RentItProxy;

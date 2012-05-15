@@ -18,9 +18,6 @@
         }
 
         internal override RentItClient RentItProxy {
-            get {
-                return base.RentItProxy;
-            }
             set {
                 base.RentItProxy = value;
                 moviesList.RentItProxy = value;

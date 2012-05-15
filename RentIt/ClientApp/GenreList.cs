@@ -1,11 +1,7 @@
-﻿
-
-namespace ClientApp
+﻿namespace ClientApp
 {
     internal partial class GenreList : RentItUserControl
     {
-
-        private RentItClient client;
         private RentIt.MediaType mtype;
 
         public GenreList()
@@ -19,26 +15,21 @@ namespace ClientApp
             set
             {
                 mtype = value;
-                getGenres();
+                GetGenres();
             }
         }
 
-        internal override RentItClient RentItProxy
-        {
-            set { client = value; }
-        }
-
         // get genres for set type
-        private void getGenres()
+        private void GetGenres()
         {
-            if (mtype == RentIt.MediaType.Any || client == null) return;
+            if (mtype == RentIt.MediaType.Any || RentItProxy == null) return;
 
             lstGenres.Clear(); // clear current content
 
             // web service call might throw a fault exception
             try
             {
-                string[] genres = client.GetAllGenres(mtype);
+                string[] genres = RentItProxy.GetAllGenres(mtype);
                 foreach (string s in genres)
                 {
                     lstGenres.Items.Add(s);

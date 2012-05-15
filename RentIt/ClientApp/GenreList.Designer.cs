@@ -29,10 +29,14 @@
             // 
             // lstGenres
             // 
+            this.lstGenres.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lstGenres.BackColor = System.Drawing.SystemColors.Control;
             this.lstGenres.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.lstGenres.Location = new System.Drawing.Point(3, 23);
             this.lstGenres.Name = "lstGenres";
-            this.lstGenres.Size = new System.Drawing.Size(198, 122);
+            this.lstGenres.Size = new System.Drawing.Size(168, 219);
             this.lstGenres.TabIndex = 0;
             this.lstGenres.UseCompatibleStateImageBehavior = false;
             this.lstGenres.View = System.Windows.Forms.View.List;
@@ -40,7 +44,7 @@
             // lblUCTitle
             // 
             this.lblUCTitle.AutoSize = true;
-            this.lblUCTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblUCTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.lblUCTitle.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.lblUCTitle.Location = new System.Drawing.Point(-1, 0);
             this.lblUCTitle.Name = "lblUCTitle";
@@ -52,11 +56,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.lblUCTitle);
             this.Controls.Add(this.lstGenres);
             this.Name = "GenreList";
-            this.Size = new System.Drawing.Size(274, 245);
+            this.Size = new System.Drawing.Size(174, 245);
             this.ResumeLayout(false);
             this.PerformLayout();
 

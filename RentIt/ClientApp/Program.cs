@@ -48,7 +48,7 @@ namespace ClientApp
             Application.Run(mediaDisplay);
             */
 
-            Application.Run(new Form1());
+            Application.Run(new MainForm());
         }
     }
 }
