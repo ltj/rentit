@@ -60,6 +60,7 @@
             this.viewBookDetails.TabIndex = 4;
             this.viewBookDetails.Text = "Book details";
             this.viewBookDetails.UseVisualStyleBackColor = true;
+            this.viewBookDetails.Click += new System.EventHandler(this.viewBookDetails_Click);
             // 
             // BookReaderControl
             // 
