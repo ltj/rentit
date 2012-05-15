@@ -1,11 +1,8 @@
-﻿
-namespace ClientApp
-{
-    using BinaryCommunicator;
+﻿using BinaryCommunicator;
 
+namespace ClientApp {
     internal partial class MediaFrontpage : RentItUserControl
     {
-
         private RentIt.MediaType mtype;
         private RentItClient client;
 
@@ -41,7 +38,7 @@ namespace ClientApp
             if (mtype == RentIt.MediaType.Any || client == null) return;
 
             // build search criteria
-            RentIt.MediaCriteria mc = new RentIt.MediaCriteria
+            var mc = new RentIt.MediaCriteria
             {
                 Type = mtype,
                 Limit = 1, // only one result
@@ -77,7 +74,7 @@ namespace ClientApp
             if (mtype == RentIt.MediaType.Any || client == null) return;
 
             // build search criteria
-            RentIt.MediaCriteria mc = new RentIt.MediaCriteria
+            var mc = new RentIt.MediaCriteria
             {
                 Type = mtype,
                 Limit = 10, // only ten most pouplar

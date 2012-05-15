@@ -28,7 +28,7 @@
             TopBar.Credentials = credentials;
             TopBar.ContentChangeEvent += ChangeContent;
 
-            Content = new MainScreen();
+            Content = new MainScreen { RentItProxy = rentItProxy };
         }
 
         internal TopBarControl TopBar
@@ -41,8 +41,10 @@
             set
             {
                 contentPane.Controls.Clear();
-                value.RentItProxy = rentItProxy;
-                value.Credentials = credentials;
+                if(value.RentItProxy == null)
+                    value.RentItProxy = rentItProxy;
+                if(value.Credentials == null)
+                    value.Credentials = credentials;
                 value.ContentChangeEvent += ChangeContent;
                 value.Dock = DockStyle.Fill;
                 contentPane.Controls.Add(value);

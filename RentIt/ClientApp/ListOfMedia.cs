@@ -1,10 +1,8 @@
-﻿
-namespace ClientApp
+﻿namespace ClientApp
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.ServiceModel;
 
     using RentIt;
 
@@ -12,16 +10,15 @@ namespace ClientApp
     /// User control showing a list media based on a given criteria. Media items can be optionally numbered.
     /// </summary>
     /// <author>Jacob Rasmussen</author>
-    internal partial class ListOfMedia : RentItUserControl
-    {
-        private readonly RentItClient rentIt;
+    internal partial class ListOfMedia : RentItUserControl {
+        private List<MediaInfo> mediaList;
 
         public ListOfMedia()
         {
             InitializeComponent();
-            var binding = new BasicHttpBinding();
-            var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            rentIt = new RentItClient(binding, address);
+            //var binding = new BasicHttpBinding();
+            //var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
+            //RentItProxy = new RentItClient(binding, address);
             Title = "";
             Numbering = false;
         }
@@ -47,29 +44,50 @@ namespace ClientApp
         internal void UpdateList(MediaCriteria criteria)
         {
             //Gets the relevant media from the database.
-            var medias = rentIt.GetMediaItems(criteria);
+            var medias = RentItProxy.GetMediaItems(criteria);
 
             //Concatenates the lists contained in the object returned from the database in a new list.
-            var list = new List<MediaInfo>();
-            list.AddRange(medias.Albums);
-            list.AddRange(medias.Books);
-            list.AddRange(medias.Movies);
+            mediaList = new List<MediaInfo>();
+            mediaList.AddRange(medias.Albums);
+            mediaList.AddRange(medias.Books);
+            mediaList.AddRange(medias.Movies);
 
             //Adds the items to the list in the user control.
-            if (list.Count() > 0 && !Numbering)
-                for (int i = 0; i < list.Count() - 1; i++)
-                    listBox1.Items.Add(list[i].Title);
+            if (mediaList.Count() > 0 && !Numbering)
+                for (int i = 0; i < mediaList.Count() - 1; i++)
+                    listBox1.Items.Add(mediaList[i].Title);
 
             //Same as above but including numbering of media items.
-            if (list.Count() > 0 && Numbering)
-                for (int i = 0; i < list.Count() - 1; i++)
-                    listBox1.Items.Add((i + 1) + ". " + list[i].Title);
+            if (mediaList.Count() > 0 && Numbering)
+                for (int i = 0; i < mediaList.Count() - 1; i++)
+                    listBox1.Items.Add((i + 1) + ". " + mediaList[i].Title);
 
         }
 
         private void ListBox1SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        /// <summary>
+        /// Adds an EventHandler to the Double Click event on the list.
+        /// </summary>
+        /// <param name="handler"></param>
+        internal void AddDoubleClickEventHandler(EventHandler handler) {
+            listBox1.DoubleClick += handler;
+        }
+
+        /// <summary>
+        /// Returns the single selected item of the list. If the number of selected
+        /// items is different from one, the method returns null.
+        /// </summary>
+        /// <returns></returns>
+        internal MediaInfo GetSingleMedia() {
+            if(listBox1.SelectedItems.Count != 1) {
+                return null;
+            }
+
+            return mediaList[listBox1.SelectedIndex];
         }
     }
 }

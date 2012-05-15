@@ -9,6 +9,8 @@ namespace BinaryCommunicator
     using System.IO;
     using System.Net;
 
+    using BinaryCommunicator.Properties;
+
     using RentIt;
 
     /// <summary>
@@ -107,7 +109,8 @@ namespace BinaryCommunicator
             }
             catch (Exception e)
             {
-                throw new WebException("Retrieval of the thumbnail failed: " + e.Message);
+                tmpImage = Resources.missingThumb;
+                //throw new WebException("Retrieval of the thumbnail failed: " + e.Message);
             }
 
             return tmpImage;
