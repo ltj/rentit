@@ -38,6 +38,16 @@
             if (CredentialsChangeEvent != null)
                 CredentialsChangeEvent(this, new CredentialsChangeArgs(credentials));
         }
+
+        /// <summary>
+        /// For propagating the MainForms subscription to the ContentChangeEvent
+        /// to the media players.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
+        protected void ContentChangeEventPropagated(object obj, ContentChangeArgs e) {
+            FireContentChangeEvent(e.NewControl, e.NewTitle);
+        }
     }
 
     internal delegate void CredentialsChangeEventHandler(object sender, CredentialsChangeArgs args);

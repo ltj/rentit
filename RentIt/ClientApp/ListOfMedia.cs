@@ -16,9 +16,6 @@
         public ListOfMedia()
         {
             InitializeComponent();
-            //var binding = new BasicHttpBinding();
-            //var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            //RentItProxy = new RentItClient(binding, address);
             Title = "";
             Numbering = false;
         }

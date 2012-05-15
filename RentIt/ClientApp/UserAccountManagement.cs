@@ -93,15 +93,5 @@ namespace ClientApp
 
         #endregion
 
-        /// <summary>
-        /// For propagating the MainForms subscription to the ContentChangeEvent
-        /// to the media players.
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="e"></param>
-        private void ContentChangeEventPropagated(object obj, ContentChangeArgs e)
-        {
-            this.FireContentChangeEvent(e.NewControl, e.NewTitle);
-        }
     }
 }

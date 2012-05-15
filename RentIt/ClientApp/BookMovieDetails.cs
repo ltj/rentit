@@ -19,11 +19,11 @@ namespace ClientApp
         {
             InitializeComponent();
 
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            this.RentItProxy = new RentItClient(binding, address);
+            //BasicHttpBinding binding = new BasicHttpBinding();
+            //EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
+            //this.RentItProxy = new RentItClient(binding, address);
 
-            this.BookInfo = this.RentItProxy.GetBookInfo(75);
+            //this.BookInfo = this.RentItProxy.GetBookInfo(75);
         }
 
         /// <summary>
