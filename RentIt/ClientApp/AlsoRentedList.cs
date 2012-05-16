@@ -151,21 +151,21 @@ namespace ClientApp
                     albumDetails.RentItProxy = this.RentItProxy;
                     albumDetails.Credentials = this.Credentials;
                     albumDetails.AlbumInfo = (AlbumInfo)mediaInfo;
-                    this.FireContentChangeEvent(albumDetails, mediaInfo.Title);
+                    this.FireContentChangeEvent(albumDetails, TopBarControl.Titles.MediaDetailsAlbum);
                     break;
                 case MediaType.Book:
                     var bookDetails = new BookMovieDetails();
                     bookDetails.RentItProxy = this.RentItProxy;
                     bookDetails.Credentials = this.Credentials;
                     bookDetails.BookInfo = (BookInfo)mediaInfo;
-                    this.FireContentChangeEvent(bookDetails, mediaInfo.Title);
+                    this.FireContentChangeEvent(bookDetails, TopBarControl.Titles.MediaDetailsBook);
                     break;
                 case MediaType.Movie:
                     var movieDetails = new BookMovieDetails();
                     movieDetails.RentItProxy = this.RentItProxy;
                     movieDetails.Credentials = this.Credentials;
                     movieDetails.MovieInfo = (MovieInfo)mediaInfo;
-                    this.FireContentChangeEvent(movieDetails, mediaInfo.Title);
+                    this.FireContentChangeEvent(movieDetails, TopBarControl.Titles.MediaDetailsMovie);
                     break;
                 default:
                     break;
