@@ -50,17 +50,17 @@
 
         private void MoviesButtonClick(object sender, EventArgs e) {
             var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Movie };
-            FireContentChangeEvent(mediaFront, "Movies");
+            FireContentChangeEvent(mediaFront, TopBarControl.Titles.MediaFrontpageMovies);
         }
 
         private void BooksButtonClick(object sender, EventArgs e) {
             var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Book };
-            FireContentChangeEvent(mediaFront, "Books");
+            FireContentChangeEvent(mediaFront, TopBarControl.Titles.MediaFrontpageBooks);
         }
 
         private void MusicButtonClick(object sender, EventArgs e) {
             var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Album };
-            FireContentChangeEvent(mediaFront, "Music");
+            FireContentChangeEvent(mediaFront, TopBarControl.Titles.MediaFrontpageMusic);
         }
 
         private void MovieListDoubleClick(object sender, EventArgs e) {
@@ -84,15 +84,15 @@
             switch(media.Type) {
                 case MediaType.Album:
                     mediaDetails = new AlbumDetails { RentItProxy = RentItProxy, AlbumInfo = (AlbumInfo) media };
-                    title = "Album details";
+                    title = TopBarControl.Titles.MediaDetailsAlbum;
                     break;
                 case MediaType.Book:
                     mediaDetails = new BookMovieDetails { RentItProxy = RentItProxy, BookInfo = (BookInfo) media };
-                    title = "Book details";
+                    title = TopBarControl.Titles.MediaDetailsBook;
                     break;
                 case MediaType.Movie:
                     mediaDetails = new BookMovieDetails { RentItProxy = RentItProxy, MovieInfo = (MovieInfo) media };
-                    title = "Movie details";
+                    title = TopBarControl.Titles.MediaDetailsMovie;
                     break;
                 default:
                     return;

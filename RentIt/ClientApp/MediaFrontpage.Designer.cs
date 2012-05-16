@@ -53,7 +53,7 @@
             this.grpNewHot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.grpNewHot.Location = new System.Drawing.Point(3, 3);
             this.grpNewHot.Name = "grpNewHot";
-            this.grpNewHot.Size = new System.Drawing.Size(679, 205);
+            this.grpNewHot.Size = new System.Drawing.Size(620, 205);
             this.grpNewHot.TabIndex = 0;
             this.grpNewHot.TabStop = false;
             this.grpNewHot.Text = "New and HOT";
@@ -65,7 +65,7 @@
             this.lblNewPrice.AutoEllipsis = true;
             this.lblNewPrice.Location = new System.Drawing.Point(148, 165);
             this.lblNewPrice.Name = "lblNewPrice";
-            this.lblNewPrice.Size = new System.Drawing.Size(289, 20);
+            this.lblNewPrice.Size = new System.Drawing.Size(230, 20);
             this.lblNewPrice.TabIndex = 5;
             this.lblNewPrice.Text = "price";
             // 
@@ -76,7 +76,7 @@
             this.lblNewPublisher.AutoEllipsis = true;
             this.lblNewPublisher.Location = new System.Drawing.Point(148, 105);
             this.lblNewPublisher.Name = "lblNewPublisher";
-            this.lblNewPublisher.Size = new System.Drawing.Size(289, 20);
+            this.lblNewPublisher.Size = new System.Drawing.Size(230, 20);
             this.lblNewPublisher.TabIndex = 4;
             this.lblNewPublisher.Text = "publisher";
             // 
@@ -87,7 +87,7 @@
             this.lblNewGenre.AutoEllipsis = true;
             this.lblNewGenre.Location = new System.Drawing.Point(148, 45);
             this.lblNewGenre.Name = "lblNewGenre";
-            this.lblNewGenre.Size = new System.Drawing.Size(289, 20);
+            this.lblNewGenre.Size = new System.Drawing.Size(230, 20);
             this.lblNewGenre.TabIndex = 3;
             this.lblNewGenre.Text = "genre";
             // 
@@ -98,7 +98,7 @@
             this.lblNewRelease.AutoEllipsis = true;
             this.lblNewRelease.Location = new System.Drawing.Point(148, 65);
             this.lblNewRelease.Name = "lblNewRelease";
-            this.lblNewRelease.Size = new System.Drawing.Size(289, 20);
+            this.lblNewRelease.Size = new System.Drawing.Size(230, 20);
             this.lblNewRelease.TabIndex = 2;
             this.lblNewRelease.Text = "release date";
             // 
@@ -110,14 +110,14 @@
             this.lblNewTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.lblNewTitle.Location = new System.Drawing.Point(148, 25);
             this.lblNewTitle.Name = "lblNewTitle";
-            this.lblNewTitle.Size = new System.Drawing.Size(289, 20);
+            this.lblNewTitle.Size = new System.Drawing.Size(230, 20);
             this.lblNewTitle.TabIndex = 1;
             this.lblNewTitle.Text = "title";
             // 
             // picNewThumb
             // 
             this.picNewThumb.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picNewThumb.Location = new System.Drawing.Point(443, 25);
+            this.picNewThumb.Location = new System.Drawing.Point(384, 25);
             this.picNewThumb.Name = "picNewThumb";
             this.picNewThumb.Size = new System.Drawing.Size(160, 160);
             this.picNewThumb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -131,7 +131,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.popularMediaGrid.Location = new System.Drawing.Point(3, 3);
             this.popularMediaGrid.Name = "popularMediaGrid";
-            this.popularMediaGrid.Size = new System.Drawing.Size(673, 99);
+            this.popularMediaGrid.Size = new System.Drawing.Size(614, 133);
             this.popularMediaGrid.TabIndex = 0;
             // 
             // genreList1
@@ -139,9 +139,9 @@
             this.genreList1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.genreList1.BackColor = System.Drawing.SystemColors.Control;
-            this.genreList1.Location = new System.Drawing.Point(692, 14);
+            this.genreList1.Location = new System.Drawing.Point(633, 14);
             this.genreList1.Name = "genreList1";
-            this.genreList1.Size = new System.Drawing.Size(158, 517);
+            this.genreList1.Size = new System.Drawing.Size(158, 541);
             this.genreList1.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -149,6 +149,8 @@
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.AutoScroll = true;
+            this.tableLayoutPanel1.AutoScrollMinSize = new System.Drawing.Size(0, 420);
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.bestMediaGrid, 0, 2);
@@ -160,7 +162,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(679, 317);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(620, 341);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // bestMediaGrid
@@ -168,9 +170,9 @@
             this.bestMediaGrid.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.bestMediaGrid.Location = new System.Drawing.Point(3, 213);
+            this.bestMediaGrid.Location = new System.Drawing.Point(3, 281);
             this.bestMediaGrid.Name = "bestMediaGrid";
-            this.bestMediaGrid.Size = new System.Drawing.Size(673, 101);
+            this.bestMediaGrid.Size = new System.Drawing.Size(614, 136);
             this.bestMediaGrid.TabIndex = 2;
             // 
             // newMediaGrid
@@ -178,9 +180,9 @@
             this.newMediaGrid.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.newMediaGrid.Location = new System.Drawing.Point(3, 108);
+            this.newMediaGrid.Location = new System.Drawing.Point(3, 142);
             this.newMediaGrid.Name = "newMediaGrid";
-            this.newMediaGrid.Size = new System.Drawing.Size(673, 99);
+            this.newMediaGrid.Size = new System.Drawing.Size(614, 133);
             this.newMediaGrid.TabIndex = 1;
             // 
             // MediaFrontpage
@@ -192,7 +194,7 @@
             this.Controls.Add(this.grpNewHot);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "MediaFrontpage";
-            this.Size = new System.Drawing.Size(853, 534);
+            this.Size = new System.Drawing.Size(794, 558);
             this.grpNewHot.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize) (this.picNewThumb)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);

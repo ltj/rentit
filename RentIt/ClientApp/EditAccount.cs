@@ -1,5 +1,4 @@
-﻿
-namespace ClientApp
+﻿namespace ClientApp
 {
     using System;
     using System.ComponentModel;
@@ -10,31 +9,23 @@ namespace ClientApp
 
     internal partial class EditAccount : RentItUserControl
     {
-
-        private RentItClient rentIt;
         private RentIt.Account account;
-        private RentIt.AccountCredentials credentials;
-
+        
         public EditAccount()
         {
             InitializeComponent();
-        }
-
-        internal override RentItClient RentItProxy
-        {
-            set { this.rentIt = value; }
         }
 
         internal override RentIt.AccountCredentials Credentials
         {
             set
             {
-                this.credentials = value;
-                setFields();
+                base.Credentials = value;
+                SetFields();
             }
         }
 
-        private void txtPasswordConfirm_Validating(object sender, CancelEventArgs e)
+        private void TxtPasswordConfirmValidating(object sender, CancelEventArgs e)
         {
             if (txtPasswordConfirm.Text != txtPassword.Text && errPassword.GetError(txtPassword) == "")
             {
@@ -45,7 +36,7 @@ namespace ClientApp
             }
         }
 
-        private void txtPasswordConfirm_Validated(object sender, EventArgs e)
+        private void TxtPasswordConfirmValidated(object sender, EventArgs e)
         {
             errPassword.SetError(txtPassword, "");
         }
@@ -88,7 +79,7 @@ namespace ClientApp
             return false;
         }
 
-        private void txtFullName_Validating(object sender, CancelEventArgs e)
+        private void TxtFullNameValidating(object sender, CancelEventArgs e)
         {
             string errMessage;
             if (!ValidateFullName(txtFullName.Text, out errMessage) && errFullName.GetError(txtFullName) == "")
@@ -99,7 +90,7 @@ namespace ClientApp
             }
         }
 
-        private void txtEmail_Validating(object sender, CancelEventArgs e)
+        private void TxtEmailValidating(object sender, CancelEventArgs e)
         {
             string errMessage;
             if (!ValidateEmail(txtEmail.Text, out errMessage) && errEmail.GetError(txtEmail) == "")
@@ -110,27 +101,27 @@ namespace ClientApp
             }
         }
 
-        private void txtEmail_Validated(object sender, EventArgs e)
+        private void TxtEmailValidated(object sender, EventArgs e)
         {
             errEmail.SetError(txtEmail, "");
         }
 
-        private void txtFullName_Validated(object sender, EventArgs e)
+        private void TxtFullNameValidated(object sender, EventArgs e)
         {
             errFullName.SetError(txtFullName, "");
         }
 
-        private void EditAccount_Load(object sender, EventArgs e)
+        private void EditAccountLoad(object sender, EventArgs e)
         {
             this.txtUserName.ReadOnly = true;
         }
 
-        private void setFields()
+        private void SetFields()
         {
             try
             {
                 // get account
-                RentIt.Account acct = rentIt.ValidateCredentials(credentials);
+                RentIt.Account acct = RentItProxy.ValidateCredentials(Credentials);
                 this.account = acct;
                 txtUserName.Text = acct.UserName;
                 txtFullName.Text = acct.FullName;
@@ -142,27 +133,27 @@ namespace ClientApp
             }
         }
 
-        private void btnSubmit_Click(object sender, EventArgs e)
+        private void BtnSubmitClick(object sender, EventArgs e)
         {
             if (ValidateAll())
             {
                 if (txtPassword.Text != "")
                 {
                     SHA1 sha1 = SHA1.Create();
-                    string hp = GetSHA1Hash(sha1, txtPassword.Text);
+                    string hp = GetSha1Hash(sha1, txtPassword.Text);
                     account.HashedPassword = hp;
                 }
                 account.FullName = txtFullName.Text;
                 account.Email = txtEmail.Text;
                 try
                 {
-                    rentIt.UpdateAccountInfo(credentials, account);
+                    RentItProxy.UpdateAccountInfo(Credentials, account);
                 }
                 catch
                 {
                     MessageBox.Show("Something went wrong :( Try again.");
                 }
-                setFields();
+                SetFields();
             }
         }
 
@@ -201,7 +192,7 @@ namespace ClientApp
         }
 
         // get sha1 hash as string from string
-        private static string GetSHA1Hash(SHA1 sha1Hash, string input)
+        private static string GetSha1Hash(SHA1 sha1Hash, string input)
         {
 
             // Convert the input string to a byte array and compute the hash.

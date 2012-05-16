@@ -301,7 +301,7 @@ namespace ClientApp
             try
             {
                 this.RentItProxy.ValidateCredentials(credentials);
-                FireCredentialsChangeEvent(credentials);       
+                FireCredentialsChangeEvent(credentials);
             }
             catch (Exception)
             {

@@ -130,28 +130,36 @@
                 return;
             }
 
-            RentItUserControl mediaDetail = null;
+            RentItUserControl mediaDetail;
+            string title;
 
             if (mediaInfo.Type == MediaType.Album)
             {
-                var albumDetails = new AlbumDetails();
-                albumDetails.AlbumInfo = (AlbumInfo)mediaInfo;
+                var albumDetails = new AlbumDetails { AlbumInfo = (AlbumInfo)mediaInfo };
+                mediaDetail = albumDetails;
+                title = TopBarControl.Titles.MediaDetailsAlbum;
             }
             else if (mediaInfo.Type == MediaType.Movie)
             {
-                var movieDetails = new BookMovieDetails();
-                movieDetails.MovieInfo = (MovieInfo)mediaInfo;
+                var movieDetails = new BookMovieDetails { MovieInfo = (MovieInfo)mediaInfo };
+                mediaDetail = movieDetails;
+                title = TopBarControl.Titles.MediaDetailsMovie;
             }
             else if (mediaInfo.Type == MediaType.Book)
             {
-                var bookDetails = new BookMovieDetails();
-                bookDetails.BookInfo = (BookInfo)mediaInfo;
+                var bookDetails = new BookMovieDetails { BookInfo = (BookInfo)mediaInfo };
+                mediaDetail = bookDetails;
+                title = TopBarControl.Titles.MediaDetailsBook;
+            }
+            else
+            {
+                return;
             }
 
             mediaDetail.RentItProxy = this.RentItProxy;
             mediaDetail.Credentials = this.Credentials;
 
-            this.FireContentChangeEvent(mediaDetail, mediaInfo.Title);
+            FireContentChangeEvent(mediaDetail, title);
         }
 
         #endregion

@@ -19,6 +19,27 @@ namespace ClientApp
             this.rentalsListControl.AddDoubleClickEventHandler(this.DoubleClickEventHandler);
         }
 
+        internal override RentItClient RentItProxy {
+            set {
+                base.RentItProxy = value;
+                editAccount1.RentItProxy = value;
+                rentalsListControl.RentItProxy = value;
+                creditsControl1.RentItProxy = value;
+            }
+        }
+
+        internal override AccountCredentials Credentials {
+            set {
+                base.Credentials = value;
+                editAccount1.Credentials = value;
+                rentalsListControl.Credentials = value;
+                creditsControl1.Credentials = value;
+
+                UserAccount accountData = RentItProxy.GetAllCustomerData(value);
+                rentalsListControl.MediaItems = new List<Rental>(accountData.Rentals);
+            }
+        }
+
         /// <summary>
         /// Selects the tab with the specified index.
         /// If the index is out of range that first tab
