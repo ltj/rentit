@@ -57,22 +57,22 @@ namespace ClientApp
             // titleColumn
             // 
             this.userColumn.Text = "User";
-            this.userColumn.Width = 220;
+            this.userColumn.Width = 154;
             // 
             // startDateColumn
             // 
             this.dateColumn.Text = "Date posted";
-            this.dateColumn.Width = 120;
+            this.dateColumn.Width = 118;
             // 
             // endDateColumn
             // 
             this.commentColumn.Text = "Comment/review";
-            this.commentColumn.Width = 120;
+            this.commentColumn.Width = 364;
             // 
             // priceColumn
             // 
             this.ratingColumn.Text = "Rating";
-            this.ratingColumn.Width = 85;
+            this.ratingColumn.Width = 104;
         }
 
         /// <summary>

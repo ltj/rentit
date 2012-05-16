@@ -40,6 +40,10 @@
             System.Windows.Forms.ListViewGroup listViewGroup10 = new System.Windows.Forms.ListViewGroup("Albums", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup11 = new System.Windows.Forms.ListViewGroup("Movies", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup12 = new System.Windows.Forms.ListViewGroup("Books", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup13 = new System.Windows.Forms.ListViewGroup("Songs", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup14 = new System.Windows.Forms.ListViewGroup("Albums", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup15 = new System.Windows.Forms.ListViewGroup("Movies", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup16 = new System.Windows.Forms.ListViewGroup("Books", System.Windows.Forms.HorizontalAlignment.Left);
             this.itemsPerPageComboBox = new System.Windows.Forms.ComboBox();
             this.itemsPerPageLabel = new System.Windows.Forms.Label();
             this.firstPageButton = new System.Windows.Forms.Button();
@@ -160,6 +164,14 @@
             listViewGroup11.Name = null;
             listViewGroup12.Header = "Books";
             listViewGroup12.Name = null;
+            listViewGroup13.Header = "Songs";
+            listViewGroup13.Name = null;
+            listViewGroup14.Header = "Albums";
+            listViewGroup14.Name = null;
+            listViewGroup15.Header = "Movies";
+            listViewGroup15.Name = null;
+            listViewGroup16.Header = "Books";
+            listViewGroup16.Name = null;
             this.mediaList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1,
             listViewGroup2,
@@ -172,7 +184,11 @@
             listViewGroup9,
             listViewGroup10,
             listViewGroup11,
-            listViewGroup12});
+            listViewGroup12,
+            listViewGroup13,
+            listViewGroup14,
+            listViewGroup15,
+            listViewGroup16});
             this.mediaList.Location = new System.Drawing.Point(4, 35);
             this.mediaList.MultiSelect = false;
             this.mediaList.Name = "mediaList";
@@ -181,7 +197,7 @@
             this.mediaList.UseCompatibleStateImageBehavior = false;
             this.mediaList.View = System.Windows.Forms.View.Details;
             // 
-            // DetailedMediaListControl
+            // PagedDetailedMediaListControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -193,7 +209,7 @@
             this.Controls.Add(this.itemsPerPageLabel);
             this.Controls.Add(this.itemsPerPageComboBox);
             this.Controls.Add(this.mediaList);
-            this.Name = "DetailedMediaListControl";
+            this.Name = "PagedDetailedMediaListControl";
             this.Size = new System.Drawing.Size(734, 426);
             this.ResumeLayout(false);
             this.PerformLayout();

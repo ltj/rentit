@@ -1,6 +1,7 @@
 ﻿
 namespace ClientApp
 {
+    using System;
     using System.ServiceModel;
     using System.Windows.Forms;
 
@@ -19,6 +20,8 @@ namespace ClientApp
         public AlbumDetails()
         {
             InitializeComponent();
+
+            this.songList.Resize += this.ListResizedEventHandler;
 
             //BasicHttpBinding binding = new BasicHttpBinding();
             //EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
@@ -115,5 +118,25 @@ namespace ClientApp
             }
         }
 
+        #region EventHandler
+
+        private void ListResizedEventHandler(object obj, EventArgs e)
+        {
+            int totalWidth = 0;
+
+            // Get the total width of all the columns of the table.
+            foreach (ColumnHeader column in this.songList.Columns)
+            {
+                totalWidth += column.Width;
+            }
+
+            // Adjust the width so that the ratio of the column width will remain the same.
+            foreach (ColumnHeader column in this.songList.Columns)
+            {
+                column.Width = (int)(((double)column.Width / totalWidth) * this.songList.Width);
+            }
+        }
+
+        #endregion
     }
 }

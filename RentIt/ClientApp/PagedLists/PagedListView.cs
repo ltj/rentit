@@ -44,6 +44,11 @@ namespace ClientApp
         /// </summary>
         private int numberOfPages = 1;
 
+        public PagedListView()
+        {
+            this.Resize += this.ListResizedEventHandler;
+        }
+
         /// <summary>
         /// Gets of sets the mapping between ListViewItems and their
         /// corresponding MediaInfo objects.
@@ -242,5 +247,26 @@ namespace ClientApp
             this.currentPageNumber = 1;
             this.numberOfPages = (int)Math.Ceiling((double)this.currentItems.Count / this.itemsPerPage);
         }
+
+        #region EventHandler
+
+        private void ListResizedEventHandler(object obj, EventArgs e)
+        {
+            int totalWidth = 0;
+
+            // Get the total width of all the columns of the table.
+            foreach (ColumnHeader column in this.Columns)
+            {
+                totalWidth += column.Width;
+            }
+
+            // Adjust the width so that the ratio of the column width will remain the same.
+            foreach (ColumnHeader column in this.Columns)
+            {
+                column.Width = (int)(((double)column.Width / totalWidth) * this.Width);
+            }
+        }
+
+        #endregion
     }
 }

@@ -28,93 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.itemsPerPageComboBox = new System.Windows.Forms.ComboBox();
-            this.itemsPerPageLabel = new System.Windows.Forms.Label();
-            this.firstPageButton = new System.Windows.Forms.Button();
-            this.previousPageButton = new System.Windows.Forms.Button();
-            this.nextPageButton = new System.Windows.Forms.Button();
-            this.lastPageButton = new System.Windows.Forms.Button();
-            this.currentPageTextbox = new System.Windows.Forms.TextBox();
             this.ratingsList = new ClientApp.PagedRatingsList();
+            this.currentPageTextbox = new System.Windows.Forms.TextBox();
+            this.lastPageButton = new System.Windows.Forms.Button();
+            this.nextPageButton = new System.Windows.Forms.Button();
+            this.previousPageButton = new System.Windows.Forms.Button();
+            this.firstPageButton = new System.Windows.Forms.Button();
+            this.itemsPerPageLabel = new System.Windows.Forms.Label();
+            this.itemsPerPageComboBox = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
-            // 
-            // itemsPerPageComboBox
-            // 
-            this.itemsPerPageComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.itemsPerPageComboBox.FormattingEnabled = true;
-            this.itemsPerPageComboBox.Items.AddRange(new object[] {
-            "10",
-            "25",
-            "50",
-            "100"});
-            this.itemsPerPageComboBox.Location = new System.Drawing.Point(639, 8);
-            this.itemsPerPageComboBox.Name = "itemsPerPageComboBox";
-            this.itemsPerPageComboBox.Size = new System.Drawing.Size(103, 21);
-            this.itemsPerPageComboBox.TabIndex = 10;
-            // 
-            // itemsPerPageLabel
-            // 
-            this.itemsPerPageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.itemsPerPageLabel.AutoSize = true;
-            this.itemsPerPageLabel.Location = new System.Drawing.Point(553, 11);
-            this.itemsPerPageLabel.Name = "itemsPerPageLabel";
-            this.itemsPerPageLabel.Size = new System.Drawing.Size(80, 13);
-            this.itemsPerPageLabel.TabIndex = 11;
-            this.itemsPerPageLabel.Text = "Items per page:";
-            // 
-            // firstPageButton
-            // 
-            this.firstPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.firstPageButton.Location = new System.Drawing.Point(182, 314);
-            this.firstPageButton.Name = "firstPageButton";
-            this.firstPageButton.Size = new System.Drawing.Size(75, 23);
-            this.firstPageButton.TabIndex = 12;
-            this.firstPageButton.Text = "First";
-            this.firstPageButton.UseVisualStyleBackColor = true;
-            this.firstPageButton.Click += new System.EventHandler(this.firstPageButton_Click);
-            // 
-            // previousPageButton
-            // 
-            this.previousPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.previousPageButton.Location = new System.Drawing.Point(263, 314);
-            this.previousPageButton.Name = "previousPageButton";
-            this.previousPageButton.Size = new System.Drawing.Size(75, 23);
-            this.previousPageButton.TabIndex = 13;
-            this.previousPageButton.Text = "Previous";
-            this.previousPageButton.UseVisualStyleBackColor = true;
-            this.previousPageButton.Click += new System.EventHandler(this.previousPageButton_Click);
-            // 
-            // nextPageButton
-            // 
-            this.nextPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.nextPageButton.Location = new System.Drawing.Point(430, 314);
-            this.nextPageButton.Name = "nextPageButton";
-            this.nextPageButton.Size = new System.Drawing.Size(75, 23);
-            this.nextPageButton.TabIndex = 14;
-            this.nextPageButton.Text = "Next";
-            this.nextPageButton.UseVisualStyleBackColor = true;
-            this.nextPageButton.Click += new System.EventHandler(this.nextPageButton_Click);
-            // 
-            // lastPageButton
-            // 
-            this.lastPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.lastPageButton.Location = new System.Drawing.Point(511, 314);
-            this.lastPageButton.Name = "lastPageButton";
-            this.lastPageButton.Size = new System.Drawing.Size(75, 23);
-            this.lastPageButton.TabIndex = 15;
-            this.lastPageButton.Text = "Last";
-            this.lastPageButton.UseVisualStyleBackColor = true;
-            this.lastPageButton.Click += new System.EventHandler(this.lastPageButton_Click);
-            // 
-            // currentPageTextbox
-            // 
-            this.currentPageTextbox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.currentPageTextbox.Location = new System.Drawing.Point(356, 314);
-            this.currentPageTextbox.Name = "currentPageTextbox";
-            this.currentPageTextbox.ReadOnly = true;
-            this.currentPageTextbox.Size = new System.Drawing.Size(55, 20);
-            this.currentPageTextbox.TabIndex = 16;
-            this.currentPageTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // ratingsList
             // 
@@ -131,6 +53,84 @@
             this.ratingsList.TabIndex = 9;
             this.ratingsList.UseCompatibleStateImageBehavior = false;
             this.ratingsList.View = System.Windows.Forms.View.Details;
+            // 
+            // currentPageTextbox
+            // 
+            this.currentPageTextbox.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.currentPageTextbox.Location = new System.Drawing.Point(356, 314);
+            this.currentPageTextbox.Name = "currentPageTextbox";
+            this.currentPageTextbox.ReadOnly = true;
+            this.currentPageTextbox.Size = new System.Drawing.Size(55, 20);
+            this.currentPageTextbox.TabIndex = 16;
+            this.currentPageTextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // lastPageButton
+            // 
+            this.lastPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.lastPageButton.Location = new System.Drawing.Point(511, 314);
+            this.lastPageButton.Name = "lastPageButton";
+            this.lastPageButton.Size = new System.Drawing.Size(75, 23);
+            this.lastPageButton.TabIndex = 15;
+            this.lastPageButton.Text = "Last";
+            this.lastPageButton.UseVisualStyleBackColor = true;
+            this.lastPageButton.Click += new System.EventHandler(this.lastPageButton_Click);
+            // 
+            // nextPageButton
+            // 
+            this.nextPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.nextPageButton.Location = new System.Drawing.Point(430, 314);
+            this.nextPageButton.Name = "nextPageButton";
+            this.nextPageButton.Size = new System.Drawing.Size(75, 23);
+            this.nextPageButton.TabIndex = 14;
+            this.nextPageButton.Text = "Next";
+            this.nextPageButton.UseVisualStyleBackColor = true;
+            this.nextPageButton.Click += new System.EventHandler(this.nextPageButton_Click);
+            // 
+            // previousPageButton
+            // 
+            this.previousPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.previousPageButton.Location = new System.Drawing.Point(263, 314);
+            this.previousPageButton.Name = "previousPageButton";
+            this.previousPageButton.Size = new System.Drawing.Size(75, 23);
+            this.previousPageButton.TabIndex = 13;
+            this.previousPageButton.Text = "Previous";
+            this.previousPageButton.UseVisualStyleBackColor = true;
+            this.previousPageButton.Click += new System.EventHandler(this.previousPageButton_Click);
+            // 
+            // firstPageButton
+            // 
+            this.firstPageButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.firstPageButton.Location = new System.Drawing.Point(182, 314);
+            this.firstPageButton.Name = "firstPageButton";
+            this.firstPageButton.Size = new System.Drawing.Size(75, 23);
+            this.firstPageButton.TabIndex = 12;
+            this.firstPageButton.Text = "First";
+            this.firstPageButton.UseVisualStyleBackColor = true;
+            this.firstPageButton.Click += new System.EventHandler(this.firstPageButton_Click);
+            // 
+            // itemsPerPageLabel
+            // 
+            this.itemsPerPageLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.itemsPerPageLabel.AutoSize = true;
+            this.itemsPerPageLabel.Location = new System.Drawing.Point(553, 11);
+            this.itemsPerPageLabel.Name = "itemsPerPageLabel";
+            this.itemsPerPageLabel.Size = new System.Drawing.Size(80, 13);
+            this.itemsPerPageLabel.TabIndex = 11;
+            this.itemsPerPageLabel.Text = "Items per page:";
+            // 
+            // itemsPerPageComboBox
+            // 
+            this.itemsPerPageComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.itemsPerPageComboBox.FormattingEnabled = true;
+            this.itemsPerPageComboBox.Items.AddRange(new object[] {
+            "10",
+            "25",
+            "50",
+            "100"});
+            this.itemsPerPageComboBox.Location = new System.Drawing.Point(639, 8);
+            this.itemsPerPageComboBox.Name = "itemsPerPageComboBox";
+            this.itemsPerPageComboBox.Size = new System.Drawing.Size(103, 21);
+            this.itemsPerPageComboBox.TabIndex = 10;
             // 
             // PagedRatingsListControl
             // 
