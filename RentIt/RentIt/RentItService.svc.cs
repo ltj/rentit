@@ -605,9 +605,20 @@ namespace RentIt
             Account account = ValidateCredentials(credentials);
             if (account == null) return false;
 
+            var db = new DatabaseDataContext();
+
+            if (db.Rentals.Exists(
+                rental =>
+                rental.user_name.Equals(credentials.UserName) && rental.media_id == mediaId
+                && rental.end_time > DateTime.Now))
+            {
+                throw new FaultException<Exception>(
+                    new Exception("The requested media has already been rented."));
+            }
+
             try
             {
-                var db = new DatabaseDataContext();
+
                 var r = new RentItDatabase.Rental
                 {
                     user_name = account.UserName,

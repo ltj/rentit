@@ -34,12 +34,24 @@ namespace ClientApp
         /// Sets the rating list to display the ratings contained 
         /// in the submitted list.
         /// </summary>
-        internal List<Rental> MediaItems
+        internal List<Rental> Rentals
         {
             set
             {
                 this.mediaList.UpdateListContents(value);
                 this.DetermineButtons();
+            }
+        }
+
+        /// <summary>
+        /// Toggle whether the list is to display active or expired
+        /// rentals.
+        /// </summary>
+        internal bool ShowActiveRentals
+        {
+            set
+            {
+                this.mediaList.ShowActive(value);
             }
         }
 

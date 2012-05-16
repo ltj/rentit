@@ -6,9 +6,15 @@
     {
         private static string ERROR_TITLE = "Error";
         private static string NOT_LOGGED_IN_MESSAGE = "You are not logged in.";
-        private static string NETWORK_ERROR = "The program cannot establish a connection to the server. Please check your internet connection.";
+
+        private static string RENTAL_ERROR =
+            "The program could not rent the media either because the media is already rented or because there is a communication problem with the service servers";
 
         private static string ALREADY_REVIEWED_MESSAGE = "You have already reviewed this media";
+
+        private static string INFORMATION_TITLE = "Information";
+
+        private static string RENTAL_CONFIRMATION = "The media was succesfully rented.";
 
         public static void NotLoggedIn()
         {
@@ -30,9 +36,14 @@
             return result == DialogResult.Yes;
         }
 
-        public static void ServerCommunicationFailure()
+        public static void RentalFailed()
         {
-            MessageBox.Show(NETWORK_ERROR, ERROR_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(RENTAL_ERROR, ERROR_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static void SuccesfulRental()
+        {
+            MessageBox.Show(RENTAL_CONFIRMATION, INFORMATION_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

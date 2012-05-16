@@ -104,17 +104,17 @@ namespace ClientApp
             if (this.Credentials == null)
             {
                 RentItMessageBox.NotLoggedIn();
+                return;
             }
-            else
+
+            try
             {
-                try
-                {
-                    this.RentItProxy.RentMedia(this.mediaInfo.Id, this.Credentials);
-                }
-                catch (Exception)
-                {
-                    RentItMessageBox.ServerCommunicationFailure();
-                }
+                this.RentItProxy.RentMedia(this.mediaInfo.Id, this.Credentials);
+                RentItMessageBox.SuccesfulRental();
+            }
+            catch (Exception)
+            {
+                RentItMessageBox.RentalFailed();
             }
         }
 
