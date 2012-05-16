@@ -1,6 +1,7 @@
 ﻿using BinaryCommunicator;
 
-namespace ClientApp {
+namespace ClientApp
+{
     using System;
 
     using RentIt;
@@ -30,6 +31,10 @@ namespace ClientApp {
 
         internal override RentItClient RentItProxy
         {
+            get
+            {
+                return base.RentItProxy;
+            }
             set
             {
                 base.RentItProxy = value;
@@ -98,12 +103,14 @@ namespace ClientApp {
         }
 
         // Get ten highest rated medias
-        private void GetHighestRated() {
+        private void GetHighestRated()
+        {
             // we need valid prerequisites to query the webservice
-            if(mtype == RentIt.MediaType.Any || RentItProxy == null) return;
+            if (mtype == RentIt.MediaType.Any || RentItProxy == null) return;
 
             // build search criteria
-            var mc = new MediaCriteria {
+            var mc = new MediaCriteria
+            {
                 Type = mtype,
                 Limit = 10, // only ten highest rated
                 Order = MediaOrder.RatingDesc,
@@ -114,18 +121,20 @@ namespace ClientApp {
             bestMediaGrid.MediaCriteria = mc;
         }
 
-        private void GetRandomGenreMedias() {
+        private void GetRandomGenreMedias()
+        {
             string[] genres = RentItProxy.GetAllGenres(Mtype);
 
             var random = new Random();
             string randomGenre = genres[random.Next(genres.Length)];
 
-            var mc = new MediaCriteria {
-                                           Genre = randomGenre,
-                                           Limit = 10,
-                                           SearchText = "",
-                                           Type = mtype
-                                       };
+            var mc = new MediaCriteria
+            {
+                Genre = randomGenre,
+                Limit = 10,
+                SearchText = "",
+                Type = mtype
+            };
 
             RentItProxy.GetMediaItems(mc);
         }

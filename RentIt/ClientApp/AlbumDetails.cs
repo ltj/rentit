@@ -21,6 +21,8 @@ namespace ClientApp
         {
             InitializeComponent();
 
+            this.alsoRentedList.ContentChangeEvent += this.ContentChangeEventPropagated;
+
             this.songList.Resize += this.ListResizedEventHandler;
 
             //BasicHttpBinding binding = new BasicHttpBinding();
@@ -56,6 +58,7 @@ namespace ClientApp
             set
             {
                 base.RentItProxy = value;
+                this.alsoRentedList.RentItProxy = this.RentItProxy;
                 this.mediaSideBar.RentItProxy = this.RentItProxy;
             }
         }
@@ -73,6 +76,7 @@ namespace ClientApp
             set
             {
                 base.Credentials = value;
+                this.alsoRentedList.Credentials = value;
                 this.mediaSideBar.Credentials = value;
             }
         }
@@ -88,6 +92,9 @@ namespace ClientApp
                 AlbumInfo album = value;
 
                 //album = RentItProxy.GetAlbumInfo(78); // Just for debugging, has to be deleted.
+
+                this.alsoRentedList.PrioritizedMediaType = album.Type;
+                this.alsoRentedList.MediaId = album.Id;
 
                 this.mediaSideBar.MediaInfoData = album;
 

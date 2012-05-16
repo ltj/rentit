@@ -45,6 +45,7 @@
             this.userRatingsLabel = new System.Windows.Forms.Label();
             this.albumRatingList = new ClientApp.RatingList();
             this.mediaSideBar = new ClientApp.MediaSideBar();
+            this.alsoRentedList = new ClientApp.AlsoRentedList();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -205,10 +206,19 @@
             this.mediaSideBar.Size = new System.Drawing.Size(211, 504);
             this.mediaSideBar.TabIndex = 10;
             // 
+            // alsoRentedList
+            // 
+            this.alsoRentedList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.alsoRentedList.Location = new System.Drawing.Point(823, 62);
+            this.alsoRentedList.Name = "alsoRentedList";
+            this.alsoRentedList.Size = new System.Drawing.Size(154, 294);
+            this.alsoRentedList.TabIndex = 11;
+            // 
             // AlbumDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.alsoRentedList);
             this.Controls.Add(this.mediaSideBar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.albumArtistLabel);
@@ -241,5 +251,6 @@
         private RatingList albumRatingList;
         private System.Windows.Forms.Label userRatingsLabel;
         private MediaSideBar mediaSideBar;
+        private AlsoRentedList alsoRentedList;
     }
 }

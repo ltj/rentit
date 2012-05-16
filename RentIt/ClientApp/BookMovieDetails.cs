@@ -19,6 +19,8 @@ namespace ClientApp
         {
             InitializeComponent();
 
+            this.alsoRentedList.ContentChangeEvent += this.ContentChangeEventPropagated;
+
             //BasicHttpBinding binding = new BasicHttpBinding();
             //EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
             //this.RentItProxy = new RentItClient(binding, address);
@@ -39,7 +41,8 @@ namespace ClientApp
             set
             {
                 base.RentItProxy = value;
-                this.mediaSideBar.RentItProxy = this.RentItProxy;
+                this.alsoRentedList.RentItProxy = value;
+                this.mediaSideBar.RentItProxy = value;
             }
         }
 
@@ -56,6 +59,7 @@ namespace ClientApp
             set
             {
                 base.Credentials = value;
+                this.alsoRentedList.Credentials = value;
                 this.mediaSideBar.Credentials = value;
             }
         }
@@ -69,6 +73,10 @@ namespace ClientApp
             set
             {
                 BookInfo book = value;
+
+                this.alsoRentedList.PrioritizedMediaType = book.Type;
+                this.alsoRentedList.MediaId = book.Id;
+
                 this.mediaSideBar.MediaInfoData = book;
 
                 this.albumTitleLabel.Text = book.Title;
@@ -88,6 +96,10 @@ namespace ClientApp
             set
             {
                 MovieInfo movie = value;
+
+                this.alsoRentedList.PrioritizedMediaType = movie.Type;
+                this.alsoRentedList.MediaId = movie.Id;
+
                 this.mediaSideBar.MediaInfoData = movie;
 
                 this.albumTitleLabel.Text = movie.Title;

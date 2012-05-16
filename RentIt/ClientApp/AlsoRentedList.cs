@@ -19,29 +19,44 @@ namespace ClientApp
     /// <author>Jacob Rasmussen</author>
     internal partial class AlsoRentedList : RentItUserControl
     {
-        private readonly RentItClient rentIt;
+        private int mediaId;
 
-        //The id of a given media item.
-        internal int MediaId { get; set; }
-
-        //The user control will list media of books, movies and albums. This property affects the order in which the medias are listed.
-        internal MediaType PrioritizedMediaType { get; set; }
+        private List<MediaInfo> mediaList;
 
         public AlsoRentedList()
         {
             InitializeComponent();
-            var binding = new BasicHttpBinding();
-            var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            rentIt = new RentItClient(binding, address);
+
+            this.mediaListView.DoubleClick += this.DoubleClickEventHandler;
+        }
+
+        /// <summary>
+        /// The user control will list media of books, movies and albums. 
+        /// This property affects the order in which the medias are listed.
+        /// </summary>
+        internal MediaType PrioritizedMediaType { get; set; }
+
+        //The id of a given media item.
+        internal int MediaId
+        {
+            get
+            {
+                return this.mediaId;
+            }
+            set
+            {
+                this.mediaId = value;
+                this.UpdateList();
+            }
         }
 
         /// <summary>
         /// Updates the list with the given media id and prioritized media type property. 
         /// </summary>
-        public void UpdateList()
+        private void UpdateList()
         {
             //Gets all relevant medias from the database.
-            var medias = rentIt.GetAlsoRentedItems(MediaId);
+            var medias = this.RentItProxy.GetAlsoRentedItems(MediaId);
 
             //Used to retrieve the title from the given media.
             MediaInfo mediaInf;
@@ -58,19 +73,19 @@ namespace ClientApp
                     primaryList = medias.Albums;
                     secondaryList = medias.Movies;
                     tertiaryList = medias.Books;
-                    mediaInf = rentIt.GetAlbumInfo(MediaId);
+                    mediaInf = this.RentItProxy.GetAlbumInfo(MediaId);
                     break;
                 case MediaType.Book:
                     primaryList = medias.Books;
                     secondaryList = medias.Movies;
                     tertiaryList = medias.Albums;
-                    mediaInf = rentIt.GetBookInfo(MediaId);
+                    mediaInf = this.RentItProxy.GetBookInfo(MediaId);
                     break;
                 case MediaType.Movie:
                     primaryList = medias.Movies;
                     secondaryList = medias.Books;
                     tertiaryList = medias.Albums;
-                    mediaInf = rentIt.GetMovieInfo(MediaId);
+                    mediaInf = this.RentItProxy.GetMovieInfo(MediaId);
                     break;
                 default:
                     primaryList = new MediaInfo[0];
@@ -81,23 +96,80 @@ namespace ClientApp
             }
             label1.Text = @"Customers who rented" + Environment.NewLine + mediaInf.Title + @" also rented:";
 
+            this.mediaList = new List<MediaInfo>();
+            mediaList.AddRange(primaryList);
+            mediaList.AddRange(secondaryList);
+            mediaList.AddRange(tertiaryList);
+
+            //Same as above but including numbering of media items.
+            if (mediaList.Count() > 0)
+            {
+                for (int i = 0; i < mediaList.Count(); i++)
+                {
+                    mediaListView.Items.Add(mediaList[i].Type.ToString() + ", " + mediaList[i].Title);
+                }
+            }
+
+            /*
             //Adds each media item to the list in correct order.
             foreach (var mediaInfo in primaryList)
-                listBox1.Items.Add(mediaInfo.Title);
+            {
+                var item = new ListViewItem(mediaInfo.Title);
+                item.Tag = mediaInfo;
+                mediaList.Items.Add();
+            }
+
             foreach (var mediaInfo in secondaryList)
-                listBox1.Items.Add(mediaInfo.Title);
+            {
+                var item = new ListViewItem(mediaInfo.Title);
+                item.Tag = mediaInfo;
+                mediaList.Items.Add(item);
+            }
+
             foreach (var mediaInfo in tertiaryList)
-                listBox1.Items.Add(mediaInfo.Title);
+            {
+                var item = new ListViewItem(mediaInfo.Title);
+                item.Tag = mediaInfo;
+                mediaList.Items.Add(item);
+            }
+             * */
         }
 
-        private void label1_Click(object sender, EventArgs e)
+        private void DoubleClickEventHandler(object obj, EventArgs e)
         {
+            if (this.mediaListView.SelectedItems.Count != 1)
+            {
+                return;
+            }
 
-        }
+            var mediaInfo = this.mediaList[mediaListView.SelectedIndex];
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            switch (mediaInfo.Type)
+            {
+                case MediaType.Album:
+                    var albumDetails = new AlbumDetails();
+                    albumDetails.RentItProxy = this.RentItProxy;
+                    albumDetails.Credentials = this.Credentials;
+                    albumDetails.AlbumInfo = (AlbumInfo)mediaInfo;
+                    this.FireContentChangeEvent(albumDetails, mediaInfo.Title);
+                    break;
+                case MediaType.Book:
+                    var bookDetails = new BookMovieDetails();
+                    bookDetails.RentItProxy = this.RentItProxy;
+                    bookDetails.Credentials = this.Credentials;
+                    bookDetails.BookInfo = (BookInfo)mediaInfo;
+                    this.FireContentChangeEvent(bookDetails, mediaInfo.Title);
+                    break;
+                case MediaType.Movie:
+                    var movieDetails = new BookMovieDetails();
+                    movieDetails.RentItProxy = this.RentItProxy;
+                    movieDetails.Credentials = this.Credentials;
+                    movieDetails.MovieInfo = (MovieInfo)mediaInfo;
+                    this.FireContentChangeEvent(movieDetails, mediaInfo.Title);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

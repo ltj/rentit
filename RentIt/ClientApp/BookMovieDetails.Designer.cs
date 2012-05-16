@@ -32,10 +32,11 @@
             this.albumTitleLabel = new System.Windows.Forms.Label();
             this.authorLabel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.bookDescriptionTextBox = new System.Windows.Forms.TextBox();
             this.userRatingsLabel = new System.Windows.Forms.Label();
             this.bookRatingList = new ClientApp.RatingList();
+            this.bookDescriptionTextBox = new System.Windows.Forms.TextBox();
             this.mediaSideBar = new ClientApp.MediaSideBar();
+            this.alsoRentedList = new ClientApp.AlsoRentedList();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -79,21 +80,10 @@
             this.panel1.Controls.Add(this.bookRatingList);
             this.panel1.Controls.Add(this.bookDescriptionTextBox);
             this.panel1.Controls.Add(this.albumDescription);
-            this.panel1.Location = new System.Drawing.Point(241, 109);
+            this.panel1.Location = new System.Drawing.Point(241, 84);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(577, 402);
+            this.panel1.Size = new System.Drawing.Size(577, 444);
             this.panel1.TabIndex = 9;
-            // 
-            // bookDescriptionTextBox
-            // 
-            this.bookDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.bookDescriptionTextBox.Enabled = false;
-            this.bookDescriptionTextBox.Location = new System.Drawing.Point(3, 23);
-            this.bookDescriptionTextBox.Multiline = true;
-            this.bookDescriptionTextBox.Name = "bookDescriptionTextBox";
-            this.bookDescriptionTextBox.Size = new System.Drawing.Size(553, 77);
-            this.bookDescriptionTextBox.TabIndex = 6;
             // 
             // userRatingsLabel
             // 
@@ -115,6 +105,17 @@
             this.bookRatingList.Size = new System.Drawing.Size(553, 374);
             this.bookRatingList.TabIndex = 12;
             // 
+            // bookDescriptionTextBox
+            // 
+            this.bookDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.bookDescriptionTextBox.Enabled = false;
+            this.bookDescriptionTextBox.Location = new System.Drawing.Point(3, 23);
+            this.bookDescriptionTextBox.Multiline = true;
+            this.bookDescriptionTextBox.Name = "bookDescriptionTextBox";
+            this.bookDescriptionTextBox.Size = new System.Drawing.Size(553, 77);
+            this.bookDescriptionTextBox.TabIndex = 6;
+            // 
             // mediaSideBar
             // 
             this.mediaSideBar.Location = new System.Drawing.Point(0, 0);
@@ -122,11 +123,20 @@
             this.mediaSideBar.Size = new System.Drawing.Size(211, 504);
             this.mediaSideBar.TabIndex = 10;
             // 
+            // alsoRentedList
+            // 
+            this.alsoRentedList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.alsoRentedList.Location = new System.Drawing.Point(824, 84);
+            this.alsoRentedList.Name = "alsoRentedList";
+            this.alsoRentedList.Size = new System.Drawing.Size(159, 259);
+            this.alsoRentedList.TabIndex = 11;
+            // 
             // BookMovieDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+            this.Controls.Add(this.alsoRentedList);
             this.Controls.Add(this.mediaSideBar);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.authorLabel);
@@ -150,5 +160,6 @@
         private System.Windows.Forms.Label userRatingsLabel;
         private RatingList bookRatingList;
         private MediaSideBar mediaSideBar;
+        private AlsoRentedList alsoRentedList;
     }
 }

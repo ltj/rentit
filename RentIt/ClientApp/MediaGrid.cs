@@ -190,18 +190,24 @@ namespace ClientApp
             if (this.mediaCriteria.Type == MediaType.Album)
             {
                 var albumDetails = new AlbumDetails();
+                albumDetails.RentItProxy = this.RentItProxy;
+                albumDetails.Credentials = this.Credentials;
                 albumDetails.AlbumInfo = (AlbumInfo)mediaInfo;
                 mediaDetail = albumDetails;
             }
             else if (this.mediaCriteria.Type == MediaType.Movie)
             {
                 var movieDetails = new BookMovieDetails();
+                movieDetails.RentItProxy = this.RentItProxy;
+                movieDetails.Credentials = this.Credentials;
                 movieDetails.MovieInfo = (MovieInfo)mediaInfo;
                 mediaDetail = movieDetails;
             }
             else if (this.mediaCriteria.Type == MediaType.Book)
             {
                 var bookDetails = new BookMovieDetails();
+                bookDetails.RentItProxy = this.RentItProxy;
+                bookDetails.Credentials = this.Credentials;
                 bookDetails.BookInfo = (BookInfo)mediaInfo;
                 mediaDetail = bookDetails;
             }
@@ -209,9 +215,6 @@ namespace ClientApp
             {
                 return;
             }
-
-            mediaDetail.RentItProxy = this.RentItProxy;
-            mediaDetail.Credentials = this.Credentials;
 
             this.FireContentChangeEvent(mediaDetail, mediaInfo.Title);
         }
