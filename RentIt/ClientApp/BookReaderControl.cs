@@ -57,7 +57,7 @@
                 };
             }
 
-            this.FireContentChangeEvent(bookDetails, this.book.Title);
+            this.FireContentChangeEvent(bookDetails, TopBarControl.Titles.MediaDetailsBook);
         }
 
         #endregion

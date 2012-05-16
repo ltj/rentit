@@ -43,6 +43,9 @@
             // 
             // tabControl
             // 
+            this.tabControl.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl.Controls.Add(this.tabPage1);
             this.tabControl.Controls.Add(this.tabPage2);
             this.tabControl.Controls.Add(this.tabPage3);
@@ -65,8 +68,9 @@
             // 
             // editAccount1
             // 
+            this.editAccount1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editAccount1.BackColor = System.Drawing.SystemColors.Window;
-            this.editAccount1.Location = new System.Drawing.Point(6, 6);
+            this.editAccount1.Location = new System.Drawing.Point(194, 142);
             this.editAccount1.Name = "editAccount1";
             this.editAccount1.Size = new System.Drawing.Size(356, 173);
             this.editAccount1.TabIndex = 0;
@@ -84,9 +88,12 @@
             // 
             // rentalsListControl
             // 
+            this.rentalsListControl.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.rentalsListControl.Location = new System.Drawing.Point(6, 6);
             this.rentalsListControl.Name = "rentalsListControl";
-            this.rentalsListControl.Size = new System.Drawing.Size(517, 443);
+            this.rentalsListControl.Size = new System.Drawing.Size(748, 456);
             this.rentalsListControl.TabIndex = 0;
             // 
             // tabPage3
@@ -102,7 +109,8 @@
             // 
             // creditsControl1
             // 
-            this.creditsControl1.Location = new System.Drawing.Point(6, 6);
+            this.creditsControl1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.creditsControl1.Location = new System.Drawing.Point(285, 108);
             this.creditsControl1.Name = "creditsControl1";
             this.creditsControl1.Size = new System.Drawing.Size(216, 209);
             this.creditsControl1.TabIndex = 0;

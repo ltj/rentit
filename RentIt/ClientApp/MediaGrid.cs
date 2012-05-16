@@ -213,7 +213,7 @@ namespace ClientApp
             mediaDetail.RentItProxy = this.RentItProxy;
             mediaDetail.Credentials = this.Credentials;
 
-            this.FireContentChangeEvent(mediaDetail, mediaInfo.Title);
+            this.FireContentChangeEvent(mediaDetail, "Media details - change to TopBarControl.Titles.MediaDetails...");
         }
 
         #endregion

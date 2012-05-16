@@ -43,14 +43,12 @@
             this.topBarControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.topBarControl.Location = new System.Drawing.Point(1, 1);
-            this.topBarControl.LoggedIn = false;
             this.topBarControl.MaximumSize = new System.Drawing.Size(99999, 76);
             this.topBarControl.MinimumSize = new System.Drawing.Size(604, 76);
             this.topBarControl.Name = "topBarControl";
             this.topBarControl.Size = new System.Drawing.Size(769, 76);
             this.topBarControl.TabIndex = 1;
             this.topBarControl.Title = "RentIt";
-            this.topBarControl.UserName = "";
             // 
             // MainForm
             // 

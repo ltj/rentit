@@ -35,13 +35,12 @@
             this.txtFullName = new System.Windows.Forms.TextBox();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.btnSubmit = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.errPassword = new System.Windows.Forms.ErrorProvider(this.components);
             this.errFullName = new System.Windows.Forms.ErrorProvider(this.components);
             this.errEmail = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.errPassword)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errFullName)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errEmail)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.errPassword)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.errFullName)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.errEmail)).BeginInit();
             this.SuspendLayout();
             // 
             // txtPasswordConfirm
@@ -51,8 +50,8 @@
             this.txtPasswordConfirm.Size = new System.Drawing.Size(213, 20);
             this.txtPasswordConfirm.TabIndex = 12;
             this.txtPasswordConfirm.UseSystemPasswordChar = true;
-            this.txtPasswordConfirm.Validating += new System.ComponentModel.CancelEventHandler(this.txtPasswordConfirm_Validating);
-            this.txtPasswordConfirm.Validated += new System.EventHandler(this.txtPasswordConfirm_Validated);
+            this.txtPasswordConfirm.Validating += new System.ComponentModel.CancelEventHandler(this.TxtPasswordConfirmValidating);
+            this.txtPasswordConfirm.Validated += new System.EventHandler(this.TxtPasswordConfirmValidated);
             // 
             // txtPassword
             // 
@@ -65,11 +64,11 @@
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEmail.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblEmail.Location = new System.Drawing.Point(66, 110);
+            this.lblEmail.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.lblEmail.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblEmail.Location = new System.Drawing.Point(72, 110);
             this.lblEmail.Name = "lblEmail";
-            this.lblEmail.Size = new System.Drawing.Size(41, 13);
+            this.lblEmail.Size = new System.Drawing.Size(35, 13);
             this.lblEmail.TabIndex = 19;
             this.lblEmail.Text = "Email:";
             this.lblEmail.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -77,11 +76,11 @@
             // lblFullName
             // 
             this.lblFullName.AutoSize = true;
-            this.lblFullName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblFullName.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblFullName.Location = new System.Drawing.Point(42, 84);
+            this.lblFullName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.lblFullName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblFullName.Location = new System.Drawing.Point(52, 84);
             this.lblFullName.Name = "lblFullName";
-            this.lblFullName.Size = new System.Drawing.Size(65, 13);
+            this.lblFullName.Size = new System.Drawing.Size(55, 13);
             this.lblFullName.TabIndex = 18;
             this.lblFullName.Text = "Full name:";
             this.lblFullName.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -89,11 +88,11 @@
             // lblPasswordConfim
             // 
             this.lblPasswordConfim.AutoSize = true;
-            this.lblPasswordConfim.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPasswordConfim.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblPasswordConfim.Location = new System.Drawing.Point(-3, 58);
+            this.lblPasswordConfim.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.lblPasswordConfim.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblPasswordConfim.Location = new System.Drawing.Point(14, 58);
             this.lblPasswordConfim.Name = "lblPasswordConfim";
-            this.lblPasswordConfim.Size = new System.Drawing.Size(110, 13);
+            this.lblPasswordConfim.Size = new System.Drawing.Size(93, 13);
             this.lblPasswordConfim.TabIndex = 17;
             this.lblPasswordConfim.Text = "Confirm password:";
             this.lblPasswordConfim.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -101,11 +100,11 @@
             // lblPassword
             // 
             this.lblPassword.AutoSize = true;
-            this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPassword.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblPassword.Location = new System.Drawing.Point(14, 32);
+            this.lblPassword.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.lblPassword.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblPassword.Location = new System.Drawing.Point(27, 32);
             this.lblPassword.Name = "lblPassword";
-            this.lblPassword.Size = new System.Drawing.Size(93, 13);
+            this.lblPassword.Size = new System.Drawing.Size(80, 13);
             this.lblPassword.TabIndex = 16;
             this.lblPassword.Text = "New password:";
             this.lblPassword.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -113,11 +112,11 @@
             // lblUserName
             // 
             this.lblUserName.AutoSize = true;
-            this.lblUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblUserName.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.lblUserName.Location = new System.Drawing.Point(36, 6);
+            this.lblUserName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.lblUserName.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblUserName.Location = new System.Drawing.Point(46, 6);
             this.lblUserName.Name = "lblUserName";
-            this.lblUserName.Size = new System.Drawing.Size(71, 13);
+            this.lblUserName.Size = new System.Drawing.Size(61, 13);
             this.lblUserName.TabIndex = 15;
             this.lblUserName.Text = "User name:";
             this.lblUserName.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -128,8 +127,8 @@
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(213, 20);
             this.txtEmail.TabIndex = 14;
-            this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmail_Validating);
-            this.txtEmail.Validated += new System.EventHandler(this.txtEmail_Validated);
+            this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.TxtEmailValidating);
+            this.txtEmail.Validated += new System.EventHandler(this.TxtEmailValidated);
             // 
             // txtFullName
             // 
@@ -137,8 +136,8 @@
             this.txtFullName.Name = "txtFullName";
             this.txtFullName.Size = new System.Drawing.Size(213, 20);
             this.txtFullName.TabIndex = 13;
-            this.txtFullName.Validating += new System.ComponentModel.CancelEventHandler(this.txtFullName_Validating);
-            this.txtFullName.Validated += new System.EventHandler(this.txtFullName_Validated);
+            this.txtFullName.Validating += new System.ComponentModel.CancelEventHandler(this.TxtFullNameValidating);
+            this.txtFullName.Validated += new System.EventHandler(this.TxtFullNameValidated);
             // 
             // txtUserName
             // 
@@ -150,24 +149,13 @@
             // 
             // btnSubmit
             // 
-            this.btnSubmit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSubmit.Location = new System.Drawing.Point(113, 138);
+            this.btnSubmit.Location = new System.Drawing.Point(113, 133);
             this.btnSubmit.Name = "btnSubmit";
-            this.btnSubmit.Size = new System.Drawing.Size(75, 23);
+            this.btnSubmit.Size = new System.Drawing.Size(98, 25);
             this.btnSubmit.TabIndex = 20;
-            this.btnSubmit.Text = "Submit";
+            this.btnSubmit.Text = "Submit changes";
             this.btnSubmit.UseVisualStyleBackColor = true;
-            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.Location = new System.Drawing.Point(194, 138);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 21;
-            this.btnCancel.Text = "Cancel";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.BtnSubmitClick);
             // 
             // errPassword
             // 
@@ -185,8 +173,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.Controls.Add(this.btnCancel);
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.btnSubmit);
             this.Controls.Add(this.txtPasswordConfirm);
             this.Controls.Add(this.txtPassword);
@@ -200,10 +187,10 @@
             this.Controls.Add(this.txtUserName);
             this.Name = "EditAccount";
             this.Size = new System.Drawing.Size(356, 173);
-            this.Load += new System.EventHandler(this.EditAccount_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.errPassword)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errFullName)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.errEmail)).EndInit();
+            this.Load += new System.EventHandler(this.EditAccountLoad);
+            ((System.ComponentModel.ISupportInitialize) (this.errPassword)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.errFullName)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.errEmail)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -222,7 +209,6 @@
         private System.Windows.Forms.TextBox txtFullName;
         private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.Button btnSubmit;
-        private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.ErrorProvider errPassword;
         private System.Windows.Forms.ErrorProvider errFullName;
         private System.Windows.Forms.ErrorProvider errEmail;
