@@ -216,7 +216,7 @@ namespace ClientApp
                 return;
             }
 
-            this.FireContentChangeEvent(mediaDetail, mediaInfo.Title);
+            this.FireContentChangeEvent(mediaDetail, "Media details - change to TopBarControl.Titles.MediaDetails...");
         }
 
         #endregion
