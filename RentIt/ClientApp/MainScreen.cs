@@ -50,17 +50,17 @@
 
         private void MoviesButtonClick(object sender, EventArgs e) {
             var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Movie };
-            FireContentChangeEvent(mediaFront, TopBarControl.Titles.MediaFrontpageMovies);
+            FireContentChangeEvent(mediaFront, MainForm.Titles.MediaFrontpageMovies);
         }
 
         private void BooksButtonClick(object sender, EventArgs e) {
             var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Book };
-            FireContentChangeEvent(mediaFront, TopBarControl.Titles.MediaFrontpageBooks);
+            FireContentChangeEvent(mediaFront, MainForm.Titles.MediaFrontpageBooks);
         }
 
         private void MusicButtonClick(object sender, EventArgs e) {
             var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Album };
-            FireContentChangeEvent(mediaFront, TopBarControl.Titles.MediaFrontpageMusic);
+            FireContentChangeEvent(mediaFront, MainForm.Titles.MediaFrontpageMusic);
         }
 
         private void MovieListDoubleClick(object sender, EventArgs e) {
@@ -84,15 +84,15 @@
             switch(media.Type) {
                 case MediaType.Album:
                     mediaDetails = new AlbumDetails { RentItProxy = RentItProxy, AlbumInfo = (AlbumInfo) media };
-                    title = TopBarControl.Titles.MediaDetailsAlbum;
+                    title = MainForm.Titles.MediaDetailsAlbum;
                     break;
                 case MediaType.Book:
                     mediaDetails = new BookMovieDetails { RentItProxy = RentItProxy, BookInfo = (BookInfo) media };
-                    title = TopBarControl.Titles.MediaDetailsBook;
+                    title = MainForm.Titles.MediaDetailsBook;
                     break;
                 case MediaType.Movie:
                     mediaDetails = new BookMovieDetails { RentItProxy = RentItProxy, MovieInfo = (MovieInfo) media };
-                    title = TopBarControl.Titles.MediaDetailsMovie;
+                    title = MainForm.Titles.MediaDetailsMovie;
                     break;
                 default:
                     return;

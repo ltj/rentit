@@ -147,27 +147,28 @@ namespace ClientApp
             switch (mediaInfo.Type)
             {
                 case MediaType.Album:
-                    var albumDetails = new AlbumDetails();
-                    albumDetails.RentItProxy = this.RentItProxy;
-                    albumDetails.Credentials = this.Credentials;
-                    albumDetails.AlbumInfo = (AlbumInfo)mediaInfo;
-                    this.FireContentChangeEvent(albumDetails, TopBarControl.Titles.MediaDetailsAlbum);
+                    var albumDetails = new AlbumDetails {
+                                                            RentItProxy = this.RentItProxy,
+                                                            Credentials = this.Credentials,
+                                                            AlbumInfo = (AlbumInfo)mediaInfo
+                                                        };
+                    this.FireContentChangeEvent(albumDetails, MainForm.Titles.MediaDetailsAlbum);
                     break;
                 case MediaType.Book:
-                    var bookDetails = new BookMovieDetails();
-                    bookDetails.RentItProxy = this.RentItProxy;
-                    bookDetails.Credentials = this.Credentials;
-                    bookDetails.BookInfo = (BookInfo)mediaInfo;
-                    this.FireContentChangeEvent(bookDetails, TopBarControl.Titles.MediaDetailsBook);
+                    var bookDetails = new BookMovieDetails {
+                                                               RentItProxy = this.RentItProxy,
+                                                               Credentials = this.Credentials,
+                                                               BookInfo = (BookInfo)mediaInfo
+                                                           };
+                    this.FireContentChangeEvent(bookDetails, MainForm.Titles.MediaDetailsBook);
                     break;
                 case MediaType.Movie:
-                    var movieDetails = new BookMovieDetails();
-                    movieDetails.RentItProxy = this.RentItProxy;
-                    movieDetails.Credentials = this.Credentials;
-                    movieDetails.MovieInfo = (MovieInfo)mediaInfo;
-                    this.FireContentChangeEvent(movieDetails, TopBarControl.Titles.MediaDetailsMovie);
-                    break;
-                default:
+                    var movieDetails = new BookMovieDetails {
+                                                                RentItProxy = this.RentItProxy,
+                                                                Credentials = this.Credentials,
+                                                                MovieInfo = (MovieInfo)mediaInfo
+                                                            };
+                    this.FireContentChangeEvent(movieDetails, MainForm.Titles.MediaDetailsMovie);
                     break;
             }
         }

@@ -77,5 +77,19 @@
         }
 
         #endregion
+
+        internal static class Titles {
+            public static string MainScreen = "RentIt";
+            public static string UserRegistration = "Log in / Register new account";
+            public static string MediaFrontpageBooks = "Books";
+            public static string MediaFrontpageMovies = "Movies";
+            public static string MediaFrontpageMusic = "Music";
+            public static string SearchResults = "Search results";
+            public static string MediaDetailsBook = "Book details";
+            public static string MediaDetailsMovie = "Movie details";
+            public static string MediaDetailsAlbum = "Album details";
+            public static string PublisherAccountManagement = "Publisher management";
+            public static string UserAccountManagement = "User management";
+        }
     }
 }

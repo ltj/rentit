@@ -152,6 +152,8 @@
             this.loginPasswordTextBox.Name = "loginPasswordTextBox";
             this.loginPasswordTextBox.Size = new System.Drawing.Size(213, 20);
             this.loginPasswordTextBox.TabIndex = 15;
+            this.loginPasswordTextBox.UseSystemPasswordChar = true;
+            this.loginPasswordTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LoginKeyPressed);
             // 
             // label2
             // 
@@ -170,6 +172,7 @@
             this.loginUserNameTextBox.Name = "loginUserNameTextBox";
             this.loginUserNameTextBox.Size = new System.Drawing.Size(213, 20);
             this.loginUserNameTextBox.TabIndex = 14;
+            this.loginUserNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LoginKeyPressed);
             // 
             // label6
             // 
@@ -190,6 +193,7 @@
             this.txtFullName.TabIndex = 3;
             this.txtFullName.Validating += new System.ComponentModel.CancelEventHandler(this.txtFullName_Validating);
             this.txtFullName.Validated += new System.EventHandler(this.txtFullName_Validated);
+            this.txtFullName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterUserKeyPressed);
             // 
             // label5
             // 
@@ -211,6 +215,7 @@
             this.txtUserName.TabIndex = 0;
             this.txtUserName.Validating += new System.ComponentModel.CancelEventHandler(this.txtUserName_Validating);
             this.txtUserName.Validated += new System.EventHandler(this.txtUserName_Validated);
+            this.txtUserName.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterUserKeyPressed);
             // 
             // txtEmail
             // 
@@ -221,6 +226,7 @@
             this.txtEmail.TabIndex = 4;
             this.txtEmail.Validating += new System.ComponentModel.CancelEventHandler(this.txtEmail_Validating);
             this.txtEmail.Validated += new System.EventHandler(this.txtEmail_Validated);
+            this.txtEmail.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterUserKeyPressed);
             // 
             // txtPasswordConfirm
             // 
@@ -232,6 +238,7 @@
             this.txtPasswordConfirm.UseSystemPasswordChar = true;
             this.txtPasswordConfirm.Validating += new System.ComponentModel.CancelEventHandler(this.txtPasswordConfirm_Validating);
             this.txtPasswordConfirm.Validated += new System.EventHandler(this.txtPasswordConfirm_Validated);
+            this.txtPasswordConfirm.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterUserKeyPressed);
             // 
             // lblUserName
             // 
@@ -256,6 +263,7 @@
             this.txtPassword.UseSystemPasswordChar = true;
             this.txtPassword.Validating += new System.ComponentModel.CancelEventHandler(this.txtPassword_Validating);
             this.txtPassword.Validated += new System.EventHandler(this.txtPassword_Validated);
+            this.txtPassword.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RegisterUserKeyPressed);
             // 
             // lblPassword
             // 

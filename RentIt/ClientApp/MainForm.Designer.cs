@@ -1,9 +1,13 @@
 ﻿namespace ClientApp {
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
+
     partial class MainForm {
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -23,42 +27,42 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            this.contentPane = new System.Windows.Forms.Panel();
-            this.topBarControl = new ClientApp.TopBarControl();
+            ComponentResourceManager resources = new ComponentResourceManager(typeof(MainForm));
+            this.contentPane = new Panel();
+            this.topBarControl = new TopBarControl();
             this.SuspendLayout();
             // 
             // contentPane
             // 
-            this.contentPane.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.contentPane.Location = new System.Drawing.Point(1, 76);
+            this.contentPane.Anchor = ((AnchorStyles)((((AnchorStyles.Top | AnchorStyles.Bottom)
+                        | AnchorStyles.Left)
+                        | AnchorStyles.Right)));
+            this.contentPane.Location = new Point(1, 76);
             this.contentPane.Name = "contentPane";
-            this.contentPane.Size = new System.Drawing.Size(769, 443);
+            this.contentPane.Size = new Size(769, 443);
             this.contentPane.TabIndex = 0;
             // 
             // topBarControl
             // 
-            this.topBarControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.topBarControl.Location = new System.Drawing.Point(1, 1);
-            this.topBarControl.MaximumSize = new System.Drawing.Size(99999, 76);
-            this.topBarControl.MinimumSize = new System.Drawing.Size(604, 76);
+            this.topBarControl.Anchor = ((AnchorStyles)(((AnchorStyles.Top | AnchorStyles.Left)
+                        | AnchorStyles.Right)));
+            this.topBarControl.Location = new Point(1, 1);
+            this.topBarControl.MaximumSize = new Size(99999, 76);
+            this.topBarControl.MinimumSize = new Size(604, 76);
             this.topBarControl.Name = "topBarControl";
-            this.topBarControl.Size = new System.Drawing.Size(769, 76);
+            this.topBarControl.Size = new Size(769, 76);
             this.topBarControl.TabIndex = 1;
             this.topBarControl.Title = "RentIt";
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(770, 520);
+            this.AutoScaleDimensions = new SizeF(6F, 13F);
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.ClientSize = new Size(770, 520);
             this.Controls.Add(this.topBarControl);
             this.Controls.Add(this.contentPane);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MinimumSize = new System.Drawing.Size(700, 500);
+            this.Icon = ((Icon)(resources.GetObject("$this.Icon")));
+            this.MinimumSize = new Size(700, 500);
             this.Name = "MainForm";
             this.Text = "RentIt";
             this.ResumeLayout(false);
@@ -67,7 +71,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel contentPane;
+        private Panel contentPane;
         private TopBarControl topBarControl;
     }
 }

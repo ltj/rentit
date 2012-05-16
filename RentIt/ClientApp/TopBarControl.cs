@@ -10,7 +10,7 @@
         public TopBarControl()
         {
             InitializeComponent();
-            Title = Titles.MainScreen;
+            Title = MainForm.Titles.MainScreen;
             TypeComboBox.SelectedIndex = 0;
             yourMediaButton.Enabled = false;
         }
@@ -49,7 +49,8 @@
                 UserNameLabel.Visible = value;
                 LogInLogOutButton.Text = value ? "Log out" : "Log in/register";
                 yourMediaButton.Enabled = value;
-                
+
+                Cursor.Current = Cursors.WaitCursor;
                 try {
                     UserAccount account = RentItProxy.GetAllCustomerData(Credentials);
                     string credits = account.Credits > 0 ? account.Credits.ToString() : "no";
@@ -62,6 +63,7 @@
                         isPublisher = true;
                     } catch(FaultException) {}
                 }
+                Cursor.Current = Cursors.Default;
             }
         }
         private bool loggedIn;
@@ -94,7 +96,7 @@
             // switch to search results, using criteria object
             var search = new SearchResultsControl { RentItProxy = RentItProxy, Criteria = criteria };
             //(ParentForm as MainForm).Content = search;
-            FireContentChangeEvent(search, Titles.SearchResults);
+            FireContentChangeEvent(search, MainForm.Titles.SearchResults);
             Cursor.Current = Cursors.Default;
         }
 
@@ -108,30 +110,42 @@
             if (!LoggedIn)
             {
                 // go to log in screen
-                FireContentChangeEvent(new UserRegistration { RentItProxy = RentItProxy }, Titles.UserRegistration);
+                Cursor.Current = Cursors.WaitCursor;
+                FireContentChangeEvent(new UserRegistration { RentItProxy = RentItProxy }, MainForm.Titles.UserRegistration);
+                Cursor.Current = Cursors.Default;
             }
             else
             {
                 // go to main screen
                 LoggedIn = false;
-                FireContentChangeEvent(new MainScreen { RentItProxy = RentItProxy }, Titles.MainScreen);
+                Cursor.Current = Cursors.WaitCursor;
+                FireContentChangeEvent(new MainScreen { RentItProxy = RentItProxy }, MainForm.Titles.MainScreen);
+                Cursor.Current = Cursors.Default;
             }
         }
 
         private void HomeButtonClick(object sender, EventArgs e) {
-            FireContentChangeEvent(new MainScreen { RentItProxy = RentItProxy }, Titles.MainScreen);
+            Cursor.Current = Cursors.WaitCursor;
+            FireContentChangeEvent(new MainScreen { RentItProxy = RentItProxy }, MainForm.Titles.MainScreen);
+            Cursor.Current = Cursors.Default;
         }
 
         private void MovieButtonClick(object sender, EventArgs e) {
-            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Movie}, Titles.MediaFrontpageMovies);
+            Cursor.Current = Cursors.WaitCursor;
+            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Movie}, MainForm.Titles.MediaFrontpageMovies);
+            Cursor.Current = Cursors.Default;
         }
 
         private void MusicButtonClick(object sender, EventArgs e) {
-            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Album }, Titles.MediaFrontpageMusic);
+            Cursor.Current = Cursors.WaitCursor;
+            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Album }, MainForm.Titles.MediaFrontpageMusic);
+            Cursor.Current = Cursors.Default;
         }
 
         private void BookButtonClick(object sender, EventArgs e) {
-            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Book }, Titles.MediaFrontpageBooks);
+            Cursor.Current = Cursors.WaitCursor;
+            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Book }, MainForm.Titles.MediaFrontpageBooks);
+            Cursor.Current = Cursors.Default;
         }
 
         private void UserNameLabelLinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -143,14 +157,16 @@
             }
 
             // go to account screen (check whether publisher or user)
+            Cursor.Current = Cursors.WaitCursor;
             if(isPublisher) { //if publisher
                 var pubMan = new PublisherAccountManagement { RentItProxy = RentItProxy, Credentials = Credentials };
-                FireContentChangeEvent(pubMan, Titles.PublisherAccountManagement);
+                FireContentChangeEvent(pubMan, MainForm.Titles.PublisherAccountManagement);
             }
             else {
                 var userMan = new UserAccountManagement { RentItProxy = RentItProxy, Credentials = Credentials };
-                FireContentChangeEvent(userMan, Titles.UserAccountManagement);
+                FireContentChangeEvent(userMan, MainForm.Titles.UserAccountManagement);
             }
+            Cursor.Current = Cursors.Default;
         }
 
         private void SearchTextBoxKeyPressed(object sender, KeyEventArgs keyEventArgs)
@@ -166,31 +182,18 @@
         {
             // go to active rentals list if user
             // go to published media list if publisher
-
+            Cursor.Current = Cursors.WaitCursor;
             if(isPublisher) { //if publisher
                 var pubMan = new PublisherAccountManagement { RentItProxy = RentItProxy, Credentials = Credentials };
                 pubMan.SelectTab(1);
-                FireContentChangeEvent(pubMan, Titles.PublisherAccountManagement);
+                FireContentChangeEvent(pubMan, MainForm.Titles.PublisherAccountManagement);
             }
             else {
                 var userMan = new UserAccountManagement { RentItProxy = RentItProxy, Credentials = Credentials };
                 userMan.SelectTab(1);
-                FireContentChangeEvent(userMan, Titles.UserAccountManagement);
+                FireContentChangeEvent(userMan, MainForm.Titles.UserAccountManagement);
             }
-        }
-
-        internal static class Titles {
-            public static string MainScreen = "RentIt";
-            public static string UserRegistration = "Log in / Register new account";
-            public static string MediaFrontpageBooks = "Books";
-            public static string MediaFrontpageMovies = "Movies";
-            public static string MediaFrontpageMusic = "Music";
-            public static string SearchResults = "Search results";
-            public static string MediaDetailsBook = "Book details";
-            public static string MediaDetailsMovie = "Movie details";
-            public static string MediaDetailsAlbum = "Album details";
-            public static string PublisherAccountManagement = "Publisher management";
-            public static string UserAccountManagement = "User management";
+            Cursor.Current = Cursors.Default;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿
-
-namespace ClientApp
+﻿namespace ClientApp
 {
     using System;
     using System.ComponentModel;
@@ -309,8 +307,18 @@ namespace ClientApp
             }
         }
 
+        private void LoginKeyPressed(object sender, KeyEventArgs keyEventArgs) {
+            if(keyEventArgs.KeyCode == Keys.Enter) {
+                keyEventArgs.Handled = true;
+                button1_Click(sender, keyEventArgs);
+            }
+        }
 
-
-
+        private void RegisterUserKeyPressed(object sender, KeyEventArgs keyEventArgs) {
+            if(keyEventArgs.KeyCode == Keys.Enter) {
+                keyEventArgs.Handled = true;
+                btnRegister_Click(sender, keyEventArgs);
+            }
+        }
     }
 }

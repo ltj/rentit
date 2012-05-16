@@ -8,7 +8,7 @@
         private static string NOT_LOGGED_IN_MESSAGE = "You are not logged in.";
         private static string NETWORK_ERROR = "The program cannot establish a connection to the server. Please check your internet connection.";
 
-        private static string ALREADY_REVIEWED_MESSAGE = "You have already reviewed this media";
+        private static string ALREADY_REVIEWED_MESSAGE = "You have already reviewed this media or you are not logged in";
 
         public static void NotLoggedIn()
         {

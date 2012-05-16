@@ -185,38 +185,39 @@ namespace ClientApp
             ListViewItem selectedItem = this.ListViewGrid.SelectedItems[0];
             MediaInfo mediaInfo = this.map[selectedItem];
 
-            RentItUserControl mediaDetail = null;
+            RentItUserControl mediaDetail;
+            string title;
 
             if (this.mediaCriteria.Type == MediaType.Album)
             {
-                var albumDetails = new AlbumDetails();
-                albumDetails.RentItProxy = this.RentItProxy;
-                albumDetails.Credentials = this.Credentials;
-                albumDetails.AlbumInfo = (AlbumInfo)mediaInfo;
-                mediaDetail = albumDetails;
+                mediaDetail = new AlbumDetails {
+                                                 RentItProxy = this.RentItProxy,
+                                                 Credentials = this.Credentials,
+                                                 AlbumInfo = (AlbumInfo)mediaInfo
+                                               };
+                title = MainForm.Titles.MediaDetailsAlbum;
             }
             else if (this.mediaCriteria.Type == MediaType.Movie)
             {
-                var movieDetails = new BookMovieDetails();
-                movieDetails.RentItProxy = this.RentItProxy;
-                movieDetails.Credentials = this.Credentials;
-                movieDetails.MovieInfo = (MovieInfo)mediaInfo;
-                mediaDetail = movieDetails;
+                mediaDetail = new BookMovieDetails {
+                                                     RentItProxy = this.RentItProxy,
+                                                     Credentials = this.Credentials,
+                                                     MovieInfo = (MovieInfo)mediaInfo
+                                                   };
+                title = MainForm.Titles.MediaDetailsMovie;
             }
             else if (this.mediaCriteria.Type == MediaType.Book)
             {
-                var bookDetails = new BookMovieDetails();
-                bookDetails.RentItProxy = this.RentItProxy;
-                bookDetails.Credentials = this.Credentials;
-                bookDetails.BookInfo = (BookInfo)mediaInfo;
-                mediaDetail = bookDetails;
+                mediaDetail = new BookMovieDetails {
+                                                     RentItProxy = this.RentItProxy,
+                                                     Credentials = this.Credentials,
+                                                     BookInfo = (BookInfo)mediaInfo
+                                                   };
+                title = MainForm.Titles.MediaDetailsBook;
             }
-            else
-            {
-                return;
-            }
+            else return;
 
-            this.FireContentChangeEvent(mediaDetail, "Media details - change to TopBarControl.Titles.MediaDetails...");
+            FireContentChangeEvent(mediaDetail, title);
         }
 
         #endregion
