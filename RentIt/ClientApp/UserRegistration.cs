@@ -193,6 +193,17 @@ namespace ClientApp
                 try
                 {
                     this.RentItProxy.CreateNewUser(acct);
+                    MessageBox.Show("User " + acct.UserName + " successfully created. Please log in.");
+                    txtUserName.Clear();
+                    txtEmail.Clear();
+                    txtFullName.Clear();
+                    txtPassword.Clear();
+                    txtPasswordConfirm.Clear();
+                    
+                    // focus login
+                    loginUserNameTextBox.Text = acct.UserName;
+                    loginPasswordTextBox.Clear();
+                    loginPasswordTextBox.Select();
                 }
                 catch
                 {
@@ -279,22 +290,22 @@ namespace ClientApp
 
         private void button1_Click(object sender, EventArgs e)
         {
+            SHA1 sha1 = SHA1.Create();
+            string hp = GetSHA1Hash(sha1, this.loginPasswordTextBox.Text);
             var credentials = new AccountCredentials()
                 {
                     UserName = this.loginUserNameTextBox.Text,
-                    HashedPassword = GetSHA1Hash(
-                        new SHA1CryptoServiceProvider(),
-                        this.loginPasswordTextBox.Text
-                    )
+                    HashedPassword = hp
                 };
 
             try
             {
                 this.RentItProxy.ValidateCredentials(credentials);
+                FireCredentialsChangeEvent(credentials);       
             }
             catch (Exception)
             {
-                // RentItMessageBox.
+                MessageBox.Show("Username or password not correct. Please try again");
             }
         }
 
