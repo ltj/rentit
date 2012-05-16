@@ -32,11 +32,22 @@ namespace ClientApp
 
         private RentItClient serviceClient;
 
+        /// <summary>
+        /// Field holding all the rentals that are currently active.
+        /// </summary>
         private List<Rental> activeRentals;
 
+        /// <summary>
+        /// Field hold all the rentals that are currently expired.
+        /// </summary>
         private List<Rental> expiredRentals;
 
-        private bool showActive = false;
+        /// <summary>
+        /// Determines whether to display active or expired rentals.
+        /// The value true makes the list displaying all the active rentals,
+        /// and the false value makes the list display all expired rentals.
+        /// </summary>
+        private bool showActive = true;
 
         /// <summary>
         /// Initializes a new instance of the 
@@ -100,7 +111,9 @@ namespace ClientApp
         }
 
         /// <summary>
-        /// For setting
+        /// For setting whether the list is to show active rentals.
+        /// True means that the list will display active rentals, false
+        /// means that the list will display expired rentals.
         /// </summary>
         internal void ShowActive(bool active)
         {
