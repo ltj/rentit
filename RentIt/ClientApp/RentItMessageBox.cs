@@ -10,7 +10,7 @@
         private static string RENTAL_ERROR =
             "The program could not rent the media either because the media is already rented or because there is a communication problem with the service servers";
 
-        private static string ALREADY_REVIEWED_MESSAGE = "You have already reviewed this media";
+        private static string ALREADY_REVIEWED_MESSAGE = "You have already reviewed this media or you are not logged in";
 
         private static string INFORMATION_TITLE = "Information";
 

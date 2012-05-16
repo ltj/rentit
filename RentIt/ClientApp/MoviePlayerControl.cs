@@ -50,7 +50,7 @@
                 };
             }
 
-            this.FireContentChangeEvent(movieDetails, TopBarControl.Titles.MediaDetailsMovie);
+            this.FireContentChangeEvent(movieDetails, MainForm.Titles.MediaDetailsMovie);
         }
 
         #endregion

@@ -53,6 +53,7 @@
                 base.RentItProxy = value;
                 this.editAccountControl.RentItProxy = this.RentItProxy;
                 this.mediaUploadControl.RentItProxy = this.RentItProxy;
+                this.publishedMediaList.RentItProxy = this.RentItProxy;
             }
         }
 
@@ -72,6 +73,7 @@
                 base.Credentials = value;
                 this.editAccountControl.Credentials = this.Credentials;
                 this.mediaUploadControl.Credentials = this.Credentials;
+                this.publishedMediaList.Credentials = this.Credentials;
 
                 PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(value);
                 this.mediaUploadControl.PublisherAccount = accountData;
@@ -135,29 +137,38 @@
 
             if (mediaInfo.Type == MediaType.Album)
             {
-                var albumDetails = new AlbumDetails { AlbumInfo = (AlbumInfo)mediaInfo };
+                var albumDetails = new AlbumDetails {
+                                                        RentItProxy = this.RentItProxy,
+                                                        Credentials = this.Credentials,
+                                                        AlbumInfo = (AlbumInfo) mediaInfo
+                                                    };
                 mediaDetail = albumDetails;
-                title = TopBarControl.Titles.MediaDetailsAlbum;
+                title = MainForm.Titles.MediaDetailsAlbum;
             }
             else if (mediaInfo.Type == MediaType.Movie)
             {
-                var movieDetails = new BookMovieDetails { MovieInfo = (MovieInfo)mediaInfo };
+                var movieDetails = new BookMovieDetails {
+                                                            RentItProxy = this.RentItProxy,
+                                                            Credentials = this.Credentials,
+                                                            MovieInfo = (MovieInfo) mediaInfo
+                                                        };
                 mediaDetail = movieDetails;
-                title = TopBarControl.Titles.MediaDetailsMovie;
+                title = MainForm.Titles.MediaDetailsMovie;
             }
             else if (mediaInfo.Type == MediaType.Book)
             {
-                var bookDetails = new BookMovieDetails { BookInfo = (BookInfo)mediaInfo };
+                var bookDetails = new BookMovieDetails {
+                                                           RentItProxy = this.RentItProxy,
+                                                           Credentials = this.Credentials,
+                                                           BookInfo = (BookInfo) mediaInfo
+                                                       };
                 mediaDetail = bookDetails;
-                title = TopBarControl.Titles.MediaDetailsBook;
+                title = MainForm.Titles.MediaDetailsBook;
             }
             else
             {
                 return;
             }
-
-            mediaDetail.RentItProxy = this.RentItProxy;
-            mediaDetail.Credentials = this.Credentials;
 
             FireContentChangeEvent(mediaDetail, title);
         }
