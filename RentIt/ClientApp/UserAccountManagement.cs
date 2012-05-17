@@ -16,6 +16,20 @@ namespace ClientApp
         {
             InitializeComponent();
 
+            // Subscribe the propagated EventHandlers to the control's subcontrols
+            List<RentItUserControl> innerControls = new List<RentItUserControl>()
+                {
+                    this.editAccount1, this.rentalsListControl, this.creditsControl1
+                };
+
+            foreach (var control in innerControls)
+            {
+                control.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
+                control.ContentChangeEvent += this.ContentChangeEventPropagated;
+                control.CreditsChangeEvent += this.CreditsChangeEventPropagated;
+            }
+
+
             this.rentalsListControl.AddDoubleClickEventHandler(this.DoubleClickEventHandler);
             this.editAccount1.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
         }

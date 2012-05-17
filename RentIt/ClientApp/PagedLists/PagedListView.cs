@@ -245,7 +245,8 @@ namespace ClientApp
             }
 
             this.currentPageNumber = 1;
-            this.numberOfPages = (int)Math.Ceiling((double)this.currentItems.Count / this.itemsPerPage);
+            this.numberOfPages = this.Items.Count == 0 ?
+                1 : (int)Math.Ceiling((double)this.currentItems.Count / this.itemsPerPage);
         }
 
         #region EventHandler

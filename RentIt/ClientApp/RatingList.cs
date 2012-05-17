@@ -8,15 +8,11 @@
     internal partial class RatingList : RentItUserControl
     {
         private MediaInfo media;
-        private readonly RentItClient rentit;
 
         public RatingList()
         {
             InitializeComponent();
             RatingSelector.SelectedIndex = 2;
-            var binding = new BasicHttpBinding();
-            var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            rentit = new RentItClient(binding, address);
         }
 
         internal MediaInfo Media
@@ -43,13 +39,6 @@
 
         private void SubmitReviewButtonClick(object sender, EventArgs e)
         {
-            //TODO: get correct credentials from somewhere
-            var credentials = new AccountCredentials
-            {
-                UserName = "per",
-                HashedPassword = "7110eda4d09e062aa5e4a390b0a572ac0d2c0220"
-            };
-
             Rating rating;
             switch (RatingSelector.SelectedIndex)
             {
@@ -79,13 +68,13 @@
                 Rating = rating,
                 ReviewText = ReviewText.Text,
                 Timestamp = DateTime.Now,
-                UserName = credentials.UserName
+                UserName = Credentials.UserName
             };
 
             // submit review
             try
             {
-                rentit.SubmitReview(review, credentials);
+                RentItProxy.SubmitReview(review, Credentials);
             }
             catch (FaultException)
             {
@@ -107,13 +96,13 @@
             switch (Media.Type)
             {
                 case MediaType.Book:
-                    Media = rentit.GetBookInfo(media.Id);
+                    Media = RentItProxy.GetBookInfo(media.Id);
                     break;
                 case MediaType.Movie:
-                    Media = rentit.GetMovieInfo(media.Id);
+                    Media = RentItProxy.GetMovieInfo(media.Id);
                     break;
                 case MediaType.Album:
-                    Media = rentit.GetMovieInfo(media.Id);
+                    Media = RentItProxy.GetMovieInfo(media.Id);
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
