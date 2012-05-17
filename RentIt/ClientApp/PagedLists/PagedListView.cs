@@ -218,16 +218,6 @@ namespace ClientApp
         }
 
         /// <summary>
-        /// Get the MediaInfo-object corresponding to the given ListViewItem-object.
-        /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        internal MediaInfo GetMediaInfoValueOf(ListViewItem item)
-        {
-            return (MediaInfo)item.Tag;
-        }
-
-        /// <summary>
         /// Refresh the ListViewItems shown in the list.
         /// </summary>
         protected virtual void RePopulateList()

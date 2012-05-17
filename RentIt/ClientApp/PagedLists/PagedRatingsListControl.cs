@@ -28,6 +28,7 @@ namespace ClientApp
 
             // Add event handlers
             this.itemsPerPageComboBox.SelectedIndexChanged += this.ComboBoxSelectedItemChangedEventHandler;
+            this.ratingsList.SelectedIndexChanged += this.SelectedRatingsListIndexChangedEventHandler;
         }
 
         /// <summary>
@@ -96,6 +97,12 @@ namespace ClientApp
                 this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
 
             this.DetermineButtons();
+        }
+
+        private void SelectedRatingsListIndexChangedEventHandler(object obj, EventArgs e)
+        {
+            MediaReview review = this.ratingsList.GetSingleReview();
+            this.fullTextReviewTextBox.Text = review.ReviewText;
         }
 
         #endregion

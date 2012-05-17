@@ -111,6 +111,16 @@ namespace ClientApp
         }
 
         /// <summary>
+        /// Get the MediaInfo-object corresponding to the given ListViewItem-object.
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
+        internal MediaInfo GetMediaInfoValueOf(ListViewItem item)
+        {
+            return (MediaInfo)item.Tag;
+        }
+
+        /// <summary>
         /// For setting whether the list is to show active rentals.
         /// True means that the list will display active rentals, false
         /// means that the list will display expired rentals.
@@ -195,4 +205,6 @@ namespace ClientApp
             }
         }
     }
+
+
 }

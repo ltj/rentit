@@ -75,6 +75,18 @@ namespace ClientApp
             this.ratingColumn.Width = 104;
         }
 
+
+        internal MediaReview GetSingleReview()
+        {
+            if (this.SelectedItems.Count != 1)
+            {
+                return default(MediaReview);
+            }
+
+            ListViewItem selectedItem = this.SelectedItems[0];
+            return (MediaReview)selectedItem.Tag;
+        }
+
         /// <summary>
         /// Update the ListView with new data.
         /// When this method is called, all data previously added to the list 
@@ -89,10 +101,15 @@ namespace ClientApp
 
             foreach (var review in rentals)
             {
+                string reviewText = review.ReviewText.Length > 70
+                                        ? review.ReviewText.Substring(0, 70) + " ..."
+                                        : review.ReviewText;
+
                 var item = new ListViewItem(review.UserName);
                 item.SubItems.Add(review.Timestamp.Date.ToString("dd/MM/yyyy HH:mm"));
-                item.SubItems.Add(review.ReviewText);
+                item.SubItems.Add(reviewText);
                 item.SubItems.Add(review.Rating.ToString());
+                item.Tag = review;
 
                 this.CurrentItems.Add(item); // this.Items.Add(listItem);
             }

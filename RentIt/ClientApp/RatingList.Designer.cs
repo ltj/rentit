@@ -23,23 +23,97 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            this.label4 = new System.Windows.Forms.Label();
+            this.AvgRatingCount = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.AvgRating = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ReviewText = new System.Windows.Forms.TextBox();
             this.RatingSelector = new System.Windows.Forms.ComboBox();
             this.SubmitReviewButton = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.AvgRating = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.AvgRatingCount = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
             this.reviewList = new ClientApp.PagedRatingsListControl();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(256, 4);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(57, 20);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "ratings";
+            // 
+            // AvgRatingCount
+            // 
+            this.AvgRatingCount.AutoSize = true;
+            this.AvgRatingCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AvgRatingCount.Location = new System.Drawing.Point(231, 4);
+            this.AvgRatingCount.Name = "AvgRatingCount";
+            this.AvgRatingCount.Size = new System.Drawing.Size(19, 20);
+            this.AvgRatingCount.TabIndex = 10;
+            this.AvgRatingCount.Text = "0";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(150, 4);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(75, 20);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "based on";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(3, 133);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(207, 20);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "What other users are saying";
+            // 
+            // AvgRating
+            // 
+            this.AvgRating.AutoSize = true;
+            this.AvgRating.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AvgRating.Location = new System.Drawing.Point(125, 4);
+            this.AvgRating.Name = "AvgRating";
+            this.AvgRating.Size = new System.Drawing.Size(19, 20);
+            this.AvgRating.TabIndex = 6;
+            this.AvgRating.Text = "0";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(3, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(116, 20);
+            this.label2.TabIndex = 5;
+            this.label2.Text = "Average rating:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.ReviewText);
+            this.groupBox1.Controls.Add(this.RatingSelector);
+            this.groupBox1.Controls.Add(this.SubmitReviewButton);
+            this.groupBox1.Location = new System.Drawing.Point(3, 27);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(555, 101);
+            this.groupBox1.TabIndex = 8;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Review this media";
+            // 
             // ReviewText
             // 
-            this.ReviewText.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.ReviewText.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.ReviewText.Location = new System.Drawing.Point(6, 19);
@@ -51,7 +125,7 @@
             // 
             // RatingSelector
             // 
-            this.RatingSelector.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.RatingSelector.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.RatingSelector.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.RatingSelector.FormattingEnabled = true;
             this.RatingSelector.Items.AddRange(new object[] {
@@ -67,7 +141,7 @@
             // 
             // SubmitReviewButton
             // 
-            this.SubmitReviewButton.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.SubmitReviewButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.SubmitReviewButton.Location = new System.Drawing.Point(430, 46);
             this.SubmitReviewButton.Name = "SubmitReviewButton";
             this.SubmitReviewButton.Size = new System.Drawing.Size(119, 48);
@@ -76,88 +150,14 @@
             this.SubmitReviewButton.UseVisualStyleBackColor = true;
             this.SubmitReviewButton.Click += new System.EventHandler(this.SubmitReviewButtonClick);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label2.Location = new System.Drawing.Point(3, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(116, 20);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "Average rating:";
-            // 
-            // AvgRating
-            // 
-            this.AvgRating.AutoSize = true;
-            this.AvgRating.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.AvgRating.Location = new System.Drawing.Point(125, 4);
-            this.AvgRating.Name = "AvgRating";
-            this.AvgRating.Size = new System.Drawing.Size(19, 20);
-            this.AvgRating.TabIndex = 6;
-            this.AvgRating.Text = "0";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label1.Location = new System.Drawing.Point(3, 133);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(207, 20);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "What other users are saying";
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.ReviewText);
-            this.groupBox1.Controls.Add(this.RatingSelector);
-            this.groupBox1.Controls.Add(this.SubmitReviewButton);
-            this.groupBox1.Location = new System.Drawing.Point(3, 27);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(555, 101);
-            this.groupBox1.TabIndex = 8;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Review this media";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label3.Location = new System.Drawing.Point(150, 4);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 20);
-            this.label3.TabIndex = 9;
-            this.label3.Text = "based on";
-            // 
-            // AvgRatingCount
-            // 
-            this.AvgRatingCount.AutoSize = true;
-            this.AvgRatingCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.AvgRatingCount.Location = new System.Drawing.Point(231, 4);
-            this.AvgRatingCount.Name = "AvgRatingCount";
-            this.AvgRatingCount.Size = new System.Drawing.Size(19, 20);
-            this.AvgRatingCount.TabIndex = 10;
-            this.AvgRatingCount.Text = "0";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.label4.Location = new System.Drawing.Point(256, 4);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(57, 20);
-            this.label4.TabIndex = 11;
-            this.label4.Text = "ratings";
-            // 
             // reviewList
             // 
-            this.reviewList.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.reviewList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.reviewList.Location = new System.Drawing.Point(4, 157);
+            this.reviewList.Location = new System.Drawing.Point(0, 157);
             this.reviewList.Name = "reviewList";
-            this.reviewList.Size = new System.Drawing.Size(554, 225);
+            this.reviewList.Size = new System.Drawing.Size(558, 531);
             this.reviewList.TabIndex = 12;
             // 
             // RatingList
@@ -174,7 +174,7 @@
             this.Controls.Add(this.groupBox1);
             this.MinimumSize = new System.Drawing.Size(300, 250);
             this.Name = "RatingList";
-            this.Size = new System.Drawing.Size(561, 385);
+            this.Size = new System.Drawing.Size(561, 691);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
