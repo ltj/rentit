@@ -17,6 +17,7 @@ namespace ClientApp
             InitializeComponent();
 
             this.rentalsListControl.AddDoubleClickEventHandler(this.DoubleClickEventHandler);
+            this.editAccount1.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
         }
 
         internal override RentItClient RentItProxy

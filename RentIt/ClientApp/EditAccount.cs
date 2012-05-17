@@ -7,6 +7,8 @@
     using System.Text.RegularExpressions;
     using System.Security.Cryptography;
 
+    using RentIt;
+
     internal partial class EditAccount : RentItUserControl
     {
         private RentIt.Account account;
@@ -148,6 +150,11 @@
                 try
                 {
                     RentItProxy.UpdateAccountInfo(Credentials, account);
+                    var newCredentials = new AccountCredentials {
+                                                                 UserName = account.UserName,
+                                                                 HashedPassword = account.HashedPassword
+                                                                };
+                    FireCredentialsChangeEvent(newCredentials);
                 }
                 catch
                 {

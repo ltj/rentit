@@ -64,6 +64,10 @@
             FireContentChangeEvent(e.NewControl, e.NewTitle);
         }
 
+        protected void CredentialsChangeEventPropagated(object obj, CredentialsChangeArgs e) {
+            FireCredentialsChangeEvent(e.Credentials);
+        }
+
         protected void CreditsChangeEventPropagated(object sender, CreditsChangeArgs e) {
             FireCreditsChangeEvent(e.Credits);
         }

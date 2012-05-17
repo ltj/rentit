@@ -19,6 +19,7 @@
             publishedMediaList.AddSelectedIndexChangedEventHandler(this.SelectedIndexChangedHandler);
             publishedMediaList.AddLostFocusEventHandler(this.LostFocusHandler);
             publishedMediaList.AddDoubleClickEventHandler(this.DoubleClickEventHandler);
+            editAccountControl.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
 
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
