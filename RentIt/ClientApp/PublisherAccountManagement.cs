@@ -1,6 +1,7 @@
 ﻿namespace ClientApp
 {
     using System;
+    using System.Collections.Generic;
     using System.ServiceModel;
 
     using RentIt;
@@ -14,6 +15,19 @@
 
             deleteMediaButton.Enabled = false;
             changePriceButton.Enabled = false;
+
+            // Subscribe the propagated EventHandlers to the control's subcontrols
+            List<RentItUserControl> innerControls = new List<RentItUserControl>()
+                {
+                    this.editAccountControl, this.mediaUploadControl
+                };
+
+            foreach (var control in innerControls)
+            {
+                control.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
+                control.ContentChangeEvent += this.ContentChangeEventPropagated;
+                control.CreditsChangeEvent += this.CreditsChangeEventPropagated;
+            }
 
             // Add eventhandlers:
             publishedMediaList.AddSelectedIndexChangedEventHandler(this.SelectedIndexChangedHandler);
@@ -138,31 +152,34 @@
 
             if (mediaInfo.Type == MediaType.Album)
             {
-                var albumDetails = new AlbumDetails {
-                                                        RentItProxy = this.RentItProxy,
-                                                        Credentials = this.Credentials,
-                                                        AlbumInfo = (AlbumInfo) mediaInfo
-                                                    };
+                var albumDetails = new AlbumDetails
+                {
+                    RentItProxy = this.RentItProxy,
+                    Credentials = this.Credentials,
+                    AlbumInfo = (AlbumInfo)mediaInfo
+                };
                 mediaDetail = albumDetails;
                 title = MainForm.Titles.MediaDetailsAlbum;
             }
             else if (mediaInfo.Type == MediaType.Movie)
             {
-                var movieDetails = new BookMovieDetails {
-                                                            RentItProxy = this.RentItProxy,
-                                                            Credentials = this.Credentials,
-                                                            MovieInfo = (MovieInfo) mediaInfo
-                                                        };
+                var movieDetails = new BookMovieDetails
+                {
+                    RentItProxy = this.RentItProxy,
+                    Credentials = this.Credentials,
+                    MovieInfo = (MovieInfo)mediaInfo
+                };
                 mediaDetail = movieDetails;
                 title = MainForm.Titles.MediaDetailsMovie;
             }
             else if (mediaInfo.Type == MediaType.Book)
             {
-                var bookDetails = new BookMovieDetails {
-                                                           RentItProxy = this.RentItProxy,
-                                                           Credentials = this.Credentials,
-                                                           BookInfo = (BookInfo) mediaInfo
-                                                       };
+                var bookDetails = new BookMovieDetails
+                {
+                    RentItProxy = this.RentItProxy,
+                    Credentials = this.Credentials,
+                    BookInfo = (BookInfo)mediaInfo
+                };
                 mediaDetail = bookDetails;
                 title = MainForm.Titles.MediaDetailsBook;
             }

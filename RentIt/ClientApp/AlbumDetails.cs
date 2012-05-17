@@ -2,6 +2,7 @@
 namespace ClientApp
 {
     using System;
+    using System.Collections.Generic;
     using System.ServiceModel;
     using System.Windows.Forms;
 
@@ -21,29 +22,20 @@ namespace ClientApp
         {
             InitializeComponent();
 
-            this.alsoRentedList.ContentChangeEvent += this.ContentChangeEventPropagated;
-            this.mediaSideBar.CreditsChangeEvent += this.CreditsChangeEventPropagated;
+            // Subscribe the propagated EventHandlers to the control's subcontrols
+            List<RentItUserControl> innerControls = new List<RentItUserControl>()
+                {
+                    this.alsoRentedList, this.mediaSideBar, this.albumRatingList
+                };
+
+            foreach (var control in innerControls)
+            {
+                control.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
+                control.ContentChangeEvent += this.ContentChangeEventPropagated;
+                control.CreditsChangeEvent += this.CreditsChangeEventPropagated;
+            }
 
             this.songList.Resize += this.ListResizedEventHandler;
-
-            //BasicHttpBinding binding = new BasicHttpBinding();
-            //EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            //RentItProxy = new RentItClient(binding, address);
-
-            // rest of contructor has to be deleted.
-            //AlbumInfo album = RentItProxy.GetAlbumInfo(78);
-
-            //this.mediaSideBar.MediaInfoData = album;
-
-            //this.albumTitleLabel.Text = album.Title;
-            //this.albumArtistLabel.Text = album.AlbumArtist;
-
-            //this.albumDurationValueLabel.Text = album.TotalDuration.ToString();
-
-            //this.albumDescriptionTextBox.Text = album.Description;
-            //this.PopulateSongList(album);
-
-            //this.albumRatingList.Media = album;
         }
 
         /// <summary>

@@ -16,6 +16,7 @@ namespace ClientApp
         {
             InitializeComponent();
 
+            // Subscribe the propagated EventHandlers to the control's subcontrols
             List<RentItUserControl> innerControls = new List<RentItUserControl>()
                 {
                     this.editAccount1, this.rentalsListControl, this.creditsControl1
