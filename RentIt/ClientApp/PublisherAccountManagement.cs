@@ -35,6 +35,7 @@
             publishedMediaList.AddDoubleClickEventHandler(this.DoubleClickEventHandler);
             editAccountControl.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
 
+            /*
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
             this.RentItProxy = new RentItClient(binding, address);
@@ -52,6 +53,7 @@
 
             PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(this.Credentials);
             this.publishedMediaList.MediaItems = accountData.PublishedItems;
+             * */
         }
 
         /// <summary>
@@ -134,8 +136,13 @@
 
         private void LostFocusHandler(object obj, EventArgs e)
         {
-            deleteMediaButton.Enabled = false;
-            changePriceButton.Enabled = false;
+            // If everything but a single media is selected in the list
+            if (this.publishedMediaList.GetSingleMedia() == null)
+            {
+                // Deactivate the buttons.
+                deleteMediaButton.Enabled = false;
+                changePriceButton.Enabled = false;
+            }
         }
 
         private void DoubleClickEventHandler(object obj, EventArgs e)
@@ -150,45 +157,43 @@
             RentItUserControl mediaDetail;
             string title;
 
-            if (mediaInfo.Type == MediaType.Album)
+            switch (mediaInfo.Type)
             {
-                var albumDetails = new AlbumDetails
-                {
-                    RentItProxy = this.RentItProxy,
-                    Credentials = this.Credentials,
-                    AlbumInfo = (AlbumInfo)mediaInfo
-                };
-                mediaDetail = albumDetails;
-                title = MainForm.Titles.MediaDetailsAlbum;
-            }
-            else if (mediaInfo.Type == MediaType.Movie)
-            {
-                var movieDetails = new BookMovieDetails
-                {
-                    RentItProxy = this.RentItProxy,
-                    Credentials = this.Credentials,
-                    MovieInfo = (MovieInfo)mediaInfo
-                };
-                mediaDetail = movieDetails;
-                title = MainForm.Titles.MediaDetailsMovie;
-            }
-            else if (mediaInfo.Type == MediaType.Book)
-            {
-                var bookDetails = new BookMovieDetails
-                {
-                    RentItProxy = this.RentItProxy,
-                    Credentials = this.Credentials,
-                    BookInfo = (BookInfo)mediaInfo
-                };
-                mediaDetail = bookDetails;
-                title = MainForm.Titles.MediaDetailsBook;
-            }
-            else
-            {
-                return;
+                case MediaType.Album:
+                    var albumDetails = new AlbumDetails
+                        {
+                            RentItProxy = this.RentItProxy,
+                            Credentials = this.Credentials,
+                            AlbumInfo = (AlbumInfo)mediaInfo
+                        };
+                    mediaDetail = albumDetails;
+                    title = MainForm.Titles.MediaDetailsAlbum;
+                    break;
+                case MediaType.Movie:
+                    var movieDetails = new BookMovieDetails
+                        {
+                            RentItProxy = this.RentItProxy,
+                            Credentials = this.Credentials,
+                            MovieInfo = (MovieInfo)mediaInfo
+                        };
+                    mediaDetail = movieDetails;
+                    title = MainForm.Titles.MediaDetailsMovie;
+                    break;
+                case MediaType.Book:
+                    var bookDetails = new BookMovieDetails
+                        {
+                            RentItProxy = this.RentItProxy,
+                            Credentials = this.Credentials,
+                            BookInfo = (BookInfo)mediaInfo
+                        };
+                    mediaDetail = bookDetails;
+                    title = MainForm.Titles.MediaDetailsBook;
+                    break;
+                default:
+                    return;
             }
 
-            FireContentChangeEvent(mediaDetail, title);
+            this.FireContentChangeEvent(mediaDetail, title);
         }
 
         #endregion
@@ -206,7 +211,7 @@
             }
 
             // Delete the media from the service.
-            //this.serviceClient.DeleteMedia(selectedMediaInfo.Id, this.accountCredentials);
+            RentItProxy.DeleteMedia(mediaInfo.Id, this.Credentials);
 
             // Update the list to reflec the deletion changes.
             PublisherAccount pubAcc = this.RentItProxy.GetAllPublisherData(this.Credentials);

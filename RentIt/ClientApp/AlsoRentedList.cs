@@ -30,6 +30,8 @@ namespace ClientApp
             this.mediaListView.ItemHeight = 20;
 
             this.mediaListView.DoubleClick += this.DoubleClickEventHandler;
+
+            label1.Text = "Customers who rented this \nalso rented:";
         }
 
         /// <summary>
@@ -60,9 +62,6 @@ namespace ClientApp
             //Gets all relevant medias from the database.
             var medias = this.RentItProxy.GetAlsoRentedItems(MediaId);
 
-            //Used to retrieve the title from the given media.
-            MediaInfo mediaInf;
-
             //The lists containing media of varying relevance. The elements in the primaryList will be displayed at the top.
             MediaInfo[] primaryList;
             MediaInfo[] secondaryList;
@@ -75,28 +74,23 @@ namespace ClientApp
                     primaryList = medias.Albums;
                     secondaryList = medias.Movies;
                     tertiaryList = medias.Books;
-                    mediaInf = this.RentItProxy.GetAlbumInfo(MediaId);
                     break;
                 case MediaType.Book:
                     primaryList = medias.Books;
                     secondaryList = medias.Movies;
                     tertiaryList = medias.Albums;
-                    mediaInf = this.RentItProxy.GetBookInfo(MediaId);
                     break;
                 case MediaType.Movie:
                     primaryList = medias.Movies;
                     secondaryList = medias.Books;
                     tertiaryList = medias.Albums;
-                    mediaInf = this.RentItProxy.GetMovieInfo(MediaId);
                     break;
                 default:
                     primaryList = new MediaInfo[0];
                     secondaryList = new MediaInfo[0];
                     tertiaryList = new MediaInfo[0];
-                    mediaInf = new MediaInfo { Title = "NOT AVAILABLE" };
                     break;
             }
-            label1.Text = @"Customers who rented" + Environment.NewLine + mediaInf.Title + @" also rented:";
 
             this.mediaList = new List<MediaInfo>();
             mediaList.AddRange(primaryList);
@@ -111,30 +105,6 @@ namespace ClientApp
                     mediaListView.Items.Add(mediaList[i].Type.ToString() + ", " + mediaList[i].Title);
                 }
             }
-
-            /*
-            //Adds each media item to the list in correct order.
-            foreach (var mediaInfo in primaryList)
-            {
-                var item = new ListViewItem(mediaInfo.Title);
-                item.Tag = mediaInfo;
-                mediaList.Items.Add();
-            }
-
-            foreach (var mediaInfo in secondaryList)
-            {
-                var item = new ListViewItem(mediaInfo.Title);
-                item.Tag = mediaInfo;
-                mediaList.Items.Add(item);
-            }
-
-            foreach (var mediaInfo in tertiaryList)
-            {
-                var item = new ListViewItem(mediaInfo.Title);
-                item.Tag = mediaInfo;
-                mediaList.Items.Add(item);
-            }
-             * */
         }
 
         private void DoubleClickEventHandler(object obj, EventArgs e)

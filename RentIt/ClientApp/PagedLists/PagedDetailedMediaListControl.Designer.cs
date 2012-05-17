@@ -44,6 +44,10 @@
             System.Windows.Forms.ListViewGroup listViewGroup14 = new System.Windows.Forms.ListViewGroup("Albums", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup15 = new System.Windows.Forms.ListViewGroup("Movies", System.Windows.Forms.HorizontalAlignment.Left);
             System.Windows.Forms.ListViewGroup listViewGroup16 = new System.Windows.Forms.ListViewGroup("Books", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup17 = new System.Windows.Forms.ListViewGroup("Songs", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup18 = new System.Windows.Forms.ListViewGroup("Albums", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup19 = new System.Windows.Forms.ListViewGroup("Movies", System.Windows.Forms.HorizontalAlignment.Left);
+            System.Windows.Forms.ListViewGroup listViewGroup20 = new System.Windows.Forms.ListViewGroup("Books", System.Windows.Forms.HorizontalAlignment.Left);
             this.itemsPerPageComboBox = new System.Windows.Forms.ComboBox();
             this.itemsPerPageLabel = new System.Windows.Forms.Label();
             this.firstPageButton = new System.Windows.Forms.Button();
@@ -172,6 +176,14 @@
             listViewGroup15.Name = null;
             listViewGroup16.Header = "Books";
             listViewGroup16.Name = null;
+            listViewGroup17.Header = "Songs";
+            listViewGroup17.Name = null;
+            listViewGroup18.Header = "Albums";
+            listViewGroup18.Name = null;
+            listViewGroup19.Header = "Movies";
+            listViewGroup19.Name = null;
+            listViewGroup20.Header = "Books";
+            listViewGroup20.Name = null;
             this.mediaList.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
             listViewGroup1,
             listViewGroup2,
@@ -188,7 +200,12 @@
             listViewGroup13,
             listViewGroup14,
             listViewGroup15,
-            listViewGroup16});
+            listViewGroup16,
+            listViewGroup17,
+            listViewGroup18,
+            listViewGroup19,
+            listViewGroup20});
+            this.mediaList.HideSelection = false;
             this.mediaList.Location = new System.Drawing.Point(4, 35);
             this.mediaList.MultiSelect = false;
             this.mediaList.Name = "mediaList";

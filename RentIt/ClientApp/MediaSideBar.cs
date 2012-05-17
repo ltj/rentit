@@ -2,6 +2,7 @@
 namespace ClientApp
 {
     using System;
+    using System.Linq;
     using System.Windows.Forms;
 
     using BinaryCommunicator;
@@ -89,7 +90,23 @@ namespace ClientApp
                 }
 
                 this.thumbnailBox.Image = BinaryCommuncator.GetThumbnail(mediaInfo.Id);
+                this.DetermineButton(value.Id);
             }
+        }
+
+        private void DetermineButton(int mediaId)
+        {
+            if (this.Credentials == null)
+            {
+                this.rentButton.Enabled = false;
+                this.rentButton.Text = "Login to rent";
+                return;
+            }
+
+            UserAccount account = this.RentItProxy.GetAllCustomerData(this.Credentials);
+
+            rentButton.Enabled = account.Rentals.Where(rental => rental.MediaId == mediaId).Any();
+            rentButton.Text = "Rent It";
         }
 
         #region Controllers

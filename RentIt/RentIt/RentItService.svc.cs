@@ -301,11 +301,11 @@ namespace RentIt
             }
             //Finds the user accounts who rented the media.
             IQueryable<string> users = from rental in db.Rentals
-                                       where rental.media_id == id
+                                       where rental.media_id == id && rental.Media.active
                                        select rental.User_account.user_name;
             //Finds the rented medias made by all the users who rented the media.
             IQueryable<RentItDatabase.Media> rentals = (from rental in db.Rentals
-                                                        where users.Contains(rental.User_account.user_name) && rental.media_id != id && rental.Media.type_id != 4
+                                                        where users.Contains(rental.User_account.user_name) && rental.media_id != id && rental.Media.type_id != 4 && rental.Media.active
                                                         select rental.Media).Distinct();
             //Returns a MediaItems object containing lists of all the medias rented by the users who also rented the media with the given id.
             return Util.CompileMedias(rentals, this);
@@ -462,6 +462,12 @@ namespace RentIt
             {
                 foreach (var rental in userAccount.Rentals)
                 {
+                    // If the media is no longer active
+                    if (!rental.Media.active)
+                    {
+                        continue;
+                    }
+
                     //Fills the userRentals-list with Rental-objects containing info from db.
                     MediaType mediaType = Util.MediaTypeOfValue(rental.Media.Media_type.name);
                     switch (mediaType)
@@ -651,6 +657,13 @@ namespace RentIt
                 var rentedMedia = (from m in db.Medias
                                    where m.id == mediaId
                                    select m).Single();
+
+                // If the user has not enough credits
+                if (user.credit < rentedMedia.price)
+                {
+                    throw new FaultException<Exception>(
+                        new Exception("The specifed user does not have enough credits to rent this media."));
+                }
 
                 // Update the user credit balance accordingly.
                 user.credit = user.credit - rentedMedia.price;
@@ -953,6 +966,14 @@ namespace RentIt
                 if (db.Reviews.Exists(r => r.media_id.Equals(mediaId)) || db.Rentals.Exists(r => r.media_id.Equals(mediaId)))
                 {
                     media.active = false;
+                    if (media.Media_type.name.Equals(Util.StringValueOfMediaType(MediaType.Album)))
+                    {
+                        foreach (Album_song song in media.Album.Album_songs)
+                        {
+                            song.Song.Media.active = false;
+                        }
+                    }
+
                     db.SubmitChanges();
                     return true;
                 }
@@ -968,12 +989,14 @@ namespace RentIt
                                      where m.media_id == mediaId
                                      select m).Single();
                         db.Books.DeleteOnSubmit(book);
+                        db.Medias.DeleteOnSubmit(book.Media);
                         break;
                     case MediaType.Movie:
                         Movie movie = (from m in db.Movies
                                        where m.media_id == mediaId
                                        select m).Single();
                         db.Movies.DeleteOnSubmit(movie);
+                        db.Medias.DeleteOnSubmit(movie.Media);
                         break;
                     case MediaType.Album:
                         Album album = (from m in db.Albums
@@ -982,7 +1005,7 @@ namespace RentIt
 
                         // get album/song junctions
                         IQueryable<Album_song> albumSongs = from m in db.Album_songs
-                                                            where m.album_id == media.id
+                                                            where m.album_id == album.media_id
                                                             select m;
 
                         // delete all album/song junctions and songs
@@ -990,10 +1013,13 @@ namespace RentIt
                         {
                             db.Album_songs.DeleteOnSubmit(albumSong);
                             db.Songs.DeleteOnSubmit(albumSong.Song);
+                            db.Medias.DeleteOnSubmit(albumSong.Song.Media);
+                            db.Ratings.DeleteOnSubmit(albumSong.Song.Media.Rating);
                         }
 
                         // delete album
                         db.Albums.DeleteOnSubmit(album);
+                        db.Medias.DeleteOnSubmit(album.Media);
                         break;
                     case MediaType.Song:
                         Song song = (from m in db.Songs
@@ -1010,6 +1036,7 @@ namespace RentIt
                             db.Album_songs.DeleteOnSubmit(albumSong);
 
                         db.Songs.DeleteOnSubmit(song);
+                        db.Medias.DeleteOnSubmit(song.Media);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -1023,7 +1050,6 @@ namespace RentIt
                     db.Media_files.DeleteOnSubmit(media.Media_file);
                 }
 
-                db.Medias.DeleteOnSubmit(media);
                 db.SubmitChanges();
             }
             catch (InvalidOperationException)
@@ -1039,111 +1065,6 @@ namespace RentIt
 
             return true;
         }
-
-        /*
-        /// <author>Lars Toft Jacobsen</author>
-        /// <summary>
-        /// Fetches a file with metadata from the database by id
-        /// </summary>
-        /// <param name="mediaId"></param>
-        /// <param name="credentials"></param>
-        /// <returns>byte array representation of file data</returns>
-        public MediaFile GetMediaData(string mediaId, AccountCredentials credentials)
-        {
-            Account account = ValidateCredentials(credentials);
-            if (account == null) throw new InvalidCredentialsException();
-
-            DatabaseDataContext db;
-            try
-            {
-                db = new DatabaseDataContext();
-            }
-            catch (Exception e)
-            {
-                throw new FaultException<Exception>(
-                    new Exception("Could not connect to database", e));
-            }
-
-            // query db for file entity with id == mediaId
-            IQueryable<RentItDatabase.Media_file> mfiles = from f in db.Media_files
-                                                           where f.id.Equals(mediaId)
-                                                           select f;
-
-            if (mfiles.Count() <= 0) throw new FaultException("File id not found in database");
-
-            MediaFile file = new MediaFile(mfiles.Single().data.ToArray(), mfiles.Single().name, mfiles.Single().extension);
-            // return byte array from Linq.Binary object
-            return file;
-        }
-
-        /// <summary>
-        /// Upload new media binary to database
-        /// </summary>
-        /// <param name="mediaId">the id of the media the file is related to. If it exists the record will be updated
-        /// with the new data.</param>
-        /// <param name="mfile">The new file object</param>
-        /// <param name="credentials">User credentials</param>
-        /// <returns></returns>
-        public bool UploadMediaData(int mediaId, MediaFile mfile, AccountCredentials credentials)
-        {
-
-            Account account = ValidateCredentials(credentials);
-            if (account == null) return false;
-
-            if (!Util.IsPublisher(account))
-                throw new FaultException<InvalidCredentialsException>(
-                    new InvalidCredentialsException("This user is not a publisher."));
-
-            DatabaseDataContext db;
-            try
-            {
-                db = new DatabaseDataContext();
-            }
-            catch (Exception e)
-            {
-                throw new FaultException<Exception>(
-                    new Exception("Could not connect to database", e));
-            }
-
-            // query the database for existing media id
-            IQueryable<Media_file> fs = from f in db.Media_files
-                                        where f.id.Equals(mediaId)
-                                        select f;
-
-            if (fs.Count() > 0)
-            {
-                // update media file
-                RentItDatabase.Media_file efile = fs.Single();
-                efile.data = mfile.FileData;
-                efile.name = mfile.FileName;
-                efile.extension = mfile.Extension;
-            }
-            else
-            {
-                // insert new media file
-                var newm = new Media_file
-                {
-                    id = mediaId,
-                    data = new System.Data.Linq.Binary(mfile.FileData),
-                    name = mfile.FileName,
-                    extension = mfile.Extension
-                };
-                db.Media_files.InsertOnSubmit(newm);
-            }
-
-            try
-            {
-                db.SubmitChanges();
-                return true;
-            }
-            catch (Exception e)
-            {
-                throw new FaultException<Exception>(
-                    new Exception("Could not update/insert record", e));
-            }
-
-        }
-        */
 
         /// <author>Per Mortensen</author>
         public List<string> GetAllGenres(MediaType mediaType)
@@ -1234,20 +1155,19 @@ namespace RentIt
                     new ArgumentException("Only user accounts can add reviews. If it fails with a user account, an internal error has occured."));
             }
 
-            // Create a new database-entry of the submitted review.
-            var dbReview = new RentItDatabase.Review
-            {
-                Media = media,
-                media_id = review.MediaId,
-                review1 = review.ReviewText,
-                rating = Util.ValueOfRating(review.Rating),
-                timestamp = review.Timestamp,
-                User_account = userAccount,
-                user_name = review.UserName
-            };
 
             try
             {
+                // Create a new database-entry of the submitted review.
+                var dbReview = new RentItDatabase.Review
+                {
+                    Media = media,
+                    review1 = review.ReviewText,
+                    rating = Util.ValueOfRating(review.Rating),
+                    timestamp = review.Timestamp,
+                    User_account = userAccount,
+                };
+
                 db.Reviews.InsertOnSubmit(dbReview);
 
                 // Calculate new average rating and rating count.
