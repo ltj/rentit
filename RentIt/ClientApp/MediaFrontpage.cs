@@ -19,6 +19,7 @@ namespace ClientApp
             popularMediaGrid.ContentChangeEvent += ContentChangeEventPropagated;
             newMediaGrid.ContentChangeEvent += ContentChangeEventPropagated;
             bestMediaGrid.ContentChangeEvent += ContentChangeEventPropagated;
+            genreList1.ContentChangeEvent += ContentChangeEventPropagated;
         }
 
         internal RentIt.MediaType Mtype

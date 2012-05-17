@@ -62,11 +62,13 @@
         {
             credentials = args.Credentials;
 
+            Cursor.Current = Cursors.WaitCursor;
             RentItUserControl nextScreen = new MainScreen {
                                                               RentItProxy = this.rentItProxy,
                                                               Credentials = this.credentials
                                                           };
             ChangeContent(sender, new ContentChangeArgs(nextScreen, "RentIt"));
+            Cursor.Current = Cursors.Default;
 
             TopBar.Credentials = this.credentials;
         }

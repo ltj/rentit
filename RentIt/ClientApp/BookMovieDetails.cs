@@ -1,5 +1,4 @@
-﻿
-namespace ClientApp
+﻿namespace ClientApp
 {
     using System.ServiceModel;
     using System.Windows.Forms;

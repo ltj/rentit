@@ -1,6 +1,7 @@
 ﻿namespace ClientApp
 {
     using System;
+    using System.Windows.Forms;
 
     using BinaryCommunicator;
 
@@ -41,10 +42,11 @@
             //todo: event handlers for the user choosing songs, and then play them
         }
 
-        #region Controllers
+        #region EventHandlers
 
         private void viewAlbumDetails_Click(object sender, System.EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (this.albumDetails == null)
             {
                 this.albumDetails = new AlbumDetails()
@@ -56,11 +58,8 @@
             }
 
             this.FireContentChangeEvent(albumDetails, MainForm.Titles.MediaDetailsAlbum);
+            Cursor.Current = Cursors.Default;
         }
-
-        #endregion
-
-        #region EventHandler
 
         /// <summary>
         /// When the user double clicks a song in the list, this handler

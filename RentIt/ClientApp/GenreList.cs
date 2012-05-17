@@ -1,5 +1,7 @@
 ﻿namespace ClientApp
 {
+    using RentIt;
+
     internal partial class GenreList : RentItUserControl
     {
         private RentIt.MediaType mtype;
@@ -39,6 +41,12 @@
             {
                 lstGenres.Items.Add("Unable to retrieve list");
             }
+        }
+
+        private void GenreListDoubleClick(object sender, System.EventArgs e) {
+            //var criteria = new MediaCriteria { Genre = lstGenres.SelectedItems[0].Text, Type = Mtype, Limit = -1 };
+            //var search = new SearchResultsControl { RentItProxy = RentItProxy, Criteria = criteria };
+            //FireContentChangeEvent(search, MainForm.Titles.SearchResults);
         }
 
     }
