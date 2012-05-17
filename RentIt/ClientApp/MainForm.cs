@@ -21,6 +21,8 @@
             TopBar.RentItProxy = rentItProxy;
             TopBar.Credentials = credentials;
             TopBar.ContentChangeEvent += ChangeContent;
+            TopBar.CredentialsChangeEvent += ChangeCredentials;
+            TopBar.CreditsChangeEvent += ChangeCredits;
 
             Content = new MainScreen { RentItProxy = rentItProxy };
         }
@@ -62,11 +64,13 @@
         {
             credentials = args.Credentials;
 
+            Cursor.Current = Cursors.WaitCursor;
             RentItUserControl nextScreen = new MainScreen {
                                                               RentItProxy = this.rentItProxy,
                                                               Credentials = this.credentials
                                                           };
             ChangeContent(sender, new ContentChangeArgs(nextScreen, "RentIt"));
+            Cursor.Current = Cursors.Default;
 
             TopBar.Credentials = this.credentials;
         }

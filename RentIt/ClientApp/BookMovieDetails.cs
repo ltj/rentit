@@ -1,5 +1,4 @@
-﻿
-namespace ClientApp
+﻿namespace ClientApp
 {
     using System.Collections.Generic;
     using System.ServiceModel;

@@ -1,5 +1,7 @@
 ﻿namespace ClientApp
 {
+    using System.Windows.Forms;
+
     using BinaryCommunicator;
 
     using RentIt;
@@ -47,6 +49,7 @@
         /// <param name="e"></param>
         private void viewBookDetails_Click(object sender, System.EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (this.bookDetails == null)
             {
                 this.bookDetails = new BookMovieDetails()
@@ -58,6 +61,7 @@
             }
 
             this.FireContentChangeEvent(bookDetails, MainForm.Titles.MediaDetailsBook);
+            Cursor.Current = Cursors.Default;
         }
 
         #endregion

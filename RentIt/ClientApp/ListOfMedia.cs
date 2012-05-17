@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Windows.Forms;
 
     using RentIt;
 
@@ -40,6 +41,7 @@
         /// <param name="criteria">The criteria used to filter the media.</param>
         internal void UpdateList(MediaCriteria criteria)
         {
+            Cursor.Current = Cursors.WaitCursor;
             //Gets the relevant media from the database.
             var medias = RentItProxy.GetMediaItems(criteria);
 
@@ -59,6 +61,7 @@
                 for (int i = 0; i < mediaList.Count() - 1; i++)
                     listBox1.Items.Add((i + 1) + ". " + mediaList[i].Title);
 
+            Cursor.Current = Cursors.Default;
         }
 
         private void ListBox1SelectedIndexChanged(object sender, EventArgs e)

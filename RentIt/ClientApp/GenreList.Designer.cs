@@ -34,12 +34,14 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.lstGenres.BackColor = System.Drawing.SystemColors.Control;
             this.lstGenres.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.lstGenres.Enabled = false;
             this.lstGenres.Location = new System.Drawing.Point(3, 23);
             this.lstGenres.Name = "lstGenres";
             this.lstGenres.Size = new System.Drawing.Size(168, 219);
             this.lstGenres.TabIndex = 0;
             this.lstGenres.UseCompatibleStateImageBehavior = false;
             this.lstGenres.View = System.Windows.Forms.View.List;
+            this.lstGenres.DoubleClick += new System.EventHandler(this.GenreListDoubleClick);
             // 
             // lblUCTitle
             // 

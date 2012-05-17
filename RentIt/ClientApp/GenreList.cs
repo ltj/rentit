@@ -1,5 +1,9 @@
 ﻿namespace ClientApp
 {
+    using System.Windows.Forms;
+
+    using RentIt;
+
     internal partial class GenreList : RentItUserControl
     {
         private RentIt.MediaType mtype;
@@ -22,6 +26,7 @@
         // get genres for set type
         private void GetGenres()
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (mtype == RentIt.MediaType.Any || RentItProxy == null) return;
 
             lstGenres.Clear(); // clear current content
@@ -39,6 +44,14 @@
             {
                 lstGenres.Items.Add("Unable to retrieve list");
             }
+
+            Cursor.Current = Cursors.Default;
+        }
+
+        private void GenreListDoubleClick(object sender, System.EventArgs e) {
+            //var criteria = new MediaCriteria { Genre = lstGenres.SelectedItems[0].Text, Type = Mtype, Limit = -1 };
+            //var search = new SearchResultsControl { RentItProxy = RentItProxy, Criteria = criteria };
+            //FireContentChangeEvent(search, MainForm.Titles.SearchResults);
         }
 
     }

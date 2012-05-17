@@ -2,6 +2,7 @@
 {
     using System;
     using System.ServiceModel;
+    using System.Windows.Forms;
 
     using RentIt;
 
@@ -20,9 +21,11 @@
             get { return media; }
             set
             {
+                Cursor.Current = Cursors.WaitCursor;
                 media = value;
                 UpdateAvgRating();
                 PopulateList();
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -39,6 +42,9 @@
 
         private void SubmitReviewButtonClick(object sender, EventArgs e)
         {
+            if(Credentials == null)
+                return;
+
             Rating rating;
             switch (RatingSelector.SelectedIndex)
             {
@@ -72,6 +78,7 @@
             };
 
             // submit review
+            Cursor.Current = Cursors.WaitCursor;
             try
             {
                 RentItProxy.SubmitReview(review, Credentials);
@@ -85,6 +92,7 @@
 
             // reload list
             ReloadList();
+            Cursor.Current = Cursors.Default;
         }
 
         /// <summary>

@@ -2,6 +2,8 @@
 
 namespace ClientApp
 {
+    using System.Windows.Forms;
+
     /// <summary>
     /// The User Control used on the User account page in the Credits pane.
     /// </summary>
@@ -43,9 +45,15 @@ namespace ClientApp
         /// </summary>
         private void UpdateValue()
         {
-            if (Credentials != null)
+            Cursor.Current = Cursors.WaitCursor;
+
+            if(Credentials != null) {
                 credits = RentItProxy.GetAllCustomerData(Credentials).Credits;
+                FireCreditsChangeEvent(credits);
+            }
             label2.Text = credits.ToString();
+
+            Cursor.Current = Cursors.Default;
         }
 
         /// <summary>
@@ -53,6 +61,8 @@ namespace ClientApp
         /// </summary>
         private void Button1Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             int selectedAmount = 0;
             //Sets the chosen Credits value.
             if (radioButton1.Checked)
@@ -63,12 +73,14 @@ namespace ClientApp
                 selectedAmount = Radio3;
 
             //Prompts the user to accept the transaction through a MessageBox.
-            if (RentItMessageBox.CreditConfirmation(selectedAmount) && Credentials != null)
+            if(RentItMessageBox.CreditConfirmation(selectedAmount) && Credentials != null)
                 //Clicking Yes, the Credits are added to the user account.
                 RentItProxy.AddCredits(Credentials, (uint)selectedAmount);
 
             //Updates the displayed Credits value.
             UpdateValue();
+
+            Cursor.Current = Cursors.Default;
         }
     }
 }

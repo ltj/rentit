@@ -67,9 +67,11 @@ namespace ClientApp
         {
             set
             {
+                Cursor.Current = Cursors.WaitCursor;
                 this.mediaCriteria = value;
                 MediaItems mediaItems = this.RentItProxy.GetMediaItems(this.mediaCriteria);
                 this.PopulateGrid(mediaItems);
+                Cursor.Current = Cursors.Default;
             }
         }
 
@@ -177,6 +179,8 @@ namespace ClientApp
         /// <param name="e"></param>
         private void DoubleClickEventHandler(object obj, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             if (this.ListViewGrid.SelectedItems.Count != 1)
             {
                 return;
@@ -218,6 +222,8 @@ namespace ClientApp
             else return;
 
             FireContentChangeEvent(mediaDetail, title);
+
+            Cursor.Current = Cursors.Default;
         }
 
         #endregion

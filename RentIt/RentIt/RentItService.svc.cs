@@ -525,10 +525,10 @@ namespace RentIt
         /// </summary>
         public bool UpdateAccountInfo(AccountCredentials credentials, Account account)
         {
-            if (account == null)
+            if (account == null || credentials.UserName != account.UserName)
             {
                 throw new FaultException<ArgumentException>(
-                    new ArgumentException("The account-parameter is a null reference."));
+                    new ArgumentException("The account-parameter is null or usernames do not match up."));
             }
 
             ValidateCredentials(credentials);

@@ -124,6 +124,7 @@ namespace ClientApp
                 return;
             }
 
+            Cursor.Current = Cursors.WaitCursor;
             try
             {
                 RentItProxy.RentMedia(this.mediaInfo.Id, this.Credentials);
@@ -135,6 +136,7 @@ namespace ClientApp
             {
                 RentItMessageBox.RentalFailed();
             }
+            Cursor.Current = Cursors.Default;
         }
 
         #endregion

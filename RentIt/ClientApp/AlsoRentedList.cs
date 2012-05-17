@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-
-namespace ClientApp
+﻿namespace ClientApp
 {
-    using System.ServiceModel;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows.Forms;
 
     using RentIt;
 
@@ -59,6 +53,7 @@ namespace ClientApp
         /// </summary>
         private void UpdateList()
         {
+            Cursor.Current = Cursors.WaitCursor;
             //Gets all relevant medias from the database.
             var medias = this.RentItProxy.GetAlsoRentedItems(MediaId);
 
@@ -105,10 +100,13 @@ namespace ClientApp
                     mediaListView.Items.Add(mediaList[i].Type.ToString() + ", " + mediaList[i].Title);
                 }
             }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void DoubleClickEventHandler(object obj, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (this.mediaListView.SelectedItems.Count != 1)
             {
                 return;
@@ -146,6 +144,8 @@ namespace ClientApp
                     this.FireContentChangeEvent(movieDetails, MainForm.Titles.MediaDetailsMovie);
                     break;
             }
+
+            Cursor.Current = Cursors.Default;
         }
     }
 }
