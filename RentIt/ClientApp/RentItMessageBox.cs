@@ -8,9 +8,9 @@
         private static string NOT_LOGGED_IN_MESSAGE = "You are not logged in.";
 
         private static string RENTAL_ERROR =
-            "The program could not rent the media either because the media is already rented or because there is a communication problem with the service servers";
+            "The program could not rent the media either because the media is already rented, you do not have enough credits or because there is a communication problem with the service servers.";
 
-        private static string ALREADY_REVIEWED_MESSAGE = "You have already reviewed this media or you are not logged in";
+        private static string ALREADY_REVIEWED_MESSAGE = "You have already reviewed this media or you are not logged in.";
 
         private static string INFORMATION_TITLE = "Information";
 
