@@ -90,7 +90,7 @@ namespace ClientApp
                 }
 
                 this.thumbnailBox.Image = BinaryCommuncator.GetThumbnail(mediaInfo.Id);
-                this.DetermineButton(value.Id);
+                //this.DetermineButton(value.Id);
             }
         }
 
