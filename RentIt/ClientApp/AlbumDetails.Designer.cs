@@ -104,11 +104,13 @@
             // 
             this.albumDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.albumDescriptionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.albumDescriptionTextBox.Enabled = false;
+            this.albumDescriptionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.albumDescriptionTextBox.Location = new System.Drawing.Point(4, 23);
             this.albumDescriptionTextBox.Multiline = true;
             this.albumDescriptionTextBox.Name = "albumDescriptionTextBox";
-            this.albumDescriptionTextBox.Size = new System.Drawing.Size(553, 77);
+            this.albumDescriptionTextBox.Size = new System.Drawing.Size(553, 89);
             this.albumDescriptionTextBox.TabIndex = 3;
             // 
             // albumDescription

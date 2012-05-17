@@ -35,6 +35,7 @@
             publishedMediaList.AddDoubleClickEventHandler(this.DoubleClickEventHandler);
             editAccountControl.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
 
+            priceTextBox.TextChanged += this.PriceTextBoxTextChangedEventHandler;
             /*
             BasicHttpBinding binding = new BasicHttpBinding();
             EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
@@ -129,9 +130,42 @@
 
             // If the single selected item is contained in the Songs group, it is
             // not possible to delete the media item; the delete button is disabled.
-            changePriceButton.Enabled = true;
-            MediaType groupName = publishedMediaList.GetSingleMedia().Type;
+            priceTextBox.Enabled = true;
+            changePriceButton.Enabled = false;
+
+            var selectedMedia = publishedMediaList.GetSingleMedia();
+
+            MediaType groupName = selectedMedia.Type;
             deleteMediaButton.Enabled = groupName != MediaType.Song;
+            priceTextBox.Text = selectedMedia.Price.ToString();
+        }
+
+        private void PriceTextBoxTextChangedEventHandler(object obj, EventArgs e)
+        {
+            MediaInfo mediaInfo;
+            if ((mediaInfo = this.publishedMediaList.GetSingleMedia()) == null)
+            {
+                return;
+            }
+
+            int newPrice;
+            try
+            {
+                newPrice = int.Parse(priceTextBox.Text);
+            }
+            catch (Exception)
+            {
+                changePriceButton.Enabled = false;
+                return;
+            }
+
+            if (newPrice == mediaInfo.Price)
+            {
+                changePriceButton.Enabled = false;
+                return;
+            }
+
+            changePriceButton.Enabled = true;
         }
 
         private void LostFocusHandler(object obj, EventArgs e)
@@ -142,6 +176,9 @@
                 // Deactivate the buttons.
                 deleteMediaButton.Enabled = false;
                 changePriceButton.Enabled = false;
+
+                priceTextBox.Enabled = false;
+                priceTextBox.Text = string.Empty;
             }
         }
 
@@ -216,6 +253,23 @@
             // Update the list to reflec the deletion changes.
             PublisherAccount pubAcc = this.RentItProxy.GetAllPublisherData(this.Credentials);
             this.publishedMediaList.MediaItems = pubAcc.PublishedItems;
+        }
+
+        private void changePriceButton_Click(object sender, EventArgs e)
+        {
+            MediaInfo selectedMedia;
+            if ((selectedMedia = this.publishedMediaList.GetSingleMedia()) == null)
+            {
+                return;
+            }
+
+            selectedMedia.Price = int.Parse(priceTextBox.Text);
+
+            this.RentItProxy.UpdateMediaMetadata(selectedMedia, this.Credentials);
+
+            // Update the list to reflect the changes.
+            PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(this.Credentials);
+            this.publishedMediaList.MediaItems = accountData.PublishedItems;
         }
 
         #endregion

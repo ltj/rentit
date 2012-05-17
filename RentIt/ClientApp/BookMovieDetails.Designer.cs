@@ -109,7 +109,9 @@
             // 
             this.bookDescriptionTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
+            this.bookDescriptionTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.bookDescriptionTextBox.Enabled = false;
+            this.bookDescriptionTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bookDescriptionTextBox.Location = new System.Drawing.Point(3, 23);
             this.bookDescriptionTextBox.Multiline = true;
             this.bookDescriptionTextBox.Name = "bookDescriptionTextBox";

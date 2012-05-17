@@ -32,6 +32,8 @@ namespace ClientApp
             this.AccountManagementTab = new System.Windows.Forms.TabPage();
             this.editAccountControl = new ClientApp.EditAccount();
             this.MediaManagementTab = new System.Windows.Forms.TabPage();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.priceTextBox = new System.Windows.Forms.TextBox();
             this.changePriceButton = new System.Windows.Forms.Button();
             this.deleteMediaButton = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -41,6 +43,7 @@ namespace ClientApp
             this.TabControl.SuspendLayout();
             this.AccountManagementTab.SuspendLayout();
             this.MediaManagementTab.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.MediaUploadTab.SuspendLayout();
             this.SuspendLayout();
@@ -72,15 +75,16 @@ namespace ClientApp
             // 
             // editAccountControl
             // 
+            this.editAccountControl.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.editAccountControl.BackColor = System.Drawing.SystemColors.Window;
-            this.editAccountControl.Location = new System.Drawing.Point(245, 179);
+            this.editAccountControl.Location = new System.Drawing.Point(242, 191);
             this.editAccountControl.Name = "editAccountControl";
             this.editAccountControl.Size = new System.Drawing.Size(356, 173);
             this.editAccountControl.TabIndex = 0;
             // 
             // MediaManagementTab
             // 
-            this.MediaManagementTab.Controls.Add(this.changePriceButton);
+            this.MediaManagementTab.Controls.Add(this.groupBox1);
             this.MediaManagementTab.Controls.Add(this.deleteMediaButton);
             this.MediaManagementTab.Controls.Add(this.panel1);
             this.MediaManagementTab.Location = new System.Drawing.Point(4, 22);
@@ -91,22 +95,43 @@ namespace ClientApp
             this.MediaManagementTab.Text = "Media Management";
             this.MediaManagementTab.UseVisualStyleBackColor = true;
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.priceTextBox);
+            this.groupBox1.Controls.Add(this.changePriceButton);
+            this.groupBox1.Location = new System.Drawing.Point(731, 333);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(115, 106);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Selected media price";
+            // 
+            // priceTextBox
+            // 
+            this.priceTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.priceTextBox.Location = new System.Drawing.Point(3, 34);
+            this.priceTextBox.Name = "priceTextBox";
+            this.priceTextBox.Size = new System.Drawing.Size(106, 20);
+            this.priceTextBox.TabIndex = 17;
+            // 
             // changePriceButton
             // 
             this.changePriceButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.changePriceButton.Location = new System.Drawing.Point(741, 476);
+            this.changePriceButton.Location = new System.Drawing.Point(3, 60);
             this.changePriceButton.Name = "changePriceButton";
-            this.changePriceButton.Size = new System.Drawing.Size(91, 40);
+            this.changePriceButton.Size = new System.Drawing.Size(106, 40);
             this.changePriceButton.TabIndex = 16;
             this.changePriceButton.Text = "Change price";
             this.changePriceButton.UseVisualStyleBackColor = true;
+            this.changePriceButton.Click += new System.EventHandler(this.changePriceButton_Click);
             // 
             // deleteMediaButton
             // 
             this.deleteMediaButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.deleteMediaButton.Location = new System.Drawing.Point(741, 431);
+            this.deleteMediaButton.Location = new System.Drawing.Point(734, 455);
             this.deleteMediaButton.Name = "deleteMediaButton";
-            this.deleteMediaButton.Size = new System.Drawing.Size(91, 39);
+            this.deleteMediaButton.Size = new System.Drawing.Size(106, 39);
             this.deleteMediaButton.TabIndex = 15;
             this.deleteMediaButton.Text = "Delete selected media";
             this.deleteMediaButton.UseVisualStyleBackColor = true;
@@ -165,6 +190,8 @@ namespace ClientApp
             this.TabControl.ResumeLayout(false);
             this.AccountManagementTab.ResumeLayout(false);
             this.MediaManagementTab.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.panel1.ResumeLayout(false);
             this.MediaUploadTab.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -183,5 +210,7 @@ namespace ClientApp
         private System.Windows.Forms.Button deleteMediaButton;
         private PagedDetailedMediaListControl publishedMediaList;
         private EditAccount editAccountControl;
+        private System.Windows.Forms.TextBox priceTextBox;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
