@@ -30,6 +30,7 @@
             this.lblNewRelease = new System.Windows.Forms.Label();
             this.lblNewTitle = new System.Windows.Forms.Label();
             this.picNewThumb = new System.Windows.Forms.PictureBox();
+            this.newHotBackgroundPanel = new System.Windows.Forms.Panel();
             this.popularMediaGrid = new ClientApp.MediaGrid();
             this.genreList1 = new ClientApp.GenreList();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -50,6 +51,7 @@
             this.grpNewHot.Controls.Add(this.lblNewRelease);
             this.grpNewHot.Controls.Add(this.lblNewTitle);
             this.grpNewHot.Controls.Add(this.picNewThumb);
+            this.grpNewHot.Controls.Add(this.newHotBackgroundPanel);
             this.grpNewHot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
             this.grpNewHot.Location = new System.Drawing.Point(3, 3);
             this.grpNewHot.Name = "grpNewHot";
@@ -63,44 +65,48 @@
             this.lblNewPrice.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNewPrice.AutoEllipsis = true;
-            this.lblNewPrice.Location = new System.Drawing.Point(148, 165);
+            this.lblNewPrice.Location = new System.Drawing.Point(181, 165);
             this.lblNewPrice.Name = "lblNewPrice";
-            this.lblNewPrice.Size = new System.Drawing.Size(230, 20);
+            this.lblNewPrice.Size = new System.Drawing.Size(430, 20);
             this.lblNewPrice.TabIndex = 5;
             this.lblNewPrice.Text = "price";
+            this.lblNewPrice.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NewAndHotClick);
             // 
             // lblNewPublisher
             // 
             this.lblNewPublisher.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNewPublisher.AutoEllipsis = true;
-            this.lblNewPublisher.Location = new System.Drawing.Point(148, 105);
+            this.lblNewPublisher.Location = new System.Drawing.Point(181, 105);
             this.lblNewPublisher.Name = "lblNewPublisher";
-            this.lblNewPublisher.Size = new System.Drawing.Size(230, 20);
+            this.lblNewPublisher.Size = new System.Drawing.Size(430, 20);
             this.lblNewPublisher.TabIndex = 4;
             this.lblNewPublisher.Text = "publisher";
+            this.lblNewPublisher.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NewAndHotClick);
             // 
             // lblNewGenre
             // 
             this.lblNewGenre.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNewGenre.AutoEllipsis = true;
-            this.lblNewGenre.Location = new System.Drawing.Point(148, 45);
+            this.lblNewGenre.Location = new System.Drawing.Point(181, 45);
             this.lblNewGenre.Name = "lblNewGenre";
-            this.lblNewGenre.Size = new System.Drawing.Size(230, 20);
+            this.lblNewGenre.Size = new System.Drawing.Size(430, 20);
             this.lblNewGenre.TabIndex = 3;
             this.lblNewGenre.Text = "genre";
+            this.lblNewGenre.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NewAndHotClick);
             // 
             // lblNewRelease
             // 
             this.lblNewRelease.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNewRelease.AutoEllipsis = true;
-            this.lblNewRelease.Location = new System.Drawing.Point(148, 65);
+            this.lblNewRelease.Location = new System.Drawing.Point(181, 65);
             this.lblNewRelease.Name = "lblNewRelease";
-            this.lblNewRelease.Size = new System.Drawing.Size(230, 20);
+            this.lblNewRelease.Size = new System.Drawing.Size(430, 20);
             this.lblNewRelease.TabIndex = 2;
             this.lblNewRelease.Text = "release date";
+            this.lblNewRelease.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NewAndHotClick);
             // 
             // lblNewTitle
             // 
@@ -108,21 +114,33 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNewTitle.AutoEllipsis = true;
             this.lblNewTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
-            this.lblNewTitle.Location = new System.Drawing.Point(148, 25);
+            this.lblNewTitle.Location = new System.Drawing.Point(181, 25);
             this.lblNewTitle.Name = "lblNewTitle";
-            this.lblNewTitle.Size = new System.Drawing.Size(230, 20);
+            this.lblNewTitle.Size = new System.Drawing.Size(430, 20);
             this.lblNewTitle.TabIndex = 1;
             this.lblNewTitle.Text = "title";
+            this.lblNewTitle.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NewAndHotClick);
             // 
             // picNewThumb
             // 
-            this.picNewThumb.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.picNewThumb.Location = new System.Drawing.Point(384, 25);
+            this.picNewThumb.Location = new System.Drawing.Point(15, 25);
             this.picNewThumb.Name = "picNewThumb";
             this.picNewThumb.Size = new System.Drawing.Size(160, 160);
             this.picNewThumb.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.picNewThumb.TabIndex = 0;
             this.picNewThumb.TabStop = false;
+            this.picNewThumb.MouseClick += new System.Windows.Forms.MouseEventHandler(this.NewAndHotClick);
+            // 
+            // newHotBackgroundPanel
+            // 
+            this.newHotBackgroundPanel.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.newHotBackgroundPanel.Location = new System.Drawing.Point(6, 19);
+            this.newHotBackgroundPanel.Name = "newHotBackgroundPanel";
+            this.newHotBackgroundPanel.Size = new System.Drawing.Size(608, 180);
+            this.newHotBackgroundPanel.TabIndex = 6;
+            this.newHotBackgroundPanel.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.NewAndHotClick);
             // 
             // popularMediaGrid
             // 
@@ -131,7 +149,7 @@
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.popularMediaGrid.Location = new System.Drawing.Point(3, 3);
             this.popularMediaGrid.Name = "popularMediaGrid";
-            this.popularMediaGrid.Size = new System.Drawing.Size(614, 133);
+            this.popularMediaGrid.Size = new System.Drawing.Size(614, 134);
             this.popularMediaGrid.TabIndex = 0;
             // 
             // genreList1
@@ -170,9 +188,9 @@
             this.bestMediaGrid.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.bestMediaGrid.Location = new System.Drawing.Point(3, 281);
+            this.bestMediaGrid.Location = new System.Drawing.Point(3, 283);
             this.bestMediaGrid.Name = "bestMediaGrid";
-            this.bestMediaGrid.Size = new System.Drawing.Size(614, 136);
+            this.bestMediaGrid.Size = new System.Drawing.Size(614, 134);
             this.bestMediaGrid.TabIndex = 2;
             // 
             // newMediaGrid
@@ -180,9 +198,9 @@
             this.newMediaGrid.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.newMediaGrid.Location = new System.Drawing.Point(3, 142);
+            this.newMediaGrid.Location = new System.Drawing.Point(3, 143);
             this.newMediaGrid.Name = "newMediaGrid";
-            this.newMediaGrid.Size = new System.Drawing.Size(614, 133);
+            this.newMediaGrid.Size = new System.Drawing.Size(614, 134);
             this.newMediaGrid.TabIndex = 1;
             // 
             // MediaFrontpage
@@ -216,5 +234,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private MediaGrid bestMediaGrid;
         private MediaGrid newMediaGrid;
+        private System.Windows.Forms.Panel newHotBackgroundPanel;
     }
 }

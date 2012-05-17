@@ -20,6 +20,7 @@ namespace ClientApp
             InitializeComponent();
 
             this.alsoRentedList.ContentChangeEvent += this.ContentChangeEventPropagated;
+            this.mediaSideBar.CreditsChangeEvent += this.CreditsChangeEventPropagated;
 
             //BasicHttpBinding binding = new BasicHttpBinding();
             //EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");

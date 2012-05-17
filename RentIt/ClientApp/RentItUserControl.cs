@@ -63,6 +63,10 @@
         protected void ContentChangeEventPropagated(object obj, ContentChangeArgs e) {
             FireContentChangeEvent(e.NewControl, e.NewTitle);
         }
+
+        protected void CreditsChangeEventPropagated(object sender, CreditsChangeArgs e) {
+            FireCreditsChangeEvent(e.Credits);
+        }
     }
 
     internal delegate void CredentialsChangeEventHandler(object sender, CredentialsChangeArgs args);
