@@ -602,11 +602,27 @@ namespace RentIt
         /// <returns></returns>
         public bool RentMedia(int mediaId, AccountCredentials credentials)
         {
+            // Throws an exceptions if the credentials are not valid.
             Account account = ValidateCredentials(credentials);
-            if (account == null) return false;
+
+            if (account == null)
+            {
+                throw new FaultException<Exception>(
+                    new Exception("No credentials have been submitted."));
+            }
 
             var db = new DatabaseDataContext();
 
+            // Check if the requested media exists.
+            if (!db.Medias.Exists(m => m.id == mediaId))
+            {
+                throw new FaultException<Exception>(
+                    new Exception("The requested media does not exist"));
+            }
+
+            // Check if there already exist active rentals for the requested media.
+            // If there already is an active rental of the media, through an exception
+            // indicating so.
             if (db.Rentals.Exists(
                 rental =>
                 rental.user_name.Equals(credentials.UserName) && rental.media_id == mediaId
@@ -618,14 +634,26 @@ namespace RentIt
 
             try
             {
-
                 var r = new RentItDatabase.Rental
                 {
                     user_name = account.UserName,
                     media_id = mediaId,
                     start_time = DateTime.Now,
-                    end_time = DateTime.Now.AddDays(30)
+                    end_time = DateTime.Now.AddDays(14)
                 };
+
+                // Get the account information for the requesting user
+                var user = (from u in db.User_accounts
+                            where u.user_name.Equals(credentials.UserName)
+                            select u).Single();
+
+                // Get the media requested for rental.
+                var rentedMedia = (from m in db.Medias
+                                   where m.id == mediaId
+                                   select m).Single();
+
+                // Update the user credit balance accordingly.
+                user.credit = user.credit - rentedMedia.price;
 
                 db.Rentals.InsertOnSubmit(r);
                 db.SubmitChanges();

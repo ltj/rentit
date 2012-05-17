@@ -34,9 +34,6 @@ namespace ClientApp
             //        HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
             //    }).PublishedItems);
 
-            this.currentPageTextbox.Text =
-                this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
-
             // Add event handlers
             this.itemsPerPageComboBox.SelectedIndexChanged += this.ComboBoxSelectedItemChangedEventHandler;
         }
@@ -51,6 +48,11 @@ namespace ClientApp
             set
             {
                 this.mediaList.UpdateListContents(value);
+
+                // Update the text box showing the currently displayed list page.
+                this.currentPageTextbox.Text =
+                    this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
+
                 this.DetermineButtons();
             }
         }

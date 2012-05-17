@@ -39,6 +39,11 @@ namespace ClientApp
             set
             {
                 this.ratingsList.UpdateListContents(value.Rating.Reviews);
+
+                // Update the text box showing the currently displayed list page.
+                this.currentPageTextbox.Text =
+                    this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
+
                 this.DetermineButtons();
             }
         }
@@ -85,8 +90,11 @@ namespace ClientApp
         {
             this.ratingsList.ItemsPerPage = int.Parse(
                 this.itemsPerPageComboBox.SelectedItem.ToString());
+
+            // Update the text box showing the currently displayed list page.
             this.currentPageTextbox.Text =
                 this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
+
             this.DetermineButtons();
         }
 
