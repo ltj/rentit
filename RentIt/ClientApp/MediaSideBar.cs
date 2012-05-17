@@ -104,19 +104,19 @@ namespace ClientApp
             if (this.Credentials == null)
             {
                 RentItMessageBox.NotLoggedIn();
+                return;
             }
-            else
+
+            try
             {
-                try
-                {
-                    RentItProxy.RentMedia(this.mediaInfo.Id, this.Credentials);
-                    int newCredits = RentItProxy.GetAllCustomerData(Credentials).Credits;
-                    FireCreditsChangeEvent(newCredits);
-                }
-                catch (Exception)
-                {
-                    RentItMessageBox.ServerCommunicationFailure();
-                }
+                RentItProxy.RentMedia(this.mediaInfo.Id, this.Credentials);
+                int newCredits = RentItProxy.GetAllCustomerData(Credentials).Credits;
+                FireCreditsChangeEvent(newCredits);
+                RentItMessageBox.SuccesfulRental();
+            }
+            catch (Exception)
+            {
+                RentItMessageBox.RentalFailed();
             }
         }
 

@@ -51,11 +51,33 @@ namespace WebApplication1
                                  select media).First();
 
             // Does any active rentals exist for the specified user?
-            bool existsRentals = db.Rentals.Exists(
-             rental => rental.user_name.Equals(userName) && rental.media_id == mediaId && rental.end_time > DateTime.Now);
+            bool existsRental;
+
+            int songType = (from mediaT in db.Media_types
+                            where mediaT.name.Equals("Song")
+                            select mediaT).Single().id;
+
+            // If a song is requested, check if there is a rental for it's album.
+            if (mediaMetadata.type_id == songType)
+            {
+                var album = mediaMetadata.Song.Album_songs.First().Album;
+                existsRental =
+                    db.Rentals.Exists(
+                        rental =>
+                        rental.user_name.Equals(userName) && rental.media_id == album.media_id
+                        && rental.end_time > DateTime.Now);
+            }
+            else
+            {
+                existsRental =
+                    db.Rentals.Exists(
+                        rental =>
+                        rental.user_name.Equals(userName) && rental.media_id == mediaId
+                        && rental.end_time > DateTime.Now);
+            }
 
             // Check if the requested media is rented by the user.
-            if (mediaMetadata.price != 0 && !existsRentals)
+            if (!existsRental)
             {
                 Response.StatusCode = 400;
                 Response.StatusDescription = "The specified user has not currently an active rental of the requested media.";
@@ -65,11 +87,41 @@ namespace WebApplication1
             // Get the media data from the database.
             var mediaData = mediaMetadata.Media_file;
 
-            Response.ContentType = "application/octet-stream";
-            Response.AddHeader("Content-Disposition", String.Format("attachment;filename=\"{0}\"", mediaMetadata.title + mediaData.extension));
-            Response.AddHeader("Content-Length", mediaData.data.Length.ToString());
-            Response.BinaryWrite(mediaData.data);
-            Response.End();
+            // If a media has not been uploaded to the database of the requested media,
+            // return af default media file.
+            if (mediaData == null)
+            {
+                string filePath = "";
+
+                switch (mediaMetadata.Media_type.id)
+                {
+                    case 2: // Book
+                        filePath = @"C:\RentItServices\RentIt01\defaultMedia\book.pdf";
+                        break;
+                    case 3: //Movie
+                        filePath = @"C:\RentItServices\RentIt01\defaultMedia\movie.mp4";
+                        break;
+                    case 4: // Song
+                        filePath = @"C:\RentItServices\RentIt01\defaultMedia\song.mp3";
+                        break;
+                }
+
+                var fileInfo = new System.IO.FileInfo(filePath);
+                Response.ContentType = "application/octet-stream";
+                Response.AddHeader("Content-Disposition", String.Format("attachment;filename=\"{0}\"", filePath));
+                Response.AddHeader("Content-Length", fileInfo.Length.ToString());
+                Response.WriteFile(filePath);
+                Response.End();
+            }
+            else
+            {
+                Response.ContentType = "application/octet-stream";
+                Response.AddHeader("Content-Disposition", String.Format("attachment;filename=\"{0}\"", mediaMetadata.title + mediaData.extension));
+                Response.AddHeader("Content-Length", mediaData.data.Length.ToString());
+                Response.BinaryWrite(mediaData.data);
+                Response.End();
+            }
+
 
             /*
             String filePath = @"C:\RentItServices\RentIt01\test.bin";
