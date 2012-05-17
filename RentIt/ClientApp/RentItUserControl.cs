@@ -14,6 +14,8 @@
 
         internal event CredentialsChangeEventHandler CredentialsChangeEvent;
 
+        internal event CreditsChangeEventHandler CreditsChangeEvent;
+
         /// <summary>
         /// Fires a content change event to change the current
         /// content of the main form with the one specified in
@@ -21,6 +23,9 @@
         /// </summary>
         /// <param name="control">
         /// The new RentItUserControl to display as main content.
+        /// </param>
+        /// <param name="title">
+        /// The new top bar title.
         /// </param>
         protected void FireContentChangeEvent(RentItUserControl control, string title)
         {
@@ -37,6 +42,16 @@
         {
             if (CredentialsChangeEvent != null)
                 CredentialsChangeEvent(this, new CredentialsChangeArgs(credentials));
+        }
+
+        /// <summary>
+        /// Fires a credits change event to change the currently 
+        /// displayed credits in the top bar.
+        /// </summary>
+        /// <param name="credits"></param>
+        protected void FireCreditsChangeEvent(int credits) {
+            if(CreditsChangeEvent != null)
+                CreditsChangeEvent(this, new CreditsChangeArgs(credits));
         }
 
         /// <summary>
@@ -57,14 +72,13 @@
     /// </summary>
     internal class CredentialsChangeArgs : EventArgs
     {
-        public readonly AccountCredentials credentials;
+        public readonly AccountCredentials Credentials;
 
         public CredentialsChangeArgs(AccountCredentials credentials)
         {
-            this.credentials = credentials;
+            Credentials = credentials;
         }
     }
-
 
     internal delegate void ContentChangeEventHandler(object sender, ContentChangeArgs args);
 
@@ -80,6 +94,19 @@
         {
             NewControl = newControl;
             NewTitle = newTitle;
+        }
+    }
+
+    internal delegate void CreditsChangeEventHandler(object sender, CreditsChangeArgs args);
+
+    /// <summary>
+    /// A subtype of EventArgs that provides an amount of credits.
+    /// </summary>
+    internal class CreditsChangeArgs : EventArgs {
+        public readonly int Credits;
+
+        public CreditsChangeArgs(int credits) {
+            Credits = credits;
         }
     }
 }

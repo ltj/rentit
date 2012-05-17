@@ -109,7 +109,9 @@ namespace ClientApp
             {
                 try
                 {
-                    this.RentItProxy.RentMedia(this.mediaInfo.Id, this.Credentials);
+                    RentItProxy.RentMedia(this.mediaInfo.Id, this.Credentials);
+                    int newCredits = RentItProxy.GetAllCustomerData(Credentials).Credits;
+                    FireCreditsChangeEvent(newCredits);
                 }
                 catch (Exception)
                 {

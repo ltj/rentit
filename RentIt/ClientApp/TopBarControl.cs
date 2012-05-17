@@ -36,6 +36,16 @@
             }
         }
 
+        internal int Credits {
+            get { return credits; }
+            set {
+                credits = value;
+                string creditsDisplay = value > 0 ? value.ToString() : "no";
+                creditsLabel.Text = "(" + creditsDisplay + " credits)";
+            }
+        }
+        private int credits;
+
         /// <summary>
         /// Sets whether the top bar should display user information
         /// or not, as well as "log in" / "log out".
@@ -53,8 +63,7 @@
                 Cursor.Current = Cursors.WaitCursor;
                 try {
                     UserAccount account = RentItProxy.GetAllCustomerData(Credentials);
-                    string credits = account.Credits > 0 ? account.Credits.ToString() : "no";
-                    creditsLabel.Text = "(" + credits + " credits)";
+                    Credits = account.Credits;
                     creditsLabel.Visible = value;
                     isPublisher = false;
                 } catch(FaultException) {
