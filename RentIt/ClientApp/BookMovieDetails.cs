@@ -1,5 +1,6 @@
 ﻿namespace ClientApp
 {
+    using System.Collections.Generic;
     using System.ServiceModel;
     using System.Windows.Forms;
 
@@ -18,14 +19,18 @@
         {
             InitializeComponent();
 
-            this.alsoRentedList.ContentChangeEvent += this.ContentChangeEventPropagated;
-            this.mediaSideBar.CreditsChangeEvent += this.CreditsChangeEventPropagated;
+            // Subscribe the propagated EventHandlers to the control's subcontrols
+            List<RentItUserControl> innerControls = new List<RentItUserControl>()
+                {
+                    this.alsoRentedList, this.mediaSideBar, this.bookRatingList
+                };
 
-            //BasicHttpBinding binding = new BasicHttpBinding();
-            //EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            //this.RentItProxy = new RentItClient(binding, address);
-
-            //this.BookInfo = this.RentItProxy.GetBookInfo(75);
+            foreach (var control in innerControls)
+            {
+                control.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
+                control.ContentChangeEvent += this.ContentChangeEventPropagated;
+                control.CreditsChangeEvent += this.CreditsChangeEventPropagated;
+            }
         }
 
         /// <summary>
@@ -43,6 +48,7 @@
                 base.RentItProxy = value;
                 this.alsoRentedList.RentItProxy = value;
                 this.mediaSideBar.RentItProxy = value;
+            	this.bookRatingList.RentItProxy = value;
             }
         }
 
@@ -61,6 +67,7 @@
                 base.Credentials = value;
                 this.alsoRentedList.Credentials = value;
                 this.mediaSideBar.Credentials = value;
+            	this.bookRatingList.Credentials = value;
             }
         }
 

@@ -21,6 +21,8 @@
         {
             InitializeComponent();
 
+            this.mediaListView.ItemHeight = 20;
+
             this.mediaListView.DoubleClick += this.DoubleClickEventHandler;
         }
 
@@ -145,27 +147,30 @@
             switch (mediaInfo.Type)
             {
                 case MediaType.Album:
-                    var albumDetails = new AlbumDetails {
-                                                            RentItProxy = this.RentItProxy,
-                                                            Credentials = this.Credentials,
-                                                            AlbumInfo = (AlbumInfo)mediaInfo
-                                                        };
+                    var albumDetails = new AlbumDetails
+                    {
+                        RentItProxy = this.RentItProxy,
+                        Credentials = this.Credentials,
+                        AlbumInfo = (AlbumInfo)mediaInfo
+                    };
                     this.FireContentChangeEvent(albumDetails, MainForm.Titles.MediaDetailsAlbum);
                     break;
                 case MediaType.Book:
-                    var bookDetails = new BookMovieDetails {
-                                                               RentItProxy = this.RentItProxy,
-                                                               Credentials = this.Credentials,
-                                                               BookInfo = (BookInfo)mediaInfo
-                                                           };
+                    var bookDetails = new BookMovieDetails
+                    {
+                        RentItProxy = this.RentItProxy,
+                        Credentials = this.Credentials,
+                        BookInfo = (BookInfo)mediaInfo
+                    };
                     this.FireContentChangeEvent(bookDetails, MainForm.Titles.MediaDetailsBook);
                     break;
                 case MediaType.Movie:
-                    var movieDetails = new BookMovieDetails {
-                                                                RentItProxy = this.RentItProxy,
-                                                                Credentials = this.Credentials,
-                                                                MovieInfo = (MovieInfo)mediaInfo
-                                                            };
+                    var movieDetails = new BookMovieDetails
+                    {
+                        RentItProxy = this.RentItProxy,
+                        Credentials = this.Credentials,
+                        MovieInfo = (MovieInfo)mediaInfo
+                    };
                     this.FireContentChangeEvent(movieDetails, MainForm.Titles.MediaDetailsMovie);
                     break;
             }
