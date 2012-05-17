@@ -8,6 +8,7 @@ namespace BinaryCommunicator
     using System.Drawing;
     using System.IO;
     using System.Net;
+    using System.ServiceModel;
 
     using BinaryCommunicator.Properties;
 
@@ -32,6 +33,8 @@ namespace BinaryCommunicator
         /// uploaded to the server.
         /// </summary>
         public static event FileUploaded FileUploadedEvent;
+
+        private static RentItClient RentItProxy;
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
@@ -147,7 +150,7 @@ namespace BinaryCommunicator
                 }
             }
 
-            var serviceClient = new RentItClient();
+            var serviceClient = GetServiceClient();
             var accountCredentials = new AccountCredentials
             {
                 UserName = credentials.UserName,
@@ -240,7 +243,7 @@ namespace BinaryCommunicator
                 }
             }
 
-            var serviceClient = new RentItClient();
+            var serviceClient = GetServiceClient();
             var accountCredentials = new AccountCredentials
             {
                 UserName = credentials.UserName,
@@ -367,7 +370,7 @@ namespace BinaryCommunicator
                 }
             }
 
-            var serviceClient = new RentItClient();
+            var serviceClient = GetServiceClient();
             var accountCredentials = new AccountCredentials
             {
                 UserName = credentials.UserName,
@@ -485,6 +488,18 @@ namespace BinaryCommunicator
 
                 client.UploadData(uri.ToString(), Util.ImageToByteArray(info.Thumbnail));
             }
+        }
+
+        private static RentItClient GetServiceClient()
+        {
+            if (RentItProxy != null)
+            {
+                return RentItProxy;
+            }
+
+            var binding = new BasicHttpBinding();
+            var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
+            return RentItProxy = new RentItClient(binding, address);
         }
 
         /// <summary>
