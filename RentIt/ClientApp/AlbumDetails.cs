@@ -53,6 +53,7 @@ namespace ClientApp
                 base.RentItProxy = value;
                 this.alsoRentedList.RentItProxy = this.RentItProxy;
                 this.mediaSideBar.RentItProxy = this.RentItProxy;
+            	this.albumRatingList.RentItProxy = this.RentItProxy;
             }
         }
 
@@ -71,6 +72,7 @@ namespace ClientApp
                 base.Credentials = value;
                 this.alsoRentedList.Credentials = value;
                 this.mediaSideBar.Credentials = value;
+            	this.albumRatingList.Credentials = value;
             }
         }
 
