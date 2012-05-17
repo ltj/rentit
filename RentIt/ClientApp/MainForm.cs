@@ -18,12 +18,6 @@
             var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
             rentItProxy = new RentItClient(binding, address);
 
-            /*credentials = new AccountCredentials
-            {
-                UserName = "publishCorp",
-                HashedPassword = "7110eda4d09e062aa5e4a390b0a572ac0d2c0220"
-            };*/
-
             TopBar.RentItProxy = rentItProxy;
             TopBar.Credentials = credentials;
             TopBar.ContentChangeEvent += ChangeContent;
@@ -49,6 +43,7 @@
                 // Add EventHandlers.
                 value.ContentChangeEvent += ChangeContent;
                 value.CredentialsChangeEvent += ChangeCredentials;
+                value.CreditsChangeEvent += ChangeCredits;
 
                 value.Dock = DockStyle.Fill;
                 contentPane.Controls.Add(value);
@@ -65,7 +60,7 @@
 
         private void ChangeCredentials(object sender, CredentialsChangeArgs args)
         {
-            credentials = args.credentials;
+            credentials = args.Credentials;
 
             RentItUserControl nextScreen = new MainScreen {
                                                               RentItProxy = this.rentItProxy,
@@ -74,6 +69,11 @@
             ChangeContent(sender, new ContentChangeArgs(nextScreen, "RentIt"));
 
             TopBar.Credentials = this.credentials;
+        }
+
+        private void ChangeCredits(object sender, CreditsChangeArgs args)
+        {
+            TopBar.Credits = args.Credits;
         }
 
         #endregion

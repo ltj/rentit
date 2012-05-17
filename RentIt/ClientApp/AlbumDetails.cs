@@ -22,6 +22,7 @@ namespace ClientApp
             InitializeComponent();
 
             this.alsoRentedList.ContentChangeEvent += this.ContentChangeEventPropagated;
+            this.mediaSideBar.CreditsChangeEvent += this.CreditsChangeEventPropagated;
 
             this.songList.Resize += this.ListResizedEventHandler;
 

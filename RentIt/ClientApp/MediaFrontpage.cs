@@ -3,12 +3,15 @@
 namespace ClientApp
 {
     using System;
+    using System.Windows.Forms;
 
     using RentIt;
 
     internal partial class MediaFrontpage : RentItUserControl
     {
         private RentIt.MediaType mtype;
+
+        private MediaInfo newAndHotMedia;
 
         public MediaFrontpage()
         {
@@ -68,6 +71,7 @@ namespace ClientApp
                 RentIt.MediaItems result = RentItProxy.GetMediaItems(mc);
                 RentIt.MediaInfo[] subresult = ExtractTypeList(result);
 
+                newAndHotMedia = subresult[0];
                 lblNewTitle.Text = subresult[0].Title;
                 lblNewGenre.Text = subresult[0].Genre;
                 lblNewRelease.Text = subresult[0].ReleaseDate.ToShortDateString();
@@ -163,6 +167,41 @@ namespace ClientApp
             GetMostPopular();
             bestMediaGrid.Title = "Highest rated " + mtype.ToString() + "s";
             GetHighestRated();
+        }
+
+        private void NewAndHotClick(object sender, MouseEventArgs e) {
+            MediaInfo mediaInfo = this.newAndHotMedia;
+
+            RentItUserControl mediaDetail;
+            string title;
+
+            if(this.Mtype == MediaType.Album) {
+                mediaDetail = new AlbumDetails {
+                    RentItProxy = this.RentItProxy,
+                    Credentials = this.Credentials,
+                    AlbumInfo = (AlbumInfo) mediaInfo
+                };
+                title = MainForm.Titles.MediaDetailsAlbum;
+            }
+            else if(this.Mtype == MediaType.Movie) {
+                mediaDetail = new BookMovieDetails {
+                    RentItProxy = this.RentItProxy,
+                    Credentials = this.Credentials,
+                    MovieInfo = (MovieInfo) mediaInfo
+                };
+                title = MainForm.Titles.MediaDetailsMovie;
+            }
+            else if(this.Mtype == MediaType.Book) {
+                mediaDetail = new BookMovieDetails {
+                    RentItProxy = this.RentItProxy,
+                    Credentials = this.Credentials,
+                    BookInfo = (BookInfo) mediaInfo
+                };
+                title = MainForm.Titles.MediaDetailsBook;
+            }
+            else return;
+
+            FireContentChangeEvent(mediaDetail, title);
         }
     }
 }
