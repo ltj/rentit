@@ -19,8 +19,10 @@ namespace ClientApp
             this.rentalsListControl.AddDoubleClickEventHandler(this.DoubleClickEventHandler);
         }
 
-        internal override RentItClient RentItProxy {
-            set {
+        internal override RentItClient RentItProxy
+        {
+            set
+            {
                 base.RentItProxy = value;
                 editAccount1.RentItProxy = value;
                 rentalsListControl.RentItProxy = value;
@@ -28,15 +30,17 @@ namespace ClientApp
             }
         }
 
-        internal override AccountCredentials Credentials {
-            set {
+        internal override AccountCredentials Credentials
+        {
+            set
+            {
                 base.Credentials = value;
                 editAccount1.Credentials = value;
                 rentalsListControl.Credentials = value;
                 creditsControl1.Credentials = value;
 
                 UserAccount accountData = RentItProxy.GetAllCustomerData(value);
-                rentalsListControl.MediaItems = new List<Rental>(accountData.Rentals);
+                rentalsListControl.Rentals = new List<Rental>(accountData.Rentals);
             }
         }
 
@@ -73,6 +77,7 @@ namespace ClientApp
             {
                 case MediaType.Book:
                     var bookReader = new BookReaderControl();
+                    bookReader.RentItProxy = this.RentItProxy;
                     bookReader.Credentials = this.Credentials;
                     bookReader.Book = (BookInfo)mediaInfo;
                     bookReader.Start();
@@ -84,6 +89,7 @@ namespace ClientApp
                     break;
                 case MediaType.Movie:
                     var moviePlayer = new MoviePlayerControl();
+                    moviePlayer.RentItProxy = this.RentItProxy;
                     moviePlayer.Credentials = this.Credentials;
                     moviePlayer.Movie = (MovieInfo)mediaInfo;
                     moviePlayer.Start();
@@ -95,6 +101,7 @@ namespace ClientApp
                     break;
                 case MediaType.Album:
                     var albumPlayer = new AlbumPlayerControl();
+                    albumPlayer.RentItProxy = this.RentItProxy;
                     albumPlayer.Credentials = this.Credentials;
                     albumPlayer.Album = (AlbumInfo)mediaInfo;
                     albumPlayer.Start();

@@ -28,11 +28,11 @@ namespace ClientApp
             this.itemsPerPageComboBox.SelectedIndex = 0;
             this.mediaList.ItemsPerPage = int.Parse(this.itemsPerPageComboBox.SelectedItem.ToString());
 
-            this.mediaList.UpdateListContents(RentItProxy.GetAllPublisherData(new AccountCredentials()
-                {
-                    UserName = "publishCorp",
-                    HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
-                }).PublishedItems);
+            //this.mediaList.UpdateListContents(RentItProxy.GetAllPublisherData(new AccountCredentials()
+            //    {
+            //        UserName = "publishCorp",
+            //        HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
+            //    }).PublishedItems);
 
             this.currentPageTextbox.Text =
                 this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;

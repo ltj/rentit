@@ -6,6 +6,7 @@
 
 namespace ClientApp
 {
+    using System;
     using System.Collections.Generic;
     using System.ServiceModel;
     using System.Windows.Forms;
@@ -14,7 +15,9 @@ namespace ClientApp
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
-    /// TODO: Update summary.
+    /// The list shows active rentals by default.
+    /// The ShowActive method can be used to toggle view of
+    /// active or expired rentals.
     /// </summary>
     internal class PagedRentalsList : PagedListView
     {
@@ -28,6 +31,23 @@ namespace ClientApp
         private ListViewGroup bookListViewGroup;
 
         private RentItClient serviceClient;
+
+        /// <summary>
+        /// Field holding all the rentals that are currently active.
+        /// </summary>
+        private List<Rental> activeRentals;
+
+        /// <summary>
+        /// Field hold all the rentals that are currently expired.
+        /// </summary>
+        private List<Rental> expiredRentals;
+
+        /// <summary>
+        /// Determines whether to display active or expired rentals.
+        /// The value true makes the list displaying all the active rentals,
+        /// and the false value makes the list display all expired rentals.
+        /// </summary>
+        private bool showActive = true;
 
         /// <summary>
         /// Initializes a new instance of the 
@@ -91,6 +111,17 @@ namespace ClientApp
         }
 
         /// <summary>
+        /// For setting whether the list is to show active rentals.
+        /// True means that the list will display active rentals, false
+        /// means that the list will display expired rentals.
+        /// </summary>
+        internal void ShowActive(bool active)
+        {
+            this.showActive = active;
+            this.PopulateList(this.showActive ? this.activeRentals : this.expiredRentals);
+        }
+
+        /// <summary>
         /// Update the ListView with new data.
         /// When this method is called, all data previously added to the list 
         /// will be disregarded, and the contents of the ListView will match
@@ -103,6 +134,21 @@ namespace ClientApp
 
             this.CurrentItems = new List<ListViewItem>();
 
+            // Only active
+            this.activeRentals = rentals.FindAll(rental => rental.EndTime > DateTime.Now);
+            this.expiredRentals = rentals.FindAll(rental => rental.EndTime < DateTime.Now);
+
+            this.PopulateList(this.showActive ? this.activeRentals : this.expiredRentals);
+        }
+
+        /// <summary>
+        /// Helper method for populating the list with rentals.
+        /// This method compiles a list of ListViewItems. The items
+        /// are not added to the list; this is done in the Repopulate-method.
+        /// </summary>
+        /// <param name="rentals"></param>
+        private void PopulateList(List<Rental> rentals)
+        {
             foreach (var rental in rentals)
             {
                 switch (rental.MediaType)
