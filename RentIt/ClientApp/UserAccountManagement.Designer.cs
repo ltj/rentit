@@ -30,6 +30,7 @@
 		{
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.deleteAccountButton = new System.Windows.Forms.Button();
             this.editAccount1 = new ClientApp.EditAccount();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.rentalsListControl = new ClientApp.PagedRentalsListControl();
@@ -57,6 +58,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.deleteAccountButton);
             this.tabPage1.Controls.Add(this.editAccount1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -65,6 +67,17 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Account Management";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // deleteAccountButton
+            // 
+            this.deleteAccountButton.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.deleteAccountButton.Location = new System.Drawing.Point(429, 275);
+            this.deleteAccountButton.Name = "deleteAccountButton";
+            this.deleteAccountButton.Size = new System.Drawing.Size(91, 25);
+            this.deleteAccountButton.TabIndex = 1;
+            this.deleteAccountButton.Text = "Delete account";
+            this.deleteAccountButton.UseVisualStyleBackColor = true;
+            this.deleteAccountButton.Click += new System.EventHandler(this.DeleteAccountButtonClick);
             // 
             // editAccount1
             // 
@@ -139,5 +152,6 @@
 		private EditAccount editAccount1;
 		private PagedRentalsListControl rentalsListControl;
 		private CreditsControl creditsControl1;
+        private System.Windows.Forms.Button deleteAccountButton;
 	}
 }

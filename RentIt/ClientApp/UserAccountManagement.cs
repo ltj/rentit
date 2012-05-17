@@ -5,6 +5,8 @@ using System.ComponentModel;
 
 namespace ClientApp
 {
+    using System.Windows.Forms;
+
     using RentIt;
 
     /// <summary>
@@ -134,7 +136,21 @@ namespace ClientApp
             mediaDisplay.Show();
         }
 
-        #endregion
+        private void DeleteAccountButtonClick(object sender, EventArgs e) {
+            if(!RentItMessageBox.AccountDeletionConfirmation())
+                return;
 
+            Cursor.Current = Cursors.WaitCursor;
+            try {
+                RentItProxy.DeleteAccount(Credentials);
+                RentItMessageBox.AccountDeletionSucceeded();
+                FireCredentialsChangeEvent(null); //TODO: er dette rigtigt?
+            } catch {
+                RentItMessageBox.AccountDeletionFailed();
+            }
+            Cursor.Current = Cursors.Default;
+        }
+
+        #endregion
     }
 }

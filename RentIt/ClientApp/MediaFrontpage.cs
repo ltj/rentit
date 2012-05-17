@@ -162,15 +162,18 @@ namespace ClientApp
 
         private void RefreshContents()
         {
+            Cursor.Current = Cursors.WaitCursor;
             newMediaGrid.Title = "Newest " + mtype.ToString() + "s";
             GetNewest();
             popularMediaGrid.Title = "Popular " + mtype.ToString() + "s";
             GetMostPopular();
             bestMediaGrid.Title = "Highest rated " + mtype.ToString() + "s";
             GetHighestRated();
+            Cursor.Current = Cursors.Default;
         }
 
         private void NewAndHotClick(object sender, MouseEventArgs e) {
+            Cursor.Current = Cursors.WaitCursor;
             MediaInfo mediaInfo = this.newAndHotMedia;
 
             RentItUserControl mediaDetail;
@@ -203,6 +206,8 @@ namespace ClientApp
             else return;
 
             FireContentChangeEvent(mediaDetail, title);
+
+            Cursor.Current = Cursors.Default;
         }
     }
 }

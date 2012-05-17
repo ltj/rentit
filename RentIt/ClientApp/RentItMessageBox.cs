@@ -16,6 +16,9 @@
 
         private static string RENTAL_CONFIRMATION = "The media was succesfully rented.";
 
+        private static string ACCOUNT_DELETION_ERROR = "The account could not be deleted. Please contact support for further assistance.";
+        private static string ACCOUNT_DELETION_SUCCESS = "The account was successfully deleted.";
+
         public static void NotLoggedIn()
         {
             MessageBox.Show(NOT_LOGGED_IN_MESSAGE, ERROR_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -44,6 +47,23 @@
         public static void SuccesfulRental()
         {
             MessageBox.Show(RENTAL_CONFIRMATION, INFORMATION_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        public static bool AccountDeletionConfirmation() {
+            var result = MessageBox.Show(
+                "Are you sure you want to delete your RentIt account?",
+                "Confirm account deletion",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+            return result == DialogResult.Yes;
+        }
+
+        public static void AccountDeletionFailed() {
+            MessageBox.Show(ACCOUNT_DELETION_ERROR, ERROR_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+
+        public static void AccountDeletionSucceeded() {
+            MessageBox.Show(ACCOUNT_DELETION_SUCCESS, INFORMATION_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

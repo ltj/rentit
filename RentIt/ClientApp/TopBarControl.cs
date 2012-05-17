@@ -33,6 +33,9 @@
                     UserNameLabel.Text = value.UserName;
                     LoggedIn = true;
                 }
+                else {
+                    LoggedIn = false;
+                }
             }
         }
 
@@ -59,18 +62,21 @@
                 UserNameLabel.Visible = value;
                 LogInLogOutButton.Text = value ? "Log out" : "Log in/register";
                 yourMediaButton.Enabled = value;
+                creditsLabel.Visible = value;
+
+                if(!value) return; //don't try to get user data if this is logging out
 
                 Cursor.Current = Cursors.WaitCursor;
                 try {
                     UserAccount account = RentItProxy.GetAllCustomerData(Credentials);
                     Credits = account.Credits;
-                    creditsLabel.Visible = value;
                     isPublisher = false;
                 } catch(FaultException) {
                     try {
                         RentItProxy.GetAllPublisherData(Credentials);
+                        creditsLabel.Visible = false; //never show credits for publisher
                         isPublisher = true;
-                    } catch(FaultException) {}
+                    } catch(FaultException) { }
                 }
                 Cursor.Current = Cursors.Default;
             }
@@ -129,6 +135,7 @@
                 LoggedIn = false;
                 Cursor.Current = Cursors.WaitCursor;
                 FireContentChangeEvent(new MainScreen { RentItProxy = RentItProxy }, MainForm.Titles.MainScreen);
+                FireCredentialsChangeEvent(null);
                 Cursor.Current = Cursors.Default;
             }
         }

@@ -21,6 +21,8 @@
             TopBar.RentItProxy = rentItProxy;
             TopBar.Credentials = credentials;
             TopBar.ContentChangeEvent += ChangeContent;
+            TopBar.CredentialsChangeEvent += ChangeCredentials;
+            TopBar.CreditsChangeEvent += ChangeCredits;
 
             Content = new MainScreen { RentItProxy = rentItProxy };
         }

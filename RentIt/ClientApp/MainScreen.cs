@@ -1,5 +1,6 @@
 ﻿namespace ClientApp {
     using System;
+    using System.Windows.Forms;
 
     using RentIt;
 
@@ -29,6 +30,7 @@
 
         private void UpdateLists()
         {
+            Cursor.Current = Cursors.WaitCursor;
             var criteria = new MediaCriteria
             {
                 Genre = "",
@@ -46,21 +48,29 @@
 
             criteria.Type = MediaType.Album;
             musicList.UpdateList(criteria);
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void MoviesButtonClick(object sender, EventArgs e) {
+            Cursor.Current = Cursors.WaitCursor;
             var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Movie };
             FireContentChangeEvent(mediaFront, MainForm.Titles.MediaFrontpageMovies);
+            Cursor.Current = Cursors.Default;
         }
 
         private void BooksButtonClick(object sender, EventArgs e) {
+            Cursor.Current = Cursors.WaitCursor;
             var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Book };
             FireContentChangeEvent(mediaFront, MainForm.Titles.MediaFrontpageBooks);
+            Cursor.Current = Cursors.Default;
         }
 
         private void MusicButtonClick(object sender, EventArgs e) {
+            Cursor.Current = Cursors.WaitCursor;
             var mediaFront = new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Album };
             FireContentChangeEvent(mediaFront, MainForm.Titles.MediaFrontpageMusic);
+            Cursor.Current = Cursors.Default;
         }
 
         private void MovieListDoubleClick(object sender, EventArgs e) {
@@ -79,6 +89,8 @@
         }
 
         private void DisplayMediaItem(MediaInfo media) {
+            Cursor.Current = Cursors.WaitCursor;
+
             RentItUserControl mediaDetails;
             string title;
             switch(media.Type) {
@@ -99,6 +111,8 @@
             }
 
             FireContentChangeEvent(mediaDetails, title);
+
+            Cursor.Current = Cursors.Default;
         }
     }
 }

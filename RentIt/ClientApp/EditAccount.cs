@@ -120,6 +120,7 @@
 
         private void SetFields()
         {
+            Cursor.Current = Cursors.WaitCursor;
             try
             {
                 // get account
@@ -133,12 +134,15 @@
             {
                 txtUserName.Text = "Unable to retrieve account";
             }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void BtnSubmitClick(object sender, EventArgs e)
         {
             if (ValidateAll())
             {
+                Cursor.Current = Cursors.WaitCursor;
                 if (txtPassword.Text != "")
                 {
                     SHA1 sha1 = SHA1.Create();
@@ -161,6 +165,7 @@
                     MessageBox.Show("Something went wrong :( Try again.");
                 }
                 SetFields();
+                Cursor.Current = Cursors.Default;
             }
         }
 

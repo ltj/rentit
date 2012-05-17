@@ -1,5 +1,7 @@
 ﻿namespace ClientApp
 {
+    using System.Windows.Forms;
+
     using RentIt;
 
     internal partial class GenreList : RentItUserControl
@@ -24,6 +26,7 @@
         // get genres for set type
         private void GetGenres()
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (mtype == RentIt.MediaType.Any || RentItProxy == null) return;
 
             lstGenres.Clear(); // clear current content
@@ -41,6 +44,8 @@
             {
                 lstGenres.Items.Add("Unable to retrieve list");
             }
+
+            Cursor.Current = Cursors.Default;
         }
 
         private void GenreListDoubleClick(object sender, System.EventArgs e) {
