@@ -9,12 +9,15 @@ namespace ClientApp
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
-    /// 
+    /// A UserControl containing an instance of the PagedRentalsList.
+    /// The control add buttons for navigating the list pages and for setting
+    /// the number of list to be displayed at the list at each page.
+    /// The list is utilized in the screen displaying user rentals.
     /// </summary>
     internal partial class PagedRentalsListControl : RentItUserControl
     {
         /// <summary>
-        /// Initializes a new instance of the RentalsListControl class.
+        /// Initializes a new instance of the PagedRentalsListControl class.
         /// </summary>
         public PagedRentalsListControl()
         {
@@ -46,8 +49,25 @@ namespace ClientApp
         }
 
         /// <summary>
+        /// Overridden to also set the proxy instance of the rentals list.
+        /// </summary>
+        internal override RentItClient RentItProxy
+        {
+            get
+            {
+                return base.RentItProxy;
+            }
+            set
+            {
+                base.RentItProxy = value;
+                this.mediaList.RentItProxy = value;
+            }
+        }
+
+        /// <summary>
         /// Toggle whether the list is to display active or expired
-        /// rentals.
+        /// rentals. A true-value will make the list show active rentals,
+        /// a false-value will make the list show expired rentals.
         /// </summary>
         internal bool ShowActiveRentals
         {
@@ -60,15 +80,16 @@ namespace ClientApp
         /// <summary>
         /// Adds an EventHandler to the Double Click event on the paged list.
         /// </summary>
-        /// <param name="handler"></param>
+        /// <param name="handler">
+        /// The EventHandler to be added.
+        /// </param>
         internal void AddDoubleClickEventHandler(EventHandler handler)
         {
             this.mediaList.DoubleClick += handler;
         }
 
         /// <summary>
-        /// Gets the SelectedListViewItemCollection object containing all the
-        /// ListViewItems that is currently selected in the paged list.
+        /// Gets the single selected MediaInfo-object.
         /// </summary>
         internal MediaInfo SelectedItem
         {
@@ -81,6 +102,9 @@ namespace ClientApp
 
         #region Controllers
 
+        /// <summary>
+        /// Controller for the First-button.
+        /// </summary>
         private void firstPageButton_Click(object sender, EventArgs e)
         {
             this.mediaList.GoToFirstPage();
@@ -89,6 +113,9 @@ namespace ClientApp
                 this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
         }
 
+        /// <summary>
+        /// Controller for he Previous-button.
+        /// </summary>
         private void previousPageButton_Click(object sender, EventArgs e)
         {
             this.mediaList.PreviousPage();
@@ -97,6 +124,9 @@ namespace ClientApp
                 this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
         }
 
+        /// <summary>
+        /// Controller for the Next-button.
+        /// </summary>
         private void nextPageButton_Click(object sender, EventArgs e)
         {
             this.mediaList.NextPage();
@@ -105,6 +135,9 @@ namespace ClientApp
                 this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
         }
 
+        /// <summary>
+        /// Controller for the Last-button.
+        /// </summary>
         private void lastPageButton_Click(object sender, EventArgs e)
         {
             this.mediaList.GoToLastPage();
@@ -117,6 +150,10 @@ namespace ClientApp
 
         #region EventHandlers
 
+        /// <summary>
+        /// EventHandler for the SelectedItemChangedEvent on the combobox.
+        /// Updates the list to display the selected number of items.
+        /// </summary>
         private void ComboBoxSelectedItemChangedEventHandler(object obj, EventArgs e)
         {
             this.mediaList.ItemsPerPage = int.Parse(

@@ -26,22 +26,28 @@
             set { TitleLabel.Text = value; }
         }
 
-        internal override AccountCredentials Credentials {
-            set {
+        internal override AccountCredentials Credentials
+        {
+            set
+            {
                 base.Credentials = value;
-                if(value != null) {
+                if (value != null)
+                {
                     UserNameLabel.Text = value.UserName;
                     LoggedIn = true;
                 }
-                else {
+                else
+                {
                     LoggedIn = false;
                 }
             }
         }
 
-        internal int Credits {
+        internal int Credits
+        {
             get { return credits; }
-            set {
+            set
+            {
                 credits = value;
                 string creditsDisplay = value > 0 ? value.ToString() : "no";
                 creditsLabel.Text = "(" + creditsDisplay + " credits)";
@@ -64,19 +70,24 @@
                 yourMediaButton.Enabled = value;
                 creditsLabel.Visible = value;
 
-                if(!value) return; //don't try to get user data if this is logging out
+                if (!value) return; //don't try to get user data if this is logging out
 
                 Cursor.Current = Cursors.WaitCursor;
-                try {
+                try
+                {
                     UserAccount account = RentItProxy.GetAllCustomerData(Credentials);
                     Credits = account.Credits;
                     isPublisher = false;
-                } catch(FaultException) {
-                    try {
+                }
+                catch (FaultException)
+                {
+                    try
+                    {
                         RentItProxy.GetAllPublisherData(Credentials);
                         creditsLabel.Visible = false; //never show credits for publisher
                         isPublisher = true;
-                    } catch(FaultException) { }
+                    }
+                    catch (FaultException) { }
                 }
                 Cursor.Current = Cursors.Default;
             }
@@ -140,27 +151,52 @@
             }
         }
 
-        private void HomeButtonClick(object sender, EventArgs e) {
+        private void HomeButtonClick(object sender, EventArgs e)
+        {
             Cursor.Current = Cursors.WaitCursor;
             FireContentChangeEvent(new MainScreen { RentItProxy = RentItProxy }, MainForm.Titles.MainScreen);
             Cursor.Current = Cursors.Default;
         }
 
-        private void MovieButtonClick(object sender, EventArgs e) {
+        private void MovieButtonClick(object sender, EventArgs e)
+        {
             Cursor.Current = Cursors.WaitCursor;
-            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Movie}, MainForm.Titles.MediaFrontpageMovies);
+            FireContentChangeEvent(
+                new MediaFrontpage
+                    {
+                        RentItProxy = RentItProxy,
+                        Credentials = this.Credentials,
+                        Mtype = MediaType.Movie,
+                    },
+                    MainForm.Titles.MediaFrontpageMovies);
             Cursor.Current = Cursors.Default;
         }
 
-        private void MusicButtonClick(object sender, EventArgs e) {
+        private void MusicButtonClick(object sender, EventArgs e)
+        {
             Cursor.Current = Cursors.WaitCursor;
-            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Album }, MainForm.Titles.MediaFrontpageMusic);
+            FireContentChangeEvent(
+                new MediaFrontpage
+                {
+                    RentItProxy = RentItProxy,
+                    Credentials = this.Credentials,
+                    Mtype = MediaType.Album,
+                },
+                MainForm.Titles.MediaFrontpageMusic);
             Cursor.Current = Cursors.Default;
         }
 
-        private void BookButtonClick(object sender, EventArgs e) {
+        private void BookButtonClick(object sender, EventArgs e)
+        {
             Cursor.Current = Cursors.WaitCursor;
-            FireContentChangeEvent(new MediaFrontpage { RentItProxy = RentItProxy, Mtype = MediaType.Book }, MainForm.Titles.MediaFrontpageBooks);
+            FireContentChangeEvent(
+                new MediaFrontpage
+                {
+                    RentItProxy = RentItProxy,
+                    Credentials = this.Credentials,
+                    Mtype = MediaType.Book,
+                },
+                MainForm.Titles.MediaFrontpageBooks);
             Cursor.Current = Cursors.Default;
         }
 
@@ -174,11 +210,13 @@
 
             // go to account screen (check whether publisher or user)
             Cursor.Current = Cursors.WaitCursor;
-            if(isPublisher) { //if publisher
+            if (isPublisher)
+            { //if publisher
                 var pubMan = new PublisherAccountManagement { RentItProxy = RentItProxy, Credentials = Credentials };
                 FireContentChangeEvent(pubMan, MainForm.Titles.PublisherAccountManagement);
             }
-            else {
+            else
+            {
                 var userMan = new UserAccountManagement { RentItProxy = RentItProxy, Credentials = Credentials };
                 FireContentChangeEvent(userMan, MainForm.Titles.UserAccountManagement);
             }
@@ -199,12 +237,14 @@
             // go to active rentals list if user
             // go to published media list if publisher
             Cursor.Current = Cursors.WaitCursor;
-            if(isPublisher) { //if publisher
+            if (isPublisher)
+            { //if publisher
                 var pubMan = new PublisherAccountManagement { RentItProxy = RentItProxy, Credentials = Credentials };
                 pubMan.SelectTab(1);
                 FireContentChangeEvent(pubMan, MainForm.Titles.PublisherAccountManagement);
             }
-            else {
+            else
+            {
                 var userMan = new UserAccountManagement { RentItProxy = RentItProxy, Credentials = Credentials };
                 userMan.SelectTab(1);
                 FireContentChangeEvent(userMan, MainForm.Titles.UserAccountManagement);

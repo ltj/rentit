@@ -6,11 +6,11 @@
 
     using RentIt;
 
-    internal partial class RatingList : RentItUserControl
+    internal partial class MediaRatings : RentItUserControl
     {
         private MediaInfo media;
 
-        public RatingList()
+        public MediaRatings()
         {
             InitializeComponent();
             RatingSelector.SelectedIndex = 2;

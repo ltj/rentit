@@ -3,14 +3,13 @@ namespace ClientApp
 {
     using System;
     using System.Collections.Generic;
-    using System.ServiceModel;
     using System.Windows.Forms;
 
     using RentIt;
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
-    /// 
+    /// This class represents the UserControl that shows album metadata and details.
     /// </summary>
     internal partial class AlbumDetails : RentItUserControl
     {
@@ -28,6 +27,8 @@ namespace ClientApp
                     this.alsoRentedList, this.mediaSideBar, this.albumRatingList
                 };
 
+            // Subscribe to the inner UserControls' events in order to propagate to the MainForm's
+            // subscribtions.
             foreach (var control in innerControls)
             {
                 control.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
@@ -40,7 +41,7 @@ namespace ClientApp
 
         /// <summary>
         /// Overridden so that it sets the RentItProxy instance of the
-        /// MediaSideBar instance as well.
+        /// inner UserControls and components as well.
         /// </summary>
         internal override RentItClient RentItProxy
         {
@@ -58,8 +59,8 @@ namespace ClientApp
         }
 
         /// <summary>
-        /// Overridden so that is sets the Credentials property of the 
-        /// MediaSideBar instance as well.
+        /// Overridden so that it sets the Credentials property of the 
+        /// inner UserControls and components as well.
         /// </summary>
         internal override AccountCredentials Credentials
         {
@@ -86,8 +87,6 @@ namespace ClientApp
             {
                 AlbumInfo album = value;
 
-                //album = RentItProxy.GetAlbumInfo(78); // Just for debugging, has to be deleted.
-
                 this.alsoRentedList.PrioritizedMediaType = album.Type;
                 this.alsoRentedList.MediaId = album.Id;
 
@@ -106,7 +105,9 @@ namespace ClientApp
         /// <summary>
         /// Helper method for populating the song list with songs.
         /// </summary>
-        /// <param name="info"></param>
+        /// <param name="info">
+        /// The AlbumInfo-object the AlbumDetails-instance is based on.
+        /// </param>
         private void PopulateSongList(AlbumInfo info)
         {
             foreach (var song in info.Songs)
@@ -115,13 +116,19 @@ namespace ClientApp
                 listItem.SubItems.Add(song.Artist);
                 listItem.SubItems.Add(song.Genre);
                 listItem.SubItems.Add(song.Price.ToString());
-                listItem.SubItems.Add((song.Duration.ToString()));
+                listItem.SubItems.Add(song.Duration.ToString());
                 songList.Items.Add(listItem);
             }
         }
 
         #region EventHandler
 
+        /// <summary>
+        /// EventHandler of the ListResizedEvent of the list displaying the 
+        /// song of the album. 
+        /// This EventHandler resized the list's column to meet the application
+        /// window resize.
+        /// </summary>
         private void ListResizedEventHandler(object obj, EventArgs e)
         {
             int totalWidth = 0;

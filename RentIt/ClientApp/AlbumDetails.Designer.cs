@@ -33,7 +33,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.userRatingsLabel = new System.Windows.Forms.Label();
             this.albumDescription = new System.Windows.Forms.Label();
-            this.albumRatingList = new ClientApp.RatingList();
+            this.albumRatingList = new ClientApp.MediaRatings();
             this.albumDescriptionTextBox = new System.Windows.Forms.TextBox();
             this.albumDurationValueLabel = new System.Windows.Forms.Label();
             this.albumDurationLabel = new System.Windows.Forms.Label();
@@ -251,7 +251,7 @@
         private System.Windows.Forms.Label albumDurationLabel;
         private System.Windows.Forms.Label albumDurationValueLabel;
         private System.Windows.Forms.Panel panel1;
-        private RatingList albumRatingList;
+        private MediaRatings albumRatingList;
         private System.Windows.Forms.Label userRatingsLabel;
         private MediaSideBar mediaSideBar;
         private AlsoRentedList alsoRentedList;

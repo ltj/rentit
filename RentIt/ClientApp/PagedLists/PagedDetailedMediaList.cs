@@ -1,9 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DetailedMediaList.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
+﻿
 namespace ClientApp
 {
     using System;
@@ -14,7 +9,9 @@ namespace ClientApp
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
-    /// TODO: Update summary.
+    /// This class represents a paged list for display of metadata of media items.
+    /// The list has a title, author, genre, release date and price column.
+    /// The list divides the various media types into correspondigs groups.
     /// </summary>
     internal class PagedDetailedMediaList : PagedListView
     {
@@ -98,8 +95,12 @@ namespace ClientApp
         /// <summary>
         /// Get the MediaInfo-object corresponding to the given ListViewItem-object.
         /// </summary>
-        /// <param name="item"></param>
-        /// <returns></returns>
+        /// <param name="item">
+        /// The item. whose corresponding MedioInfo-object is to be returned.
+        /// </param>
+        /// <returns>
+        /// The MediaInfo-object corresponding to the given item.
+        /// </returns>
         internal MediaInfo GetMediaInfoValueOf(ListViewItem item)
         {
             return (MediaInfo)item.Tag;
@@ -111,7 +112,9 @@ namespace ClientApp
         /// will be disregarded, and the contents of the ListView will match
         /// the media items passed in the parameter.
         /// </summary>
-        /// <param name="mediaItems"></param>
+        /// <param name="mediaItems">
+        /// The media items to be loaded into the list.
+        /// </param>
         internal void UpdateListContents(MediaItems mediaItems)
         {
             this.BeginUpdate();
@@ -128,7 +131,7 @@ namespace ClientApp
                 listItem.Group = this.songListViewGroup;
                 listItem.Tag = song;
 
-                this.CurrentItems.Add(listItem); // this.Items.Add(listItem);
+                this.CurrentItems.Add(listItem);
             }
 
             foreach (var album in mediaItems.Albums)
@@ -141,7 +144,7 @@ namespace ClientApp
                 listItem.Group = this.albumListViewGroup;
                 listItem.Tag = album;
 
-                this.CurrentItems.Add(listItem); // this.Items.Add(listItem);
+                this.CurrentItems.Add(listItem);
             }
 
             foreach (var movie in mediaItems.Movies)
@@ -154,7 +157,7 @@ namespace ClientApp
                 listItem.Group = this.movieListViewGroup;
                 listItem.Tag = movie;
 
-                this.CurrentItems.Add(listItem); // this.Items.Add(listItem);
+                this.CurrentItems.Add(listItem);
             }
 
             foreach (var book in mediaItems.Books)
@@ -167,7 +170,7 @@ namespace ClientApp
                 listItem.Group = this.bookListViewGroup;
                 listItem.Tag = book;
 
-                this.CurrentItems.Add(listItem); // this.Items.Add(listItem);
+                this.CurrentItems.Add(listItem);
             }
 
             this.RePopulateList();

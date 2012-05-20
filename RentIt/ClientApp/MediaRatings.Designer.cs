@@ -1,5 +1,5 @@
 ﻿namespace ClientApp {
-    partial class RatingList {
+    partial class MediaRatings {
         /// <summary> 
         /// Required designer variable.
         /// </summary>

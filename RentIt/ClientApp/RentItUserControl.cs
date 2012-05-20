@@ -5,15 +5,46 @@
 
     using RentIt;
 
+    /// <author>Per Mortensen</author>
+    /// <summary>
+    /// The class serves as the base class for all the UserControls that is to be
+    /// utilizes in the client application. It declares a set of events and methods,
+    /// most notably the events for content, credentials and credits changes, that
+    /// the MainForm subscribes to each time it adds a RentItUserControl to its
+    /// ContentPane.
+    /// </summary>
     internal class RentItUserControl : UserControl
     {
+        /// <summary>
+        /// Auto-property for getting and setting the RentItClient instance.
+        /// </summary>
         internal virtual RentItClient RentItProxy { get; set; }
+
+        /// <summary>
+        /// Auto-property for getting and setting the credentials of the user.
+        /// </summary>
         internal virtual AccountCredentials Credentials { get; set; }
 
+        /// <summary>
+        /// This event is fired every time the currently displayed UserControl 
+        /// in the MainForm's ContentPane or the TopBar must change the contents
+        /// of the MainForm's ContentPane. 
+        /// </summary>
         public event ContentChangeEventHandler ContentChangeEvent;
 
+        /// <summary>
+        /// This event is fired every time the currently displayed UserControl 
+        /// in the MainForm's ContentPane or the TopBar must change the credentials
+        /// to be stored in MainForm. This happens every time a user either logs in or
+        /// log out.
+        /// </summary>
         internal event CredentialsChangeEventHandler CredentialsChangeEvent;
 
+        /// <summary>
+        /// This event is fired every time a logged in user rents a products.
+        /// It is used to inform the TopBar that the shown balance must be
+        /// updated to reflect the purchase of the newly acquired rental.
+        /// </summary>
         internal event CreditsChangeEventHandler CreditsChangeEvent;
 
         /// <summary>
@@ -49,30 +80,43 @@
         /// displayed credits in the top bar.
         /// </summary>
         /// <param name="credits"></param>
-        protected void FireCreditsChangeEvent(int credits) {
-            if(CreditsChangeEvent != null)
+        protected void FireCreditsChangeEvent(int credits)
+        {
+            if (CreditsChangeEvent != null)
                 CreditsChangeEvent(this, new CreditsChangeArgs(credits));
         }
 
         /// <summary>
         /// For propagating the MainForms subscription to the ContentChangeEvent
-        /// to the media players.
+        /// to the RentItUserControl's inner RentItUserControls.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="e"></param>
-        protected void ContentChangeEventPropagated(object obj, ContentChangeArgs e) {
+        protected void ContentChangeEventPropagated(object obj, ContentChangeArgs e)
+        {
             FireContentChangeEvent(e.NewControl, e.NewTitle);
         }
 
-        protected void CredentialsChangeEventPropagated(object obj, CredentialsChangeArgs e) {
+        /// <summary>
+        /// For propagating the MainForms subscription to the CredentialsChangeEvent
+        /// to the RentItUserControl's inner RentItUserControls.
+        /// </summary>
+        protected void CredentialsChangeEventPropagated(object obj, CredentialsChangeArgs e)
+        {
             FireCredentialsChangeEvent(e.Credentials);
         }
 
-        protected void CreditsChangeEventPropagated(object sender, CreditsChangeArgs e) {
+        /// <summary>
+        /// For propagating the MainForms subscription to the CreditsChangeEvent
+        /// to the RentItUserControl's inner RentItUserControls.
+        /// </summary>
+        protected void CreditsChangeEventPropagated(object sender, CreditsChangeArgs e)
+        {
             FireCreditsChangeEvent(e.Credits);
         }
     }
 
+    /// <summary>
+    /// The EventHandler of the CredentialsChangeEvent.
+    /// </summary>
     internal delegate void CredentialsChangeEventHandler(object sender, CredentialsChangeArgs args);
 
     /// <summary>
@@ -88,6 +132,9 @@
         }
     }
 
+    /// <summary>
+    /// The EventHandler of the ContenChangeEvent.
+    /// </summary>
     internal delegate void ContentChangeEventHandler(object sender, ContentChangeArgs args);
 
     /// <summary>
@@ -105,15 +152,20 @@
         }
     }
 
+    /// <summary>
+    /// EventHandler of the CreditsChangeEvent.
+    /// </summary>
     internal delegate void CreditsChangeEventHandler(object sender, CreditsChangeArgs args);
 
     /// <summary>
     /// A subtype of EventArgs that provides an amount of credits.
     /// </summary>
-    internal class CreditsChangeArgs : EventArgs {
+    internal class CreditsChangeArgs : EventArgs
+    {
         public readonly int Credits;
 
-        public CreditsChangeArgs(int credits) {
+        public CreditsChangeArgs(int credits)
+        {
             Credits = credits;
         }
     }

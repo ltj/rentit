@@ -1,14 +1,23 @@
-﻿namespace ClientApp
+﻿
+namespace ClientApp
 {
     using System;
     using System.Collections.Generic;
-    using System.ServiceModel;
 
     using RentIt;
 
+    /// <author>Kenneth Søhrmann</author>
+    /// <summary>
+    /// This class represents the UserControl that is used whenever a publisher
+    /// manages his account. Within this control the user can manage his account
+    /// information, the published media items and it also provides the MediaUploadControl
+    /// that the publisher uses to publish new media to the service.
+    /// </summary>
     internal partial class PublisherAccountManagement : RentItUserControl
     {
-
+        /// <summary>
+        /// Initializes a new instance of the PublisherAccountManagement class.
+        /// </summary>
         public PublisherAccountManagement()
         {
             InitializeComponent();
@@ -16,7 +25,8 @@
             deleteMediaButton.Enabled = false;
             changePriceButton.Enabled = false;
 
-            // Subscribe the propagated EventHandlers to the control's subcontrols
+            // Subscribe to the inner UserControls' events in order to propagate to the MainForm's
+            // subscribtions.
             List<RentItUserControl> innerControls = new List<RentItUserControl>()
                 {
                     this.editAccountControl, this.mediaUploadControl
@@ -36,29 +46,11 @@
             editAccountControl.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
 
             priceTextBox.TextChanged += this.PriceTextBoxTextChangedEventHandler;
-            /*
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            this.RentItProxy = new RentItClient(binding, address);
-
-            this.Credentials = new AccountCredentials()
-            {
-                UserName = "publishCorp",
-                HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
-            };
-
-            this.editAccountControl.RentItProxy = this.RentItProxy;
-            this.editAccountControl.Credentials = this.Credentials;
-
-            this.mediaUploadControl.RentItProxy = this.RentItProxy;
-
-            PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(this.Credentials);
-            this.publishedMediaList.MediaItems = accountData.PublishedItems;
-             * */
         }
 
         /// <summary>
-        /// 
+        /// Overridden so that it sets the RentItProxy instance of the
+        /// inner UserControls and components as well.
         /// </summary>
         internal override RentItClient RentItProxy
         {
@@ -76,9 +68,8 @@
         }
 
         /// <summary>
-        /// Sets the account credentials to be used by the UserControl.
-        /// When the credentials is set, the UserControl is populated with data.
-        /// The RentItProxy property must be set before this property is set.
+        /// Overridden so that it sets the Credentials property of the 
+        /// inner UserControls and components as well.
         /// </summary>
         internal override AccountCredentials Credentials
         {
@@ -101,10 +92,12 @@
 
         /// <summary>
         /// Selects the tab with the specified index.
-        /// If the index is out of range that first tab
-        /// of the control is selected.
+        /// If the index is out of range the first tab of the control is selected.
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">
+        /// The index value of the tab that the TabControl must switch to.
+        /// Index 0 denotes the first tab.
+        /// </param>
         public void SelectTab(int index)
         {
             if (index < 0 || index > this.TabControl.TabCount - 1)
@@ -118,6 +111,10 @@
 
         #region EventHandlers
 
+        /// <summary>
+        /// EventHandler for the SelectedIndexChangedEvent on the list displaying
+        /// published media located on the second of the three tabs. 
+        /// </summary>
         private void SelectedIndexChangedHandler(object obj, EventArgs e)
         {
             // Both buttons are enabled when only one item in the list is selected.
@@ -140,6 +137,13 @@
             priceTextBox.Text = selectedMedia.Price.ToString();
         }
 
+        /// <summary>
+        /// EventHandler of the TextChangedEvent of the editable text box displaying
+        /// the price of the selected published media.
+        /// This method determines when it should be possible for the client to submit a 
+        /// price change: This is only possible when the user types in an integer that is
+        /// different from the price already registrered for the selected media.
+        /// </summary>
         private void PriceTextBoxTextChangedEventHandler(object obj, EventArgs e)
         {
             MediaInfo mediaInfo;
@@ -168,6 +172,12 @@
             changePriceButton.Enabled = true;
         }
 
+        /// <summary>
+        /// EventHandler of the LostFocusEvent of the list displaying published 
+        /// media. Whenever the focus is lost, it checks if there is a single media 
+        /// on the list og published media selected. If this i not the case, the 
+        /// "Change price"- and "Delete media"-buttons are disabled.
+        /// </summary>
         private void LostFocusHandler(object obj, EventArgs e)
         {
             // If everything but a single media is selected in the list
@@ -182,6 +192,12 @@
             }
         }
 
+        /// <summary>
+        /// EventHandler of the DoubleClickEvent of the list displaying
+        /// published media. The double click will display either a AlbumDetails
+        /// or BookMovieDetails (depending of the type of the clicked media) in
+        /// the MainForm.
+        /// </summary>
         private void DoubleClickEventHandler(object obj, EventArgs e)
         {
             MediaInfo mediaInfo = this.publishedMediaList.GetSingleMedia();
@@ -237,6 +253,13 @@
 
         #region Controllers
 
+        /// <summary>
+        /// This method is invoked whenever the "Delete media"-button in the 
+        /// tab with the list of published media is clicked.
+        /// It deletes the selected media from the list of published media
+        /// from the service and updates the contents of the list of published
+        /// media to reflect the deletion.
+        /// </summary>
         private void deleteMediaButton_Click(object sender, EventArgs e)
         {
             // Retrieve the selected media item.
@@ -255,6 +278,15 @@
             this.publishedMediaList.MediaItems = pubAcc.PublishedItems;
         }
 
+        /// <summary>
+        /// This methos is invoked whenever the "Change price"-button in the
+        /// tab with the list of published media i clicked.
+        /// It changes the price of the selected media in the list of published
+        /// media by communication with the service. Then the list of published media
+        /// is updated to reflect the price change.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void changePriceButton_Click(object sender, EventArgs e)
         {
             MediaInfo selectedMedia;

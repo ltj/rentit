@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-
-
+﻿
 namespace ClientApp
 {
+    using System;
+    using System.Collections.Generic;
     using System.Windows.Forms;
 
     using RentIt;
 
+    /// <author>Jacob Rasmussen</author>
     /// <summary>
     /// A user control containing user controls relevant to user account management. 
     /// </summary>
     internal partial class UserAccountManagement : RentItUserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the UserAccountManagement class.
+        /// </summary>
         public UserAccountManagement()
         {
             InitializeComponent();
@@ -36,6 +38,10 @@ namespace ClientApp
             this.editAccount1.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
         }
 
+        /// <summary>
+        /// Overridden so that it sets the RentItProxy instance of the
+        /// inner UserControls and components as well.
+        /// </summary>
         internal override RentItClient RentItProxy
         {
             set
@@ -47,6 +53,10 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// Overridden so that it sets the Credentials property of the 
+        /// inner UserControls and components as well.
+        /// </summary>
         internal override AccountCredentials Credentials
         {
             set
@@ -56,7 +66,7 @@ namespace ClientApp
                 rentalsListControl.Credentials = value;
                 creditsControl1.Credentials = value;
 
-                UserAccount accountData = RentItProxy.GetAllCustomerData(value);
+                UserAccount accountData = this.RentItProxy.GetAllCustomerData(value);
                 rentalsListControl.Rentals = new List<Rental>(accountData.Rentals);
             }
         }
@@ -80,11 +90,9 @@ namespace ClientApp
         #region EventHandlers
 
         /// <summary>
-        /// EventHandler of the DoubleClick event when it is fired from the 
-        /// list containing the rentals.
+        /// EventHandler of the DoubleClickEvent of the RentalsList
+        /// containing the rentals.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="e"></param>
         private void DoubleClickEventHandler(object obj, EventArgs e)
         {
             MediaInfo mediaInfo = this.rentalsListControl.SelectedItem;
@@ -121,7 +129,6 @@ namespace ClientApp
                     albumPlayer.RentItProxy = this.RentItProxy;
                     albumPlayer.Credentials = this.Credentials;
                     albumPlayer.Album = (AlbumInfo)mediaInfo;
-                    albumPlayer.Start();
 
                     // Propagate the ContentChangeEventHandler of the MainForm to the AlbumPlayer.
                     albumPlayer.ContentChangeEvent += this.ContentChangeEventPropagated;
@@ -136,16 +143,25 @@ namespace ClientApp
             mediaDisplay.Show();
         }
 
-        private void DeleteAccountButtonClick(object sender, EventArgs e) {
-            if(!RentItMessageBox.AccountDeletionConfirmation())
+        /// <summary>
+        /// This method is invoked whenever the "Delete account"-button is
+        /// clicked. It deletes the account from the service, and changes
+        /// the displayed screen.
+        /// </summary>
+        private void DeleteAccountButtonClick(object sender, EventArgs e)
+        {
+            if (!RentItMessageBox.AccountDeletionConfirmation())
                 return;
 
             Cursor.Current = Cursors.WaitCursor;
-            try {
+            try
+            {
                 RentItProxy.DeleteAccount(Credentials);
                 RentItMessageBox.AccountDeletionSucceeded();
                 FireCredentialsChangeEvent(null); //TODO: er dette rigtigt?
-            } catch {
+            }
+            catch
+            {
                 RentItMessageBox.AccountDeletionFailed();
             }
             Cursor.Current = Cursors.Default;

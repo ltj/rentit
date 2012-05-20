@@ -1,14 +1,12 @@
 ﻿namespace ClientApp
 {
     using System.Collections.Generic;
-    using System.ServiceModel;
-    using System.Windows.Forms;
 
     using RentIt;
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
-    /// 
+    /// The UserControl is used for displayed metadata of either a book or a movie.
     /// </summary>
     internal partial class BookMovieDetails : RentItUserControl
     {
@@ -25,6 +23,8 @@
                     this.alsoRentedList, this.mediaSideBar, this.bookRatingList
                 };
 
+            // Subscribe to the inner UserControls' events in order to propagate to the MainForm's
+            // subscribtions.
             foreach (var control in innerControls)
             {
                 control.CredentialsChangeEvent += this.CredentialsChangeEventPropagated;
@@ -35,7 +35,7 @@
 
         /// <summary>
         /// Overridden so that it sets the RentItProxy instance of the
-        /// MediaSideBar instance as well.
+        /// inner UserControls and components as well.
         /// </summary>
         internal override RentItClient RentItProxy
         {
@@ -48,13 +48,13 @@
                 base.RentItProxy = value;
                 this.alsoRentedList.RentItProxy = value;
                 this.mediaSideBar.RentItProxy = value;
-            	this.bookRatingList.RentItProxy = value;
+                this.bookRatingList.RentItProxy = value;
             }
         }
 
         /// <summary>
         /// Overridden so that it sets the Credentials property of the 
-        /// MediaSideBar instance as well.
+        /// inner UserControls and components as well.
         /// </summary>
         internal override AccountCredentials Credentials
         {
@@ -67,7 +67,7 @@
                 base.Credentials = value;
                 this.alsoRentedList.Credentials = value;
                 this.mediaSideBar.Credentials = value;
-            	this.bookRatingList.Credentials = value;
+                this.bookRatingList.Credentials = value;
             }
         }
 
@@ -81,15 +81,19 @@
             {
                 BookInfo book = value;
 
+                // Forward to alsoRentedList.
                 this.alsoRentedList.PrioritizedMediaType = book.Type;
                 this.alsoRentedList.MediaId = book.Id;
 
+                // Forward to mediaSideBar instance.
                 this.mediaSideBar.MediaInfoData = book;
 
+                // Change control labels and text boxes.
                 this.albumTitleLabel.Text = book.Title;
                 this.authorLabel.Text = book.Author;
                 this.bookDescriptionTextBox.Text = book.Summary;
 
+                // Forward to rating list.
                 this.bookRatingList.Media = book;
             }
         }
@@ -104,15 +108,19 @@
             {
                 MovieInfo movie = value;
 
+                // Forward to alsoRentedList.
                 this.alsoRentedList.PrioritizedMediaType = movie.Type;
                 this.alsoRentedList.MediaId = movie.Id;
 
+                // Forward to mediaSideBar instance.
                 this.mediaSideBar.MediaInfoData = movie;
 
+                // Change control labels and text boxes.
                 this.albumTitleLabel.Text = movie.Title;
                 this.authorLabel.Text = movie.Director;
                 this.bookDescriptionTextBox.Text = movie.Summary;
 
+                // Forward to rating list.
                 this.bookRatingList.Media = movie;
             }
         }

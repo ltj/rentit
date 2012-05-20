@@ -32,7 +32,7 @@
             this.mediaSideBar = new ClientApp.MediaSideBar();
             this.panel1 = new System.Windows.Forms.Panel();
             this.userRatingsLabel = new System.Windows.Forms.Label();
-            this.bookRatingList = new ClientApp.RatingList();
+            this.bookRatingList = new ClientApp.MediaRatings();
             this.bookDescriptionTextBox = new System.Windows.Forms.TextBox();
             this.albumDescription = new System.Windows.Forms.Label();
             this.authorLabel = new System.Windows.Forms.Label();
@@ -161,7 +161,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox bookDescriptionTextBox;
         private System.Windows.Forms.Label userRatingsLabel;
-        private RatingList bookRatingList;
+        private MediaRatings bookRatingList;
         private MediaSideBar mediaSideBar;
         private AlsoRentedList alsoRentedList;
     }

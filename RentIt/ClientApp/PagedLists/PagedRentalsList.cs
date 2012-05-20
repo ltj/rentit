@@ -1,20 +1,18 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="DetailedMediaList.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
+﻿
 namespace ClientApp
 {
     using System;
     using System.Collections.Generic;
-    using System.ServiceModel;
     using System.Windows.Forms;
 
     using RentIt;
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
+    /// This class represent the paged list used for listing user rentals.
+    /// The list has a title, start date and end date column.
+    /// The list divides the various media types into correspondigs groups.
+    /// 
     /// The list shows active rentals by default.
     /// The ShowActive method can be used to toggle view of
     /// active or expired rentals.
@@ -29,8 +27,6 @@ namespace ClientApp
         private ListViewGroup albumListViewGroup;
         private ListViewGroup movieListViewGroup;
         private ListViewGroup bookListViewGroup;
-
-        private RentItClient serviceClient;
 
         /// <summary>
         /// Field holding all the rentals that are currently active.
@@ -50,7 +46,7 @@ namespace ClientApp
         private bool showActive = true;
 
         /// <summary>
-        /// Initializes a new instance of the 
+        /// Initializes a new instance of the PagedRentalsList class.
         /// </summary>
         public PagedRentalsList()
         {
@@ -90,11 +86,6 @@ namespace ClientApp
             // 
             this.endDateColumn.Text = "Rental end date";
             this.endDateColumn.Width = 120;
-            // 
-            // priceColumn
-            // 
-            // this.priceColumn.Text = "Price";
-            // this.priceColumn.Width = 85;
 
             // Initialize and add list groups.
             this.songListViewGroup = new ListViewGroup("Songs", HorizontalAlignment.Left);
@@ -103,12 +94,12 @@ namespace ClientApp
             this.bookListViewGroup = new ListViewGroup("Books", HorizontalAlignment.Left);
             this.Groups.AddRange(
                 new ListViewGroup[] { this.songListViewGroup, this.albumListViewGroup, this.movieListViewGroup, this.bookListViewGroup });
-
-            // Initialize the service proxy client.
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            serviceClient = new RentItClient(binding, address);
         }
+
+        /// <summary>
+        /// Gets and sets the instances RentItClient proxy instance.
+        /// </summary>
+        internal RentItClient RentItProxy { get; set; }
 
         /// <summary>
         /// Get the MediaInfo-object corresponding to the given ListViewItem-object.
@@ -137,7 +128,9 @@ namespace ClientApp
         /// will be disregarded, and the contents of the ListView will match
         /// the media items passed in the parameter.
         /// </summary>
-        /// <param name="rentals"></param>
+        /// <param name="rentals">
+        /// The rentals that the list must display.
+        /// </param>
         internal void UpdateListContents(List<Rental> rentals)
         {
             this.BeginUpdate();
@@ -156,7 +149,9 @@ namespace ClientApp
         /// This method compiles a list of ListViewItems. The items
         /// are not added to the list; this is done in the Repopulate-method.
         /// </summary>
-        /// <param name="rentals"></param>
+        /// <param name="rentals">
+        /// The list of rentals that the list must display.
+        /// </param>
         private void PopulateList(List<Rental> rentals)
         {
             foreach (var rental in rentals)
@@ -164,7 +159,7 @@ namespace ClientApp
                 switch (rental.MediaType)
                 {
                     case MediaType.Album:
-                        AlbumInfo album = this.serviceClient.GetAlbumInfo(rental.MediaId);
+                        AlbumInfo album = this.RentItProxy.GetAlbumInfo(rental.MediaId);
 
                         var listItemA = new ListViewItem(album.Title);
                         listItemA.SubItems.Add(rental.StartTime.ToShortDateString());
@@ -172,10 +167,10 @@ namespace ClientApp
                         listItemA.Group = this.albumListViewGroup;
                         listItemA.Tag = album;
 
-                        this.CurrentItems.Add(listItemA); // this.Items.Add(listItem);
+                        this.CurrentItems.Add(listItemA);
                         break;
                     case MediaType.Movie:
-                        MovieInfo movie = this.serviceClient.GetMovieInfo(rental.MediaId);
+                        MovieInfo movie = this.RentItProxy.GetMovieInfo(rental.MediaId);
 
                         var listItemM = new ListViewItem(movie.Title);
                         listItemM.SubItems.Add(rental.StartTime.ToShortDateString());
@@ -183,10 +178,10 @@ namespace ClientApp
                         listItemM.Group = this.movieListViewGroup;
                         listItemM.Tag = movie;
 
-                        this.CurrentItems.Add(listItemM); // this.Items.Add(listItem);
+                        this.CurrentItems.Add(listItemM);
                         break;
                     case MediaType.Book:
-                        BookInfo book = this.serviceClient.GetBookInfo(rental.MediaId);
+                        BookInfo book = this.RentItProxy.GetBookInfo(rental.MediaId);
 
                         var listItemB = new ListViewItem(book.Title);
                         listItemB.SubItems.Add(rental.StartTime.ToShortDateString());
@@ -194,7 +189,7 @@ namespace ClientApp
                         listItemB.Group = this.bookListViewGroup;
                         listItemB.Tag = book;
 
-                        this.CurrentItems.Add(listItemB); // this.Items.Add(listItem);
+                        this.CurrentItems.Add(listItemB);
                         break;
                     default:
                         break;
@@ -205,6 +200,4 @@ namespace ClientApp
             }
         }
     }
-
-
 }

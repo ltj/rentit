@@ -9,6 +9,11 @@
 
     using RentIt;
 
+    /// <author>Kenneth Søhrmann</author>
+    /// <summary>
+    /// This class represents the UserControl that allows publishers to submit
+    /// and upload new media to the service.
+    /// </summary>
     internal partial class MediaUploadControl : RentItUserControl
     {
         private PublisherAccount publisherAccount;
@@ -40,6 +45,9 @@
 
         private Credentials publisherCredentials;
 
+        /// <summary>
+        /// Initializes a new instance of the MediaUploadControl class.
+        /// </summary>
         public MediaUploadControl()
         {
             InitializeComponent();
@@ -64,6 +72,10 @@
             this.publisherCredentials = new Credentials("publishCorp", "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220");
         }
 
+        /// <summary>
+        /// Override the Credentials property to set the publiserCredentials used
+        /// for BinaryCommunicator method invocation.
+        /// </summary>
         internal override AccountCredentials Credentials
         {
             get
@@ -81,6 +93,9 @@
 
         /// <summary>
         /// Auto property for getting and setting the PublisherAccount.
+        /// The setter also sets the publisher of the currently displayed
+        /// book, movie and album items currently displayed in the property grid.
+        /// of the upload control.
         /// </summary>
         internal PublisherAccount PublisherAccount
         {
@@ -102,10 +117,9 @@
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
         /// This method is invoked whenever the Upload-button on the form 
-        /// has been clicked.
+        /// has been clicked. This uploads the metadata as well as the specifed media file
+        /// to the service.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void uploadButton_Click(object sender, EventArgs e)
         {
             uploadLabel.Text = "Begun uploading...";
@@ -133,16 +147,14 @@
         /// This mehod is invoked whenenver the "New Song"-button on the form
         /// is clicked. It creates a new SongInfoUpload instance.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void newSongButton_Click(object sender, EventArgs e)
         {
-            SongInfoUpload cu = new SongInfoUpload();
+            var cu = new SongInfoUpload();
             cu.Publisher = this.PublisherAccount.PublisherName;
 
             songPropertyGrid.SelectedObject = cu;
 
-            ListViewItem item = new ListViewItem("<name>");
+            var item = new ListViewItem("<name>");
             item.SubItems.Add("<email>");
 
             this.dic.Add(cu, item);
@@ -153,10 +165,9 @@
 
         /// <auhtor>Kenneth Søhrmann</auhtor>
         /// <summary>
-        /// 
+        /// This method is invoked whenever the "Delete Songs"-button on the form
+        /// is clicked. It deletes all the songs in the song list.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void deleteAllSongsButton_Click(object sender, EventArgs e)
         {
             songPropertyGrid.SelectedObject = null;
@@ -165,10 +176,9 @@
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// 
+        /// This method is invoked whenever the "Deleted selected songs"-button on the
+        /// form is clicked. It deletes all the selected songs in the song list.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void deleteSelectedSongsButton_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem songItem in songListView.SelectedItems)
@@ -181,10 +191,9 @@
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// 
+        /// This method is invoked whenever the "Discard"-button on the form i clicked.
+        /// It resets the currently displayed media object.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void discardButton_Click(object sender, EventArgs e)
         {
             if (comboBox1.SelectedItem.ToString().Equals("Album"))
@@ -192,7 +201,7 @@
                 this.albumInfo = new AlbumInfoUpload();
                 this.albumInfo.Publisher = this.PublisherAccount.PublisherName;
 
-                mediaPropertyGrid.SelectedObject = albumInfo;
+                this.mediaPropertyGrid.SelectedObject = this.albumInfo;
 
                 songPropertyGrid.SelectedObject = null;
                 songListView.Items.Clear();
@@ -201,13 +210,13 @@
             {
                 this.bookInfo = new BookInfoUpload();
                 this.bookInfo.Publisher = this.PublisherAccount.PublisherName;
-                mediaPropertyGrid.SelectedObject = bookInfo;
+                this.mediaPropertyGrid.SelectedObject = this.bookInfo;
             }
             if (comboBox1.SelectedItem.ToString().Equals("Movie"))
             {
                 this.movieInfo = new MovieInfoUpload();
                 this.movieInfo.Publisher = this.PublisherAccount.PublisherName;
-                mediaPropertyGrid.SelectedObject = movieInfo;
+                this.mediaPropertyGrid.SelectedObject = this.movieInfo;
             }
         }
 
@@ -217,11 +226,10 @@
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// Eventhandler of the event that is fired whenever the 
-        /// selection in the ListView has changed.
+        /// EventHandler of the event that is fired whenever the 
+        /// selection in the song list has changed. Gets the currently selected
+        /// item an displays its properties in the property grid.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ListViewSelectionChanged(object sender, System.EventArgs e)
         {
             ListView.SelectedListViewItemCollection selectedItems =
@@ -238,10 +246,10 @@
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// 
+        /// EventHandler of the PropertyValueChangedEvent on the PropertyGrid display the
+        /// properties of a song. It ensures that the title shown in the song list
+        /// corresponds to the title of the song currently displayed in the songPropertyGrid.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void SongPropertyGrid_PropertyValueChanged(Object sender, PropertyValueChangedEventArgs e)
         {
             SongInfoUpload cu = (SongInfoUpload)songPropertyGrid.SelectedObject;
@@ -255,10 +263,9 @@
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// 
+        /// EventHandler of the SelectedValueChangedEvent of the combobox containing the 
+        /// different media type that the publisher can upload.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void ComboBox1_SelectedValueChanged(object sender, EventArgs e)
         {
             if (comboBox1.SelectedIndex == -1)
@@ -272,8 +279,6 @@
             if (comboBox1.SelectedItem.ToString().Equals("Album"))
             {
                 mediaPropertyGrid.SelectedObject = albumInfo;
-                // this.Size = new System.Drawing.Size(818, 570);
-                // songsGroupBox.Visible = true;
                 songsGroupBox.Enabled = true;
             }
             else

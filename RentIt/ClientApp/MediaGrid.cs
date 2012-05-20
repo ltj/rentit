@@ -2,7 +2,6 @@
 namespace ClientApp
 {
     using System;
-    using System.ServiceModel;
     using System.Drawing;
     using System.Windows.Forms;
     using System.Collections.Generic;
@@ -13,7 +12,13 @@ namespace ClientApp
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
-    /// 
+    /// This class represents the MediaGrid UserControl. MediaInfo-objects,
+    /// retrieved from the service on basis on the submitted MediaCriteria, is displayed in a list
+    /// with a tile view. Each media item of the list has a thumbnail image as well.
+    /// Each item is displaying three pieces of metadata information, namely title,
+    /// author and price.
+    /// The media items is displayed in the order that is dictated by the ordering
+    /// property of the submitted MediaCriteria object.
     /// </summary>
     internal partial class MediaGrid : RentItUserControl
     {
@@ -22,29 +27,15 @@ namespace ClientApp
         /// </summary>
         private MediaCriteria mediaCriteria;
 
-        private Dictionary<ListViewItem, MediaInfo> map;
-
+        /// <summary>
+        /// Initializes a new instance o fht MediaGrid class.
+        /// </summary>
         public MediaGrid()
         {
             InitializeComponent();
 
-            this.map = new Dictionary<ListViewItem, MediaInfo>();
-
             // Add EventHandlers.
             this.ListViewGrid.DoubleClick += this.DoubleClickEventHandler;
-
-            mediaCriteria = new MediaCriteria()
-                {
-                    Type = MediaType.Movie,
-                    Limit = -1
-                };
-
-            //BasicHttpBinding binding = new BasicHttpBinding();
-            //EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            //this.RentItProxy = new RentItClient(binding, address);
-
-            //MediaItems mediaItems = this.RentItProxy.GetMediaItems(this.mediaCriteria);
-            //this.PopulateGrid(mediaItems);
         }
 
         /// <summary>
@@ -84,8 +75,8 @@ namespace ClientApp
         {
             ListViewGrid.Items.Clear();
             var listItemCollection = new List<ListViewItem>();
-            this.map = new Dictionary<ListViewItem, MediaInfo>();
 
+            // Initialize the thumbnail list.
             var imageList = new ImageList();
             var imageSize = new Size(70, 70);
             imageList.ImageSize = imageSize;
@@ -102,9 +93,9 @@ namespace ClientApp
                         var item = new ListViewItem(album.Title, iAlbum++);
                         item.SubItems.Add(album.AlbumArtist);
                         item.SubItems.Add(album.Price.ToString());
-                        listItemCollection.Add(item);
+                        item.Tag = album;
 
-                        this.map.Add(item, album);
+                        listItemCollection.Add(item);
                     }
                     break;
                 case MediaType.Book:
@@ -116,9 +107,9 @@ namespace ClientApp
                         var item = new ListViewItem(book.Title, iBook++);
                         item.SubItems.Add(book.Author);
                         item.SubItems.Add(book.Price.ToString());
-                        listItemCollection.Add(item);
+                        item.Tag = book;
 
-                        this.map.Add(item, book);
+                        listItemCollection.Add(item);
                     }
                     break;
                 case MediaType.Song:
@@ -130,9 +121,9 @@ namespace ClientApp
                         var item = new ListViewItem(song.Title, iSong++);
                         item.SubItems.Add(song.Artist);
                         item.SubItems.Add(song.Price.ToString());
-                        listItemCollection.Add(item);
+                        item.Tag = song;
 
-                        this.map.Add(item, song);
+                        listItemCollection.Add(item);
                     }
                     break;
                 case MediaType.Movie:
@@ -144,39 +135,26 @@ namespace ClientApp
                         var item = new ListViewItem(movie.Title, iMovie++);
                         item.SubItems.Add(movie.Director);
                         item.SubItems.Add(movie.Price.ToString());
-                        listItemCollection.Add(item);
+                        item.Tag = movie;
 
-                        this.map.Add(item, movie);
+                        listItemCollection.Add(item);
                     }
                     break;
             }
 
+            // Add all the created ListViewItems to the MediaGrid at once.
             ListViewGrid.Items.AddRange(listItemCollection.ToArray());
         }
-
-        /*
-        private Image getImage(int id)
-        {
-            Image image;
-            try
-            {
-                image = BinaryCommuncator.GetThumbnail(id);
-            }
-            catch (Exception)
-            {
-                image = new Bitmap(200, 200);
-            }
-            return image;
-        }
-         * */
 
         #region EventHandlers
 
         /// <summary>
         /// EventHandler for handling double clicks on the MediaGrid.
+        /// Depending on the type of the clicked media, the corresponding
+        /// UserControl for displayed media metadata (AlbumDetails for media of 
+        /// type album, and BookMovieDetails for media of type either book or movie)
+        /// will be displayed in the MainForm.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="e"></param>
         private void DoubleClickEventHandler(object obj, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -187,36 +165,39 @@ namespace ClientApp
             }
 
             ListViewItem selectedItem = this.ListViewGrid.SelectedItems[0];
-            MediaInfo mediaInfo = this.map[selectedItem];
+            var mediaInfo = (MediaInfo)selectedItem.Tag;
 
             RentItUserControl mediaDetail;
             string title;
 
             if (this.mediaCriteria.Type == MediaType.Album)
             {
-                mediaDetail = new AlbumDetails {
-                                                 RentItProxy = this.RentItProxy,
-                                                 Credentials = this.Credentials,
-                                                 AlbumInfo = (AlbumInfo)mediaInfo
-                                               };
+                mediaDetail = new AlbumDetails
+                {
+                    RentItProxy = this.RentItProxy,
+                    Credentials = this.Credentials,
+                    AlbumInfo = (AlbumInfo)mediaInfo
+                };
                 title = MainForm.Titles.MediaDetailsAlbum;
             }
             else if (this.mediaCriteria.Type == MediaType.Movie)
             {
-                mediaDetail = new BookMovieDetails {
-                                                     RentItProxy = this.RentItProxy,
-                                                     Credentials = this.Credentials,
-                                                     MovieInfo = (MovieInfo)mediaInfo
-                                                   };
+                mediaDetail = new BookMovieDetails
+                {
+                    RentItProxy = this.RentItProxy,
+                    Credentials = this.Credentials,
+                    MovieInfo = (MovieInfo)mediaInfo
+                };
                 title = MainForm.Titles.MediaDetailsMovie;
             }
             else if (this.mediaCriteria.Type == MediaType.Book)
             {
-                mediaDetail = new BookMovieDetails {
-                                                     RentItProxy = this.RentItProxy,
-                                                     Credentials = this.Credentials,
-                                                     BookInfo = (BookInfo)mediaInfo
-                                                   };
+                mediaDetail = new BookMovieDetails
+                {
+                    RentItProxy = this.RentItProxy,
+                    Credentials = this.Credentials,
+                    BookInfo = (BookInfo)mediaInfo
+                };
                 title = MainForm.Titles.MediaDetailsBook;
             }
             else return;

@@ -3,14 +3,17 @@ namespace ClientApp
 {
     using System;
     using System.Collections.Generic;
-    using System.ServiceModel;
     using System.Windows.Forms;
 
     using RentIt;
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
-    /// 
+    /// A UserControl containing an instance of the PagedDetailedMediaLIst.
+    /// The control add buttons for navigating the list pages and for setting
+    /// the number of list to be displayed at the list at each page.
+    /// The list is utilized in the screen displaying search results and in the 
+    /// list where the publisher can see medias he has published.
     /// </summary>
     internal partial class PagedDetailedMediaListControl : RentItUserControl
     {
@@ -21,18 +24,8 @@ namespace ClientApp
         {
             InitializeComponent();
 
-            BasicHttpBinding binding = new BasicHttpBinding();
-            EndpointAddress address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
-            RentItProxy = new RentItClient(binding, address);
-
             this.itemsPerPageComboBox.SelectedIndex = 0;
             this.mediaList.ItemsPerPage = int.Parse(this.itemsPerPageComboBox.SelectedItem.ToString());
-
-            //this.mediaList.UpdateListContents(RentItProxy.GetAllPublisherData(new AccountCredentials()
-            //    {
-            //        UserName = "publishCorp",
-            //        HashedPassword = "7110EDA4D09E062AA5E4A390B0A572AC0D2C0220"
-            //    }).PublishedItems);
 
             // Add event handlers
             this.itemsPerPageComboBox.SelectedIndexChanged += this.ComboBoxSelectedItemChangedEventHandler;
@@ -41,7 +34,8 @@ namespace ClientApp
 
         /// <summary>
         /// Sets the contents of the list and updates the list
-        /// to display the media items.
+        /// to display the media items. Items displayed before invoking the
+        /// setter will be disregarded.
         /// </summary>
         internal MediaItems MediaItems
         {
@@ -58,9 +52,11 @@ namespace ClientApp
         }
 
         /// <summary>
-        /// Add an EventHandler to the SelectedIndexChanged event on the paged list.
+        /// Adds an EventHandler to the SelectedIndexChanged event on the paged list.
         /// </summary>
-        /// <param name="handler"></param>
+        /// <param name="handler">
+        /// The EventHandler to be added.
+        /// </param>
         internal void AddSelectedIndexChangedEventHandler(EventHandler handler)
         {
             this.mediaList.SelectedIndexChanged += handler;
@@ -69,7 +65,9 @@ namespace ClientApp
         /// <summary>
         /// Adds an Eventhandler to the LostFocus event on the paged list.
         /// </summary>
-        /// <param name="handler"></param>
+        /// <param name="handler">
+        /// The EventHandler to be added.
+        /// </param>
         internal void AddLostFocusEventHandler(EventHandler handler)
         {
             this.mediaList.LostFocus += handler;
@@ -78,16 +76,20 @@ namespace ClientApp
         /// <summary>
         /// Adds an EventHandler to the Double Click event on the paged list.
         /// </summary>
-        /// <param name="handler"></param>
+        /// <param name="handler">
+        /// The EventHandler to be added.
+        /// </param>
         internal void AddDoubleClickEventHandler(EventHandler handler)
         {
             this.mediaList.DoubleClick += handler;
         }
 
         /// <summary>
-        /// Gets the SelectedListViewItemCollection object containing all the
-        /// ListViewItems that is currently selected in the paged list.
+        /// Gets the currently selected MediaInfo-objects.
         /// </summary>
+        /// <returns>
+        /// A list of MediaInfo-objects currently selected in the list.
+        /// </returns>
         internal List<MediaInfo> SelectedMedia
         {
             get
@@ -106,7 +108,10 @@ namespace ClientApp
         /// Returns the single selected item of the list. If the number of selected
         /// items is different from one, the method returns null.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// Return an instance of the single selected media. If less or more than 
+        /// one media is selected, returns null.
+        /// </returns>
         internal MediaInfo GetSingleMedia()
         {
             if (this.mediaList.SelectedItems.Count != 1)
@@ -156,6 +161,9 @@ namespace ClientApp
 
         #region EventHandlers
 
+        /// <summary>
+        /// EventHandler for the SelectedItemChangedEvent of the Combobox.
+        /// </summary>
         private void ComboBoxSelectedItemChangedEventHandler(object obj, EventArgs e)
         {
             this.mediaList.ItemsPerPage = int.Parse(

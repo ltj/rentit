@@ -192,11 +192,11 @@
     <Compile Include="PublisherAccountManagement.Designer.cs">
       <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
     </Compile>
-    <Compile Include="RatingList.cs">
+    <Compile Include="MediaRatings.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="RatingList.Designer.cs">
-      <DependentUpon>RatingList.cs</DependentUpon>
+    <Compile Include="MediaRatings.Designer.cs">
+      <DependentUpon>MediaRatings.cs</DependentUpon>
     </Compile>
     <Compile Include="PagedLists\PagedRentalsListControl.cs">
       <SubType>UserControl</SubType>
@@ -311,8 +311,8 @@
     <EmbeddedResource Include="PublisherAccountManagement.resx">
       <DependentUpon>PublisherAccountManagement.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="RatingList.resx">
-      <DependentUpon>RatingList.cs</DependentUpon>
+    <EmbeddedResource Include="MediaRatings.resx">
+      <DependentUpon>MediaRatings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="PagedLists\PagedRentalsListControl.resx">
       <DependentUpon>PagedRentalsListControl.cs</DependentUpon>

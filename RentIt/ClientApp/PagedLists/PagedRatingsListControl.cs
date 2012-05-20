@@ -2,13 +2,17 @@
 namespace ClientApp
 {
     using System;
-    using System.Windows.Forms;
 
     using RentIt;
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
-    /// 
+    /// A UserControl containing an instance of the PagedRatingsList.
+    /// The control add buttons for navigating the list pages and for setting
+    /// the number of list to be displayed at the list at each page.
+    /// The list is utilized in the screens displaying media metadata.
+    /// The Control also contains a text box that displays the complete review
+    /// text of the single selected media review in the PagedRatingsList.
     /// </summary>
     internal partial class PagedRatingsListControl : RentItUserControl
     {
@@ -21,8 +25,11 @@ namespace ClientApp
             InitializeComponent();
 
             this.itemsPerPageComboBox.SelectedIndex = 0;
+
+            // Set the number of items to be displayed at once in the list.
             this.ratingsList.ItemsPerPage = int.Parse(this.itemsPerPageComboBox.SelectedItem.ToString());
 
+            // Initialize the current page-text box
             this.currentPageTextbox.Text =
                 this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
 
@@ -33,7 +40,8 @@ namespace ClientApp
 
         /// <summary>
         /// Sets the contents of the rating list based on the MediaInfo
-        /// object submitted.
+        /// object submitted. Any reviews contained in the list prior calling this
+        /// property will be disregarded.
         /// </summary>
         internal MediaInfo MediaItems
         {
@@ -87,6 +95,9 @@ namespace ClientApp
 
         #region EventHandlers
 
+        /// <summary>
+        /// EventHandler for the SelectedItemsChangedEvent on the combobox.
+        /// </summary>
         private void ComboBoxSelectedItemChangedEventHandler(object obj, EventArgs e)
         {
             this.ratingsList.ItemsPerPage = int.Parse(
@@ -99,6 +110,9 @@ namespace ClientApp
             this.DetermineButtons();
         }
 
+        /// <summary>
+        /// EventHandler for the IndexChangedEvent on the RatingsList.
+        /// </summary>
         private void SelectedRatingsListIndexChangedEventHandler(object obj, EventArgs e)
         {
             MediaReview review = this.ratingsList.GetSingleReview();

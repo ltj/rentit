@@ -1,9 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="PagedRatingsList.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
+﻿
 namespace ClientApp
 {
     using System.Collections.Generic;
@@ -13,7 +8,8 @@ namespace ClientApp
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
-    /// TODO: Update summary.
+    /// This class represent the paged list used for listing user ratings of a particular
+    /// media. The list has a user, date, comment and rating column.
     /// </summary>
     internal class PagedRatingsList : PagedListView
     {
@@ -21,8 +17,6 @@ namespace ClientApp
         private ColumnHeader dateColumn;
         private ColumnHeader commentColumn;
         private ColumnHeader ratingColumn;
-
-        private MediaInfo media;
 
         /// <summary>
         /// Initializes a new instance of the PagedRatingsList class.
@@ -75,7 +69,14 @@ namespace ClientApp
             this.ratingColumn.Width = 104;
         }
 
-
+        /// <summary>
+        /// Returns the single selected MediaReview.
+        /// </summary>
+        /// <returns>
+        /// If the there is anymore og anyless than one review selected,
+        /// a default value of the MediaReview class will be returned. If a 
+        /// single MediaReview of the list is selected, this instance is returned.
+        /// </returns>
         internal MediaReview GetSingleReview()
         {
             if (this.SelectedItems.Count != 1)
@@ -93,13 +94,15 @@ namespace ClientApp
         /// will be disregarded, and the contents of the ListView will match
         /// the media items passed in the parameter.
         /// </summary>
-        /// <param name="rentals"></param>
-        internal void UpdateListContents(MediaReview[] rentals)
+        /// <param name="reviews">
+        /// The list of reviews to be added to the list.
+        /// </param>
+        internal void UpdateListContents(MediaReview[] reviews)
         {
             this.BeginUpdate();
             this.CurrentItems = new List<ListViewItem>();
 
-            foreach (var review in rentals)
+            foreach (var review in reviews)
             {
                 string reviewText = review.ReviewText.Length > 70
                                         ? review.ReviewText.Substring(0, 70) + " ..."
@@ -111,12 +114,11 @@ namespace ClientApp
                 item.SubItems.Add(review.Rating.ToString());
                 item.Tag = review;
 
-                this.CurrentItems.Add(item); // this.Items.Add(listItem);
+                this.CurrentItems.Add(item);
             }
 
             this.RePopulateList();
             this.EndUpdate();
         }
-
     }
 }

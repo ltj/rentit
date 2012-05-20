@@ -11,7 +11,11 @@ namespace ClientApp
 
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
-    /// 
+    /// The class represents the side bar that is visible on all the UserControls
+    /// that displays media metadata (namely AlbumDetails and BookMovieDetails).
+    /// The side bar displays the media thumbnail, provides a button that enables the
+    /// user to rent the media, and a group of labels that displays metadata such as 
+    /// author, release date and publisher of the media.
     /// </summary>
     internal partial class MediaSideBar : RentItUserControl
     {
@@ -41,6 +45,7 @@ namespace ClientApp
 
                 this.mediaInfo = mediaInfo;
 
+                // Update label texts.
                 this.priceLabel.Text = mediaInfo.Price + " credits.";
                 this.genreValueLabel.Text = mediaInfo.Genre;
                 this.releaseDateValueLabel.Text = mediaInfo.ReleaseDate.ToShortDateString();
@@ -51,6 +56,9 @@ namespace ClientApp
                 this.lengthLabel.Visible = true;
                 this.lengthValueLabel.Visible = true;
 
+                // Based upon the type of the submitted MediaInfo, set 
+                // the texts of the originLabel, originValueLabel,
+                // lengthLabel and lengthValueLabel of the side bar.
                 switch (mediaInfo.Type)
                 {
                     case MediaType.Album:
@@ -94,6 +102,13 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// This method determines the nature of the rent button:
+        /// If no credentials are submitted, a text on button will tell the
+        /// user to log in first. If credentials are submitted it is determined if
+        /// the user alreadey has a active rental or not.
+        /// </summary>
+        /// <param name="mediaId"></param>
         private void DetermineButton(int mediaId)
         {
             if (this.Credentials == null)
@@ -105,7 +120,8 @@ namespace ClientApp
 
             UserAccount account = this.RentItProxy.GetAllCustomerData(this.Credentials);
 
-            rentButton.Enabled = account.Rentals.Where(rental => rental.MediaId == mediaId).Any();
+            rentButton.Enabled = account.Rentals.Where(
+                rental => rental.MediaId == mediaId && rental.EndTime > DateTime.Now).Any();
             rentButton.Text = "Rent It";
         }
 
@@ -113,6 +129,8 @@ namespace ClientApp
 
         /// <summary>
         /// Controller for the Rent-button.
+        /// If credentials have been submitted, the rental is reqistered at 
+        /// the service if the user has sufficient credits fundings.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

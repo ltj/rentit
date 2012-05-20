@@ -1,28 +1,17 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="PagedListView.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
+﻿
 namespace ClientApp
 {
     using System;
     using System.Collections.Generic;
     using System.Windows.Forms;
 
-    using RentIt;
-
     /// <author>Kenneth Søhrmann</author>
     /// <summary>
-    /// TODO: Update summary.
+    /// An implementation of the System.Windows.Forms.ListView class that
+    /// allows for paging.
     /// </summary>
     internal abstract class PagedListView : ListView
     {
-        /// <summary>
-        /// For mapping from a ListViewItem to is corresponding MediaInfo object.
-        /// </summary>
-        // private Dictionary<ListViewItem, MediaInfo> map;
-
         /// <summary>
         /// All the ListViewItems currently contained in the list.
         /// This does not resemble the items currently shown.
@@ -31,41 +20,29 @@ namespace ClientApp
 
         /// <summary>
         /// Number of items to list at a single list page.
+        /// 25 is displayed by default.
         /// </summary>
         private int itemsPerPage = 25;
 
         /// <summary>
         /// The current page that is being displayed.
+        /// The list is initialized to start the view at the first page.
         /// </summary>
         private int currentPageNumber = 1;
 
         /// <summary>
         /// The total number of pages of the list.
+        /// There is always at least 1 page, even when the list is empty.
         /// </summary>
         private int numberOfPages = 1;
 
-        public PagedListView()
+        /// <summary>
+        /// Initializes a new instance of the PagedListView class.
+        /// </summary>
+        protected PagedListView()
         {
             this.Resize += this.ListResizedEventHandler;
         }
-
-        /// <summary>
-        /// Gets of sets the mapping between ListViewItems and their
-        /// corresponding MediaInfo objects.
-        /// </summary>
-
-        /*internal Dictionary<ListViewItem, MediaInfo> Map
-        {
-            get
-            {
-                return map;
-            }
-            set
-            {
-                map = value;
-            }
-        }
-         * */
 
         /// <summary>
         /// Gets or sets the current contents of ListViewItems contained
@@ -84,7 +61,7 @@ namespace ClientApp
         }
 
         /// <summary>
-        /// Gets or sets the number of items the ListView at most will display.
+        /// Gets or sets the number of items the ListView must display.
         /// </summary>
         internal int ItemsPerPage
         {
@@ -103,7 +80,10 @@ namespace ClientApp
         /// Determines whether there are any previous pages beyond the 
         /// current page.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// True if there is a previous page seen from the perspective of the 
+        /// currently displayed page, false otherwise.
+        /// </returns>
         internal bool HasPreviousPage()
         {
             return currentPageNumber != 1;
@@ -112,16 +92,22 @@ namespace ClientApp
         /// <summary>
         /// Determines whether there are more pages of items in this list.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// True if there is a next page seen from the perspective of the
+        /// currently displayed page, false otherwise.
+        /// </returns>
         internal bool HasNextPage()
         {
             return this.currentPageNumber != this.numberOfPages;
         }
 
         /// <summary>
-        /// Gets the number of pages of the current ListView.
+        /// Gets the number of pages of the current list instance.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>
+        /// An integer indicating the number of pages the list
+        /// consists of in total.
+        /// </returns>
         internal int NumberOfPages
         {
             get
@@ -133,6 +119,10 @@ namespace ClientApp
         /// <summary>
         /// Gets the current page number of the ListView.
         /// </summary>
+        /// <returns>
+        /// An integer indicating the number of 
+        /// the currently displayed page.
+        /// </returns>
         internal int CurrentPageNumber
         {
             get
@@ -142,7 +132,7 @@ namespace ClientApp
         }
 
         /// <summary>
-        /// Advance the ListView one page.
+        /// Advances the ListView one page, if the current view has a next page.
         /// </summary>
         internal void NextPage()
         {
@@ -164,7 +154,7 @@ namespace ClientApp
         }
 
         /// <summary>
-        /// Go back the ListView one page.
+        /// Go back the ListView one page, if the current view has a previous page.
         /// </summary>
         internal void PreviousPage()
         {
@@ -182,7 +172,7 @@ namespace ClientApp
         }
 
         /// <summary>
-        /// Go to the last page of the ListView
+        /// Go to the last page of the list.
         /// </summary>
         internal void GoToLastPage()
         {
@@ -200,7 +190,7 @@ namespace ClientApp
         }
 
         /// <summary>
-        /// Go to the first page of the ListView.
+        /// Go to the first page of the list.
         /// </summary>
         internal void GoToFirstPage()
         {
@@ -219,6 +209,7 @@ namespace ClientApp
 
         /// <summary>
         /// Refresh the ListViewItems shown in the list.
+        /// This method adds the ListViewItems to the ListView.
         /// </summary>
         protected virtual void RePopulateList()
         {
@@ -241,6 +232,13 @@ namespace ClientApp
 
         #region EventHandler
 
+        /// <summary>
+        /// EventHandler for the ListResizedEvent of the ListView.
+        /// This EventHandler resizes the columns to fill out the list when
+        /// the component is resized.
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <param name="e"></param>
         private void ListResizedEventHandler(object obj, EventArgs e)
         {
             int totalWidth = 0;
