@@ -38,7 +38,8 @@
             }
         }
 
-        private void UpdateResults() {
+        private void UpdateResults()
+        {
             MediaItems mediaItems = RentItProxy.GetMediaItems(Criteria);
             results.MediaItems = FilterByPrice(mediaItems);
             resultsLabel.Text = "Results for \"" + Criteria.SearchText + "\"";
@@ -122,29 +123,52 @@
             UpdateResults();
         }
 
-        private void MediaItemDoubleClick(object sender, EventArgs e) {
+        private void MediaItemDoubleClick(object sender, EventArgs e)
+        {
             MediaInfo media = results.GetSingleMedia();
             DisplayMediaItem(media);
         }
 
-        private void DisplayMediaItem(MediaInfo media) {
+        private void DisplayMediaItem(MediaInfo media)
+        {
             RentItUserControl mediaDetails;
             string title;
-            switch(media.Type) {
+            switch (media.Type)
+            {
                 case MediaType.Album:
-                    mediaDetails = new AlbumDetails { RentItProxy = RentItProxy, AlbumInfo = (AlbumInfo) media };
+                    mediaDetails = new AlbumDetails
+                        {
+                            RentItProxy = RentItProxy,
+                            Credentials = Credentials,
+                            AlbumInfo = (AlbumInfo)media
+                        };
                     title = "Album details";
                     break;
                 case MediaType.Book:
-                    mediaDetails = new BookMovieDetails { RentItProxy = RentItProxy, BookInfo = (BookInfo) media };
+                    mediaDetails = new BookMovieDetails
+                        {
+                            RentItProxy = RentItProxy,
+                            Credentials = Credentials,
+                            BookInfo = (BookInfo)media
+                        };
                     title = "Book details";
                     break;
                 case MediaType.Movie:
-                    mediaDetails = new BookMovieDetails { RentItProxy = RentItProxy, MovieInfo = (MovieInfo) media };
+                    mediaDetails = new BookMovieDetails
+                        {
+                            RentItProxy = RentItProxy,
+                            Credentials = Credentials,
+                            MovieInfo = (MovieInfo)media
+                        };
                     title = "Movie details";
                     break;
                 case MediaType.Song:
-                    mediaDetails = new AlbumDetails { RentItProxy = RentItProxy, AlbumInfo = RentItProxy.GetAlbumInfo(((SongInfo) media).AlbumId) };
+                    mediaDetails = new AlbumDetails
+                        {
+                            RentItProxy = RentItProxy,
+                            Credentials = Credentials,
+                            AlbumInfo = RentItProxy.GetAlbumInfo(((SongInfo)media).AlbumId)
+                        };
                     title = "Album details";
                     break;
                 default:
