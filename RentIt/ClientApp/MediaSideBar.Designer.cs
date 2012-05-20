@@ -42,6 +42,7 @@
             this.mediaDetailsGroupBox = new System.Windows.Forms.GroupBox();
             this.lengthValueLabel = new System.Windows.Forms.Label();
             this.lengthLabel = new System.Windows.Forms.Label();
+            this.rentalPeriodLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.thumbnailBox)).BeginInit();
             this.mediaDetailsGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -68,7 +69,7 @@
             // priceLabel
             // 
             this.priceLabel.AutoSize = true;
-            this.priceLabel.Location = new System.Drawing.Point(106, 226);
+            this.priceLabel.Location = new System.Drawing.Point(106, 232);
             this.priceLabel.Name = "priceLabel";
             this.priceLabel.Size = new System.Drawing.Size(56, 13);
             this.priceLabel.TabIndex = 3;
@@ -188,10 +189,20 @@
             this.lengthLabel.TabIndex = 13;
             this.lengthLabel.Text = "lengthLabel";
             // 
+            // rentalPeriodLabel
+            // 
+            this.rentalPeriodLabel.AutoSize = true;
+            this.rentalPeriodLabel.Location = new System.Drawing.Point(106, 219);
+            this.rentalPeriodLabel.Name = "rentalPeriodLabel";
+            this.rentalPeriodLabel.Size = new System.Drawing.Size(76, 13);
+            this.rentalPeriodLabel.TabIndex = 14;
+            this.rentalPeriodLabel.Text = "14-days rental,";
+            // 
             // MediaSideBar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.rentalPeriodLabel);
             this.Controls.Add(this.mediaDetailsGroupBox);
             this.Controls.Add(this.priceLabel);
             this.Controls.Add(this.rentButton);
@@ -222,5 +233,6 @@
         private System.Windows.Forms.GroupBox mediaDetailsGroupBox;
         private System.Windows.Forms.Label lengthValueLabel;
         private System.Windows.Forms.Label lengthLabel;
+        private System.Windows.Forms.Label rentalPeriodLabel;
     }
 }
