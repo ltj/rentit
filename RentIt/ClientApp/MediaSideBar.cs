@@ -98,7 +98,7 @@ namespace ClientApp
                 }
 
                 this.thumbnailBox.Image = BinaryCommuncator.GetThumbnail(mediaInfo.Id);
-                //this.DetermineButton(value.Id);
+                this.DetermineButton(value.Id);
             }
         }
 
@@ -120,9 +120,11 @@ namespace ClientApp
 
             UserAccount account = this.RentItProxy.GetAllCustomerData(this.Credentials);
 
-            rentButton.Enabled = account.Rentals.Where(
+            bool alreadyRented = account.Rentals.Where(
                 rental => rental.MediaId == mediaId && rental.EndTime > DateTime.Now).Any();
-            rentButton.Text = "Rent It";
+
+            rentButton.Enabled = !alreadyRented;
+            rentButton.Text = alreadyRented ? "Already rented" : "Rent It";
         }
 
         #region Controllers

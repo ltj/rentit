@@ -49,6 +49,22 @@ namespace ClientApp
             }
         }
 
+        internal override AccountCredentials Credentials
+        {
+            get
+            {
+                return base.Credentials;
+            }
+            set
+            {
+                base.Credentials = value;
+                genreList1.Credentials = value;
+                popularMediaGrid.Credentials = value;
+                newMediaGrid.Credentials = value;
+                bestMediaGrid.Credentials = value;
+            }
+        }
+
         // Get newest media and publish to "new and hot" area
         private void GetNewest()
         {
@@ -172,34 +188,41 @@ namespace ClientApp
             Cursor.Current = Cursors.Default;
         }
 
-        private void NewAndHotClick(object sender, MouseEventArgs e) {
+        private void NewAndHotClick(object sender, MouseEventArgs e)
+        {
             Cursor.Current = Cursors.WaitCursor;
             MediaInfo mediaInfo = this.newAndHotMedia;
 
             RentItUserControl mediaDetail;
             string title;
 
-            if(this.Mtype == MediaType.Album) {
-                mediaDetail = new AlbumDetails {
+            if (this.Mtype == MediaType.Album)
+            {
+                mediaDetail = new AlbumDetails
+                {
                     RentItProxy = this.RentItProxy,
                     Credentials = this.Credentials,
-                    AlbumInfo = (AlbumInfo) mediaInfo
+                    AlbumInfo = (AlbumInfo)mediaInfo
                 };
                 title = MainForm.Titles.MediaDetailsAlbum;
             }
-            else if(this.Mtype == MediaType.Movie) {
-                mediaDetail = new BookMovieDetails {
+            else if (this.Mtype == MediaType.Movie)
+            {
+                mediaDetail = new BookMovieDetails
+                {
                     RentItProxy = this.RentItProxy,
                     Credentials = this.Credentials,
-                    MovieInfo = (MovieInfo) mediaInfo
+                    MovieInfo = (MovieInfo)mediaInfo
                 };
                 title = MainForm.Titles.MediaDetailsMovie;
             }
-            else if(this.Mtype == MediaType.Book) {
-                mediaDetail = new BookMovieDetails {
+            else if (this.Mtype == MediaType.Book)
+            {
+                mediaDetail = new BookMovieDetails
+                {
                     RentItProxy = this.RentItProxy,
                     Credentials = this.Credentials,
-                    BookInfo = (BookInfo) mediaInfo
+                    BookInfo = (BookInfo)mediaInfo
                 };
                 title = MainForm.Titles.MediaDetailsBook;
             }
