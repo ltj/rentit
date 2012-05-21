@@ -60,8 +60,19 @@ namespace ClientApp
             {
                 Cursor.Current = Cursors.WaitCursor;
                 this.mediaCriteria = value;
-                MediaItems mediaItems = this.RentItProxy.GetMediaItems(this.mediaCriteria);
-                this.PopulateGrid(mediaItems);
+
+                try
+                {
+                    MediaItems mediaItems = this.RentItProxy.GetMediaItems(this.mediaCriteria);
+                    this.PopulateGrid(mediaItems);
+                }
+                // Communicating with the server might throw an exception
+                catch (Exception)
+                {
+                    RentItMessageBox.ServerCommunicationError();
+                }
+
+
                 Cursor.Current = Cursors.Default;
             }
         }

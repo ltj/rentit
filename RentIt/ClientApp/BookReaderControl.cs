@@ -53,7 +53,7 @@
         {
             var c = new Credentials(Credentials.UserName, Credentials.HashedPassword);
 
-            string filePath = BinaryCommuncator.DownloadMediaURL(c, book.Id).ToString();
+            string filePath = BinaryCommuncator.DownloadMediaURL(c, this.book.Id).ToString();
 
             this.pdfReader.src = filePath;
             this.pdfReader.setShowToolbar(false);

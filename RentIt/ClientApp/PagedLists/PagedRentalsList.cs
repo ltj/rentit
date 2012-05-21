@@ -154,49 +154,58 @@ namespace ClientApp
         /// </param>
         private void PopulateList(List<Rental> rentals)
         {
-            foreach (var rental in rentals)
+            try
             {
-                switch (rental.MediaType)
+                foreach (var rental in rentals)
                 {
-                    case MediaType.Album:
-                        AlbumInfo album = this.RentItProxy.GetAlbumInfo(rental.MediaId);
+                    switch (rental.MediaType)
+                    {
+                        case MediaType.Album:
+                            AlbumInfo album = this.RentItProxy.GetAlbumInfo(rental.MediaId);
 
-                        var listItemA = new ListViewItem(album.Title);
-                        listItemA.SubItems.Add(rental.StartTime.ToShortDateString());
-                        listItemA.SubItems.Add(rental.EndTime.ToShortDateString());
-                        listItemA.Group = this.albumListViewGroup;
-                        listItemA.Tag = album;
+                            var listItemA = new ListViewItem(album.Title);
+                            listItemA.SubItems.Add(rental.StartTime.ToShortDateString());
+                            listItemA.SubItems.Add(rental.EndTime.ToShortDateString());
+                            listItemA.Group = this.albumListViewGroup;
+                            listItemA.Tag = album;
 
-                        this.CurrentItems.Add(listItemA);
-                        break;
-                    case MediaType.Movie:
-                        MovieInfo movie = this.RentItProxy.GetMovieInfo(rental.MediaId);
+                            this.CurrentItems.Add(listItemA);
+                            break;
+                        case MediaType.Movie:
+                            MovieInfo movie = this.RentItProxy.GetMovieInfo(rental.MediaId);
 
-                        var listItemM = new ListViewItem(movie.Title);
-                        listItemM.SubItems.Add(rental.StartTime.ToShortDateString());
-                        listItemM.SubItems.Add(rental.EndTime.ToShortDateString());
-                        listItemM.Group = this.movieListViewGroup;
-                        listItemM.Tag = movie;
+                            var listItemM = new ListViewItem(movie.Title);
+                            listItemM.SubItems.Add(rental.StartTime.ToShortDateString());
+                            listItemM.SubItems.Add(rental.EndTime.ToShortDateString());
+                            listItemM.Group = this.movieListViewGroup;
+                            listItemM.Tag = movie;
 
-                        this.CurrentItems.Add(listItemM);
-                        break;
-                    case MediaType.Book:
-                        BookInfo book = this.RentItProxy.GetBookInfo(rental.MediaId);
+                            this.CurrentItems.Add(listItemM);
+                            break;
+                        case MediaType.Book:
+                            BookInfo book = this.RentItProxy.GetBookInfo(rental.MediaId);
 
-                        var listItemB = new ListViewItem(book.Title);
-                        listItemB.SubItems.Add(rental.StartTime.ToShortDateString());
-                        listItemB.SubItems.Add(rental.EndTime.ToShortDateString());
-                        listItemB.Group = this.bookListViewGroup;
-                        listItemB.Tag = book;
+                            var listItemB = new ListViewItem(book.Title);
+                            listItemB.SubItems.Add(rental.StartTime.ToShortDateString());
+                            listItemB.SubItems.Add(rental.EndTime.ToShortDateString());
+                            listItemB.Group = this.bookListViewGroup;
+                            listItemB.Tag = book;
 
-                        this.CurrentItems.Add(listItemB);
-                        break;
-                    default:
-                        break;
+                            this.CurrentItems.Add(listItemB);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    this.RePopulateList();
+                    this.EndUpdate();
                 }
-
-                this.RePopulateList();
-                this.EndUpdate();
+            }
+            // The calls the service might throw exceptions.
+            catch (Exception e)
+            {
+                // Inform the user.
+                RentItMessageBox.ServerCommunicationError();
             }
         }
     }

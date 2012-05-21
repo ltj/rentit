@@ -237,8 +237,6 @@ namespace ClientApp
         /// This EventHandler resizes the columns to fill out the list when
         /// the component is resized.
         /// </summary>
-        /// <param name="obj"></param>
-        /// <param name="e"></param>
         private void ListResizedEventHandler(object obj, EventArgs e)
         {
             int totalWidth = 0;

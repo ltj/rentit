@@ -125,6 +125,10 @@ namespace ClientApp
 
         #region Controllers
 
+        /// <summary>
+        /// Controller of the "First"-button.
+        /// Navigates to the first page of the list.
+        /// </summary>
         private void firstPageButton_Click(object sender, EventArgs e)
         {
             this.mediaList.GoToFirstPage();
@@ -133,6 +137,10 @@ namespace ClientApp
                 this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
         }
 
+        /// <summary>
+        /// Controller of the "Previous"-button.
+        /// Navigates to the previous page of the list.
+        /// </summary>
         private void previousPageButton_Click(object sender, EventArgs e)
         {
             this.mediaList.PreviousPage();
@@ -141,6 +149,10 @@ namespace ClientApp
                 this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
         }
 
+        /// <summary>
+        /// Controller of the "Next"-button.
+        /// Navigates to the next page of the list.
+        /// </summary>
         private void nextPageButton_Click(object sender, EventArgs e)
         {
             this.mediaList.NextPage();
@@ -149,6 +161,10 @@ namespace ClientApp
                 this.mediaList.CurrentPageNumber + "/" + this.mediaList.NumberOfPages;
         }
 
+        /// <summary>
+        /// Controller of the "Last"-button.
+        /// Navigates to the last page of the list.
+        /// </summary>
         private void lastPageButton_Click(object sender, EventArgs e)
         {
             this.mediaList.GoToLastPage();
