@@ -5,6 +5,10 @@
 
     using RentIt;
 
+    /// <summary>
+    /// The main application window with a top bar and a content control.
+    /// Everything but media playback is displayed inside this window.
+    /// </summary>
     internal partial class MainForm : Form
     {
         private readonly RentItClient rentItProxy;
@@ -27,11 +31,17 @@
             Content = new MainScreen { RentItProxy = rentItProxy };
         }
 
+        /// <summary>
+        /// The top-most bar with shortcuts and a search box.
+        /// </summary>
         internal TopBarControl TopBar
         {
             get { return topBarControl; }
         }
 
+        /// <summary>
+        /// The content of the window, below the top bar.
+        /// </summary>
         private RentItUserControl Content
         {
             set
@@ -54,12 +64,22 @@
 
         #region EventHandlers
 
+        /// <summary>
+        /// Handles change requests to the content of the window to a new control.
+        /// </summary>
+        /// <param name="sender">The sender of the request.</param>
+        /// <param name="args">The arguments specifying the new control.</param>
         private void ChangeContent(object sender, ContentChangeArgs args)
         {
             Content = args.NewControl;
             TopBar.Title = args.NewTitle;
         }
 
+        /// <summary>
+        /// Handles change requests to the current global credentials of the application.
+        /// </summary>
+        /// <param name="sender">The sender of the request.</param>
+        /// <param name="args">The arguments specifying the new credentials.</param>
         private void ChangeCredentials(object sender, CredentialsChangeArgs args)
         {
             credentials = args.Credentials;
@@ -75,6 +95,11 @@
             TopBar.Credentials = this.credentials;
         }
 
+        /// <summary>
+        /// Handles change requests to the credits of the current user.
+        /// </summary>
+        /// <param name="sender">The sender of the request.</param>
+        /// <param name="args">The arguments specifying the new amount of credits.</param>
         private void ChangeCredits(object sender, CreditsChangeArgs args)
         {
             TopBar.Credits = args.Credits;
@@ -82,6 +107,10 @@
 
         #endregion
 
+        /// <summary>
+        /// Contains references to standard titles for the various RentItUserControls
+        /// that are to be displayed in MainForm's content.
+        /// </summary>
         internal static class Titles {
             public static string MainScreen = "RentIt";
             public static string UserRegistration = "Log in / Register new account";

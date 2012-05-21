@@ -5,6 +5,11 @@
     using System.Windows.Forms;
     using RentIt;
 
+    /// <summary>
+    /// The top bar of the main application window, MainForm.
+    /// This contains various buttons and controls for navigation and search.
+    /// It also displays a title of the current screen.
+    /// </summary>
     internal partial class TopBarControl : RentItUserControl
     {
         public TopBarControl()
@@ -43,6 +48,10 @@
             }
         }
 
+        /// <summary>
+        /// The amount of credits displayed next to the user name,
+        /// if a user is logged in.
+        /// </summary>
         internal int Credits
         {
             get { return credits; }
@@ -57,7 +66,7 @@
 
         /// <summary>
         /// Sets whether the top bar should display user information
-        /// or not, as well as "log in" / "log out".
+        /// or not, as well as "log in" / "log out" on the log in button.
         /// </summary>
         private bool LoggedIn
         {
@@ -94,6 +103,10 @@
         }
         private bool loggedIn;
 
+        /// <summary>
+        /// Initiates a search for media, using the information entered in the
+        /// text field and the selected media type in the combo box.
+        /// </summary>
         private void Search()
         {
             var comboBoxType = (string)TypeComboBox.SelectedItem;
@@ -223,6 +236,11 @@
             Cursor.Current = Cursors.Default;
         }
 
+        /// <summary>
+        /// Handles the enter key being pressed in the search text field.
+        /// </summary>
+        /// <param name="sender">Ignored here.</param>
+        /// <param name="keyEventArgs">Used to check whether the enter key was pressed.</param>
         private void SearchTextBoxKeyPressed(object sender, KeyEventArgs keyEventArgs)
         {
             if (keyEventArgs.KeyCode == Keys.Enter)
