@@ -31,7 +31,7 @@
 
         private void UpdateAvgRating()
         {
-            AvgRating.Text = media.Rating.AverageRating.ToString();
+            AvgRating.Text = media.Rating.AverageRating.ToString("#0.0");
             AvgRatingCount.Text = media.Rating.RatingsCount.ToString();
         }
 
@@ -42,7 +42,7 @@
 
         private void SubmitReviewButtonClick(object sender, EventArgs e)
         {
-            if(Credentials == null)
+            if (Credentials == null)
                 return;
 
             Rating rating;

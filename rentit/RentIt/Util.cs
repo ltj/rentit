@@ -183,7 +183,7 @@ namespace RentIt
             }
 
             int rcount = rating == null ? 0 : rating.ratings_count;
-            int rrate = rating == null ? 0 : (int)rating.avg_rating;
+            float rrate = (float)(rating == null ? 0.0 : rating.avg_rating);
             var mediaRating = new MediaRating(rcount, rrate, mediaReviews);
 
             return mediaRating;

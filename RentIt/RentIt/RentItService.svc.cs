@@ -700,6 +700,11 @@ namespace RentIt
                 throw new FaultException<InvalidCredentialsException>(
                     new InvalidCredentialsException("This user is not a publisher."));
 
+            if (info.Price < 0)
+            {
+                throw new FaultException<InvalidCredentialsException>(
+                    new InvalidCredentialsException("The price of the media cannot be negative."));
+            }
 
             var db = new DatabaseDataContext();
             Genre genre;
@@ -873,6 +878,12 @@ namespace RentIt
             if (!Util.IsPublisherAuthorized(newData.Id, credentials, db, this))
                 throw new FaultException<InvalidCredentialsException>(
                     new InvalidCredentialsException("This user is not authorized to update this media."));
+
+            if (newData.Price < 0)
+            {
+                throw new FaultException<InvalidCredentialsException>(
+                    new InvalidCredentialsException("The price cannot be negative."));
+            }
 
             try
             {
@@ -1174,7 +1185,7 @@ namespace RentIt
                 double avgRating = media.Rating.avg_rating;
                 int numOfRatings = media.Rating.ratings_count;
                 media.Rating.avg_rating = ((avgRating * numOfRatings) + Util.ValueOfRating(review.Rating))
-                                          / (numOfRatings + 1);
+                                          / (numOfRatings + 1.0);
                 media.Rating.ratings_count = numOfRatings + 1;
 
                 db.SubmitChanges();
