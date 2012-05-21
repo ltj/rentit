@@ -2,11 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting.Web;
-// -----------------------------------------------------------------------
-// <copyright file="KennethTest.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
 
 namespace RentItTest
 {
@@ -124,7 +119,6 @@ namespace RentItTest
 
         /// <summary>
         /// A test for GetMediaItems
-        /// 
         /// Tests that only Songs are returned when the media type
         /// is set to MediaType.Songs
         /// </summary>
@@ -134,27 +128,20 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             MediaCriteria criteria = new MediaCriteria()
                 {
-                    //Genre = string.Empty,
                     Limit = -1,
-                    //Offset = 0,
-                    //Order = MediaOrder.AlphabeticalAsc,
                     Type = MediaType.Song,
-                    //SearchText = string.Empty
                 };
 
-            MediaItems actual;
-            actual = target.GetMediaItems(criteria);
+            MediaItems actual = target.GetMediaItems(criteria);
 
             Assert.IsTrue(actual.Albums.Length == 0);
             Assert.IsTrue(actual.Songs.Length > 0);
             Assert.IsTrue(actual.Movies.Length == 0);
             Assert.IsTrue(actual.Books.Length == 0);
-            // Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
         /// A test for GetMediaItems
-        /// 
         /// Tests that only Books are returned when the media type
         /// is set to MediaType.Book
         /// </summary>
@@ -164,27 +151,20 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             MediaCriteria criteria = new MediaCriteria()
             {
-                //Genre = string.Empty,
                 Limit = -1,
-                //Offset = 0,
-                //Order = MediaOrder.AlphabeticalAsc,
                 Type = MediaType.Book,
-                //SearchText = string.Empty
             };
 
-            MediaItems actual;
-            actual = target.GetMediaItems(criteria);
+            MediaItems actual = target.GetMediaItems(criteria);
 
             Assert.IsTrue(actual.Albums.Length == 0);
             Assert.IsTrue(actual.Songs.Length == 0);
             Assert.IsTrue(actual.Movies.Length == 0);
             Assert.IsTrue(actual.Books.Length > 0);
-            // Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
         /// A test for GetMediaItems
-        ///
         /// Tests that only Movies are returned when the media type
         /// is set to MediaType.Movie
         /// </summary>
@@ -194,27 +174,20 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             MediaCriteria criteria = new MediaCriteria()
             {
-                //Genre = string.Empty,
                 Limit = -1,
-                //Offset = 0,
-                //Order = MediaOrder.AlphabeticalAsc,
                 Type = MediaType.Movie,
-                //SearchText = string.Empty
             };
 
-            MediaItems actual;
-            actual = target.GetMediaItems(criteria);
+            MediaItems actual = target.GetMediaItems(criteria);
 
             Assert.IsTrue(actual.Albums.Length == 0);
             Assert.IsTrue(actual.Songs.Length == 0);
             Assert.IsTrue(actual.Movies.Length > 0);
             Assert.IsTrue(actual.Books.Length == 0);
-            // Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
         /// A test for GetMediaItems
-        /// 
         /// Tests that only Albums are returned when the media type
         /// is set to MediaType.Album
         /// </summary>
@@ -224,27 +197,20 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             MediaCriteria criteria = new MediaCriteria()
             {
-                //Genre = string.Empty,
                 Limit = -1,
-                //Offset = 0,
-                //Order = MediaOrder.AlphabeticalAsc,
                 Type = MediaType.Album,
-                //SearchText = string.Empty
             };
 
-            MediaItems actual;
-            actual = target.GetMediaItems(criteria);
+            MediaItems actual = target.GetMediaItems(criteria);
 
             Assert.IsTrue(actual.Albums.Length > 0);
             Assert.IsTrue(actual.Songs.Length == 0);
             Assert.IsTrue(actual.Movies.Length == 0);
             Assert.IsTrue(actual.Books.Length == 0);
-            // Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
         /// A test for GetMediaItems
-        /// 
         /// Tests that all media types are returned when the media 
         /// type is set to MediaType.Any
         /// </summary>
@@ -254,27 +220,20 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             MediaCriteria criteria = new MediaCriteria()
             {
-                //Genre = string.Empty,
                 Limit = -1,
-                //Offset = 0,
-                //Order = MediaOrder.AlphabeticalAsc,
                 Type = MediaType.Any,
-                //SearchText = string.Empty
             };
 
-            MediaItems actual;
-            actual = target.GetMediaItems(criteria);
+            MediaItems actual = target.GetMediaItems(criteria);
 
             Assert.IsTrue(actual.Albums.Length > 0);
             Assert.IsTrue(actual.Songs.Length > 0);
             Assert.IsTrue(actual.Movies.Length > 0);
             Assert.IsTrue(actual.Books.Length > 0);
-            // Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
         /// A test for GetMediaItems
-        /// 
         /// Tests that all media types are returned if the
         /// media type is not specified.
         /// </summary>
@@ -284,12 +243,7 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             MediaCriteria criteria = new MediaCriteria()
             {
-                //Genre = string.Empty,
                 Limit = -1,
-                //Offset = 0,
-                //Order = MediaOrder.AlphabeticalAsc,
-                //Type = MediaType.Any,
-                //SearchText = string.Empty
             };
 
             MediaItems actual;
@@ -299,12 +253,10 @@ namespace RentItTest
             Assert.IsTrue(actual.Songs.Length > 0);
             Assert.IsTrue(actual.Movies.Length > 0);
             Assert.IsTrue(actual.Books.Length > 0);
-            // Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
         /// A test for GetMediaItems
-        /// 
         /// Test the search text portion of the MediaCriteria-class.
         /// </summary>
         [TestMethod]
@@ -313,10 +265,7 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             MediaCriteria criteria = new MediaCriteria()
             {
-                //Genre = string.Empty,
                 Limit = -1,
-                //Offset = 0,
-                //Order = MediaOrder.AlphabeticalAsc,
                 Type = MediaType.Album,
                 SearchText = "The CUre"
             };
@@ -328,12 +277,10 @@ namespace RentItTest
             Assert.IsTrue(actual.Songs.Length == 0);
             Assert.IsTrue(actual.Movies.Length == 0);
             Assert.IsTrue(actual.Books.Length == 0);
-            // Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
         /// A test for GetMediaItems
-        /// 
         /// Tests the ordering portion of the GetMediaItems method.
         /// </summary>
         [TestMethod]
@@ -342,19 +289,14 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             MediaCriteria criteria = new MediaCriteria()
             {
-                //Genre = string.Empty,
                 Limit = -1,
-                //Offset = 0,
                 Order = MediaOrder.AlphabeticalAsc,
-                //Type = MediaType.Album,
-                //SearchText = "The CUre"
             };
 
             MediaItems actual;
             actual = target.GetMediaItems(criteria);
 
             Assert.IsTrue(this.isSortedAsc(actual.Albums));
-            // Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
