@@ -108,6 +108,11 @@ namespace RentIt
             }
         }
 
+        /// <summary>
+        /// Gets a media type's string value.
+        /// </summary>
+        /// <param name="mediaType">The MediaType to get the string value of.</param>
+        /// <returns>The string value.</returns>
         public static string StringValueOfMediaType(MediaType mediaType)
         {
             switch (mediaType)
@@ -131,9 +136,9 @@ namespace RentIt
         /// The returned value contains the number of ratings and 
         /// the average rating.
         /// </summary>
-        /// <param name="mediaId"></param>
-        /// <param name="db"></param>
-        /// <returns></returns>
+        /// <param name="mediaId">The media id to get ratings for.</param>
+        /// <param name="db">The database context to use.</param>
+        /// <returns>A rating record for the media.</returns>
         public static RentItDatabase.Rating GetMediaRating(int mediaId, DatabaseDataContext db)
         {
             if (!db.Ratings.Exists(r => r.media_id.Equals(mediaId)))
@@ -193,8 +198,8 @@ namespace RentIt
         /// <summary>
         /// Checks whether user is publisher or not
         /// </summary>
-        /// <param name="acct"></param>
-        /// <returns></returns>
+        /// <param name="acct">The account to check.</param>
+        /// <returns>True if the supplied account is a publisher account, false otherwise.</returns>
         public static bool IsPublisher(Account acct)
         {
             var db = new DatabaseDataContext();
@@ -276,11 +281,12 @@ namespace RentIt
 
         /// <author>Kenneth Søhrmann</author>
         /// <summary>
-        /// 
+        /// Orders the supplied media collection with a specific ordering.
         /// </summary>
-        /// <param name="mediaItems"></param>
-        /// <param name="criteria"></param>
-        /// <returns></returns>
+        /// <param name="db">The database context to use.</param>
+        /// <param name="mediaItems">The media items to order.</param>
+        /// <param name="criteria">The criteria containing the order to use.</param>
+        /// <returns>The collection of media items in the specified order.</returns>
         public static IQueryable<RentItDatabase.Media> OrderMedia(
             DatabaseDataContext db, IQueryable<RentItDatabase.Media> mediaItems, MediaCriteria criteria)
         {
@@ -333,10 +339,10 @@ namespace RentIt
         /// about a media. Utilized to easily apply search text the a media item.
         /// </summary>
         /// <param name="mediaItem">
-        /// 
+        /// The media item to get the metadata of.
         /// </param>
         /// <returns>
-        /// 
+        /// The metadata of the media, concatenated to a single string.
         /// </returns>
         public static string GetMediaMetadataAsString(Media mediaItem)
         {
