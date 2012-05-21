@@ -41,7 +41,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(256, 4);
+            this.label4.Location = new System.Drawing.Point(278, 4);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(57, 20);
             this.label4.TabIndex = 11;
@@ -51,7 +51,7 @@
             // 
             this.AvgRatingCount.AutoSize = true;
             this.AvgRatingCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AvgRatingCount.Location = new System.Drawing.Point(231, 4);
+            this.AvgRatingCount.Location = new System.Drawing.Point(253, 4);
             this.AvgRatingCount.Name = "AvgRatingCount";
             this.AvgRatingCount.Size = new System.Drawing.Size(19, 20);
             this.AvgRatingCount.TabIndex = 10;
@@ -61,7 +61,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(150, 4);
+            this.label3.Location = new System.Drawing.Point(172, 4);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 20);
             this.label3.TabIndex = 9;
@@ -160,7 +160,7 @@
             this.reviewList.Size = new System.Drawing.Size(558, 531);
             this.reviewList.TabIndex = 12;
             // 
-            // RatingList
+            // MediaRatings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -173,7 +173,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.MinimumSize = new System.Drawing.Size(300, 250);
-            this.Name = "RatingList";
+            this.Name = "MediaRatings";
             this.Size = new System.Drawing.Size(561, 691);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
