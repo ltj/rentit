@@ -163,7 +163,7 @@ namespace ClientApp
                 return;
             }
 
-            if (newPrice == mediaInfo.Price)
+            if (newPrice == mediaInfo.Price || newPrice < 0)
             {
                 changePriceButton.Enabled = false;
                 return;
