@@ -118,7 +118,17 @@ namespace ClientApp
                 return;
             }
 
-            UserAccount account = this.RentItProxy.GetAllCustomerData(this.Credentials);
+            UserAccount account;
+            try
+            {
+                account = this.RentItProxy.GetAllCustomerData(this.Credentials);
+            }
+            catch (Exception)
+            {
+                this.rentButton.Enabled = false;
+                this.rentButton.Text = "Rent It";
+                return;
+            }
 
             bool alreadyRented = account.Rentals.Where(
                 rental => rental.MediaId == mediaId && rental.EndTime > DateTime.Now).Any();
