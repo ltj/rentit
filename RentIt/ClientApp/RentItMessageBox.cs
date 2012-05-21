@@ -2,6 +2,9 @@
 {
     using System.Windows.Forms;
 
+    /// <summary>
+    /// Provides a number of standard message boxes for presenting to the user.
+    /// </summary>
     internal class RentItMessageBox
     {
         private static string ERROR_TITLE = "Error";

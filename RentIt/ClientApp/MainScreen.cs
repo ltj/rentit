@@ -5,6 +5,10 @@
 
     using RentIt;
 
+    /// <summary>
+    /// MainScreen is the frontpage of the RentIt client with 3 columns,
+    /// one for each media type.
+    /// </summary>
     internal partial class MainScreen : RentItUserControl
     {
         public MainScreen()
@@ -46,6 +50,9 @@
             }
         }
 
+        /// <summary>
+        /// Updates the 3 lists by querying the server.
+        /// </summary>
         private void UpdateLists()
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -112,6 +119,11 @@
             DisplayMediaItem(media);
         }
 
+        /// <summary>
+        /// Switches to a media details screen, depending on the type
+        /// of media selected.
+        /// </summary>
+        /// <param name="media">The media to open a details page for.</param>
         private void DisplayMediaItem(MediaInfo media)
         {
             Cursor.Current = Cursors.WaitCursor;

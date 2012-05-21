@@ -6,6 +6,10 @@
 
     using RentIt;
 
+    /// <summary>
+    /// Allows the user to submit reviews as well as
+    /// read previously submitted reviews.
+    /// </summary>
     internal partial class MediaRatings : RentItUserControl
     {
         private MediaInfo media;
@@ -16,6 +20,9 @@
             RatingSelector.SelectedIndex = 2;
         }
 
+        /// <summary>
+        /// The reviews and ratings pertain to this media item.
+        /// </summary>
         internal MediaInfo Media
         {
             get { return media; }
@@ -29,12 +36,18 @@
             }
         }
 
+        /// <summary>
+        /// Updates the displayed average rating and ratings count.
+        /// </summary>
         private void UpdateAvgRating()
         {
             AvgRating.Text = media.Rating.AverageRating.ToString("#0.0");
             AvgRatingCount.Text = media.Rating.RatingsCount.ToString();
         }
 
+        /// <summary>
+        /// Makes the review list update itself with reviews for the given media.
+        /// </summary>
         private void PopulateList()
         {
             reviewList.MediaItems = Media;
@@ -97,7 +110,7 @@
 
         /// <summary>
         /// Reload the media to list newly submitted review
-        /// and update average rating.
+        /// and update the average rating.
         /// </summary>
         private void ReloadList()
         {
