@@ -7,7 +7,7 @@ namespace ClientApp
 
     using RentIt;
 
-    /// <author>Jacob Rasmussen</author>
+    /// <author>Kenneth Søhrmann, Jacob Rasmussen</author>
     /// <summary>
     /// A user control containing user controls relevant to user account management. 
     /// </summary>
