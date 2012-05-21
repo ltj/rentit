@@ -84,9 +84,17 @@ namespace ClientApp
                 this.mediaUploadControl.Credentials = this.Credentials;
                 this.publishedMediaList.Credentials = this.Credentials;
 
-                PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(value);
-                this.mediaUploadControl.PublisherAccount = accountData;
-                this.publishedMediaList.MediaItems = accountData.PublishedItems;
+                try
+                {
+                    PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(value);
+                    this.mediaUploadControl.PublisherAccount = accountData;
+                    this.publishedMediaList.MediaItems = accountData.PublishedItems;
+                }
+                // Communication with the server failed.
+                catch (Exception)
+                {
+                    RentItMessageBox.ServerCommunicationError();
+                }
             }
         }
 
@@ -270,12 +278,27 @@ namespace ClientApp
                 return;
             }
 
-            // Delete the media from the service.
-            RentItProxy.DeleteMedia(mediaInfo.Id, this.Credentials);
+            try
+            {
+                // Delete the media from the service.
+                RentItProxy.DeleteMedia(mediaInfo.Id, this.Credentials);
+            }
+            // Deletion of the media failed.
+            catch (Exception)
+            {
+                RentItMessageBox.DeleteMediaFailed();
+            }
 
-            // Update the list to reflec the deletion changes.
-            PublisherAccount pubAcc = this.RentItProxy.GetAllPublisherData(this.Credentials);
-            this.publishedMediaList.MediaItems = pubAcc.PublishedItems;
+            try
+            {
+                // Update the list to reflec the deletion changes.
+                PublisherAccount pubAcc = this.RentItProxy.GetAllPublisherData(this.Credentials);
+                this.publishedMediaList.MediaItems = pubAcc.PublishedItems;
+            }
+            catch (Exception)
+            {
+                RentItMessageBox.ServerCommunicationError();
+            }
         }
 
         /// <summary>
@@ -297,11 +320,25 @@ namespace ClientApp
 
             selectedMedia.Price = int.Parse(priceTextBox.Text);
 
-            this.RentItProxy.UpdateMediaMetadata(selectedMedia, this.Credentials);
+            try
+            {
+                this.RentItProxy.UpdateMediaMetadata(selectedMedia, this.Credentials);
+            }
+            catch (Exception)
+            {
+                RentItMessageBox.PriceChangeFailed();
+            }
 
-            // Update the list to reflect the changes.
-            PublisherAccount accountData = this.RentItProxy.GetAllPublisherData(this.Credentials);
-            this.publishedMediaList.MediaItems = accountData.PublishedItems;
+            try
+            {
+                // Update the list to reflec the deletion changes.
+                PublisherAccount pubAcc = this.RentItProxy.GetAllPublisherData(this.Credentials);
+                this.publishedMediaList.MediaItems = pubAcc.PublishedItems;
+            }
+            catch (Exception)
+            {
+                RentItMessageBox.ServerCommunicationError();
+            }
         }
 
         #endregion

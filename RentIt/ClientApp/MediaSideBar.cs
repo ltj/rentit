@@ -119,10 +119,13 @@ namespace ClientApp
             }
 
             UserAccount account;
+
             try
             {
                 account = this.RentItProxy.GetAllCustomerData(this.Credentials);
             }
+            // An error communicating with the server occured or the signed in user is
+            // publisher.
             catch (Exception)
             {
                 this.rentButton.Enabled = false;
@@ -155,17 +158,28 @@ namespace ClientApp
             }
 
             Cursor.Current = Cursors.WaitCursor;
+
             try
             {
                 RentItProxy.RentMedia(this.mediaInfo.Id, this.Credentials);
+            }
+            // Rental of media failed, inform the user.
+            catch (Exception)
+            {
+                RentItMessageBox.RentalFailed();
+            }
+
+            try
+            {
                 int newCredits = RentItProxy.GetAllCustomerData(Credentials).Credits;
                 FireCreditsChangeEvent(newCredits);
                 RentItMessageBox.SuccesfulRental();
             }
             catch (Exception)
             {
-                RentItMessageBox.RentalFailed();
+                RentItMessageBox.ServerCommunicationError();
             }
+
             Cursor.Current = Cursors.Default;
         }
 

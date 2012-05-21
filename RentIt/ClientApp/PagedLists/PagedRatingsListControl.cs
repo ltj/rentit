@@ -59,6 +59,10 @@ namespace ClientApp
 
         #region Controllers
 
+        /// <summary>
+        /// Controller of the "First"-button.
+        /// Navigates to the first page of the list.
+        /// </summary>
         private void firstPageButton_Click(object sender, EventArgs e)
         {
             this.ratingsList.GoToFirstPage();
@@ -67,6 +71,10 @@ namespace ClientApp
                 this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
         }
 
+        /// <summary>
+        /// Controller of the "Previous"-button.
+        /// Navigates to the previous page of the list.
+        /// </summary>
         private void previousPageButton_Click(object sender, EventArgs e)
         {
             this.ratingsList.PreviousPage();
@@ -75,6 +83,10 @@ namespace ClientApp
                 this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
         }
 
+        /// <summary>
+        /// Controller of the "Next"-button.
+        /// Navigates to the next page of the list.
+        /// </summary>
         private void nextPageButton_Click(object sender, EventArgs e)
         {
             this.ratingsList.NextPage();
@@ -83,6 +95,10 @@ namespace ClientApp
                 this.ratingsList.CurrentPageNumber + "/" + this.ratingsList.NumberOfPages;
         }
 
+        /// <summary>
+        /// Controller of the "Last"-button.
+        /// Navigates to the last page of the list.
+        /// </summary>
         private void lastPageButton_Click(object sender, EventArgs e)
         {
             this.ratingsList.GoToLastPage();
@@ -97,6 +113,7 @@ namespace ClientApp
 
         /// <summary>
         /// EventHandler for the SelectedItemsChangedEvent on the combobox.
+        /// Updates the list to show the chosen amount of items at a single page.
         /// </summary>
         private void ComboBoxSelectedItemChangedEventHandler(object obj, EventArgs e)
         {
@@ -112,6 +129,7 @@ namespace ClientApp
 
         /// <summary>
         /// EventHandler for the IndexChangedEvent on the RatingsList.
+        /// Shows the review text of the selected review in the textbox.
         /// </summary>
         private void SelectedRatingsListIndexChangedEventHandler(object obj, EventArgs e)
         {
