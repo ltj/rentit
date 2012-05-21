@@ -333,12 +333,11 @@ namespace RentItTest
         public void GetMovieInfoTest1()
         {
             RentItClient target = new RentItClient();
-            int id = 61;
+            int id = 72;
 
-            MovieInfo actual;
-            actual = target.GetMovieInfo(id);
+            MovieInfo actual = target.GetMovieInfo(id);
 
-            Assert.AreEqual("GTA V - Debut Trailer", actual.Title);
+            Assert.AreEqual("GTA V - Debut trailer", actual.Title);
         }
 
         /// <summary>
@@ -354,8 +353,7 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             int id = -10;
 
-            MovieInfo actual;
-            actual = target.GetMovieInfo(id);
+            MovieInfo actual = target.GetMovieInfo(id);
         }
 
         /// <summary>
@@ -372,8 +370,7 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             int id = 78;
 
-            MovieInfo actual;
-            actual = target.GetMovieInfo(id);
+            MovieInfo actual = target.GetMovieInfo(id);
         }
 
         #endregion
@@ -392,8 +389,7 @@ namespace RentItTest
             RentItClient target = new RentItClient();
 
             int id = 81;
-            BookInfo actual;
-            actual = target.GetBookInfo(id);
+            BookInfo actual = target.GetBookInfo(id);
 
             Assert.AreEqual("Power Commands for Visual Studio", actual.Title);
         }
@@ -411,8 +407,7 @@ namespace RentItTest
             RentItClient target = new RentItClient();
 
             int id = -10;
-            BookInfo actual;
-            actual = target.GetBookInfo(id);
+            BookInfo actual = target.GetBookInfo(id);
         }
 
         /// <summary>
@@ -428,8 +423,7 @@ namespace RentItTest
             RentItClient target = new RentItClient();
 
             int id = 78;
-            BookInfo actual;
-            actual = target.GetBookInfo(id);
+            BookInfo actual = target.GetBookInfo(id);
         }
 
         #endregion
@@ -450,8 +444,7 @@ namespace RentItTest
 
             // Get the album indentified by the media id 78.
             int id = 78;
-            AlbumInfo actual;
-            actual = target.GetAlbumInfo(id);
+            AlbumInfo actual = target.GetAlbumInfo(id);
 
             Assert.AreNotEqual(null, actual);
             Assert.AreEqual("The Cure", actual.AlbumArtist);
@@ -469,8 +462,7 @@ namespace RentItTest
 
             // The album indentified by id 78 has only 2 songs.
             int id = 78;
-            AlbumInfo actual;
-            actual = target.GetAlbumInfo(id);
+            AlbumInfo actual = target.GetAlbumInfo(id);
 
             Assert.AreEqual(2, actual.Songs.Length);
         }
@@ -489,8 +481,7 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             int id = -10;
 
-            AlbumInfo actual;
-            actual = target.GetAlbumInfo(id);
+            AlbumInfo actual = target.GetAlbumInfo(id);
         }
 
         /// <summary>
@@ -507,8 +498,7 @@ namespace RentItTest
             RentItClient target = new RentItClient();
             int id = 70;
 
-            AlbumInfo actual;
-            actual = target.GetAlbumInfo(id);
+            AlbumInfo actual = target.GetAlbumInfo(id);
         }
 
         #endregion
