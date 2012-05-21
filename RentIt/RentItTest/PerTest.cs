@@ -103,32 +103,29 @@
             int mediaId = 10; // Kraftwerk - "The Man-Machine" album
             AlbumInfo newAlbumData = target.GetAlbumInfo(mediaId);
             string albumArtist = newAlbumData.AlbumArtist;
-            newAlbumData.AlbumArtist += "+";
-            bool expected = true;
+            newAlbumData.AlbumArtist = newAlbumData.AlbumArtist == "Kraftwerk" ? "Craftwork" : "Kraftwerk";
             bool actual = target.UpdateMediaMetadata(newAlbumData, credentials);
             string updatedAlbumArtist = target.GetAlbumInfo(mediaId).AlbumArtist;
-            Assert.AreEqual(expected, actual);
-            Assert.AreEqual(albumArtist + "+", updatedAlbumArtist);
+            Assert.IsTrue(actual);
+            Assert.IsTrue(albumArtist == "Kraftwerk"? "Craftwork" == updatedAlbumArtist : "Kraftwerk" == updatedAlbumArtist);
 
             mediaId = 1; // "The Room"
             MovieInfo newMovieData = target.GetMovieInfo(mediaId);
             string director = newMovieData.Director;
-            newMovieData.Director += "+";
-            expected = true;
+            newMovieData.Director = newMovieData.Director == "Tommy Wiseau" ? "Timmy Wiseau" : "Tommy Wiseau";
             actual = target.UpdateMediaMetadata(newMovieData, credentials);
             string updatedDirector = target.GetMovieInfo(mediaId).Director;
-            Assert.AreEqual(expected, actual);
-            Assert.AreEqual(director + "+", updatedDirector);
+            Assert.IsTrue(actual);
+            Assert.IsTrue(director == "Tommy Wiseau" ? "Timmy Wiseau" == updatedDirector : "Tommy Wiseau" == updatedDirector);
 
-            mediaId = 75; // "PowerCommands for Visual Studio"
+            mediaId = 2; // "House of Leaves"
             BookInfo newBookData = target.GetBookInfo(mediaId);
             string author = newBookData.Author;
-            newBookData.Author += "+";
-            expected = true;
+            newBookData.Author = newBookData.Author == "Mark Z. Danielewsky" ? "Mak Z. Danielewsky" : "Mark Z. Danielewsky";
             actual = target.UpdateMediaMetadata(newBookData, credentials);
             string updatedAuthor = target.GetBookInfo(mediaId).Author;
-            Assert.AreEqual(expected, actual);
-            Assert.AreEqual(author + "+", updatedAuthor);
+            Assert.IsTrue(actual);
+            Assert.IsTrue(author == "Mark Z. Danielewsky" ? "Mak Z. Danielewsky" == updatedAuthor : "Mark Z. Danielewsky" == updatedAuthor);
         }
 
         /// <summary>
