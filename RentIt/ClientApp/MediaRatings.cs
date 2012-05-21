@@ -114,19 +114,22 @@
         /// </summary>
         private void ReloadList()
         {
-            switch (Media.Type)
-            {
-                case MediaType.Book:
-                    Media = RentItProxy.GetBookInfo(media.Id);
-                    break;
-                case MediaType.Movie:
-                    Media = RentItProxy.GetMovieInfo(media.Id);
-                    break;
-                case MediaType.Album:
-                    Media = RentItProxy.GetMovieInfo(media.Id);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+            try {
+                switch(Media.Type) {
+                    case MediaType.Book:
+                        Media = RentItProxy.GetBookInfo(media.Id);
+                        break;
+                    case MediaType.Movie:
+                        Media = RentItProxy.GetMovieInfo(media.Id);
+                        break;
+                    case MediaType.Album:
+                        Media = RentItProxy.GetMovieInfo(media.Id);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            } catch(FaultException) {
+                return;
             }
         }
     }
