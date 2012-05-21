@@ -13,8 +13,10 @@
     /// <author>Jacob Rasmussen</author>
     internal partial class AlsoRentedList : RentItUserControl
     {
+        //id of the media in question.
         private int mediaId;
 
+        //list containing media relevant to the media item in question.
         private List<MediaInfo> mediaList;
 
         public AlsoRentedList()
@@ -92,18 +94,16 @@
             mediaList.AddRange(secondaryList);
             mediaList.AddRange(tertiaryList);
 
-            //Same as above but including numbering of media items.
-            if (mediaList.Count() > 0)
-            {
-                for (int i = 0; i < mediaList.Count(); i++)
-                {
-                    mediaListView.Items.Add(mediaList[i].Type.ToString() + ", " + mediaList[i].Title);
-                }
-            }
-
+            //Adds the medias to the list view.
+            foreach (var mi in mediaList)
+                mediaListView.Items.Add(mi.Type.ToString() + ", " + mi.Title);
+            
             Cursor.Current = Cursors.Default;
         }
-
+        /// <summary>
+        /// Double click event to handle clicking on media items in the list. 
+        /// The user will be redirected to the respective media page by firing a contentchange-event.
+        /// </summary>
         private void DoubleClickEventHandler(object obj, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;

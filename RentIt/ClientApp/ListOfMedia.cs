@@ -64,11 +64,6 @@
             Cursor.Current = Cursors.Default;
         }
 
-        private void ListBox1SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// Adds an EventHandler to the Double Click event on the list.
         /// </summary>
