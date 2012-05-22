@@ -61,7 +61,7 @@
                 Genre = "",
                 Limit = 10,
                 Offset = 0,
-                Order = MediaOrder.PopularityDesc,
+                Order = MediaOrder.RatingDesc,
                 SearchText = "",
                 Type = MediaType.Movie
             };

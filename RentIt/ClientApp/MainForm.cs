@@ -21,7 +21,7 @@
             var binding = new BasicHttpBinding();
             var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
             rentItProxy = new RentItClient(binding, address);
-
+            
             TopBar.RentItProxy = rentItProxy;
             TopBar.Credentials = credentials;
             TopBar.ContentChangeEvent += ChangeContent;
