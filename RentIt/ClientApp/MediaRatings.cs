@@ -123,7 +123,7 @@
                         Media = RentItProxy.GetMovieInfo(media.Id);
                         break;
                     case MediaType.Album:
-                        Media = RentItProxy.GetMovieInfo(media.Id);
+                        Media = RentItProxy.GetAlbumInfo(media.Id);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
