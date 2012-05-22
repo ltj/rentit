@@ -47,12 +47,5 @@
 
             Cursor.Current = Cursors.Default;
         }
-
-        private void GenreListDoubleClick(object sender, System.EventArgs e) {
-            //var criteria = new MediaCriteria { Genre = lstGenres.SelectedItems[0].Text, Type = Mtype, Limit = -1 };
-            //var search = new SearchResultsControl { RentItProxy = RentItProxy, Criteria = criteria };
-            //FireContentChangeEvent(search, MainForm.Titles.SearchResults);
-        }
-
     }
 }

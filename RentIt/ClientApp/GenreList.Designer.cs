@@ -1,5 +1,7 @@
-﻿namespace ClientApp {
-    partial class GenreList {
+﻿namespace ClientApp
+{
+    partial class GenreList
+    {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
@@ -9,8 +11,10 @@
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing) {
-            if (disposing && (components != null)) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
                 components.Dispose();
             }
             base.Dispose(disposing);
@@ -22,14 +26,15 @@
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent() {
+        private void InitializeComponent()
+        {
             this.lstGenres = new System.Windows.Forms.ListView();
             this.lblUCTitle = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lstGenres
             // 
-            this.lstGenres.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.lstGenres.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.lstGenres.BackColor = System.Drawing.SystemColors.Control;
@@ -41,12 +46,11 @@
             this.lstGenres.TabIndex = 0;
             this.lstGenres.UseCompatibleStateImageBehavior = false;
             this.lstGenres.View = System.Windows.Forms.View.List;
-            this.lstGenres.DoubleClick += new System.EventHandler(this.GenreListDoubleClick);
             // 
             // lblUCTitle
             // 
             this.lblUCTitle.AutoSize = true;
-            this.lblUCTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.lblUCTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblUCTitle.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.lblUCTitle.Location = new System.Drawing.Point(-1, 0);
             this.lblUCTitle.Name = "lblUCTitle";
