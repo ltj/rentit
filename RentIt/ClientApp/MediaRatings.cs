@@ -129,6 +129,7 @@
                         throw new ArgumentOutOfRangeException();
                 }
             } catch(FaultException) {
+                RentItMessageBox.ServerCommunicationError();
                 return;
             }
         }
