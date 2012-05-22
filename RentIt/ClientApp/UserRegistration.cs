@@ -9,6 +9,9 @@
 
     using RentIt;
 
+    /// <summary>
+    /// RentItUserControl to display user registration and login forms
+    /// </summary>
     internal partial class UserRegistration : RentItUserControl
     {
         public UserRegistration()
@@ -55,14 +58,23 @@
             }
         }
 
-        // full name validated event handler
+        /// <summary>
+        /// full name validated event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtFullName_Validated(object sender, EventArgs e)
         {
             errFullName.SetError(txtFullName, "");
         }
 
 
-        // validator function for Full name field
+        /// <summary>
+        /// validator function for Full name field
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
         private bool ValidateFullName(string name, out string errorMessage)
         {
             if (name == "")
@@ -81,7 +93,12 @@
             return false;
         }
 
-        // validate user name
+        /// <summary>
+        /// validate user name
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
         private bool ValidateUserName(string name, out string errorMessage)
         {
             if (name == "")
@@ -100,7 +117,11 @@
             return false;
         }
 
-        // Password confirmation validating event handler
+        /// <summary>
+        /// Password confirmation validating event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtPasswordConfirm_Validating(object sender, CancelEventArgs e)
         {
             if (txtPasswordConfirm.Text != txtPassword.Text && errPassword.GetError(txtPassword) == "")
@@ -112,13 +133,22 @@
             }
         }
 
-        // password conformation validated event handler
+        /// <summary>
+        /// password conformation validated event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtPasswordConfirm_Validated(object sender, EventArgs e)
         {
             errPassword.SetError(txtPassword, "");
         }
 
-        // Email validation helper method
+        /// <summary>
+        /// Email validation helper method
+        /// </summary>
+        /// <param name="mail"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
         private bool ValidateEmail(string mail, out string errorMessage)
         {
             if (mail == "")
@@ -137,7 +167,11 @@
             return false;
         }
 
-        // email validating event handler
+        /// <summary>
+        /// email validating event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtEmail_Validating(object sender, CancelEventArgs e)
         {
             string errMessage;
@@ -149,13 +183,21 @@
             }
         }
 
-        // email validated event handler
+        /// <summary>
+        /// email validated event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtEmail_Validated(object sender, EventArgs e)
         {
             errEmail.SetError(txtEmail, "");
         }
 
-        // password validating event handler
+        /// <summary>
+        /// password validating event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtPassword_Validating(object sender, CancelEventArgs e)
         {
             if (txtPassword.Text == "" && errPassword.GetError(txtPassword) == "")
@@ -166,12 +208,21 @@
             }
         }
 
-        // password validated event handler
+        /// <summary>
+        /// password validated event handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtPassword_Validated(object sender, EventArgs e)
         {
             errPassword.SetError(txtPassword, "");
         }
 
+        /// <summary>
+        /// registration button click handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRegister_Click(object sender, EventArgs e)
         {
             if (ValidateAll())
@@ -211,7 +262,12 @@
 
         }
 
-        // get sha1 hash as string from string
+        /// <summary>
+        /// get sha1 hash as string from string
+        /// </summary>
+        /// <param name="sha1Hash"></param>
+        /// <param name="input"></param>
+        /// <returns></returns>
         private static string GetSHA1Hash(SHA1 sha1Hash, string input)
         {
 
@@ -233,7 +289,10 @@
             return sBuilder.ToString();
         }
 
-        // validate all (on clicking register)
+        /// <summary>
+        /// validate all (on clicking register)
+        /// </summary>
+        /// <returns></returns>
         private bool ValidateAll()
         {
             string errMessage;
@@ -286,6 +345,11 @@
             return true;
         }
 
+        /// <summary>
+        /// Login button click handler
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             SHA1 sha1 = SHA1.Create();
@@ -307,6 +371,11 @@
             }
         }
 
+        /// <summary>
+        /// Enables user to press enter key instead of pressing login button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="keyEventArgs"></param>
         private void LoginKeyPressed(object sender, KeyEventArgs keyEventArgs) {
             if(keyEventArgs.KeyCode == Keys.Enter) {
                 keyEventArgs.Handled = true;
@@ -314,6 +383,11 @@
             }
         }
 
+        /// <summary>
+        /// Enables user to press enter key instead of pressing register button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="keyEventArgs"></param>
         private void RegisterUserKeyPressed(object sender, KeyEventArgs keyEventArgs) {
             if(keyEventArgs.KeyCode == Keys.Enter) {
                 keyEventArgs.Handled = true;

@@ -7,6 +7,9 @@ namespace ClientApp
 
     using RentIt;
 
+    /// <summary>
+    /// RentItUSerControl for media frontpage context
+    /// </summary>
     internal partial class MediaFrontpage : RentItUserControl
     {
         private RentIt.MediaType mtype;
@@ -22,6 +25,10 @@ namespace ClientApp
             genreList1.ContentChangeEvent += ContentChangeEventPropagated;
         }
 
+        /// <summary>
+        /// set or get medua type property.
+        /// Updates view on set.
+        /// </summary>
         internal RentIt.MediaType Mtype
         {
             get { return mtype; }
@@ -33,6 +40,10 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// get or set proxy object. set also updates
+        /// contained components.
+        /// </summary>
         internal override RentItClient RentItProxy
         {
             get
@@ -49,6 +60,10 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// get or set AccountCredentials object. set also
+        /// updates contained components.
+        /// </summary>
         internal override AccountCredentials Credentials
         {
             get
@@ -65,7 +80,9 @@ namespace ClientApp
             }
         }
 
-        // Get newest media and publish to "new and hot" area
+        /// <summary>
+        /// Get newest media and publish to "new and hot" area
+        /// </summary>
         private void GetNewest()
         {
             // we need valid prerequisites to query the webservice
@@ -104,7 +121,9 @@ namespace ClientApp
 
         }
 
-        // Get ten most popular medias
+        /// <summary>
+        /// Get ten most popular medias
+        /// </summary>
         private void GetMostPopular()
         {
             // we need valid prerequisites to query the webservice
@@ -123,7 +142,9 @@ namespace ClientApp
             popularMediaGrid.MediaCriteria = mc;
         }
 
-        // Get ten highest rated medias
+        /// <summary>
+        /// Get ten highest rated medias
+        /// </summary>
         private void GetHighestRated()
         {
             // we need valid prerequisites to query the webservice
@@ -160,7 +181,11 @@ namespace ClientApp
             RentItProxy.GetMediaItems(mc);
         }
 
-        // extrac correct type result from MediaItems return value
+        /// <summary>
+        /// extratc correct type result from MediaItems return value
+        /// </summary>
+        /// <param name="items"></param>
+        /// <returns></returns>
         private RentIt.MediaInfo[] ExtractTypeList(RentIt.MediaItems items)
         {
             switch (mtype)
@@ -176,6 +201,9 @@ namespace ClientApp
             }
         }
 
+        /// <summary>
+        /// Updates data in usercontrol.
+        /// </summary>
         private void RefreshContents()
         {
             Cursor.Current = Cursors.WaitCursor;
@@ -188,6 +216,11 @@ namespace ClientApp
             Cursor.Current = Cursors.Default;
         }
 
+        /// <summary>
+        /// Go to media details context if "new and hot" item is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void NewAndHotClick(object sender, MouseEventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
