@@ -1,6 +1,7 @@
 namespace ClientApp
 {
     using System;
+    using System.ServiceModel;
     using System.Windows.Forms;
 
     internal static class Program
@@ -13,7 +14,16 @@ namespace ClientApp
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+
+            MainForm main;
+            try {
+                main = new MainForm();
+            } catch(EndpointNotFoundException) {
+                RentItMessageBox.ServerCommunicationError();
+                return;
+            }
+
+            Application.Run(main);
         }
     }
 }
