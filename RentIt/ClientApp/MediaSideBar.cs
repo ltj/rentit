@@ -167,6 +167,8 @@ namespace ClientApp
             catch (Exception)
             {
                 RentItMessageBox.RentalFailed();
+                Cursor.Current = Cursors.Default;
+                return;
             }
 
             try
