@@ -117,6 +117,7 @@
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.ReviewText.Location = new System.Drawing.Point(6, 19);
+            this.ReviewText.MaxLength = 500;
             this.ReviewText.Multiline = true;
             this.ReviewText.Name = "ReviewText";
             this.ReviewText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;

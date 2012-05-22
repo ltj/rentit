@@ -16,7 +16,7 @@ namespace RentItTest
     ///to contain all RentItServiceJacobTest Unit Tests
     ///</summary>
     [TestClass()]
-    public class JacobTest
+    public class TestSuite1
     {
         /// <summary>
         /// Test 20 - Pass valid media Id to service

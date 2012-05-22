@@ -7,7 +7,7 @@
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
-    public class PerTest
+    public class TestSuite4
     {
         /*
          * DB changes:

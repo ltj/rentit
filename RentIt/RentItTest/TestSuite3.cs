@@ -21,7 +21,7 @@ namespace RentItTest {
     using System.ServiceModel;
 
     [TestClass]
-    public class LarsTest {
+    public class TestSuite3 {
 
         public void CleanupCreateUser(string name) {
 
