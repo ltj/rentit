@@ -37,14 +37,14 @@
             this.bestMediaGrid = new ClientApp.MediaGrid();
             this.newMediaGrid = new ClientApp.MediaGrid();
             this.grpNewHot.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.picNewThumb)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picNewThumb)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // grpNewHot
             // 
-            this.grpNewHot.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.grpNewHot.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grpNewHot.Controls.Add(this.lblNewPrice);
             this.grpNewHot.Controls.Add(this.lblNewPublisher);
             this.grpNewHot.Controls.Add(this.lblNewGenre);
@@ -52,7 +52,7 @@
             this.grpNewHot.Controls.Add(this.lblNewTitle);
             this.grpNewHot.Controls.Add(this.picNewThumb);
             this.grpNewHot.Controls.Add(this.newHotBackgroundPanel);
-            this.grpNewHot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.grpNewHot.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.grpNewHot.Location = new System.Drawing.Point(3, 3);
             this.grpNewHot.Name = "grpNewHot";
             this.grpNewHot.Size = new System.Drawing.Size(620, 205);
@@ -62,8 +62,8 @@
             // 
             // lblNewPrice
             // 
-            this.lblNewPrice.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNewPrice.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNewPrice.AutoEllipsis = true;
             this.lblNewPrice.Location = new System.Drawing.Point(181, 165);
             this.lblNewPrice.Name = "lblNewPrice";
@@ -74,8 +74,8 @@
             // 
             // lblNewPublisher
             // 
-            this.lblNewPublisher.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNewPublisher.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNewPublisher.AutoEllipsis = true;
             this.lblNewPublisher.Location = new System.Drawing.Point(181, 105);
             this.lblNewPublisher.Name = "lblNewPublisher";
@@ -86,8 +86,8 @@
             // 
             // lblNewGenre
             // 
-            this.lblNewGenre.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNewGenre.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNewGenre.AutoEllipsis = true;
             this.lblNewGenre.Location = new System.Drawing.Point(181, 45);
             this.lblNewGenre.Name = "lblNewGenre";
@@ -98,8 +98,8 @@
             // 
             // lblNewRelease
             // 
-            this.lblNewRelease.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNewRelease.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNewRelease.AutoEllipsis = true;
             this.lblNewRelease.Location = new System.Drawing.Point(181, 65);
             this.lblNewRelease.Name = "lblNewRelease";
@@ -110,10 +110,10 @@
             // 
             // lblNewTitle
             // 
-            this.lblNewTitle.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblNewTitle.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblNewTitle.AutoEllipsis = true;
-            this.lblNewTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte) (0)));
+            this.lblNewTitle.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNewTitle.Location = new System.Drawing.Point(181, 25);
             this.lblNewTitle.Name = "lblNewTitle";
             this.lblNewTitle.Size = new System.Drawing.Size(430, 20);
@@ -133,9 +133,9 @@
             // 
             // newHotBackgroundPanel
             // 
-            this.newHotBackgroundPanel.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.newHotBackgroundPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.newHotBackgroundPanel.Location = new System.Drawing.Point(6, 19);
             this.newHotBackgroundPanel.Name = "newHotBackgroundPanel";
             this.newHotBackgroundPanel.Size = new System.Drawing.Size(608, 180);
@@ -144,9 +144,9 @@
             // 
             // popularMediaGrid
             // 
-            this.popularMediaGrid.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.popularMediaGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.popularMediaGrid.Location = new System.Drawing.Point(3, 3);
             this.popularMediaGrid.Name = "popularMediaGrid";
             this.popularMediaGrid.Size = new System.Drawing.Size(614, 134);
@@ -154,8 +154,8 @@
             // 
             // genreList1
             // 
-            this.genreList1.Anchor = ((System.Windows.Forms.AnchorStyles) (((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.genreList1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.genreList1.BackColor = System.Drawing.SystemColors.Control;
             this.genreList1.Location = new System.Drawing.Point(633, 14);
             this.genreList1.Name = "genreList1";
@@ -164,9 +164,9 @@
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.AutoScroll = true;
             this.tableLayoutPanel1.AutoScrollMinSize = new System.Drawing.Size(0, 420);
             this.tableLayoutPanel1.ColumnCount = 1;
@@ -185,9 +185,9 @@
             // 
             // bestMediaGrid
             // 
-            this.bestMediaGrid.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.bestMediaGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bestMediaGrid.Location = new System.Drawing.Point(3, 283);
             this.bestMediaGrid.Name = "bestMediaGrid";
             this.bestMediaGrid.Size = new System.Drawing.Size(614, 134);
@@ -195,9 +195,9 @@
             // 
             // newMediaGrid
             // 
-            this.newMediaGrid.Anchor = ((System.Windows.Forms.AnchorStyles) ((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.newMediaGrid.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.newMediaGrid.Location = new System.Drawing.Point(3, 143);
             this.newMediaGrid.Name = "newMediaGrid";
             this.newMediaGrid.Size = new System.Drawing.Size(614, 134);
@@ -214,7 +214,7 @@
             this.Name = "MediaFrontpage";
             this.Size = new System.Drawing.Size(794, 558);
             this.grpNewHot.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.picNewThumb)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picNewThumb)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 

@@ -22,6 +22,10 @@
             var address = new EndpointAddress("http://rentit.itu.dk/rentit01/RentItService.svc");
             rentItProxy = new RentItClient(binding, address);
 
+            // Call a method on the web service to check for connectivity.
+            // A potential EndpointNotFoundException is caught in Program.cs.
+            rentItProxy.GetAllGenres(MediaType.Book);
+
             TopBar.RentItProxy = rentItProxy;
             TopBar.Credentials = credentials;
             TopBar.ContentChangeEvent += ChangeContent;

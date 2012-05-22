@@ -308,8 +308,6 @@ namespace ClientApp
         /// media by communication with the service. Then the list of published media
         /// is updated to reflect the price change.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void changePriceButton_Click(object sender, EventArgs e)
         {
             MediaInfo selectedMedia;

@@ -7,10 +7,10 @@
     /// </summary>
     internal class RentItMessageBox
     {
+        #region ErrorMessages
+
         private static string ERROR_TITLE = "Error";
         private static string NOT_LOGGED_IN_MESSAGE = "You are not logged in.";
-
-        #region ErrorMessages
 
         private static string RENTAL_ERROR =
             "The program could not rent the media either because the media is already rented, you do not have enough credits or because there is a communication problem with the service servers.";
@@ -32,16 +32,27 @@
 
         #endregion
 
+        /// <summary>
+        /// Message box for when the user is not logged in and tries to perform something user-related.
+        /// </summary>
         public static void NotLoggedIn()
         {
             MessageBox.Show(NOT_LOGGED_IN_MESSAGE, ERROR_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// Message box for when a review is being submitted, but the user already has reviewed the media.
+        /// </summary>
         public static void AlreadyReviewedItem()
         {
             MessageBox.Show(ALREADY_REVIEWED_MESSAGE, ERROR_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// Confirmation box for when the user adds credits to their account.
+        /// </summary>
+        /// <param name="value">The amount of credits to add.</param>
+        /// <returns>true if the credits addition was confirmed, false otherwise.</returns>
         public static bool CreditConfirmation(int value)
         {
             var result = MessageBox.Show(
@@ -52,16 +63,26 @@
             return result == DialogResult.Yes;
         }
 
+        /// <summary>
+        /// Message box for when the rental of a media failed.
+        /// </summary>
         public static void RentalFailed()
         {
             MessageBox.Show(RENTAL_ERROR, ERROR_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
+        /// <summary>
+        /// Message box for when the rental of a media succeeded.
+        /// </summary>
         public static void SuccesfulRental()
         {
             MessageBox.Show(RENTAL_CONFIRMATION, INFORMATION_TITLE, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Confirmation box for when the user is trying to delete their account.
+        /// </summary>
+        /// <returns>true if the user confirmed the deletion, false otherwise.</returns>
         public static bool AccountDeletionConfirmation()
         {
             var result = MessageBox.Show(
