@@ -66,7 +66,11 @@ namespace ClientApp
                 rentalsListControl.Credentials = value;
                 creditsControl1.Credentials = value;
 
-                UserAccount accountData = this.RentItProxy.GetAllCustomerData(value);
+                UserAccount accountData;
+                try { accountData = this.RentItProxy.GetAllCustomerData(value); }
+                catch { rentalsListControl.Rentals = new List<Rental>();
+                    return;
+                }
                 rentalsListControl.Rentals = new List<Rental>(accountData.Rentals);
             }
         }
@@ -158,7 +162,7 @@ namespace ClientApp
             {
                 RentItProxy.DeleteAccount(Credentials);
                 RentItMessageBox.AccountDeletionSucceeded();
-                FireCredentialsChangeEvent(null); //TODO: er dette rigtigt?
+                FireCredentialsChangeEvent(null); 
             }
             catch
             {

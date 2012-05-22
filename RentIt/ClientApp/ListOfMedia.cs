@@ -43,8 +43,9 @@
         {
             Cursor.Current = Cursors.WaitCursor;
             //Gets the relevant media from the database.
-            var medias = RentItProxy.GetMediaItems(criteria);
-
+            MediaItems medias;
+            try{ medias = RentItProxy.GetMediaItems(criteria);}
+            catch {return;}
             //Concatenates the lists contained in the object returned from the database in a new list.
             mediaList = new List<MediaInfo>();
             mediaList.AddRange(medias.Albums);

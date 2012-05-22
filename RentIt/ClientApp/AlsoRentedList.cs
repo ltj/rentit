@@ -56,9 +56,10 @@
         private void UpdateList()
         {
             Cursor.Current = Cursors.WaitCursor;
+        	MediaItems medias;
             //Gets all relevant medias from the database.
-            var medias = this.RentItProxy.GetAlsoRentedItems(MediaId);
-
+            try{ medias = this.RentItProxy.GetAlsoRentedItems(MediaId);}
+            catch {return;}
             //The lists containing media of varying relevance. The elements in the primaryList will be displayed at the top.
             MediaInfo[] primaryList;
             MediaInfo[] secondaryList;

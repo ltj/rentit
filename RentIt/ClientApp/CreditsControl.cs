@@ -48,7 +48,8 @@ namespace ClientApp
             Cursor.Current = Cursors.WaitCursor;
 
             if(Credentials != null) {
-                credits = RentItProxy.GetAllCustomerData(Credentials).Credits;
+                try{ credits = RentItProxy.GetAllCustomerData(Credentials).Credits;}
+                catch { return; }
                 FireCreditsChangeEvent(credits);
             }
             label2.Text = credits.ToString();
@@ -73,10 +74,11 @@ namespace ClientApp
                 selectedAmount = Radio3;
 
             //Prompts the user to accept the transaction through a MessageBox.
-            if(RentItMessageBox.CreditConfirmation(selectedAmount) && Credentials != null)
+            if (RentItMessageBox.CreditConfirmation(selectedAmount) && Credentials != null) {
                 //Clicking Yes, the Credits are added to the user account.
-                RentItProxy.AddCredits(Credentials, (uint)selectedAmount);
-
+                try { RentItProxy.AddCredits(Credentials, (uint)selectedAmount); }
+                catch {Cursor.Current = Cursors.Default; return; }
+            }
             //Updates the displayed Credits value.
             UpdateValue();
 
