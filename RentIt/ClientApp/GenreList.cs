@@ -4,6 +4,10 @@
 
     using RentIt;
 
+    /// <summary>
+    /// RentItUserControl to display a list of genres for
+    /// given media type.
+    /// </summary>
     internal partial class GenreList : RentItUserControl
     {
         private RentIt.MediaType mtype;
@@ -13,6 +17,9 @@
             InitializeComponent();
         }
 
+        /// <summary>
+        /// get og set media type property
+        /// </summary>
         internal RentIt.MediaType Mtype
         {
             get { return mtype; }
@@ -23,7 +30,9 @@
             }
         }
 
-        // get genres for set type
+        /// <summary>
+        /// Get genres for set type and adds items to ListView
+        /// </summary>
         private void GetGenres()
         {
             Cursor.Current = Cursors.WaitCursor;
